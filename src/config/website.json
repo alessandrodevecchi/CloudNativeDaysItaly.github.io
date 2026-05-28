@@ -97,7 +97,7 @@
     "description": "The Italian Cloud Native community will come together for two unforgettable days of sharing, learning and connection. Be part of it!",
     "CTA": {
       "tickets": { "label": "Join our Telegram", "url": "https://t.me/cloudnativedaysitaly" },
-      "sponsor": { "label": "Become a Sponsor", "url": "/sponsors" }
+      "sponsor": { "label": "Become a Sponsor", "url": "/sponsors", "active": false }
     }
   },
   "info": {
@@ -174,6 +174,7 @@
   },
   "sponsors": {
     "become": {
+      "active": false,
       "title": "Become a Sponsor",
       "description": "Cloud Native Days Italy is made possible by the support of our sponsors. We offer various sponsorship packages to fit your needs."
     },
@@ -183,7 +184,8 @@
     },
     "contactEmail": "org@cloudnativedaysitaly.org",
     "prospectus": {
-      "url": "/prospectus/cloudnativedays-italy-2026-sponsorship-prospectus.pdf",
+      "active": false,
+      "url": "/prospectus/cloudnativedays-italy-2027-sponsorship-prospectus.pdf",
       "label": "Download Sponsorship Prospectus"
     },
     "tiers": {

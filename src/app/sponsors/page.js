@@ -141,15 +141,25 @@ export default async function SponsorsPage() {
             {config.sponsors.active.description}
           </p>
           <div className='mt-8'>
-            <Link
-              href={config.sponsors.prospectus.url}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='group inline-flex items-center justify-center text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105'
-            >
-              Become a Sponsor{' '}
-              <ArrowRight className='h-5 w-5 ml-2 transition-transform group-hover:translate-x-1' />
-            </Link>
+            {config.sponsors.become?.active ? (
+              <Link
+                href={config.sponsors.prospectus.url}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='group inline-flex items-center justify-center text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105'
+              >
+                Become a Sponsor{' '}
+                <ArrowRight className='h-5 w-5 ml-2 transition-transform group-hover:translate-x-1' />
+              </Link>
+            ) : (
+              <a
+                href={`mailto:${config.sponsors.contactEmail}`}
+                className='group inline-flex items-center justify-center text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105'
+              >
+                Contact Us{' '}
+                <ArrowRight className='h-5 w-5 ml-2 transition-transform group-hover:translate-x-1' />
+              </a>
+            )}
           </div>
         </div>
 
@@ -174,7 +184,14 @@ export default async function SponsorsPage() {
             <p className='mt-4 text-gray-600 max-w-2xl mx-auto'>
               {config.sponsors.become.description}
             </p>
-            <div className='mt-8'>
+            <div className='mt-8 flex flex-col sm:flex-row items-center justify-center gap-4'>
+              <a
+                href={`mailto:${config.sponsors.contactEmail}`}
+                className='group inline-flex items-center justify-center text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105'
+              >
+                Contact Us
+              </a>
+              {config.sponsors.become?.active && config.sponsors.prospectus?.active !== false && (
               <a
                 href={config.sponsors.prospectus.url}
                 target='_blank'
@@ -183,6 +200,7 @@ export default async function SponsorsPage() {
               >
                 {config.sponsors.prospectus.label}
               </a>
+              )}
             </div>
           </div>
         </div>

@@ -28,6 +28,7 @@ const Sponsors = ({sponsorsByTier, tiersConfig, sectionsContent, order, isCurren
                             >
                                 Contact Us
                             </Link>
+                            {sectionsContent.become.active && sectionsContent.prospectus?.active !== false && (
                             <a
                                 href={sectionsContent.prospectus.url}
                                 target="_blank"
@@ -36,6 +37,7 @@ const Sponsors = ({sponsorsByTier, tiersConfig, sectionsContent, order, isCurren
                             >
                                 {sectionsContent.prospectus.label}
                             </a>
+                            )}
                         </div>
                     </div>
                 </section>

@@ -82,9 +82,11 @@ const Hero = ({ data }) => {
                             <Link href={data.CTA.tickets.url} target={data.CTA.tickets.url.startsWith('http') ? '_blank' : undefined} rel={data.CTA.tickets.url.startsWith('http') ? 'noopener noreferrer' : undefined} className="w-full sm:w-auto inline-block text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg transition-transform duration-300 hover:scale-105">
                                 {data.CTA.tickets.label}
                             </Link>
+                            {data.CTA.sponsor?.active !== false && (
                             <Link href={data.CTA.sponsor.url} className="w-full sm:w-auto inline-block text-center bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-3 rounded-lg transition-colors">
                                 {data.CTA.sponsor.label}
                             </Link>
+                            )}
                         </div>
                     </div>
                     <div className="mt-12 lg:mt-0">
