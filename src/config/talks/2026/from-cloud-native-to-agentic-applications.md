@@ -7,7 +7,7 @@ speakerIds:
 tags:
   - ENG
 level: Intermediate
-image: ''
+image: /images/talks/2026/from-cloud-native-to-agentic-applications.webp
 video: ''
 slide: ''
 ---

@@ -1,13 +1,13 @@
 ---
 id: applying-cicd-patterns-to-bootc-containers
-title: 'Applying CI/CD Patterns to Bootc Containers'
+title: Applying CI/CD Patterns to Bootc Containers
 type: talk
 speakerIds:
   - alessandro-rossi
 tags:
   - ITA
 level: Intermediate
-image: ''
+image: /images/talks/2026/applying-cicd-patterns-to-bootc-containers.webp
 video: ''
 slide: ''
 ---

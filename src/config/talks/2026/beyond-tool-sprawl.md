@@ -7,7 +7,7 @@ speakerIds:
 tags:
   - ENG
 level: Beginners
-image: ''
+image: /images/talks/2026/beyond-tool-sprawl.webp
 video: ''
 slide: ''
 ---

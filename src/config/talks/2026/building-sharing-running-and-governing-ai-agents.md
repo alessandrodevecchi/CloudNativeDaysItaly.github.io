@@ -8,7 +8,7 @@ tags:
   - ENG
   - SPONSORED
 level: all
-image: ''
+image: /images/talks/2026/building-sharing-running-and-governing-ai-agents.webp
 video: ''
 slide: ''
 ---

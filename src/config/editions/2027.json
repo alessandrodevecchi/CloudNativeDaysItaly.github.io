@@ -1,0 +1,53 @@
+{
+  "name": "Cloud Native Days Italy 2027",
+  "date": "2027-05-20",
+  "description": "Cloud Native Days (CND) Italy is a local, community-organized event that brings together adopters and technologists from open source and cloud native communities. The Italian Cloud Native community will come together for two unforgettable days of sharing, learning and connection.",
+  "headerVideo": "https://www.youtube.com/embed/RFf1GNm7qJQ",
+  "thankyou": "Thank you for being part of Cloud Native Days Italy! Stay tuned for updates on the 2027 edition and community activities.",
+  "metrics": {},
+  "speakers": [],
+  "coreTeam": [
+    "michel-murabito",
+    "paolo-mainardi",
+    "evangelista-tragni",
+    "nicola-marco-decandia",
+    "sara-trappetti",
+    "jacopo-nardiello",
+    "dario-tranchitella",
+    "alessandro-de-vecchi",
+    "maria-pina-di-cataldo",
+    "giuseppe-vincenzo-abbaticchio"
+  ],
+  "team": [
+    "matteo-bisi",
+    "amedeo-palopoli",
+    "vladi-stevanovic",
+    "jonathan-battiato",
+    "graziano-casto",
+    "andrea-giardini"
+  ],
+  "sponsors": {
+    "main": ["sparkfabrik", "clastix", "desotech", "seacom", "reevo"],
+    "platinum": [],
+    "gold": [],
+    "silver": [],
+    "bronze": [],
+    "workshop": [],
+    "techPartner": [],
+    "smart": [],
+    "partner": []
+  },
+  "communities": {
+    "community": [],
+    "opensource": [],
+    "media": []
+  },
+  "location": {
+    "name": "Savoia Hotel Regency",
+    "street": "Via del Pilastro, 2",
+    "city": "Bologna, Italy",
+    "mapLink": "https://www.openstreetmap.org/export/embed.html?bbox=11.37739%2C44.51328%2C11.38539%2C44.51928&layer=mapnik&marker=44.51628%2C11.38139",
+    "mapDirectionsUrl": "https://www.openstreetmap.org/?mlat=44.51628&mlon=11.38139#map=17/44.51628/11.38139",
+    "image": "/images/savoia-hotel-regency-1.webp"
+  }
+}

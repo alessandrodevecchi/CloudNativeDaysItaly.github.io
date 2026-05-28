@@ -1,6 +1,6 @@
 ---
 id: shifting-left-your-container-security
-title: 'Shifting Left your container security'
+title: Shifting Left your container security
 type: workshop
 speakerIds:
   - stephane-montri
@@ -8,7 +8,7 @@ tags:
   - ENG
   - SPONSORED
 level: Beginners
-image: ''
+image: /images/talks/2026/shifting-left-your-container-security.webp
 video: ''
 slide: ''
 ---

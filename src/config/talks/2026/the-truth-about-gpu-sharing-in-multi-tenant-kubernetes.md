@@ -1,13 +1,13 @@
 ---
 id: the-truth-about-gpu-sharing-in-multi-tenant-kubernetes
-title: 'The Truth About GPU Sharing in Multi-Tenant Kubernetes'
+title: The Truth About GPU Sharing in Multi-Tenant Kubernetes
 type: talk
 speakerIds:
   - nurudeen-kamilu
 tags:
   - ENG
 level: Intermediate
-image: ''
+image: /images/talks/2026/the-truth-about-gpu-sharing-in-multi-tenant-kubernetes.webp
 video: ''
 slide: ''
 ---

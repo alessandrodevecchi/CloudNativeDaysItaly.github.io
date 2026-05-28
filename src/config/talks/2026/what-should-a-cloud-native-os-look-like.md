@@ -1,13 +1,15 @@
 ---
 id: what-should-a-cloud-native-os-look-like
-title: 'What Should a Cloud-Native OS Look Like? Rethinking the Foundation of Modern Platforms'
+title: >-
+  What Should a Cloud-Native OS Look Like? Rethinking the Foundation of Modern
+  Platforms
 type: talk
 speakerIds:
   - mauro-morales
 tags:
   - ENG
 level: all
-image: ''
+image: /images/talks/2026/what-should-a-cloud-native-os-look-like.webp
 video: ''
 slide: ''
 ---

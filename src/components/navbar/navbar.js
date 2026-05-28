@@ -89,7 +89,7 @@ export default function Navbar({ data, editions = [] }) {
                         </nav>
 
                         <div className="hidden lg:flex items-center">
-                            <Link href={data.navbar.CTA.url} className="group inline-flex items-center justify-center text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-lg transition-all duration-300 transform hover:scale-105">
+                            <Link href={data.navbar.CTA.url} target={data.navbar.CTA.url.startsWith('http') ? '_blank' : undefined} rel={data.navbar.CTA.url.startsWith('http') ? 'noopener noreferrer' : undefined} className="group inline-flex items-center justify-center text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-lg transition-all duration-300 transform hover:scale-105">
                                 {data.navbar.CTA.label}
                                 <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
                             </Link>
@@ -146,7 +146,7 @@ export default function Navbar({ data, editions = [] }) {
                         )}
                     </div>
                     <div className="pt-8 mt-auto border-t border-gray-200">
-                        <Link href={data.navbar.CTA.url} onClick={closeAllMenus} className="w-full inline-flex items-center justify-center bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                        <Link href={data.navbar.CTA.url} target={data.navbar.CTA.url.startsWith('http') ? '_blank' : undefined} rel={data.navbar.CTA.url.startsWith('http') ? 'noopener noreferrer' : undefined} onClick={closeAllMenus} className="w-full inline-flex items-center justify-center bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition">
                             {data.navbar.CTA.label}
                             <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>

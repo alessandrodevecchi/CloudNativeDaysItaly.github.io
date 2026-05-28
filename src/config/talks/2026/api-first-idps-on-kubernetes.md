@@ -7,7 +7,7 @@ speakerIds:
 tags:
   - ENG
 level: Intermediate
-image: ''
+image: /images/talks/2026/api-first-idps-on-kubernetes.webp
 video: ''
 slide: ''
 ---

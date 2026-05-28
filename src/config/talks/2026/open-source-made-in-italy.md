@@ -1,6 +1,6 @@
 ---
 id: open-source-made-in-italy
-title: "Open Source made in Italy: l'evoluzione cloud-native di ArubaCloud"
+title: 'Open Source made in Italy: l''evoluzione cloud-native di ArubaCloud'
 type: lightning-talk
 speakerIds:
   - chiara-corrado
@@ -8,7 +8,7 @@ tags:
   - ITA
   - SPONSORED
 level: all
-image: ''
+image: /images/talks/2026/open-source-made-in-italy.webp
 video: ''
 slide: ''
 ---

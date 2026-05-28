@@ -1,13 +1,13 @@
 ---
 id: sboom-making-sboms-play-together
-title: 'SB💣💣M: Making SBOMs play together'
+title: "SB\U0001F4A3\U0001F4A3M: Making SBOMs play together"
 type: talk
 speakerIds:
   - jacopo-bufalino
 tags:
   - ENG
 level: Intermediate
-image: ''
+image: /images/talks/2026/sboom-making-sboms-play-together.webp
 video: ''
 slide: ''
 ---

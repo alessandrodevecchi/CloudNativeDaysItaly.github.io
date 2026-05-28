@@ -1,13 +1,13 @@
 ---
 id: booting-into-kubernetes-with-an-immutable-os
-title: 'Booting into Kubernetes with an Immutable OS'
+title: Booting into Kubernetes with an Immutable OS
 type: talk
 speakerIds:
   - santiago-merlos
 tags:
   - ENG
 level: Intermediate
-image: ''
+image: /images/talks/2026/booting-into-kubernetes-with-an-immutable-os.webp
 video: ''
 slide: ''
 ---

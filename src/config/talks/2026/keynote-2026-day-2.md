@@ -7,7 +7,7 @@ speakerIds:
 tags:
   - ENG
 level: all
-image: ''
+image: /images/talks/2026/keynote-2026-day-2.webp
 video: ''
 slide: ''
 ---

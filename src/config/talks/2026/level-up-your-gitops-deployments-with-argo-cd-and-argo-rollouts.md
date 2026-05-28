@@ -1,6 +1,6 @@
 ---
 id: level-up-your-gitops-deployments-with-argo-cd-and-argo-rollouts
-title: 'Level up your GitOps deployments with Argo CD and Argo Rollouts'
+title: Level up your GitOps deployments with Argo CD and Argo Rollouts
 type: workshop
 speakerIds:
   - kostis-kapelonis
@@ -8,7 +8,8 @@ tags:
   - ENG
   - SPONSORED
 level: Intermediate
-image: ''
+image: >-
+  /images/talks/2026/level-up-your-gitops-deployments-with-argo-cd-and-argo-rollouts.webp
 video: ''
 slide: ''
 ---

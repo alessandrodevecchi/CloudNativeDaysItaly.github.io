@@ -1,9 +1,9 @@
 {
   "general": {
-    "edition": "2026",
+    "edition": "2027",
     "event": {
       "name": "Cloud Native Days Italy",
-      "year": 2026,
+      "year": 2027,
       "website": "https://cloudnativedaysitaly.org",
       "logo": "https://cloudnativedaysitaly.org/images/logo_xs.webp",
       "description": "Cloud Native Days (CND) Italy is a local, community-organized event that gathers adopters and technologists from open source and cloud native communities."
@@ -15,8 +15,8 @@
   "navbar": {
     "logo": "/images/logo_xs.webp",
     "CTA": {
-      "label": "Get your Ticket",
-      "url": "/#tickets"
+      "label": "Join our Telegram",
+      "url": "https://t.me/cloudnativedaysitaly"
     },
     "links": {
       "header": [
@@ -89,14 +89,14 @@
     }
   },
   "hero": {
-    "countDown": "2026-05-18T09:00:00",
-    "badgeDate": "18 & 19 May 2026",
+    "countDown": "2027-05-20T09:00:00",
+    "badgeDate": "20 May 2027",
     "city": "Bologna, Italy",
-    "title": "Cloud Native Days Italy 2026",
-    "image": "/images/cndteam-2025.webp",
+    "title": "Cloud Native Days Italy 2027",
+    "image": "/images/cndteam-2026.webp",
     "description": "The Italian Cloud Native community will come together for two unforgettable days of sharing, learning and connection. Be part of it!",
     "CTA": {
-      "tickets": { "label": "Get your Ticket", "url": "/#tickets" },
+      "tickets": { "label": "Join our Telegram", "url": "https://t.me/cloudnativedaysitaly" },
       "sponsor": { "label": "Become a Sponsor", "url": "/sponsors" }
     }
   },
@@ -129,39 +129,6 @@
         }
       }
     },
-    "glance": {
-      "label": "A next-level event",
-      "days": {
-        "title": "2 days",
-        "day1": {
-          "label": "Day 1",
-          "bullets": [
-            { "text": "20 sessions", "bold": true },
-            { "text": "Coffee breaks, Lunch, Aperitivo" },
-            { "text": "Sponsor area" },
-            { "text": "Community area" }
-          ]
-        },
-        "day2": {
-          "label": "Day 2",
-          "bullets": [
-            { "text": "20 sessions", "bold": true },
-            { "text": "4 Workshops", "bold": true },
-            { "text": "Coffee breaks, Lunch" },
-            { "text": "Sponsor area" },
-            { "text": "Community area" }
-          ]
-        }
-      },
-      "areas": {
-        "title": "2 areas",
-        "image": "/images/map.webm"
-      },
-      "agendaCTA": {
-        "label": "View full agenda",
-        "url": "/agenda"
-      }
-    },
     "CTA": {
       "active": true,
       "label": "Join our community",
@@ -169,39 +136,39 @@
     }
   },
   "proposal": {
-    "startDate": "2025-11-03T00:00:00",
-    "endDate": "2026-03-06T23:59:59",
-    "url": "https://sessionize.com/cloud-native-days-italy-2026a",
+    "startDate": "2026-07-15T00:00:00",
+    "endDate": "2027-03-31T23:59:59",
+    "url": "https://sessionize.com/cloud-native-days-italy-2027",
     "agendaUrl": "/agenda",
     "rollingSelectionText": "We evaluate proposals as they are submitted. Submitting early increases your chances of being selected as one of our first speakers!"
   },
   "tickets": {
-    "link": "https://ti.to/apropos/cloud-native-days-italy-2026",
-    "comingSoonText": "Follow our social media or join our Telegram community for discounts and updates!",
+    "link": "https://t.me/cloudnativedaysitaly",
+    "comingSoonText": "Tickets are not on sale yet. Join our Telegram community to stay updated on early-bird offers and news about the 2027 edition!",
     "type": [
       {
         "id": "conference-very-early-birds",
         "name": "Very Early Birds",
         "price": "85€ (ex. VAT @22%)",
         "description": "2-day Conference access (lunches included), Workshops (subject to availability), and Community Area access.",
-        "salesStartDate": "2026-01-29T09:00:00",
-        "salesEndDate": "2026-02-09T23:59:59"
+        "salesStartDate": "2027-01-01T09:00:00",
+        "salesEndDate": "2027-01-31T23:59:59"
       },
       {
         "id": "conference-early-bird",
         "name": "Conference – Early Bird",
         "price": "100€ (ex. VAT @22%)",
         "description": "2-day Conference access (lunches included), Workshops (subject to availability), and Community Area access.",
-        "salesStartDate": "2026-02-10T00:00:00",
-        "salesEndDate": "2026-03-16T23:59:59"
+        "salesStartDate": "2027-02-01T00:00:00",
+        "salesEndDate": "2027-03-31T23:59:59"
       },
       {
         "id": "conference-regular",
         "name": "Conference – Regular",
         "price": "160€ (ex. VAT @22%)",
         "description": "2-day Conference access (lunches included), Workshops (subject to availability), and Community Area access.",
-        "salesStartDate": "2026-03-17T00:00:00",
-        "salesEndDate": "2026-05-18T23:59:59"
+        "salesStartDate": "2027-04-01T00:00:00",
+        "salesEndDate": "2027-05-20T23:59:59"
       }
     ]
   },

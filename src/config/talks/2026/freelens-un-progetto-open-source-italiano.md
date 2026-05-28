@@ -1,6 +1,8 @@
 ---
 id: freelens-un-progetto-open-source-italiano
-title: 'Freelens: un progetto open source italiano, aperto, meritocratico e costruito dai suoi utilizzatori'
+title: >-
+  Freelens: un progetto open source italiano, aperto, meritocratico e costruito
+  dai suoi utilizzatori
 type: talk
 speakerIds:
   - roberto-bandini
@@ -8,7 +10,7 @@ speakerIds:
 tags:
   - ITA
 level: all
-image: ''
+image: /images/talks/2026/freelens-un-progetto-open-source-italiano.webp
 video: ''
 slide: ''
 ---

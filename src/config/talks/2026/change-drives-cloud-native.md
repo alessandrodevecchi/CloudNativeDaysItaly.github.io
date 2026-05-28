@@ -7,7 +7,7 @@ speakerIds:
 tags:
   - ITA
 level: Intermediate
-image: ''
+image: /images/talks/2026/change-drives-cloud-native.webp
 video: ''
 slide: ''
 ---

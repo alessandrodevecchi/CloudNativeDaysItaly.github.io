@@ -7,7 +7,7 @@ speakerIds:
 tags:
   - ITA
 level: all
-image: ''
+image: /images/talks/2026/un-decennio-di-cloud-native-la-rotta-di-ing.webp
 video: ''
 slide: ''
 ---

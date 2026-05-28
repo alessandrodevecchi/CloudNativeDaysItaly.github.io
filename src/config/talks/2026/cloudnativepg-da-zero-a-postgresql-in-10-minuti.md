@@ -9,7 +9,7 @@ tags:
   - ITA
   - SPONSORED
 level: all
-image: ''
+image: /images/talks/2026/cloudnativepg-da-zero-a-postgresql-in-10-minuti.webp
 video: ''
 slide: ''
 ---

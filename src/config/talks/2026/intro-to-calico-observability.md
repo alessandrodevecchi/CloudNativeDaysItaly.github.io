@@ -1,6 +1,6 @@
 ---
 id: intro-to-calico-observability
-title: 'Intro to Calico Observability'
+title: Intro to Calico Observability
 type: lightning-talk
 speakerIds:
   - dillon-barry
@@ -8,7 +8,7 @@ tags:
   - ENG
   - SPONSORED
 level: all
-image: ''
+image: /images/talks/2026/intro-to-calico-observability.webp
 video: ''
 slide: ''
 ---

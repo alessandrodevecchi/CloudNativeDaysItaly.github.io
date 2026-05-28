@@ -7,7 +7,7 @@ speakerIds:
 tags:
   - ITA
 level: Intermediate
-image: ''
+image: /images/talks/2026/platform-engineering-and-ai-agents.webp
 video: ''
 slide: ''
 ---

@@ -7,7 +7,8 @@ speakerIds:
 tags:
   - ENG
 level: Intermediate
-image: ''
+image: >-
+  /images/talks/2026/pushing-the-limits-running-large-scale-hpc-workloads-on-kubernetes.webp
 video: ''
 slide: ''
 ---

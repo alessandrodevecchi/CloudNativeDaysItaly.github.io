@@ -1,6 +1,6 @@
 ---
 id: the-anatomy-of-an-enterprise-chatbot
-title: 'The anatomy of an enterprise chatbot'
+title: The anatomy of an enterprise chatbot
 type: talk
 speakerIds:
   - serena-sensini
@@ -8,7 +8,7 @@ speakerIds:
 tags:
   - ITA
 level: Intermediate
-image: ''
+image: /images/talks/2026/the-anatomy-of-an-enterprise-chatbot.webp
 video: ''
 slide: ''
 ---

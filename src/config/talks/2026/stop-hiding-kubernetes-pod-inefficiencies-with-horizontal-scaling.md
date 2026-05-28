@@ -1,6 +1,6 @@
 ---
 id: stop-hiding-kubernetes-pod-inefficiencies-with-horizontal-scaling
-title: 'Stop Hiding Kubernetes Pod Inefficiencies With Horizontal Scaling'
+title: Stop Hiding Kubernetes Pod Inefficiencies With Horizontal Scaling
 type: talk
 speakerIds:
   - luca-vassallo
@@ -8,7 +8,8 @@ speakerIds:
 tags:
   - ITA
 level: all
-image: ''
+image: >-
+  /images/talks/2026/stop-hiding-kubernetes-pod-inefficiencies-with-horizontal-scaling.webp
 video: ''
 slide: ''
 ---

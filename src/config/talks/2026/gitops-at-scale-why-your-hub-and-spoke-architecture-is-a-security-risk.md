@@ -8,7 +8,8 @@ speakerIds:
 tags:
   - ENG
 level: Intermediate
-image: ''
+image: >-
+  /images/talks/2026/gitops-at-scale-why-your-hub-and-spoke-architecture-is-a-security-risk.webp
 video: ''
 slide: ''
 ---

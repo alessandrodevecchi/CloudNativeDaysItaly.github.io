@@ -1,6 +1,8 @@
 ---
 id: from-visibility-to-runtime-securing-cloudnative-workloads-with-aipowered-cnapp
-title: 'From visibility to runtime: Securing Cloud‑Native Workloads with AI‑Powered CNAPP'
+title: >-
+  From visibility to runtime: Securing Cloud‑Native Workloads with AI‑Powered
+  CNAPP
 type: lightning-talk
 speakerIds:
   - stefano-morotti
@@ -8,7 +10,8 @@ tags:
   - ENG
   - SPONSORED
 level: Intermediate
-image: ''
+image: >-
+  /images/talks/2026/from-visibility-to-runtime-securing-cloudnative-workloads-with-aipowered-cnapp.webp
 video: ''
 slide: ''
 ---

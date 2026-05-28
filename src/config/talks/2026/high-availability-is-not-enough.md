@@ -1,13 +1,15 @@
 ---
 id: high-availability-is-not-enough
-title: 'High Availability is not enough: Surviving failure in Cloud-Native architectures'
+title: >-
+  High Availability is not enough: Surviving failure in Cloud-Native
+  architectures
 type: talk
 speakerIds:
   - enrico-la-sala
 tags:
   - ITA
 level: Intermediate
-image: ''
+image: /images/talks/2026/high-availability-is-not-enough.webp
 video: ''
 slide: ''
 ---

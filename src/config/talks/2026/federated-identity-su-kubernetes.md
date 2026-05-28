@@ -1,6 +1,8 @@
 ---
 id: federated-identity-su-kubernetes
-title: "Federated Identity su Kubernetes per l'accesso ai servizi cloud senza credenziali"
+title: >-
+  Federated Identity su Kubernetes per l'accesso ai servizi cloud senza
+  credenziali
 type: talk
 speakerIds:
   - federico-soave
@@ -8,7 +10,7 @@ speakerIds:
 tags:
   - ITA
 level: Intermediate
-image: ''
+image: /images/talks/2026/federated-identity-su-kubernetes.webp
 video: ''
 slide: ''
 ---

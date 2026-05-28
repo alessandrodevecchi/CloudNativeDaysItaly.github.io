@@ -1,13 +1,14 @@
 ---
 id: building-infrastructure-tools-with-kubernetes-operators-and-go
-title: 'Building Infrastructure Tools with Kubernetes Operators and Go'
+title: Building Infrastructure Tools with Kubernetes Operators and Go
 type: workshop
 speakerIds:
   - rabieh-fashwall
 tags:
   - ENG
 level: Intermediate
-image: ''
+image: >-
+  /images/talks/2026/building-infrastructure-tools-with-kubernetes-operators-and-go.webp
 video: ''
 slide: ''
 ---

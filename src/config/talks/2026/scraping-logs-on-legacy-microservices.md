@@ -1,13 +1,15 @@
 ---
 id: scraping-logs-on-legacy-microservices
-title: 'Scraping logs on legacy microservices: an adventure in the land of YAML descriptors'
+title: >-
+  Scraping logs on legacy microservices: an adventure in the land of YAML
+  descriptors
 type: talk
 speakerIds:
   - giorgia-rondinini
 tags:
   - ITA
 level: Intermediate
-image: ''
+image: /images/talks/2026/scraping-logs-on-legacy-microservices.webp
 video: ''
 slide: ''
 ---

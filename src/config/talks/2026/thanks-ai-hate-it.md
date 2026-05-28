@@ -1,13 +1,15 @@
 ---
 id: thanks-ai-hate-it
-title: "Thanks, AI hate it! Cosa accade quando un LLM decide di \u201ccontribuire\u201d al tuo repository"
+title: >-
+  Thanks, AI hate it! Cosa accade quando un LLM decide di “contribuire” al tuo
+  repository
 type: lightning-talk
 speakerIds:
   - gianluca-recchia
 tags:
   - ITA
 level: all
-image: ''
+image: /images/talks/2026/thanks-ai-hate-it.webp
 video: ''
 slide: ''
 ---

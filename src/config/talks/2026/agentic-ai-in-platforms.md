@@ -7,7 +7,7 @@ speakerIds:
 tags:
   - ENG
 level: Intermediate
-image: ''
+image: /images/talks/2026/agentic-ai-in-platforms.webp
 video: ''
 slide: ''
 ---

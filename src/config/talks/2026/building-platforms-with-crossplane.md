@@ -7,7 +7,7 @@ speakerIds:
 tags:
   - ITA
 level: Beginners
-image: ''
+image: /images/talks/2026/building-platforms-with-crossplane.webp
 video: ''
 slide: ''
 ---

@@ -1,6 +1,8 @@
 ---
 id: what-image-based-systems-taught-us-about-linux-distributions
-title: 'What Image-Based Systems Taught Us About Linux Distributions: Lessons From Kairos and Why We Built Hadron'
+title: >-
+  What Image-Based Systems Taught Us About Linux Distributions: Lessons From
+  Kairos and Why We Built Hadron
 type: lightning-talk
 speakerIds:
   - mauro-morales
@@ -8,7 +10,8 @@ tags:
   - ENG
   - SPONSORED
 level: all
-image: ''
+image: >-
+  /images/talks/2026/what-image-based-systems-taught-us-about-linux-distributions.webp
 video: ''
 slide: ''
 ---

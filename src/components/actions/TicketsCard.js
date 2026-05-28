@@ -109,11 +109,11 @@ export default function TicketsCard({ data }) {
           <div className='mt-auto pt-6'>
             <div className='mt-auto pt-6'>
               <Link
-                href='https://t.me/cloudnativedaysitaly'
+                href={data.link}
                 target='_blank'
                 className='group w-full inline-flex items-center justify-center text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105'
               >
-                Join the community!{' '}
+                Join our Telegram{' '}
                 <ArrowRight className='h-5 w-5 ml-2 transition-transform group-hover:translate-x-1' />
               </Link>
             </div>

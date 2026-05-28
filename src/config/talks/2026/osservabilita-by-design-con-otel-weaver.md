@@ -1,13 +1,13 @@
 ---
 id: osservabilita-by-design-con-otel-weaver
-title: 'Osservabilità by Design con OTel Weaver'
+title: Osservabilità by Design con OTel Weaver
 type: talk
 speakerIds:
   - marco-pernigo
 tags:
   - ITA
 level: Beginners
-image: ''
+image: /images/talks/2026/osservabilita-by-design-con-otel-weaver.webp
 video: ''
 slide: ''
 ---

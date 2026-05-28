@@ -1,6 +1,8 @@
 ---
 id: from-legacy-api-gateway-to-kubernetes-native-api-platform
-title: 'From Legacy API Gateway to Kubernetes-native API Platform: a Real-world battlefield report'
+title: >-
+  From Legacy API Gateway to Kubernetes-native API Platform: a Real-world
+  battlefield report
 type: talk
 speakerIds:
   - luca-de-carne
@@ -8,7 +10,8 @@ speakerIds:
 tags:
   - ITA
 level: Intermediate
-image: ''
+image: >-
+  /images/talks/2026/from-legacy-api-gateway-to-kubernetes-native-api-platform.webp
 video: ''
 slide: ''
 ---

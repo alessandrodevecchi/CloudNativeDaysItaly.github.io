@@ -10,12 +10,12 @@ const TalkCard = ({ talk }) => {
   const imageUrl = talk.image ? talk.image : defaultImage;
   return (
     <div className='bg-white rounded-xl shadow-md overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group h-full flex flex-col'>
-      <div className='relative w-full h-48 sm:h-56 overflow-hidden'>
+      <div className='relative w-full h-48 sm:h-56 overflow-hidden bg-gray-900'>
         <Image
           src={imageUrl ? imageUrl : defaultImage}
           alt={`Preview for ${talk.title}`}
           fill
-          style={{ objectFit: 'cover' }}
+          style={{ objectFit: 'contain' }}
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
           priority={false}
         />

@@ -1,13 +1,13 @@
 ---
 id: fix-production-rollouts-on-the-fly-with-agentic-aiops
-title: 'Fix Production Rollouts on the Fly with Agentic AIOps'
+title: Fix Production Rollouts on the Fly with Agentic AIOps
 type: talk
 speakerIds:
   - kevin-dubois
 tags:
   - ITA
 level: Intermediate
-image: ''
+image: /images/talks/2026/fix-production-rollouts-on-the-fly-with-agentic-aiops.webp
 video: ''
 slide: ''
 ---

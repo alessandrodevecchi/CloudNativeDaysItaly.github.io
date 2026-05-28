@@ -1,13 +1,13 @@
 ---
 id: oops-driven-development
-title: 'Oops-Driven Development'
+title: Oops-Driven Development
 type: lightning-talk
 speakerIds:
   - shahar-shporer
 tags:
   - ENG
 level: Intermediate
-image: ''
+image: /images/talks/2026/oops-driven-development.webp
 video: ''
 slide: ''
 ---

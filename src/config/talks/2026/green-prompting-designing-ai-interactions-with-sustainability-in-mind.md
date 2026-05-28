@@ -7,7 +7,8 @@ speakerIds:
 tags:
   - ENG
 level: Intermediate
-image: ''
+image: >-
+  /images/talks/2026/green-prompting-designing-ai-interactions-with-sustainability-in-mind.webp
 video: ''
 slide: ''
 ---

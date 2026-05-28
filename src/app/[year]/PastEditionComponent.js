@@ -10,7 +10,9 @@ import OpenStreetMapEmbed from '@/components/maps/OpenStreetMapEmbed';
 
 export default function PastEditionComponent({ year, initialEventData }) {
   const speakersCount = initialEventData.speakers.length;
-  const sponsorsCount = Object.values(initialEventData.sponsors).flat().length;
+  const sponsorsCount =
+    initialEventData.metrics?.sponsors ??
+    Object.values(initialEventData.sponsors).flat().length;
   const teamCount = initialEventData.team.length;
   const isCurrentEvent = false;
 
