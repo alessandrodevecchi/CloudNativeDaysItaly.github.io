@@ -7,7 +7,7 @@ speakerIds:
 tags:
   - ENG
 level: Intermediate
-image: ''
+image: /images/talks/2026/east-west-mtls-no-sidecars.webp
 video: ''
 slide: ''
 ---
