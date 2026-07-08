@@ -96,8 +96,15 @@
     "image": "/images/cndteam-2026.webp",
     "description": "The Italian Cloud Native community will come together for two unforgettable days of sharing, learning and connection. Be part of it!",
     "CTA": {
-      "tickets": { "label": "Join our Telegram", "url": "https://t.me/cloudnativedaysitaly" },
-      "sponsor": { "label": "Become a Sponsor", "url": "/sponsors", "active": false }
+      "tickets": {
+        "label": "Join our Telegram",
+        "url": "https://t.me/cloudnativedaysitaly"
+      },
+      "sponsor": {
+        "label": "Become a Sponsor",
+        "url": "/sponsors",
+        "active": false
+      }
     }
   },
   "info": {
@@ -187,6 +194,10 @@
       "active": false,
       "url": "/prospectus/cloudnativedays-italy-2027-sponsorship-prospectus.pdf",
       "label": "Download Sponsorship Prospectus"
+    },
+    "transparency": {
+      "url": "/transparency/cloudnativedays-italy-2026-transparency-report.pdf",
+      "label": "Download Transparency Report"
     },
     "tiers": {
       "main": {

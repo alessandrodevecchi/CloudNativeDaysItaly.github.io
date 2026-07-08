@@ -21,7 +21,8 @@ const SPONSOR_SIZE_CLASSES = {
 };
 
 const SponsorCard = ({ sponsor, size = 'lg' }) => {
-  const { wrapper, card } = SPONSOR_SIZE_CLASSES[size] || SPONSOR_SIZE_CLASSES.lg;
+  const { wrapper, card } =
+    SPONSOR_SIZE_CLASSES[size] || SPONSOR_SIZE_CLASSES.lg;
   return (
     <div className={`flex-grow-0 flex-shrink-0 ${wrapper}`}>
       <a
@@ -30,7 +31,9 @@ const SponsorCard = ({ sponsor, size = 'lg' }) => {
         rel='noopener noreferrer'
         className='block group'
       >
-        <div className={`flex items-center justify-center bg-white ${card} rounded-2xl border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1`}>
+        <div
+          className={`flex items-center justify-center bg-white ${card} rounded-2xl border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1`}
+        >
           <img
             src={sponsor.logo}
             alt={sponsor.name}
@@ -191,16 +194,25 @@ export default async function SponsorsPage() {
               >
                 Contact Us
               </a>
-              {config.sponsors.become?.active && config.sponsors.prospectus?.active !== false && (
+              {config.sponsors.become?.active &&
+                config.sponsors.prospectus?.active !== false && (
+                  <a
+                    href={config.sponsors.prospectus.url}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='group inline-flex items-center justify-center text-center bg-gray-800 hover:bg-black text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105'
+                  >
+                    {config.sponsors.prospectus.label}
+                  </a>
+                )}
               <a
-                href={config.sponsors.prospectus.url}
+                href={config.sponsors.transparency.url}
                 target='_blank'
                 rel='noopener noreferrer'
-                className='group inline-flex items-center justify-center text-center bg-gray-800 hover:bg-black text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105'
+                className='button bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600'
               >
-                {config.sponsors.prospectus.label}
+                {config.sponsors.transparency.label}
               </a>
-              )}
             </div>
           </div>
         </div>
