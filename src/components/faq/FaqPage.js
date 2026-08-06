@@ -24,7 +24,7 @@ function AlertBanner({ alert }) {
   if (!alert) return null;
 
   return (
-    <div className='max-w-3xl mx-auto mb-12 bg-brand-yellow-light border-pop border-ink p-6'>
+    <div className='mb-12 bg-brand-yellow-light border-pop border-ink p-6'>
       <div className='flex items-center gap-3 mb-3'>
         <TriangleAlert className='h-5 w-5 text-ink flex-shrink-0' />
         <h2 className='font-bold text-ink text-lg'>{alert.title}</h2>
@@ -95,7 +95,7 @@ function AccordionItem({ title, iconSlot, children }) {
       >
         <div className='flex items-center gap-3'>
           {iconSlot && (
-            <div className='flex-shrink-0 h-8 min-w-[2rem] border border-ink bg-brand-yellow flex items-center justify-center gap-1 px-2'>
+            <div className='flex-shrink-0 h-8 min-w-[2rem] border border-ink bg-brand-magenta flex items-center justify-center gap-1 px-2'>
               {iconSlot}
             </div>
           )}
@@ -236,7 +236,7 @@ function HowToGetHereSection({ data }) {
             <AccordionItem
               key={i}
               title={section.title}
-              iconSlot={Icon ? <Icon className='h-4 w-4 text-brand-blue' /> : null}
+              iconSlot={Icon ? <Icon className='h-4 w-4 text-white' /> : null}
             >
               <TransportContent section={section} />
             </AccordionItem>
@@ -302,13 +302,13 @@ function WhereToStaySection({ data }) {
           const iconSlot =
             tier.stars > 0 ? (
               <>
-                <span className='text-xs font-bold text-brand-blue leading-none'>
+                <span className='text-xs font-bold text-white leading-none'>
                   {tier.stars}
                 </span>
-                <Star className='h-3.5 w-3.5 text-brand-blue fill-brand-blue' />
+                <Star className='h-3.5 w-3.5 text-white fill-white' />
               </>
             ) : Icon ? (
-              <Icon className='h-4 w-4 text-brand-blue' />
+              <Icon className='h-4 w-4 text-white' />
             ) : null;
 
           return (
@@ -346,8 +346,8 @@ function UsefulInfoSection({ data }) {
             >
               <div className='flex items-center gap-3 mb-4'>
                 {Icon && (
-                  <div className='w-10 h-10 border border-ink bg-brand-yellow flex items-center justify-center flex-shrink-0'>
-                    <Icon className='h-5 w-5 text-brand-blue' />
+                  <div className='w-10 h-10 border border-ink bg-brand-magenta flex items-center justify-center flex-shrink-0'>
+                    <Icon className='h-5 w-5 text-white' />
                   </div>
                 )}
                 <h3 className='font-bold text-ink'>{card.title}</h3>
@@ -392,12 +392,16 @@ export default function FaqPage({ data }) {
           <p className='mt-4 text-lg text-ink-muted'>{data.page.description}</p>
         </div>
 
-        {/* Sections */}
-        <div className='max-w-3xl mx-auto space-y-16'>
-          <FaqSection data={data.faq} />
-          <HowToGetHereSection data={data.howToGetHere} />
-          <WhereToStaySection data={data.whereToStay} />
-          <UsefulInfoSection data={data.usefulInfo} />
+        {/* Sections — due colonne su desktop per riempire il container */}
+        <div className='grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-x-16'>
+          <div className='space-y-16'>
+            <FaqSection data={data.faq} />
+            <WhereToStaySection data={data.whereToStay} />
+          </div>
+          <div className='space-y-16'>
+            <HowToGetHereSection data={data.howToGetHere} />
+            <UsefulInfoSection data={data.usefulInfo} />
+          </div>
         </div>
       </div>
     </div>
