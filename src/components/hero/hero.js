@@ -50,9 +50,12 @@ const Hero = ({ data }) => {
         <section className="relative overflow-hidden bg-white">
             <DecorLayer
                 items={[
-                    { pattern: 'rings', position: 'top-right', size: 'md' },
-                    { pattern: 'rings', position: 'bottom-left', size: 'sm' },
-                    { pattern: 'halftone', position: 'top-left', size: 'lg', className: 'opacity-40' },
+                    { pattern: 'cluster-a', position: 'top-left', size: 'xl' },
+                    { pattern: 'cluster-c', position: 'top-right', size: 'xl' },
+                    { pattern: 'cluster-b', position: 'bottom-left', size: 'lg', className: 'hidden md:block' },
+                    { pattern: 'cluster-dot', position: 'bottom-right', size: 'sm' },
+                    { pattern: 'halftone', position: 'top-left', size: 'xl', className: 'opacity-30 !-left-4 !top-32' },
+                    { pattern: 'halftone', position: 'bottom-right', size: 'xl', className: 'opacity-30' },
                 ]}
             />
             <div className="relative z-10 mx-auto max-w-[1200px] px-6 py-16 text-center lg:py-20">

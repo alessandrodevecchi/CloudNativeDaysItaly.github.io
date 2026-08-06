@@ -7,7 +7,7 @@ export default function ActionsSection({ data }) {
 
     return (
         <section className="relative overflow-hidden bg-brand-blue py-16 lg:py-24" id={"tickets"}>
-            <DecorLayer items={[{ pattern: 'rings', position: 'top-right', size: 'md' }]} />
+            <DecorLayer items={[{ pattern: 'cluster-dot', position: 'top-right', size: 'md' }]} />
             <div className="relative z-10 mx-auto max-w-[1200px] px-6">
                 <h2 className="font-display text-section uppercase text-white">
                     You could be on this stage
