@@ -10,7 +10,8 @@ import config from '@/config/website.json';
 import Venue from '@/components/venue/venue';
 
 // Statistiche dell'edizione precedente per la banda numeri sotto il hero
-// (wireframe: 02-numbers-strip). Partners = community + open source + media.
+// (wireframe: 02-numbers-strip). Communities & OS projects e media partner
+// sono conteggiati separatamente.
 async function getPreviousEditionStats(year) {
   try {
     const editionPath = path.join(
@@ -21,14 +22,17 @@ async function getPreviousEditionStats(year) {
       `${year}.json`,
     );
     const edition = JSON.parse(await fs.readFile(editionPath, 'utf8'));
-    const partnersCount = Object.values(edition.communities || {}).flat().length;
+    const communities = edition.communities || {};
     return {
       attendees: edition.metrics?.attendees,
       speakers: (edition.speakers || []).length,
       sponsors:
         edition.metrics?.sponsors ??
         Object.values(edition.sponsors || {}).flat().length,
-      partners: partnersCount,
+      communitiesAndOs:
+        (communities.community || []).length +
+        (communities.opensource || []).length,
+      mediaPartners: (communities.media || []).length,
     };
   } catch {
     return null;
@@ -191,7 +195,8 @@ export default async function HomePage() {
             { value: previousStats.attendees, label: `Attendees ${previousYear}`, accent: 'text-brand-yellow' },
             { value: previousStats.speakers, label: 'Speakers', accent: 'text-brand-magenta' },
             { value: previousStats.sponsors, label: 'Sponsors', accent: 'text-brand-blue' },
-            { value: previousStats.partners, label: 'Communities & Partners', accent: 'text-brand-yellow' },
+            { value: previousStats.communitiesAndOs, label: 'Communities & OS Projects', accent: 'text-brand-yellow' },
+            { value: previousStats.mediaPartners, label: 'Media Partners', accent: 'text-brand-magenta' },
           ]}
         />
       )}
