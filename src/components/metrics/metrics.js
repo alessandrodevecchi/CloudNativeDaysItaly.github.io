@@ -39,23 +39,40 @@ const MetricItem = ({ accent, value, label, duration = 2000 }) => {
 
     return (
         <div ref={ref} className="flex flex-col items-center p-8 text-center">
-            <p className={`font-display text-6xl tabular-nums ${accent}`}>{count}</p>
+            <p className={`font-display text-6xl tabular-nums ${accent}`}>
+                {count}
+                {String(value).endsWith('+') && '+'}
+            </p>
             <p className="text-sm uppercase tracking-widest text-white/80 mt-2 font-semibold">{label}</p>
         </div>
     );
 };
 
-const Metrics = ({ data, teamCount, speakersCount, sponsorsCount }) => (
-    <div className="py-12 bg-ink">
-        <div className="mx-auto max-w-[1200px] px-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <MetricItem accent="text-brand-yellow" value={data.attendees} label="Attendees" />
-                <MetricItem accent="text-brand-magenta" value={speakersCount} label="Speakers" />
-                <MetricItem accent="text-brand-blue" value={sponsorsCount} label="Sponsors" />
-                <MetricItem accent="text-brand-yellow" value={teamCount} label="Organizers" />
+/*
+ * Banda nera con statistiche (wireframe: 02-numbers-strip).
+ * Due modalità:
+ * - items: [{ value, label, accent }] — lista libera (homepage)
+ * - data/teamCount/speakersCount/sponsorsCount — layout storico (past editions)
+ */
+const Metrics = ({ data, teamCount, speakersCount, sponsorsCount, items }) => {
+    const entries = items || [
+        { value: data.attendees, label: 'Attendees', accent: 'text-brand-yellow' },
+        { value: speakersCount, label: 'Speakers', accent: 'text-brand-magenta' },
+        { value: sponsorsCount, label: 'Sponsors', accent: 'text-brand-blue' },
+        { value: teamCount, label: 'Organizers', accent: 'text-brand-yellow' },
+    ];
+
+    return (
+        <div className="py-12 bg-ink">
+            <div className="mx-auto max-w-[1200px] px-6">
+                <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${entries.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'}`}>
+                    {entries.map((e, i) => (
+                        <MetricItem key={i} accent={e.accent} value={e.value} label={e.label} />
+                    ))}
+                </div>
             </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default Metrics;

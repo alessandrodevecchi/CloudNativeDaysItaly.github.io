@@ -57,6 +57,15 @@ async function getEventData(year) {
             )).filter(Boolean);
         }
 
+        // Community, progetti open source e media partner dell'edizione
+        const hydratedCommunities = {};
+        const communitiesByIds = editionConfig.communities || {};
+        for (const tier in communitiesByIds) {
+            hydratedCommunities[tier] = (await Promise.all(
+                communitiesByIds[tier].map(id => readMarkdownFile(path.join(process.cwd(), 'src', 'config', 'communities', `${id}.md`)))
+            )).filter(Boolean);
+        }
+
         const hydratedTalks = validTalks.map(talk => {
             const speakerDetails = (talk.speakerIds || []).map(id =>
                 validSpeakers.find(s => s.id === id)
@@ -69,6 +78,7 @@ async function getEventData(year) {
             speakers: validSpeakers,
             team: [...validTeam, ...validCoreTeam],
             sponsors: hydratedSponsors,
+            communities: hydratedCommunities,
             talks: hydratedTalks,
             editionData: editionConfig
         };

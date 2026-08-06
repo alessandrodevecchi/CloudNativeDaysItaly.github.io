@@ -5,8 +5,35 @@ import Hero from '@/components/hero/hero';
 import Info from '@/components/info/info';
 import ActionsSection from '@/components/actions/ActionsSection';
 import Sponsors from '@/components/sponsor/sponsor';
+import Metrics from '@/components/metrics/metrics';
 import config from '@/config/website.json';
 import Venue from '@/components/venue/venue';
+
+// Statistiche dell'edizione precedente per la banda numeri sotto il hero
+// (wireframe: 02-numbers-strip). Partners = community + open source + media.
+async function getPreviousEditionStats(year) {
+  try {
+    const editionPath = path.join(
+      process.cwd(),
+      'src',
+      'config',
+      'editions',
+      `${year}.json`,
+    );
+    const edition = JSON.parse(await fs.readFile(editionPath, 'utf8'));
+    const partnersCount = Object.values(edition.communities || {}).flat().length;
+    return {
+      attendees: edition.metrics?.attendees,
+      speakers: (edition.speakers || []).length,
+      sponsors:
+        edition.metrics?.sponsors ??
+        Object.values(edition.sponsors || {}).flat().length,
+      partners: partnersCount,
+    };
+  } catch {
+    return null;
+  }
+}
 
 async function getSponsorsData() {
   try {
@@ -100,6 +127,8 @@ export async function generateMetadata() {
 export default async function HomePage() {
   const sponsorsData = await getSponsorsData();
   const currentEdition = await getCurrentEdition();
+  const previousYear = config.general.edition - 1;
+  const previousStats = await getPreviousEditionStats(previousYear);
   const siteUrl = config.general.event.website;
 
   const convertToISOWithTimezone = (dateString) => {
@@ -156,6 +185,16 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
       />
       <Hero data={config.hero} />
+      {previousStats && (
+        <Metrics
+          items={[
+            { value: previousStats.attendees, label: `Attendees ${previousYear}`, accent: 'text-brand-yellow' },
+            { value: previousStats.speakers, label: 'Speakers', accent: 'text-brand-magenta' },
+            { value: previousStats.sponsors, label: 'Sponsors', accent: 'text-brand-blue' },
+            { value: previousStats.partners, label: 'Communities & Partners', accent: 'text-brand-yellow' },
+          ]}
+        />
+      )}
       <Info data={config.info} />
       <ActionsSection
         data={{ c4p: config.proposal, tickets: config.tickets }}

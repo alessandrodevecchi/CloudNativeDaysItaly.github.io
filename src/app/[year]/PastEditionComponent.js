@@ -1,12 +1,46 @@
 'use client';
 
-import { MapPin, Mic, Search } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 import Metrics from '@/components/metrics/metrics';
 import config from '@/config/website.json';
+import communityConfig from '@/config/community.json';
 import PersonCard from '@/components/people/PersonCard';
 import Sponsors from '@/components/sponsor/sponsor';
 import ContentHub from '@/components/ContentHub/ContentHub';
 import OpenStreetMapEmbed from '@/components/maps/OpenStreetMapEmbed';
+
+// Griglia loghi community/open source/media partner di un'edizione passata
+const CommunityTierSection = ({ tierKey, partners }) => {
+  if (!partners || partners.length === 0) return null;
+  const tierConfig = communityConfig.tiers[tierKey] || { title: tierKey };
+  return (
+    <div className='mb-12'>
+      <h3 className='font-display text-stamp uppercase text-ink mb-6'>
+        {tierConfig.title}
+      </h3>
+      <div className='flex flex-wrap gap-4'>
+        {partners
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((partner, index) => (
+            <a
+              key={index}
+              href={partner.url}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='flex w-[160px] h-[80px] items-center justify-center border-pop border-ink bg-white transition-all duration-100 hover:shadow-pop-sm'
+            >
+              <img
+                src={partner.logo}
+                alt={partner.name}
+                loading='lazy'
+                style={{ maxHeight: '80%', maxWidth: '80%', objectFit: 'contain' }}
+              />
+            </a>
+          ))}
+      </div>
+    </div>
+  );
+};
 
 export default function PastEditionComponent({ year, initialEventData }) {
   const speakersCount = initialEventData.speakers.length;
@@ -115,6 +149,27 @@ export default function PastEditionComponent({ year, initialEventData }) {
           ]}
           isCurrent={isCurrentEvent}
         />
+
+        {initialEventData.communities &&
+          Object.values(initialEventData.communities).flat().length > 0 && (
+            <section
+              id='partners'
+              className='border-t-2 border-ink bg-white py-12 lg:py-16'
+            >
+              <div className='mx-auto max-w-[1200px] px-6'>
+                <h2 className='section-heading mb-12'>
+                  {year} Communities & Partners
+                </h2>
+                {['community', 'opensource', 'media'].map((tierKey) => (
+                  <CommunityTierSection
+                    key={tierKey}
+                    tierKey={tierKey}
+                    partners={initialEventData.communities[tierKey]}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
 
         <section className='bg-ink text-white py-12 lg:py-16'>
           <div className='container mx-auto px-4 text-center'>
