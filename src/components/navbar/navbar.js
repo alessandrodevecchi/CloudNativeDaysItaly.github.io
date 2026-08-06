@@ -48,10 +48,10 @@ export default function Navbar({ data, editions = [] }) {
             <header
                 className={clsx(
                     'fixed top-0 left-0 w-full z-40 transition-all duration-300',
-                    isScrolled ? 'h-16 bg-white/95 shadow-md backdrop-blur-sm border-b border-gray-200/80' : 'h-20 bg-transparent'
+                    isScrolled ? 'h-16 bg-white border-b-2 border-ink' : 'h-20 bg-white border-b-2 border-ink'
                 )}
             >
-                <div className="container mx-auto max-w-7xl px-4 h-full">
+                <div className="mx-auto max-w-[1200px] px-6 h-full">
                     <div className="flex items-center justify-between h-full">
                         <Link href="/" onClick={closeAllMenus}>
                             <Image src={data.navbar.logo} alt="logo" width={150} height={40} priority />
@@ -59,7 +59,7 @@ export default function Navbar({ data, editions = [] }) {
 
                         <nav className="navbar-desktop-links hidden lg:flex items-center gap-8">
                             {navLinks.map((link) => (
-                                <Link key={link.to} href={link.to} target={link.target ? link.target : "_self"} className="text-gray-800 hover:text-blue-600 transition-colors font-semibold">
+                                <Link key={link.to} href={link.to} target={link.target ? link.target : "_self"} className="text-ink hover:text-brand-blue transition-colors font-semibold">
                                     {link.text}
                                 </Link>
                             ))}
@@ -67,19 +67,19 @@ export default function Navbar({ data, editions = [] }) {
                                 <div className="relative" ref={dropdownRef}>
                                     <button
                                         onClick={() => setDropdownOpen(!isDropdownOpen)}
-                                        className="flex items-center gap-1 text-gray-800 hover:text-blue-600 transition-colors font-semibold"
+                                        className="flex items-center gap-1 text-ink hover:text-brand-blue transition-colors font-semibold"
                                     >
                                         Past Editions
                                         <ChevronDown className={clsx("h-4 w-4 transition-transform", isDropdownOpen && "rotate-180")} />
                                     </button>
                                     <div
                                         className={clsx(
-                                            "absolute top-full right-0 mt-3 w-48 bg-white rounded-lg shadow-xl border border-gray-100 py-2 transition-all duration-200 ease-out origin-top",
+                                            "absolute top-full right-0 mt-3 w-48 bg-white rounded-none shadow-pop border-pop border-ink py-2 transition-all duration-200 ease-out origin-top",
                                             isDropdownOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
                                         )}
                                     >
                                         {pastEditions.map(year => (
-                                            <Link key={year} href={`/${year}`} onClick={closeAllMenus} className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-blue-600">
+                                            <Link key={year} href={`/${year}`} onClick={closeAllMenus} className="block px-4 py-2 text-ink hover:bg-brand-yellow-light hover:text-ink">
                                                 Edition {year}
                                             </Link>
                                         ))}
@@ -89,14 +89,14 @@ export default function Navbar({ data, editions = [] }) {
                         </nav>
 
                         <div className="hidden lg:flex items-center">
-                            <Link href={data.navbar.CTA.url} target={data.navbar.CTA.url.startsWith('http') ? '_blank' : undefined} rel={data.navbar.CTA.url.startsWith('http') ? 'noopener noreferrer' : undefined} className="group inline-flex items-center justify-center text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-lg transition-all duration-300 transform hover:scale-105">
+                            <Link href={data.navbar.CTA.url} target={data.navbar.CTA.url.startsWith('http') ? '_blank' : undefined} rel={data.navbar.CTA.url.startsWith('http') ? 'noopener noreferrer' : undefined} className="btn-pop btn-pop-primary group inline-flex items-center justify-center !px-5 !py-2">
                                 {data.navbar.CTA.label}
                                 <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
                             </Link>
                         </div>
 
                         <div className="lg:hidden">
-                            <button onClick={() => setMobileMenuOpen(true)} className="text-gray-800" aria-label="Open menu">
+                            <button onClick={() => setMobileMenuOpen(true)} className="text-ink" aria-label="Open menu">
                                 <MenuIcon className="h-6 w-6" />
                             </button>
                         </div>
@@ -116,37 +116,37 @@ export default function Navbar({ data, editions = [] }) {
                 />
                 <nav
                     className={clsx(
-                        "absolute top-0 right-0 h-full w-4/5 max-w-sm bg-white shadow-xl p-6 flex flex-col transition-transform duration-300 ease-in-out",
+                        "absolute top-0 right-0 h-full w-4/5 max-w-sm bg-white border-l-2 border-ink p-6 flex flex-col transition-transform duration-300 ease-in-out",
                         isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
                     )}
                 >
-                    <div className="flex items-center justify-between pb-6 border-b border-gray-200">
+                    <div className="flex items-center justify-between pb-6 border-b-2 border-ink">
                         <Link href="/" onClick={closeAllMenus}>
                             <Image src={data.navbar.logo} alt="logo" width={120} height={32} />
                         </Link>
-                        <button onClick={() => setMobileMenuOpen(false)} className="text-gray-500 hover:text-gray-900" aria-label="Close menu">
+                        <button onClick={() => setMobileMenuOpen(false)} className="text-ink-muted hover:text-ink" aria-label="Close menu">
                             <X className="h-6 w-6" />
                         </button>
                     </div>
                     <div className="mt-8 flex-1 flex flex-col gap-6">
                         {navLinks.map((link) => (
-                            <Link key={link.to} href={link.to} target={link.target ? link.target : "_blank"} onClick={closeAllMenus} className="text-xl font-semibold text-gray-800 hover:text-blue-600">
+                            <Link key={link.to} href={link.to} target={link.target ? link.target : "_blank"} onClick={closeAllMenus} className="text-xl font-semibold text-ink hover:text-brand-blue">
                                 {link.text}
                             </Link>
                         ))}
                         {pastEditions.length > 0 && (
-                            <div className="pt-6 border-t border-gray-200">
-                                <h3 className="text-sm font-bold text-gray-500 uppercase mb-2">Past Editions</h3>
+                            <div className="pt-6 border-t-2 border-ink">
+                                <h3 className="font-display text-sm text-ink uppercase mb-2">Past Editions</h3>
                                 {pastEditions.map((year) => (
-                                    <Link key={year} href={`/${year}`} onClick={closeAllMenus} className="block py-1 text-lg font-medium text-gray-700 hover:text-blue-600">
+                                    <Link key={year} href={`/${year}`} onClick={closeAllMenus} className="block py-1 text-lg font-medium text-ink-muted hover:text-brand-blue">
                                         Edition {year}
                                     </Link>
                                 ))}
                             </div>
                         )}
                     </div>
-                    <div className="pt-8 mt-auto border-t border-gray-200">
-                        <Link href={data.navbar.CTA.url} target={data.navbar.CTA.url.startsWith('http') ? '_blank' : undefined} rel={data.navbar.CTA.url.startsWith('http') ? 'noopener noreferrer' : undefined} onClick={closeAllMenus} className="w-full inline-flex items-center justify-center bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                    <div className="pt-8 mt-auto border-t-2 border-ink">
+                        <Link href={data.navbar.CTA.url} target={data.navbar.CTA.url.startsWith('http') ? '_blank' : undefined} rel={data.navbar.CTA.url.startsWith('http') ? 'noopener noreferrer' : undefined} onClick={closeAllMenus} className="btn-pop btn-pop-primary w-full inline-flex items-center justify-center">
                             {data.navbar.CTA.label}
                             <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>

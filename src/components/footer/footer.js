@@ -40,10 +40,8 @@ export default function Footer({ data, editions = [] }) {
   const navLinks = data.navbar.links.header;
 
   return (
-    <footer className='bg-gray-900 text-white'>
-      <div className='container mx-auto max-w-7xl px-4'>
-        <div className='h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent' />
-
+    <footer className='bg-ink text-white border-t-2 border-ink'>
+      <div className='mx-auto max-w-[1200px] px-6'>
         <div className='py-16'>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12'>
             <div className='lg:col-span-1'>
@@ -54,7 +52,7 @@ export default function Footer({ data, editions = [] }) {
             </div>
 
             <div className='md:col-start-2'>
-              <h3 className='text-sm font-semibold uppercase tracking-wider text-gray-300'>
+              <h3 className='font-display text-sm uppercase tracking-wider text-brand-yellow'>
                 Navigation
               </h3>
               <ul className='mt-4 space-y-3'>
@@ -62,7 +60,7 @@ export default function Footer({ data, editions = [] }) {
                   <li key={link.text}>
                     <Link
                       href={link.to}
-                      className='text-gray-400 hover:text-white transition-colors'
+                      className='text-gray-400 hover:text-brand-yellow transition-colors'
                     >
                       {link.text}
                     </Link>
@@ -72,7 +70,7 @@ export default function Footer({ data, editions = [] }) {
             </div>
 
             <div>
-              <h3 className='text-sm font-semibold uppercase tracking-wider text-gray-300'>
+              <h3 className='font-display text-sm uppercase tracking-wider text-brand-yellow'>
                 Past Editions
               </h3>
               <ul className='mt-4 space-y-3'>
@@ -80,7 +78,7 @@ export default function Footer({ data, editions = [] }) {
                   <li key={year}>
                     <Link
                       href={`/${year}`}
-                      className='text-gray-400 hover:text-white transition-colors'
+                      className='text-gray-400 hover:text-brand-yellow transition-colors'
                     >
                       Edition {year}
                     </Link>
@@ -90,14 +88,14 @@ export default function Footer({ data, editions = [] }) {
             </div>
 
             <div>
-              <h3 className='text-sm font-semibold uppercase tracking-wider text-gray-300'>
+              <h3 className='font-display text-sm uppercase tracking-wider text-brand-yellow'>
                 Connect
               </h3>
               <ul className='mt-4 space-y-3'>
                 <li>
                   <a
                     href={`mailto:${general.contact.email}`}
-                    className='text-gray-400 hover:text-white transition-colors'
+                    className='text-gray-400 hover:text-brand-yellow transition-colors'
                   >
                     Contact Us
                   </a>
@@ -105,7 +103,7 @@ export default function Footer({ data, editions = [] }) {
                 <li>
                   <Link
                     href='/sponsors'
-                    className='text-gray-400 hover:text-white transition-colors'
+                    className='text-gray-400 hover:text-brand-yellow transition-colors'
                   >
                     Sponsorship
                   </Link>
@@ -113,7 +111,7 @@ export default function Footer({ data, editions = [] }) {
                 <li>
                   <Link
                     href='/code-of-conduct'
-                    className='text-gray-400 hover:text-white transition-colors'
+                    className='text-gray-400 hover:text-brand-yellow transition-colors'
                   >
                     Code of Conduct
                   </Link>
@@ -122,7 +120,7 @@ export default function Footer({ data, editions = [] }) {
             </div>
           </div>
 
-          <div className='mt-12 border-t border-gray-800 pt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
+          <div className='mt-12 border-t border-white/20 pt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
             <div className='text-sm text-gray-500 text-center sm:text-left max-w-md sm:max-w-lg space-y-1.5'>
               <p className='text-gray-400'>
                 {currentYear} {general.event.name}
@@ -134,7 +132,7 @@ export default function Footer({ data, editions = [] }) {
                   target='_blank'
                   rel='license noopener noreferrer'
                   title='Creative Commons Attribution-ShareAlike 4.0 International'
-                  className='text-gray-400 hover:text-white underline underline-offset-2'
+                  className='text-gray-400 hover:text-brand-yellow underline underline-offset-2'
                 >
                   {footer.license.shortName}
                 </a>
@@ -154,7 +152,7 @@ export default function Footer({ data, editions = [] }) {
                       target='_blank'
                       rel='noopener noreferrer'
                       aria-label={alt}
-                      className='text-gray-500 hover:text-white transition-colors'
+                      className='text-gray-400 hover:text-brand-yellow transition-colors'
                     >
                       <Icon className='w-6 h-6' />
                     </a>

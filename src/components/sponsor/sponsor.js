@@ -23,18 +23,18 @@ const Sponsors = ({
   return (
     <div id='sponsors'>
       {isCurrent && sectionsContent.become && (
-        <section className='mx-auto max-w-7xl px-4 py-6'>
+        <section className='mx-auto max-w-[1200px] px-6 py-8'>
           <div className='text-center mb-8'>
-            <h2 className='mb-4 text-4xl font-bold text-gray-900'>
+            <h2 className='section-heading mb-4'>
               {sectionsContent.become.title}
             </h2>
-            <p className='mb-6 text-lg text-gray-500'>
+            <p className='mb-6 text-lg text-ink-muted'>
               {sectionsContent.become.description}
             </p>
             <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
               <Link
                 type='button'
-                className='button bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600'
+                className='btn-pop btn-pop-primary'
                 href={`mailto:${sectionsContent.contactEmail}`}
               >
                 Contact Us
@@ -46,7 +46,7 @@ const Sponsors = ({
                     href={sectionsContent.prospectus.url}
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='button bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600'
+                    className='btn-pop btn-pop-secondary'
                   >
                     {sectionsContent.prospectus.label}
                   </a>
@@ -55,7 +55,7 @@ const Sponsors = ({
                 href={sectionsContent.transparency.url}
                 target='_blank'
                 rel='noopener noreferrer'
-                className='button bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600'
+                className='btn-pop btn-pop-secondary'
               >
                 {sectionsContent.transparency.label}
               </a>
@@ -64,18 +64,18 @@ const Sponsors = ({
         </section>
       )}
 
-      <section className='mx-auto max-w-7xl px-4 py-6'>
+      <section className='mx-auto max-w-[1200px] px-6 py-8'>
         <div className='text-center'>
-          <h2 className='mb-8 text-3xl font-semibold text-gray-900 text-center'>
+          <h2 className='section-heading mb-8 text-center'>
             {sectionsContent.active.title}
           </h2>
           {hasActiveSponsors ? (
-            <p className='mb-6 text-lg text-gray-500'>
+            <p className='mb-6 text-lg text-ink-muted'>
               {sectionsContent.active.description}
             </p>
           ) : (
             <div className='text-center'>
-              <p className='text-lg text-gray-500'>
+              <p className='text-lg text-ink-muted'>
                 The announcement of sponsors is coming soon! ...
               </p>
             </div>
@@ -91,12 +91,12 @@ const Sponsors = ({
           return (
             <div key={tier} className='mb-12'>
               <div className='mb-6 flex items-center justify-center gap-2'>
-                <h3 className='text-xl font-semibold text-gray-900'>
+                <h3 className='font-display text-stamp uppercase text-ink'>
                   {config.title}
                 </h3>
                 <span
                   className={clsx(
-                    'rounded-full px-2 py-0.5 text-xs font-medium',
+                    'border border-ink bg-brand-yellow px-2 py-0.5 text-xs font-bold text-ink',
                     config.badgeClass,
                   )}
                 >
@@ -113,8 +113,8 @@ const Sponsors = ({
                       target='_blank'
                       rel='noopener noreferrer'
                       className={clsx(
-                        'flex items-center justify-center rounded-lg transition-all duration-300',
-                        'hover:scale-[1.02] hover:shadow-md',
+                        'flex items-center justify-center border-pop border-ink bg-white transition-all duration-100',
+                        'hover:shadow-pop-sm',
                         CARD_STYLES,
                         config.class,
                         !isCurrent && 'pastSponsor',

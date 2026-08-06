@@ -1,12 +1,23 @@
 import { promises as fs } from 'fs';
 import path from 'path';
-import { Inter } from "next/font/google";
+import { Poppins, Anton } from "next/font/google";
 import Navbar from "@/components/navbar/navbar";
 import Footer from "@/components/footer/footer";
 import config from "@/config/website.json";
 import "@/styles/globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+// Brand fonts — vedi docs/design-system.md.
+// Anton è il fallback di Extenda 50 Mega finché non disponiamo dei webfont licenziati.
+const poppins = Poppins({
+    subsets: ["latin"],
+    weight: ["400", "600", "700"],
+    variable: "--font-poppins",
+});
+const anton = Anton({
+    subsets: ["latin"],
+    weight: "400",
+    variable: "--font-display",
+});
 
 export const metadata = {
     title: "Cloud Native Days Italy 2025",
@@ -28,7 +39,7 @@ export default async function RootLayout({ children }) {
     const availableEditions = await getEditions();
 
     return (
-        <html lang="it" className={inter.variable}>
+        <html lang="it" className={`${poppins.variable} ${anton.variable}`}>
         <head>
             <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-icon-57x57.png" />
             <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-icon-60x60.png" />
@@ -48,7 +59,7 @@ export default async function RootLayout({ children }) {
             <meta name="msapplication-TileImage" content="/favicons/ms-icon-144x144.png" />
             <meta name="theme-color" content="#ffffff" />
         </head>
-        <body className="bg-gray-50 text-gray-900">
+        <body className="bg-white font-sans text-ink">
         <Navbar
             data={config}
             editions={availableEditions}

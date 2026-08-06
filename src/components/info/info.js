@@ -1,32 +1,34 @@
 'use client';
 
-import { ArrowRight, Mic, Users, Wrench, HeartHandshake } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 const getYouTubeEmbedUrl = (videoId) => {
   return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
 };
 
-const FeatureCard = ({ icon, title, children }) => (
-  <div className='text-center bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300'>
-    <div className='inline-flex items-center justify-center h-20 w-20 bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-full mb-6 shadow-lg'>
-      {icon}
+// Dot colorati in rotazione brand — vedi docs/design-system.md
+const DOT_COLORS = ['bg-brand-magenta', 'bg-brand-blue', 'bg-brand-yellow', 'bg-brand-magenta'];
+
+const FeatureCard = ({ dotColor, title, children }) => (
+  <div className='card-pop flex items-start gap-4 p-6'>
+    <span aria-hidden='true' className={`mt-1 h-5 w-5 flex-shrink-0 rounded-full ${dotColor}`} />
+    <div>
+      <h3 className='text-lg font-bold text-ink'>{title}</h3>
+      <p className='mt-1 text-sm text-ink-muted'>{children}</p>
     </div>
-    <h3 className='text-xl font-bold text-gray-900 mb-2'>{title}</h3>
-    <p className='text-gray-600'>{children}</p>
   </div>
 );
 
 const DayCard = ({ data }) => (
-  <div className='bg-blue-600 rounded-2xl p-6 lg:px-10 lg:py-6 text-white shadow-sm hover:bg-blue-700 hover:shadow-xl hover:-translate-y-1 transition-all duration-300'>
-    <span className='text-lg font-bold uppercase tracking-wider text-blue-200'>
+  <div className='card-pop bg-brand-blue p-6 text-white lg:px-10 lg:py-6'>
+    <span className='font-display text-stamp uppercase tracking-wider text-brand-yellow'>
       {data.label}
     </span>
     <ul className='mt-3 space-y-2'>
       {data.bullets.map((b, i) => (
         <li key={i} className='flex items-center gap-2 text-lg text-white'>
-          <span className='h-1.5 w-1.5 rounded-full bg-white/60 flex-shrink-0' />
+          <span className='h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brand-yellow' />
           {b.bold ? <strong>{b.text}</strong> : b.text}
         </li>
       ))}
@@ -40,30 +42,21 @@ const Info = ({ data }) => {
   const videoEmbedUrl = getYouTubeEmbedUrl(data.video?.id);
 
   return (
-    <section className='relative bg-gray-50 py-20 lg:py-32 overflow-hidden'>
-      <div className='absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2'>
-        <div className='w-[40rem] h-[40rem] bg-gradient-to-tr from-blue-50 to-purple-50 rounded-full filter blur-3xl opacity-50'></div>
-      </div>
-      <div className='absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2'>
-        <div className='w-[40rem] h-[40rem] bg-gradient-to-bl from-green-50 to-cyan-50 rounded-full filter blur-3xl opacity-50'></div>
-      </div>
-
-      <div className='container mx-auto max-w-7xl px-4 relative z-10'>
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center'>
+    <section className='relative overflow-hidden border-t-2 border-ink bg-white py-16 lg:py-24'>
+      <div className='relative mx-auto max-w-[1200px] px-6'>
+        <div className='grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24'>
           <div>
-            <span className='text-sm font-bold text-blue-600 uppercase tracking-wider'>
-              The Event
-            </span>
-            <h2 className='mt-4 text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tighter leading-tight'>
+            <span className='stamp rotate-2'>The Event</span>
+            <h2 className='section-heading mt-6'>
               {data.title}
             </h2>
-            <p className='mt-8 text-xl text-gray-600'>{data.description}</p>
-            <p className='mt-5 text-gray-600'>{data.longDescription}</p>
+            <p className='mt-8 text-xl text-ink-soft'>{data.description}</p>
+            <p className='mt-5 text-ink-muted'>{data.longDescription}</p>
             {data.CTA?.active && (
               <div className='mt-6'>
                 <Link
                   href={data.CTA.url}
-                  className='inline-flex items-center gap-2 text-lg font-semibold text-blue-600 hover:text-blue-800 transition-colors'
+                  className='inline-flex items-center gap-2 text-lg font-bold text-brand-blue transition-colors hover:text-brand-magenta'
                 >
                   {data.CTA.label} <ArrowRight className='h-5 w-5' />
                 </Link>
@@ -72,20 +65,16 @@ const Info = ({ data }) => {
           </div>
 
           {videoEmbedUrl && (
-            <div className='transform transition-transform duration-500 hover:scale-105'>
-              <div className='bg-gray-800 rounded-2xl p-2 shadow-2xl shadow-gray-400/30'>
-                <div className='bg-gray-900 rounded-lg p-1.5'>
-                  <div className='aspect-video w-full'>
-                    <iframe
-                      className='w-full h-full rounded-md'
-                      src={videoEmbedUrl}
-                      title={data.video.title}
-                      frameBorder='0'
-                      allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                      allowFullScreen
-                    ></iframe>
-                  </div>
-                </div>
+            <div className='card-pop p-2 shadow-pop-lg'>
+              <div className='aspect-video w-full'>
+                <iframe
+                  className='h-full w-full'
+                  src={videoEmbedUrl}
+                  title={data.video.title}
+                  frameBorder='0'
+                  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                  allowFullScreen
+                ></iframe>
               </div>
             </div>
           )}
@@ -93,68 +82,51 @@ const Info = ({ data }) => {
 
         {data.extra && (
           <div className='mt-20 lg:mt-28'>
-            <div className='text-center'>
-              <h2 className='text-3xl sm:text-4xl font-bold text-gray-800'>
-                {data.extra.title}
-              </h2>
-            </div>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12'>
-              <FeatureCard
-                icon={<Mic size={36} />}
-                title={data.extra.boxes.talks.title}
-              >
-                {data.extra.boxes.talks.description}
-              </FeatureCard>
-              <FeatureCard
-                icon={<Users size={36} />}
-                title={data.extra.boxes.networking.title}
-              >
-                {data.extra.boxes.networking.description}
-              </FeatureCard>
-              <FeatureCard
-                icon={<Wrench size={36} />}
-                title={data.extra.boxes.workshop.title}
-              >
-                {data.extra.boxes.workshop.description}
-              </FeatureCard>
-              <FeatureCard
-                icon={<HeartHandshake size={36} />}
-                title={data.extra.boxes.community.title}
-              >
-                {data.extra.boxes.community.description}
-              </FeatureCard>
+            <h2 className='section-heading'>
+              {data.extra.title}
+            </h2>
+            <div className='mt-10 grid grid-cols-1 gap-6 md:grid-cols-2'>
+              {['talks', 'networking', 'workshop', 'community'].map((key, i) => (
+                <FeatureCard
+                  key={key}
+                  dotColor={DOT_COLORS[i]}
+                  title={data.extra.boxes[key].title}
+                >
+                  {data.extra.boxes[key].description}
+                </FeatureCard>
+              ))}
             </div>
           </div>
         )}
 
         {data.glance && (
           <div className='mt-20 lg:mt-28'>
-            <div className='text-center mb-8'>
-              <h3 className='text-xl font-semibold text-gray-900 uppercase tracking-wider'>
+            <div className='mb-8'>
+              <h3 className='section-heading'>
                 {data.glance.label}
               </h3>
-              <span className='text-sm font-bold text-blue-600 uppercase tracking-wider'>
+              <span className='mt-2 inline-block text-sm font-bold uppercase tracking-wider text-brand-blue'>
                 2 days, 2 areas
               </span>
             </div>
 
             {/* Griglia cards + video — stessa altezza */}
-            <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 mt-8 lg:items-stretch'>
+            <div className='mt-8 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-stretch'>
 
               {/* Colonna sinistra — 2 days */}
-              <div className='grid grid-cols-2 lg:grid-cols-1 gap-4'>
+              <div className='grid grid-cols-2 gap-4 lg:grid-cols-1'>
                 <DayCard data={data.glance.days.day1} />
                 <DayCard data={data.glance.days.day2} />
               </div>
 
               {/* Colonna destra — video */}
-              <div className='relative aspect-square lg:aspect-auto w-full rounded-2xl overflow-hidden border border-gray-100 shadow-sm'>
+              <div className='card-pop relative aspect-square w-full overflow-hidden lg:aspect-auto'>
                 <video
                   autoPlay
                   loop
                   muted
                   playsInline
-                  className='w-full h-full object-cover'
+                  className='h-full w-full object-cover'
                 >
                   <source src={data.glance.areas.image} type='video/webm' />
                 </video>
@@ -166,7 +138,7 @@ const Info = ({ data }) => {
             <div className='mt-6'>
               <Link
                 href={data.glance.agendaCTA.url}
-                className='inline-flex items-center gap-2 text-lg font-semibold text-blue-600 hover:text-blue-800 transition-colors'
+                className='inline-flex items-center gap-2 text-lg font-bold text-brand-blue transition-colors hover:text-brand-magenta'
               >
                 {data.glance.agendaCTA.label} <ArrowRight className='h-5 w-5' />
               </Link>

@@ -31,11 +31,11 @@ export default function C4P_Card({ data }) {
 
   if (!data || !status) {
     return (
-      <div className='bg-white h-full p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col relative overflow-hidden'>
+      <div className='card-pop h-full p-8 flex flex-col relative overflow-hidden'>
         <div className='animate-pulse space-y-4'>
-          <div className='h-8 bg-gray-200 rounded w-1/3'></div>
-          <div className='h-6 bg-gray-200 rounded w-full'></div>
-          <div className='h-12 bg-gray-200 rounded-lg mt-auto'></div>
+          <div className='h-8 bg-gray-200 w-1/3'></div>
+          <div className='h-6 bg-gray-200 w-full'></div>
+          <div className='h-12 bg-gray-200 mt-auto'></div>
         </div>
       </div>
     );
@@ -48,16 +48,16 @@ export default function C4P_Card({ data }) {
       case 'open':
         return (
           <>
-            <h3 className='text-2xl font-bold text-gray-900'>
+            <h3 className='text-2xl font-bold text-ink'>
               Share Your Expertise
             </h3>
-            <p className='text-gray-600 mt-2'>
+            <p className='text-ink-muted mt-2'>
               We are looking for passionate speakers to share their knowledge
               with the community.
             </p>
             <div className='mt-6 space-y-3 text-sm'>
               <div className='flex items-center gap-3'>
-                <Calendar className='h-5 w-5 text-green-500' />
+                <Calendar className='h-5 w-5 text-brand-blue' />
                 <p>
                   Submissions close on{' '}
                   <span className='font-bold'>
@@ -66,16 +66,16 @@ export default function C4P_Card({ data }) {
                 </p>
               </div>
               <div className='flex items-center gap-3'>
-                <Flag className='h-5 w-5 text-green-500' />
+                <Flag className='h-5 w-5 text-brand-blue' />
                 <p>
-                  <span className='font-bold text-green-600'>
+                  <span className='font-bold text-brand-magenta'>
                     {daysLeft > 0 ? `${daysLeft} days left` : 'Last day!'}
                   </span>{' '}
                   to submit your proposal.
                 </p>
               </div>
             </div>
-            <div className='mt-6 p-4 bg-sky-50 border-l-4 border-sky-400 text-sky-800 text-sm rounded-r-lg'>
+            <div className='mt-6 p-4 bg-brand-yellow-light border-l-4 border-ink text-ink text-sm'>
               <div className='flex items-start gap-3'>
                 <Info className='h-5 w-5 mt-0.5 flex-shrink-0' />
                 <p>{data.rollingSelectionText}</p>
@@ -85,7 +85,7 @@ export default function C4P_Card({ data }) {
               <Link
                 href={data.url}
                 target='_blank'
-                className='group w-full inline-flex items-center justify-center text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105'
+                className='btn-pop btn-pop-primary group w-full inline-flex items-center justify-center'
               >
                 Submit Your Talk{' '}
                 <ArrowRight className='h-5 w-5 ml-2 transition-transform group-hover:translate-x-1' />
@@ -96,16 +96,16 @@ export default function C4P_Card({ data }) {
       case 'closed':
         return (
           <>
-            <h3 className='text-2xl font-bold text-gray-900'>
+            <h3 className='text-2xl font-bold text-ink'>
               Submissions Closed
             </h3>
-            <p className='text-gray-600 mt-2'>
+            <p className='text-ink-muted mt-2'>
               Thank you to everyone who submitted. We are reviewing all
               proposals and will announce the final agenda soon.
             </p>
             <div className='mt-6 space-y-3 text-sm'>
               <div className='flex items-center gap-3'>
-                <CheckCircle className='h-5 w-5 text-gray-500' />
+                <CheckCircle className='h-5 w-5 text-ink-muted' />
                 <p>
                   Submissions closed on{' '}
                   <span className='font-bold'>
@@ -117,7 +117,7 @@ export default function C4P_Card({ data }) {
             <div className='mt-auto pt-6'>
               <Link
                 href={data.agendaUrl}
-                className='group w-full inline-flex items-center justify-center text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105'
+                className='btn-pop btn-pop-primary group w-full inline-flex items-center justify-center'
               >
                 View Agenda
               </Link>
@@ -128,10 +128,10 @@ export default function C4P_Card({ data }) {
       default:
         return (
           <>
-            <h3 className='text-2xl font-bold text-gray-900'>
+            <h3 className='text-2xl font-bold text-ink'>
               Call for Papers Opens Soon
             </h3>
-            <p className='text-gray-600 mt-2'>
+            <p className='text-ink-muted mt-2'>
               Get ready to share your ideas! Our Call for Papers will be opening
               on{' '}
               <span className='font-bold'>
@@ -139,14 +139,14 @@ export default function C4P_Card({ data }) {
               </span>
               .
             </p>
-            <div className='mt-6 p-4 bg-sky-50 border-l-4 border-sky-400 text-sky-800 text-sm rounded-r-lg'>
+            <div className='mt-6 p-4 bg-brand-yellow-light border-l-4 border-ink text-ink text-sm'>
               <div className='flex items-start gap-3'>
                 <Info className='h-5 w-5 mt-0.5 flex-shrink-0' />
                 <p>{data.rollingSelectionText}</p>
               </div>
             </div>
             <div className='mt-auto pt-6'>
-              <div className='w-full text-center bg-gray-300 text-gray-600 font-semibold px-6 py-3 rounded-lg cursor-not-allowed'>
+              <div className='w-full text-center border-pop border-ink bg-white text-ink-muted font-bold uppercase px-6 py-3 cursor-not-allowed'>
                 Stay Tuned
               </div>
             </div>
@@ -156,8 +156,8 @@ export default function C4P_Card({ data }) {
   };
 
   return (
-    <div className='bg-white h-full p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col relative overflow-hidden'>
-      <div className='absolute top-0 right-0 text-xs font-bold px-4 py-1.5 rounded-bl-lg bg-blue-100 text-blue-800'>
+    <div className='card-pop h-full p-8 flex flex-col relative overflow-hidden'>
+      <div className='absolute top-0 right-0 font-display text-xs uppercase px-4 py-1.5 border-b-2 border-l-2 border-ink bg-brand-yellow text-ink'>
         C4P
       </div>
       {renderContent()}
