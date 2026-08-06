@@ -27,9 +27,9 @@ const Tickets = ({data}) => {
     };
 
     return (
-        <div className="overflow-hidden rounded-lg bg-white shadow-lg" id="tickets">
+        <div className="overflow-hidden card-pop bg-white" id="tickets">
             <div className="space-y-6 p-6">
-                <div className="space-y-2 rounded-lg bg-gray-50 p-4">
+                <div className="space-y-2 bg-cream border border-ink p-4">
                     <h3 className="font-semibold">{data.tickets.title}</h3>
                     {data.tickets.source === "tito" ? (
                         <TitoWidget event="apropos/cloud-native-days-italy-2025" />
@@ -42,12 +42,12 @@ const Tickets = ({data}) => {
                                     <div className="ticket-end-date">
                                         Ends on: {formatDate(ticket.salesEndDate)}
                                     </div>
-                                    <div className="text-xs text-gray-500">{ticket.description ? ticket.description : ''}</div>
+                                    <div className="text-xs text-ink-muted">{ticket.description ? ticket.description : ''}</div>
                                 </li>
                             ))}
                         </ul>
                     ) : (
-                        <p className="text-xl text-gray-500">{data.tickets['no-available']}</p>
+                        <p className="text-xl text-ink-muted">{data.tickets['no-available']}</p>
                     )}
                 </div>
 
@@ -57,7 +57,7 @@ const Tickets = ({data}) => {
             <div className="flex flex-col items-stretch gap-4 px-6 pb-6">
                 {availableTickets.length > 0 ? (
                     <>
-                        <p className="text-center text-sm text-gray-500">
+                        <p className="text-center text-sm text-ink-muted">
                             Tickets are purchased through our external ticketing partner.
                         </p>
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -74,7 +74,7 @@ const Tickets = ({data}) => {
                         </div>
                     </>
                 ) : (<>
-                    <p className="text-center text-xl text-gray-500">
+                    <p className="text-center text-xl text-ink-muted">
                         Check back in a few days to secure your spot for the conference and workshops.
                     </p>
                 </>)}

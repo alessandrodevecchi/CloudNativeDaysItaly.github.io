@@ -8,17 +8,17 @@ import clsx from 'clsx';
 import { Clock, MapPin, Coffee, Utensils, Mic, Users, Wrench } from 'lucide-react';
 
 const PlaceholderCard = () => (
-    <div className="bg-gray-50/50 rounded-lg min-h-[150px] border border-dashed border-gray-200 h-full" />
+    <div className="min-h-[150px] border-2 border-dashed border-ink/20 h-full" />
 );
 
 const SessionCard = ({ session, tracks }) => {
     if (session.type === 'break') {
         const Icon = { coffee: Coffee, lunch: Utensils, networking: Users }[session.title?.toLowerCase().match(/coffee|lunch|networking/)?.[0]] || Clock;
         return (
-            <div className="bg-gray-100 rounded-lg p-6 text-center h-full flex items-center justify-center">
+            <div className="bg-brand-yellow-light border-pop border-ink p-6 text-center h-full flex items-center justify-center">
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <Icon className="h-6 w-6 text-gray-500" />
-                    <h3 className="text-xl font-bold text-gray-800">{session.title}</h3>
+                    <Icon className="h-6 w-6 text-ink" />
+                    <h3 className="font-display text-xl uppercase text-ink">{session.title}</h3>
                 </div>
             </div>
         );
@@ -27,24 +27,24 @@ const SessionCard = ({ session, tracks }) => {
     const track = tracks.find(t => t.id === session.trackId);
     const TypeIcon = session.details.type === 'workshop' ? Wrench : Mic;
     return (
-        <Link href={`/talk/${session.details.id}`} className="block bg-slate-50 md:bg-white p-4 sm:p-6 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col">
+        <Link href={`/talk/${session.details.id}`} className="card-pop block p-4 sm:p-6 transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop h-full flex flex-col">
             <div className="flex items-center justify-between gap-2 flex-wrap mb-3">
-                <span className={clsx("inline-flex items-center gap-1.5 text-xs font-semibold px-2 py-1 rounded-full", session.details.type === 'workshop' ? 'bg-purple-100 text-purple-800' : 'bg-green-100 text-green-800')}>
+                <span className={clsx("inline-flex items-center gap-1.5 text-xs font-bold px-2 py-1 border border-ink uppercase", session.details.type === 'workshop' ? 'bg-brand-blue text-white' : 'bg-brand-yellow text-ink')}>
                     <TypeIcon size={12}/> {session.details.type || 'talk'}
                 </span>
                 <div className="flex items-center gap-2">
-                    {session.details.tags?.map(tag => <span key={tag} className="text-xs font-semibold px-2 py-1 rounded-full bg-blue-100 text-blue-800">{tag}</span>)}
+                    {session.details.tags?.map(tag => <span key={tag} className="text-xs font-bold px-2 py-1 border border-ink bg-white text-ink">{tag}</span>)}
                 </div>
             </div>
-            <h3 className="font-bold text-gray-900 flex-grow">{session.details.title}</h3>
-            <div className="block md:hidden text-sm text-gray-500 mt-2 flex items-center gap-2"><MapPin size={14}/> {track?.room || 'Main Stage'}</div>
-            <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-3">
+            <h3 className="font-bold text-ink flex-grow">{session.details.title}</h3>
+            <div className="block md:hidden text-sm text-ink-muted mt-2 flex items-center gap-2"><MapPin size={14}/> {track?.room || 'Main Stage'}</div>
+            <div className="mt-4 pt-4 border-t border-ink/20 flex flex-col gap-3">
                 {session.details.speakers.map(speaker => (
                     <div key={speaker.id} className="flex items-center gap-3 group">
-                        <img src={speaker.image} alt={speaker.name} className="w-8 h-8 rounded-full object-cover" />
+                        <img src={speaker.image} alt={speaker.name} className="w-8 h-8 rounded-full object-cover border border-ink" />
                         <div>
-                            <p className="font-semibold text-sm text-gray-800 group-hover:text-blue-600">{speaker.name}</p>
-                            <p className="text-xs text-gray-500">{speaker.role.split('@')[0]}</p>
+                            <p className="font-semibold text-sm text-ink group-hover:text-brand-blue">{speaker.name}</p>
+                            <p className="text-xs text-ink-muted">{speaker.role.split('@')[0]}</p>
                         </div>
                     </div>
                 ))}
@@ -77,17 +77,17 @@ export default function AgendaView({ agenda }) {
 
     return (
         <div className="bg-white">
-            <div className="container mx-auto max-w-7xl px-4 py-16 lg:py-24">
+            <div className="mx-auto max-w-[1200px] px-6 py-16 lg:py-24">
                 <div className="text-center max-w-3xl mx-auto">
-                    <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tighter">Agenda</h1>
-                    <p className="mt-4 text-lg text-gray-600">
+                    <h1 className="section-heading">Agenda</h1>
+                    <p className="mt-4 text-lg text-ink-muted">
                         Explore our schedule of talks, workshops, and networking opportunities. Select a day to view the detailed timeline.
                     </p>
                 </div>
 
-                <div className="mt-12 flex justify-center gap-2 sm:gap-4 bg-gray-100 p-2 rounded-full max-w-md mx-auto sticky top-20 z-20">
+                <div className="mt-12 flex justify-center gap-2 sm:gap-4 bg-white p-2 max-w-md mx-auto sticky top-20 z-20">
                     {agenda.days.map(day => (
-                        <button key={day.id} onClick={() => setSelectedDayId(day.id)} className={clsx("w-full text-center px-4 py-2.5 rounded-full font-semibold transition-colors duration-300", selectedDayId === day.id ? 'bg-white text-blue-600 shadow' : 'bg-transparent text-gray-600 hover:bg-white/60')}>
+                        <button key={day.id} onClick={() => setSelectedDayId(day.id)} className={clsx("w-full text-center px-4 py-2.5 border-pop border-ink font-bold uppercase transition-colors duration-100", selectedDayId === day.id ? 'bg-brand-yellow text-ink shadow-pop-sm' : 'bg-white text-ink-muted hover:bg-brand-yellow-light')}>
                             <span className="block text-base">{day.name}</span>
                             <span className="block text-xs font-normal">{format(parseISO(day.date), 'MMMM do', { locale: enUS })}</span>
                         </button>
@@ -100,8 +100,8 @@ export default function AgendaView({ agenda }) {
                             <div/>
                             {dayTracks.map(track => (
                                 <div key={track.id} className="text-center">
-                                    <h3 className="font-bold text-lg text-gray-800">{track.name}</h3>
-                                    <p className="text-sm text-gray-500 flex items-center justify-center gap-2"><MapPin size={14}/> {track.room}</p>
+                                    <h3 className="font-display text-lg uppercase text-ink">{track.name}</h3>
+                                    <p className="text-sm text-ink-muted flex items-center justify-center gap-2"><MapPin size={14}/> {track.room}</p>
                                 </div>
                             ))}
                         </div>
@@ -116,8 +116,8 @@ export default function AgendaView({ agenda }) {
                             return (
                                 <div key={slot.time}>
                                     <div className="md:hidden">
-                                        <div className="flex items-center font-bold text-gray-800 mb-4">
-                                            <Clock size={16} className="mr-2 text-gray-400" />
+                                        <div className="flex items-center font-bold text-ink mb-4">
+                                            <Clock size={16} className="mr-2 text-brand-magenta" />
                                             {slot.time}
                                         </div>
                                         <div className="space-y-4">
@@ -126,8 +126,8 @@ export default function AgendaView({ agenda }) {
                                     </div>
 
                                     <div className={clsx("hidden md:grid items-stretch gap-6", isFullSpan || numDayTracks <= 1 ? 'grid-cols-[100px_1fr]' : gridClass)}>
-                                        <div className="pt-6 font-bold text-gray-800 flex items-start">
-                                            <Clock size={16} className="mr-2 text-gray-400 mt-1" />
+                                        <div className="pt-6 font-bold text-ink flex items-start">
+                                            <Clock size={16} className="mr-2 text-brand-magenta mt-1" />
                                             {slot.time}
                                         </div>
 

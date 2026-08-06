@@ -18,8 +18,8 @@ export default function PastEditionComponent({ year, initialEventData }) {
 
   return (
     <>
-      <main className='bg-gray-50'>
-        <section className='relative bg-blue-600 text-white py-12 md:py-16 overflow-hidden'>
+      <main className='bg-white'>
+        <section className='relative bg-brand-blue text-white py-12 md:py-16 overflow-hidden'>
           <div className='absolute inset-0 bg-black opacity-20'></div>
           <div className='container mx-auto px-4 relative z-10'>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-8 items-center'>
@@ -34,7 +34,7 @@ export default function PastEditionComponent({ year, initialEventData }) {
               {initialEventData.headerVideo && (
                 <div className='animate-fade-in-up'>
                   <iframe
-                    className='w-full aspect-video rounded-lg shadow-2xl'
+                    className='w-full aspect-video border-pop border-ink'
                     src={initialEventData.headerVideo}
                     title='YouTube video player'
                     frameBorder='0'
@@ -64,7 +64,7 @@ export default function PastEditionComponent({ year, initialEventData }) {
 
         <section id='speakers' className='bg-white py-12 lg:py-16'>
           <div className='container mx-auto px-4 text-center'>
-            <h2 className='text-3xl sm:text-4xl font-bold mb-12 text-gray-800'>
+            <h2 className='section-heading mb-12'>
               {year} Speakers
             </h2>
             <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8'>
@@ -83,7 +83,7 @@ export default function PastEditionComponent({ year, initialEventData }) {
 
         <section id='team' className='py-12 lg:py-16'>
           <div className='container mx-auto px-4 text-center'>
-            <h2 className='text-3xl sm:text-4xl font-bold mb-12 text-gray-800'>
+            <h2 className='section-heading mb-12'>
               {year} Team
             </h2>
             <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8'>
@@ -116,9 +116,9 @@ export default function PastEditionComponent({ year, initialEventData }) {
           isCurrent={isCurrentEvent}
         />
 
-        <section className='bg-gray-800 text-white py-12 lg:py-16'>
+        <section className='bg-ink text-white py-12 lg:py-16'>
           <div className='container mx-auto px-4 text-center'>
-            <MapPin className='h-12 w-12 mx-auto mb-4 text-blue-400' />
+            <MapPin className='h-12 w-12 mx-auto mb-4 text-brand-yellow' />
             <h2 className='text-3xl sm:text-4xl font-bold mb-4'>
               Event Location
             </h2>
@@ -126,7 +126,7 @@ export default function PastEditionComponent({ year, initialEventData }) {
               {initialEventData.location.name}, {initialEventData.location.city}
             </p>
             {initialEventData.location.street && (
-              <p className='text-lg text-gray-300 mt-3'>
+              <p className='text-lg text-white/70 mt-3'>
                 {initialEventData.location.street}
               </p>
             )}
@@ -134,7 +134,7 @@ export default function PastEditionComponent({ year, initialEventData }) {
               <img
                 src={initialEventData.location.image}
                 alt={initialEventData.location.name}
-                className='mt-8 rounded-lg shadow-lg w-full max-w-4xl mx-auto'
+                className='mt-8 border-pop border-white w-full max-w-4xl mx-auto'
               />
             )}
             <OpenStreetMapEmbed
@@ -149,7 +149,7 @@ export default function PastEditionComponent({ year, initialEventData }) {
         {initialEventData.thankyou && (
           <section className='py-12 bg-blue-50'>
             <div className='container mx-auto px-4 text-center'>
-              <p className='text-xl sm:text-2xl text-gray-600 italic'>
+              <p className='text-xl sm:text-2xl text-ink-muted italic'>
                 {initialEventData.thankyou}
               </p>
             </div>

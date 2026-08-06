@@ -32,17 +32,17 @@ export default function TalkDetail({ talk }) {
     };
 
     const tagColorMap = {
-        'ENG': 'bg-blue-100 text-blue-800',
-        'ITA': 'bg-green-100 text-green-800',
-        'SPONSORED': 'bg-yellow-100 text-yellow-800',
-        'default': 'bg-gray-100 text-gray-800',
+        'ENG': 'bg-brand-blue text-white',
+        'ITA': 'bg-brand-yellow text-ink',
+        'SPONSORED': 'bg-brand-magenta text-white',
+        'default': 'bg-white text-ink',
     };
 
     return (
         <div className="bg-white">
-            <div className="container mx-auto max-w-7xl px-4 py-12 lg:py-20">
+            <div className="mx-auto max-w-[1200px] px-6 py-12 lg:py-20">
                 <div className="mb-8">
-                    <Link href={`/${talk.year}`} className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:underline">
+                    <Link href={`/${talk.year}`} className="inline-flex items-center gap-2 text-brand-blue font-bold hover:text-brand-magenta">
                         <ChevronLeft className="h-4 w-4" />
                         Back to Edition {talk.year}
                     </Link>
@@ -54,25 +54,25 @@ export default function TalkDetail({ talk }) {
                             <div className="flex items-center gap-2 flex-wrap">
                                 {talk.tags?.map(tag => (
                                     <span key={tag}
-                                          className={`text-xs font-semibold px-2.5 py-1 rounded-full ${tagColorMap[tag] || tagColorMap.default}`}>
+                                          className={`text-xs font-bold px-2.5 py-1 border border-ink uppercase ${tagColorMap[tag] || tagColorMap.default}`}>
                                         {tag}
                                     </span>
                                 ))}
                             </div>
-                            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 tracking-tight">{talk.title}</h1>
+                            <h1 className="section-heading">{talk.title}</h1>
                         </div>
 
                         {videoEmbedUrl && (
                             <button
                                 onClick={handleScrollToVideo}
-                                className="mt-6 inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-full bg-red-50 text-red-700 hover:bg-red-100 transition-colors"
+                                className="btn-pop btn-pop-secondary mt-6 inline-flex items-center gap-2 !px-4 !py-2 text-sm"
                             >
                                 <PlayCircle className="h-5 w-5" />
                                 Watch Video
                             </button>
                         )}
 
-                        <article className="prose prose-lg max-w-none mt-8 text-gray-600 whitespace-pre-line">
+                        <article className="prose prose-lg max-w-none mt-8 text-ink-muted whitespace-pre-line">
                             {talk.abstract}
                         </article>
 
@@ -80,7 +80,7 @@ export default function TalkDetail({ talk }) {
                             <div ref={videoRef} className="mt-8 scroll-mt-24">
                                 <div className="aspect-video w-full">
                                     <iframe
-                                        className="w-full h-full rounded-lg shadow-lg"
+                                        className="w-full h-full border-pop border-ink"
                                         src={videoEmbedUrl}
                                         title={`YouTube video player for ${talk.title}`}
                                         frameBorder="0"
@@ -93,16 +93,16 @@ export default function TalkDetail({ talk }) {
                     </main>
 
                     <aside className="lg:sticky lg:top-24 self-start mt-12 lg:mt-0">
-                        <div className="bg-gray-50 p-6 rounded-2xl border border-gray-200 space-y-6">
+                        <div className="card-pop p-6 space-y-6">
                             <div>
-                                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Speakers</h3>
+                                <h3 className="font-display text-sm text-ink uppercase tracking-wider">Speakers</h3>
                                 <div className="space-y-4 mt-4">
                                     {talk.speakers.map(speaker => (
                                         <Link key={speaker.id} href={`/profile/${speaker.id}`} className="flex items-center gap-4 group">
-                                            <img src={speaker.image} alt={speaker.name} className="w-14 h-14 rounded-full object-cover"/>
+                                            <img src={speaker.image} alt={speaker.name} className="w-14 h-14 rounded-full object-cover border border-ink"/>
                                             <div>
-                                                <p className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors">{speaker.name}</p>
-                                                <p className="text-sm text-gray-500">{speaker.role} @{speaker.company}</p>
+                                                <p className="font-bold text-ink group-hover:text-brand-blue transition-colors">{speaker.name}</p>
+                                                <p className="text-sm text-ink-muted">{speaker.role} @{speaker.company}</p>
                                             </div>
                                         </Link>
                                     ))}
@@ -110,16 +110,16 @@ export default function TalkDetail({ talk }) {
                             </div>
 
                             {(talk.slide || talk.video) && (
-                                <div className="pt-6 border-t border-gray-200">
-                                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Resources</h3>
+                                <div className="pt-6 border-t-2 border-ink">
+                                    <h3 className="font-display text-sm text-ink uppercase tracking-wider">Resources</h3>
                                     <div className="space-y-3 mt-4">
                                         {talk.video && (
-                                            <a href={talk.video} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-700 hover:text-red-600 transition-colors font-medium">
+                                            <a href={talk.video} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-ink hover:text-brand-magenta transition-colors font-semibold">
                                                 <Youtube className="h-5 w-5"/> Watch on YouTube
                                             </a>
                                         )}
                                         {talk.slide && (
-                                            <a href={talk.slide} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                                            <a href={talk.slide} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-ink hover:text-brand-blue transition-colors font-semibold">
                                                 <FileText className="h-5 w-5"/> Download Slides
                                             </a>
                                         )}
@@ -127,11 +127,11 @@ export default function TalkDetail({ talk }) {
                                 </div>
                             )}
 
-                            <div className="pt-6 border-t border-gray-200">
-                                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Details</h3>
-                                <div className="space-y-3 mt-4 text-gray-700 font-medium">
-                                    <div className="flex items-center gap-3"><Calendar className="h-5 w-5 text-gray-400"/> Edition {talk.year}</div>
-                                    <div className="flex items-center gap-3"><Tag className="h-5 w-5 text-gray-400"/> Level: {talk.level || 'All'}</div>
+                            <div className="pt-6 border-t-2 border-ink">
+                                <h3 className="font-display text-sm text-ink uppercase tracking-wider">Details</h3>
+                                <div className="space-y-3 mt-4 text-ink font-medium">
+                                    <div className="flex items-center gap-3"><Calendar className="h-5 w-5 text-brand-magenta"/> Edition {talk.year}</div>
+                                    <div className="flex items-center gap-3"><Tag className="h-5 w-5 text-brand-magenta"/> Level: {talk.level || 'All'}</div>
                                 </div>
                             </div>
                         </div>

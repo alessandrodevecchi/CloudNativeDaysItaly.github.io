@@ -8,11 +8,11 @@ import Proposal from '@/components/proposal/proposal';
 const Externals = ({data}) => {
     return (
         <div className="flex flex-col md:flex-row gap-4 pb-6">
-            <div className="flex-1 bg-gray-100 p-6 rounded-lg shadow-md">
+            <div className="flex-1 card-pop bg-cream p-6">
                 <Tickets data={data}/>
             </div>
 
-            <div className="flex-1 bg-blue-100 p-6 rounded-lg shadow-md">
+            <div className="flex-1 card-pop bg-brand-yellow-light p-6">
                 <Proposal data={data}/>
             </div>
         </div>

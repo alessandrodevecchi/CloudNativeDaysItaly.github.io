@@ -57,9 +57,10 @@ export default function Navbar({ data, editions = [] }) {
                             <Image src={data.navbar.logo} alt="logo" width={150} height={40} priority />
                         </Link>
 
-                        <nav className="navbar-desktop-links hidden lg:flex items-center gap-8">
+                        {/* Item raggruppati a destra come da wireframe Figma (00-nav) */}
+                        <nav className="navbar-desktop-links hidden lg:flex items-center gap-6 ml-auto mr-6">
                             {navLinks.map((link) => (
-                                <Link key={link.to} href={link.to} target={link.target ? link.target : "_self"} className="text-ink hover:text-brand-blue transition-colors font-semibold">
+                                <Link key={link.to} href={link.to} target={link.target ? link.target : "_self"} className="text-sm font-bold text-ink hover:text-brand-blue transition-colors">
                                     {link.text}
                                 </Link>
                             ))}
@@ -67,7 +68,7 @@ export default function Navbar({ data, editions = [] }) {
                                 <div className="relative" ref={dropdownRef}>
                                     <button
                                         onClick={() => setDropdownOpen(!isDropdownOpen)}
-                                        className="flex items-center gap-1 text-ink hover:text-brand-blue transition-colors font-semibold"
+                                        className="flex items-center gap-1 text-sm font-bold text-ink hover:text-brand-blue transition-colors"
                                     >
                                         Past Editions
                                         <ChevronDown className={clsx("h-4 w-4 transition-transform", isDropdownOpen && "rotate-180")} />
@@ -79,7 +80,7 @@ export default function Navbar({ data, editions = [] }) {
                                         )}
                                     >
                                         {pastEditions.map(year => (
-                                            <Link key={year} href={`/${year}`} onClick={closeAllMenus} className="block px-4 py-2 text-ink hover:bg-brand-yellow-light hover:text-ink">
+                                            <Link key={year} href={`/${year}`} onClick={closeAllMenus} className="block px-4 py-2 text-sm font-semibold text-ink hover:bg-brand-yellow-light hover:text-ink">
                                                 Edition {year}
                                             </Link>
                                         ))}
@@ -89,7 +90,7 @@ export default function Navbar({ data, editions = [] }) {
                         </nav>
 
                         <div className="hidden lg:flex items-center">
-                            <Link href={data.navbar.CTA.url} target={data.navbar.CTA.url.startsWith('http') ? '_blank' : undefined} rel={data.navbar.CTA.url.startsWith('http') ? 'noopener noreferrer' : undefined} className="btn-pop btn-pop-primary group inline-flex items-center justify-center !px-5 !py-2">
+                            <Link href={data.navbar.CTA.url} target={data.navbar.CTA.url.startsWith('http') ? '_blank' : undefined} rel={data.navbar.CTA.url.startsWith('http') ? 'noopener noreferrer' : undefined} className="btn-pop group inline-flex items-center justify-center bg-brand-yellow text-ink !px-4 !py-1.5 text-sm">
                                 {data.navbar.CTA.label}
                                 <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
                             </Link>

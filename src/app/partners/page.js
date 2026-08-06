@@ -25,7 +25,7 @@ const CommunityCard = ({ partner, size = 'lg' }) => {
         rel='noopener noreferrer'
         className='block group'
       >
-        <div className={`flex items-center justify-center bg-white ${card} rounded-2xl border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1`}>
+        <div className={`flex items-center justify-center bg-white ${card} border-pop border-ink transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop`}>
           <img
             src={partner.logo}
             alt={partner.name}
@@ -53,18 +53,18 @@ const CommunityTierSection = ({
     <div className={`mb-16 ${extraTopMargin ? 'mt-20' : ''}`}>
       {label && (
         <div className='text-center mb-2'>
-          <span className='text-sm font-bold text-blue-600 uppercase tracking-wider'>
+          <span className='font-display text-sm text-brand-magenta uppercase tracking-wider'>
             {label}
           </span>
         </div>
       )}
       <h2
-        className={`text-2xl font-bold text-center text-gray-800 border-b pb-4 mb-6 ${uppercase ? 'uppercase' : 'capitalize'}`}
+        className={`text-2xl font-bold text-center text-ink border-b pb-4 mb-6 ${uppercase ? 'uppercase' : 'capitalize'}`}
       >
         {config.title}
       </h2>
       {config.description && (
-        <p className='text-center text-gray-600 mb-8 max-w-2xl mx-auto'>
+        <p className='text-center text-ink-muted mb-8 max-w-2xl mx-auto'>
           {config.description}
         </p>
       )}
@@ -133,29 +133,29 @@ export default async function PartnersPage() {
   const displayOrder = ['community', 'opensource', 'media'];
 
   return (
-    <div className='bg-gray-50'>
-      <div className='container mx-auto max-w-7xl px-4 py-16 lg:py-24'>
+    <div className='bg-white'>
+      <div className='mx-auto max-w-[1200px] px-6 py-16 lg:py-24'>
         <div className='text-center max-w-3xl mx-auto'>
-          <span className='text-sm font-bold text-blue-600 uppercase tracking-wider'>
+          <span className='font-display text-sm text-brand-magenta uppercase tracking-wider'>
             {communityConfig.page.label}
           </span>
-          <h1 className='mt-2 text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tighter'>
+          <h1 className='section-heading mt-2'>
             {communityConfig.page.title}
           </h1>
           {Array.isArray(communityConfig.page.description) ? (
             communityConfig.page.description.map((p, i, arr) =>
               i === arr.length - 1 ? (
-                <p key={i} className='mt-4 text-lg text-gray-600 font-semibold'>
+                <p key={i} className='mt-4 text-lg text-ink-muted font-semibold'>
                   {p}
                 </p>
               ) : (
-                <p key={i} className='mt-4 text-lg text-gray-600'>
+                <p key={i} className='mt-4 text-lg text-ink-muted'>
                   {p}
                 </p>
               ),
             )
           ) : (
-            <p className='mt-4 text-lg text-gray-600'>
+            <p className='mt-4 text-lg text-ink-muted'>
               {communityConfig.page.description}
             </p>
           )}

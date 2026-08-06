@@ -23,19 +23,19 @@ function AlertBanner({ alert }) {
   if (!alert) return null;
 
   return (
-    <div className='max-w-3xl mx-auto mb-12 bg-amber-50 border border-amber-300 rounded-xl p-6'>
+    <div className='max-w-3xl mx-auto mb-12 bg-brand-yellow-light border-pop border-ink p-6'>
       <div className='flex items-center gap-3 mb-3'>
-        <TriangleAlert className='h-5 w-5 text-amber-600 flex-shrink-0' />
-        <h2 className='font-bold text-amber-900 text-lg'>{alert.title}</h2>
+        <TriangleAlert className='h-5 w-5 text-ink flex-shrink-0' />
+        <h2 className='font-bold text-ink text-lg'>{alert.title}</h2>
       </div>
-      <p className='text-amber-800 text-sm mb-4'>{renderRichText(alert.intro)}</p>
+      <p className='text-ink-soft text-sm mb-4'>{renderRichText(alert.intro)}</p>
       {alert.sections.map((section, i) => (
         <div key={i} className='mb-3'>
-          <p className='font-semibold text-amber-900 text-sm mb-1'>{section.label}:</p>
+          <p className='font-semibold text-ink text-sm mb-1'>{section.label}:</p>
           <ul className='space-y-1'>
             {section.items.map((item, j) => (
-              <li key={j} className='text-amber-800 text-sm flex gap-2'>
-                <span className='mt-0.5 text-amber-500'>-</span>
+              <li key={j} className='text-ink-soft text-sm flex gap-2'>
+                <span className='mt-0.5 text-ink'>-</span>
                 <span>{renderRichText(item)}</span>
               </li>
             ))}
@@ -43,7 +43,7 @@ function AlertBanner({ alert }) {
         </div>
       ))}
       {alert.closing && (
-        <p className='mt-4 text-amber-800 text-sm font-medium'>{alert.closing}</p>
+        <p className='mt-4 text-ink-soft text-sm font-medium'>{alert.closing}</p>
       )}
     </div>
   );
@@ -59,7 +59,7 @@ function renderRichText(text) {
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
       return (
-        <strong key={i} className='font-semibold text-gray-800'>
+        <strong key={i} className='font-semibold text-ink'>
           {part.slice(2, -2)}
         </strong>
       );
@@ -72,7 +72,7 @@ function renderRichText(text) {
         <a
           key={i}
           href={url}
-          className='text-blue-600 hover:underline'
+          className='text-brand-blue hover:underline font-semibold'
           {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
         >
           {label}
@@ -87,25 +87,25 @@ function AccordionItem({ title, iconSlot, children }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className='border border-gray-200 rounded-xl overflow-hidden'>
+    <div className='border-pop border-ink overflow-hidden bg-white'>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className='w-full flex items-center justify-between p-5 bg-white hover:bg-gray-50 transition-colors text-left'
+        className='w-full flex items-center justify-between p-5 bg-white hover:bg-brand-yellow-light transition-colors text-left'
       >
         <div className='flex items-center gap-3'>
           {iconSlot && (
-            <div className='flex-shrink-0 h-8 min-w-[2rem] rounded-lg bg-blue-50 flex items-center justify-center gap-1 px-2'>
+            <div className='flex-shrink-0 h-8 min-w-[2rem] border border-ink bg-brand-yellow flex items-center justify-center gap-1 px-2'>
               {iconSlot}
             </div>
           )}
-          <span className='font-semibold text-gray-900'>{title}</span>
+          <span className='font-semibold text-ink'>{title}</span>
         </div>
         <ChevronDown
-          className={`h-5 w-5 text-gray-400 flex-shrink-0 ml-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          className={`h-5 w-5 text-ink-faint flex-shrink-0 ml-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
       {isOpen && (
-        <div className='px-5 pb-5 pt-1 border-t border-gray-100 bg-white'>
+        <div className='px-5 pb-5 pt-1 border-t-2 border-ink bg-white'>
           {children}
         </div>
       )}
@@ -118,15 +118,15 @@ function FaqSection({ data }) {
   return (
     <section>
       {data.eyebrow && (
-        <p className='text-sm font-bold text-blue-600 uppercase tracking-wider mb-2'>
+        <p className='font-display text-sm text-brand-magenta uppercase tracking-wider mb-2'>
           {data.eyebrow}
         </p>
       )}
-      <h2 className='text-2xl font-bold text-gray-900 mb-6'>{data.label}</h2>
+      <h2 className='font-display text-2xl uppercase text-ink mb-6'>{data.label}</h2>
       <div className='space-y-3'>
         {data.items.map((item, i) => (
           <AccordionItem key={i} title={item.question}>
-            <p className='text-gray-600 leading-relaxed pt-3'>
+            <p className='text-ink-muted leading-relaxed pt-3'>
               {item.answer.split('\n\n').map((part, j) => (
                 <span key={j}>
                   {j > 0 && <><br /><br /></>}
@@ -148,10 +148,10 @@ function TransportContent({ section }) {
       <div className='pt-3 space-y-5'>
         {section.routes.map((route, i) => (
           <div key={i}>
-            <h4 className='font-semibold text-gray-800 mb-2'>{route.label}</h4>
+            <h4 className='font-semibold text-ink mb-2'>{route.label}</h4>
             <ol className='list-decimal list-inside space-y-1.5'>
               {route.steps.map((step, j) => (
-                <li key={j} className='text-gray-600 text-sm leading-relaxed'>
+                <li key={j} className='text-ink-muted text-sm leading-relaxed'>
                   {step}
                 </li>
               ))}
@@ -166,7 +166,7 @@ function TransportContent({ section }) {
     return (
       <div className='pt-3 space-y-2'>
         {section.paragraphs.map((p, i) => (
-          <p key={i} className='text-gray-600 text-sm leading-relaxed'>
+          <p key={i} className='text-ink-muted text-sm leading-relaxed'>
             {p}
           </p>
         ))}
@@ -177,36 +177,36 @@ function TransportContent({ section }) {
   if (section.type === 'buses') {
     return (
       <div className='pt-3 space-y-5'>
-        <p className='text-gray-600 text-sm'>{section.intro}</p>
+        <p className='text-ink-muted text-sm'>{section.intro}</p>
         <div className='space-y-3'>
           {section.buses.map((bus, i) => (
-            <div key={i} className='bg-gray-50 rounded-lg p-3'>
-              <span className='font-semibold text-blue-600 text-sm'>
+            <div key={i} className='bg-cream border border-ink p-3'>
+              <span className='font-semibold text-brand-blue text-sm'>
                 {bus.line}
               </span>
-              <p className='text-gray-600 text-sm mt-0.5'>{bus.description}</p>
-              <p className='text-gray-500 text-xs mt-1'>Stop: {bus.stop}</p>
+              <p className='text-ink-muted text-sm mt-0.5'>{bus.description}</p>
+              <p className='text-ink-muted text-xs mt-1'>Stop: {bus.stop}</p>
             </div>
           ))}
         </div>
         <div>
-          <h4 className='font-semibold text-gray-800 mb-2 text-sm'>
+          <h4 className='font-semibold text-ink mb-2 text-sm'>
             Taxi &amp; Uber
           </h4>
           <div className='space-y-1.5'>
             {section.taxis.map((taxi, i) => (
-              <div key={i} className='flex items-center gap-2 text-sm text-gray-600'>
+              <div key={i} className='flex items-center gap-2 text-sm text-ink-muted'>
                 <span className='font-medium'>{taxi.name}</span>
                 {taxi.phone && (
                   <a
                     href={`tel:${taxi.phone.replace(/\s/g, '')}`}
-                    className='text-blue-600 hover:underline'
+                    className='text-brand-blue hover:underline font-semibold'
                   >
                     {taxi.phone}
                   </a>
                 )}
                 {taxi.note && (
-                  <span className='text-gray-400'>— {taxi.note}</span>
+                  <span className='text-ink-faint'>— {taxi.note}</span>
                 )}
               </div>
             ))}
@@ -223,11 +223,11 @@ function HowToGetHereSection({ data }) {
   return (
     <section>
       {data.eyebrow && (
-        <p className='text-sm font-bold text-blue-600 uppercase tracking-wider mb-2'>
+        <p className='font-display text-sm text-brand-magenta uppercase tracking-wider mb-2'>
           {data.eyebrow}
         </p>
       )}
-      <h2 className='text-2xl font-bold text-gray-900 mb-6'>{data.label}</h2>
+      <h2 className='font-display text-2xl uppercase text-ink mb-6'>{data.label}</h2>
       <div className='space-y-3'>
         {data.sections.map((section, i) => {
           const Icon = transportIconMap[section.icon];
@@ -235,7 +235,7 @@ function HowToGetHereSection({ data }) {
             <AccordionItem
               key={i}
               title={section.title}
-              iconSlot={Icon ? <Icon className='h-4 w-4 text-blue-600' /> : null}
+              iconSlot={Icon ? <Icon className='h-4 w-4 text-brand-blue' /> : null}
             >
               <TransportContent section={section} />
             </AccordionItem>
@@ -251,14 +251,14 @@ function HotelCard({ hotel }) {
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hotel.name + ', ' + hotel.address)}`;
 
   return (
-    <div className='py-3 border-b border-gray-100 last:border-0'>
-      <p className='font-semibold text-gray-900 text-sm'>{hotel.name}</p>
+    <div className='py-3 border-b border-ink/20 last:border-0'>
+      <p className='font-semibold text-ink text-sm'>{hotel.name}</p>
       <div className='mt-1.5 flex flex-wrap gap-x-5 gap-y-1'>
         <a
           href={mapsUrl}
           target='_blank'
           rel='noopener noreferrer'
-          className='flex items-center gap-1 text-xs text-gray-500 hover:text-blue-600 transition-colors'
+          className='flex items-center gap-1 text-xs text-ink-muted hover:text-brand-blue transition-colors'
         >
           <MapPin className='h-3.5 w-3.5 flex-shrink-0' />
           <span>{hotel.address}</span>
@@ -266,7 +266,7 @@ function HotelCard({ hotel }) {
         {hotel.phone && (
           <a
             href={`tel:${hotel.phone.replace(/[\s/]/g, '')}`}
-            className='flex items-center gap-1 text-xs text-gray-500 hover:text-blue-600 transition-colors'
+            className='flex items-center gap-1 text-xs text-ink-muted hover:text-brand-blue transition-colors'
           >
             <Phone className='h-3.5 w-3.5 flex-shrink-0' />
             <span>{hotel.phone}</span>
@@ -275,7 +275,7 @@ function HotelCard({ hotel }) {
         {hotel.email && (
           <a
             href={`mailto:${hotel.email}`}
-            className='flex items-center gap-1 text-xs text-gray-500 hover:text-blue-600 transition-colors'
+            className='flex items-center gap-1 text-xs text-ink-muted hover:text-brand-blue transition-colors'
           >
             <Mail className='h-3.5 w-3.5 flex-shrink-0' />
             <span>{hotel.email}</span>
@@ -290,24 +290,24 @@ function WhereToStaySection({ data }) {
   return (
     <section>
       {data.eyebrow && (
-        <p className='text-sm font-bold text-blue-600 uppercase tracking-wider mb-2'>
+        <p className='font-display text-sm text-brand-magenta uppercase tracking-wider mb-2'>
           {data.eyebrow}
         </p>
       )}
-      <h2 className='text-2xl font-bold text-gray-900 mb-6'>{data.label}</h2>
+      <h2 className='font-display text-2xl uppercase text-ink mb-6'>{data.label}</h2>
       <div className='space-y-3'>
         {data.tiers.map((tier, i) => {
           const Icon = hotelIconMap[tier.icon];
           const iconSlot =
             tier.stars > 0 ? (
               <>
-                <span className='text-xs font-bold text-blue-700 leading-none'>
+                <span className='text-xs font-bold text-brand-blue leading-none'>
                   {tier.stars}
                 </span>
-                <Star className='h-3.5 w-3.5 text-blue-600 fill-blue-600' />
+                <Star className='h-3.5 w-3.5 text-brand-blue fill-brand-blue' />
               </>
             ) : Icon ? (
-              <Icon className='h-4 w-4 text-blue-600' />
+              <Icon className='h-4 w-4 text-brand-blue' />
             ) : null;
 
           return (
@@ -330,30 +330,30 @@ function UsefulInfoSection({ data }) {
   return (
     <section>
       {data.eyebrow && (
-        <p className='text-sm font-bold text-blue-600 uppercase tracking-wider mb-2'>
+        <p className='font-display text-sm text-brand-magenta uppercase tracking-wider mb-2'>
           {data.eyebrow}
         </p>
       )}
-      <h2 className='text-2xl font-bold text-gray-900 mb-6'>{data.label}</h2>
+      <h2 className='font-display text-2xl uppercase text-ink mb-6'>{data.label}</h2>
       <div className='space-y-6'>
         {data.cards.map((card, i) => {
           const Icon = infoIconMap[card.icon];
           return (
             <div
               key={i}
-              className='bg-white rounded-xl border border-gray-200 p-6'
+              className='card-pop p-6'
             >
               <div className='flex items-center gap-3 mb-4'>
                 {Icon && (
-                  <div className='w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center flex-shrink-0'>
-                    <Icon className='h-5 w-5 text-blue-600' />
+                  <div className='w-10 h-10 border border-ink bg-brand-yellow flex items-center justify-center flex-shrink-0'>
+                    <Icon className='h-5 w-5 text-brand-blue' />
                   </div>
                 )}
-                <h3 className='font-bold text-gray-900'>{card.title}</h3>
+                <h3 className='font-bold text-ink'>{card.title}</h3>
               </div>
               <div className='space-y-3'>
                 {card.paragraphs.map((p, j) => (
-                  <p key={j} className='text-gray-600 text-sm leading-relaxed'>
+                  <p key={j} className='text-ink-muted text-sm leading-relaxed'>
                     {renderRichText(p)}
                   </p>
                 ))}
@@ -369,20 +369,20 @@ function UsefulInfoSection({ data }) {
 /* ── Page root ───────────────────────────────────────── */
 export default function FaqPage({ data }) {
   return (
-    <div className='bg-gray-50'>
-      <div className='container mx-auto max-w-7xl px-4 py-16 lg:py-24'>
+    <div className='bg-white'>
+      <div className='mx-auto max-w-[1200px] px-6 py-16 lg:py-24'>
         {/* Alert */}
         <AlertBanner alert={data.alert} />
 
         {/* Header */}
         <div className='text-center max-w-3xl mx-auto mb-16'>
-          <span className='text-sm font-bold text-blue-600 uppercase tracking-wider'>
+          <span className='font-display text-sm text-brand-magenta uppercase tracking-wider'>
             {data.page.label}
           </span>
-          <h1 className='mt-2 text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tighter'>
+          <h1 className='section-heading mt-2'>
             {data.page.title}
           </h1>
-          <p className='mt-4 text-lg text-gray-600'>{data.page.description}</p>
+          <p className='mt-4 text-lg text-ink-muted'>{data.page.description}</p>
         </div>
 
         {/* Sections */}

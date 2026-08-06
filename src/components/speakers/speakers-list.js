@@ -15,17 +15,17 @@ import C4P_Card from '@/components/actions/C4P_Card';
 import TicketsCard from '@/components/actions/TicketsCard';
 
 const SpeakerCard = ({ speaker }) => (
-  <div className='group relative text-center bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col'>
+  <div className='card-pop group relative text-center transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop flex flex-col'>
     <div className='p-8 flex-grow flex flex-col items-center'>
       <div className='relative'>
         <img
           src={speaker.image || '/images/team/profile.webp'}
           alt={speaker.name}
-          className='w-32 h-32 rounded-full object-cover mx-auto ring-4 ring-white shadow-lg'
+          className='w-32 h-32 rounded-full object-cover mx-auto border-2 border-ink'
         />
         {speaker.isMC && (
           <div
-            className='absolute -top-1 -right-1 bg-gradient-to-br from-blue-500 to-purple-600 text-white h-10 w-10 flex items-center justify-center rounded-full shadow-md border-2 border-white'
+            className='absolute -top-1 -right-1 bg-brand-magenta text-white h-10 w-10 flex items-center justify-center rounded-full border-2 border-ink'
             title={`Master of Ceremony for ${speaker.mcDay}`}
           >
             <Mic size={20} />
@@ -33,8 +33,8 @@ const SpeakerCard = ({ speaker }) => (
         )}
       </div>
 
-      <h3 className='mt-6 text-xl font-bold text-gray-900'>{speaker.name}</h3>
-      <p className='text-blue-600 font-medium mt-1 text-sm'>{speaker.role}</p>
+      <h3 className='mt-6 text-xl font-bold text-ink'>{speaker.name}</h3>
+      <p className='text-brand-blue font-semibold mt-1 text-sm'>{speaker.role}</p>
 
       <div className='mt-auto pt-6 flex justify-center gap-5'>
         {speaker.linkedin && (
@@ -42,7 +42,7 @@ const SpeakerCard = ({ speaker }) => (
             href={speaker.linkedin}
             target='_blank'
             rel='noopener noreferrer'
-            className='text-gray-400 hover:text-blue-700 transition-colors'
+            className='text-ink-muted hover:text-brand-blue transition-colors'
             aria-label='LinkedIn'
           >
             <Linkedin size={20} />
@@ -53,7 +53,7 @@ const SpeakerCard = ({ speaker }) => (
             href={speaker.github}
             target='_blank'
             rel='noopener noreferrer'
-            className='text-gray-400 hover:text-gray-900 transition-colors'
+            className='text-ink-muted hover:text-ink transition-colors'
             aria-label='GitHub'
           >
             <Github size={20} />
@@ -64,7 +64,7 @@ const SpeakerCard = ({ speaker }) => (
             href={speaker.website}
             target='_blank'
             rel='noopener noreferrer'
-            className='text-gray-400 hover:text-blue-500 transition-colors'
+            className='text-ink-muted hover:text-brand-blue transition-colors'
             aria-label='Website'
           >
             <Globe size={20} />
@@ -72,10 +72,10 @@ const SpeakerCard = ({ speaker }) => (
         )}
       </div>
     </div>
-    <div className='border-t border-gray-100 p-4'>
+    <div className='border-t-2 border-ink p-4'>
       <Link
         href={`/profile/${speaker.id}`}
-        className='block w-full text-center text-sm font-semibold text-blue-600 hover:text-blue-800'
+        className='block w-full text-center text-sm font-bold uppercase text-brand-blue hover:text-brand-magenta'
       >
         View Profile
       </Link>
@@ -86,10 +86,10 @@ const SpeakerCard = ({ speaker }) => (
 const SpeakersComingSoon = () => (
   <div className='mt-16'>
     <div className='text-center max-w-3xl mx-auto'>
-      <h2 className='text-3xl font-bold text-gray-800'>
+      <h2 className='section-heading'>
         Our First Speakers Will Be Announced Soon!
       </h2>
-      <p className='mt-4 text-lg text-gray-600'>
+      <p className='mt-4 text-lg text-ink-muted'>
         The Call for Papers is currently in progress, and we are curating a
         diverse and inspiring lineup from the amazing submissions. Stay tuned as
         we begin to reveal the brilliant minds joining us for this edition.
@@ -112,13 +112,13 @@ export default function SpeakersList({ speakers }) {
   );
 
   return (
-    <div className='bg-gray-50 py-16 lg:py-24'>
-      <div className='container mx-auto max-w-7xl px-4'>
+    <div className='bg-white py-16 lg:py-24'>
+      <div className='mx-auto max-w-[1200px] px-6'>
         <div className='text-center max-w-3xl mx-auto'>
-          <h1 className='text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tighter'>
+          <h1 className='section-heading'>
             Meet the Experts
           </h1>
-          <p className='mt-4 text-lg text-gray-600'>
+          <p className='mt-4 text-lg text-ink-muted'>
             A group of passionate leaders, innovators, and experts from the
             cloud native world, ready to share their knowledge and inspire the
             community.

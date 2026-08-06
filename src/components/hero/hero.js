@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
+import DecorLayer from '@/components/decor/DecorLayer';
 
 const CountdownUnit = ({ value, label }) => (
     <div className="card-pop flex min-w-[80px] flex-col items-center px-4 py-2">
@@ -47,7 +48,14 @@ const Hero = ({ data }) => {
 
     return (
         <section className="relative overflow-hidden bg-white">
-            <div className="mx-auto max-w-[1200px] px-6 py-16 text-center lg:py-20">
+            <DecorLayer
+                items={[
+                    { pattern: 'rings', position: 'top-right', size: 'md' },
+                    { pattern: 'rings', position: 'bottom-left', size: 'sm' },
+                    { pattern: 'halftone', position: 'top-left', size: 'lg', className: 'opacity-40' },
+                ]}
+            />
+            <div className="relative z-10 mx-auto max-w-[1200px] px-6 py-16 text-center lg:py-20">
                 <span className="stamp">Save the date</span>
 
                 <h1 className="mt-6 font-display text-display uppercase text-brand-blue">

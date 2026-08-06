@@ -15,10 +15,10 @@ const PersonCard = ({ person, link }) => (
 
           {person.level && (
             <div
-              className={`absolute top-2 left-2 rounded-full px-3 py-1 text-xs font-semibold uppercase shadow-md ${
+              className={`absolute top-2 left-2 border border-ink px-3 py-1 text-xs font-bold uppercase ${
                 person.level === 'core'
-                  ? 'bg-red-600 text-white'
-                  : 'bg-blue-400 text-black'
+                  ? 'bg-brand-magenta text-white'
+                  : 'bg-brand-yellow text-ink'
               }`}
             >
               {person.level === 'core' ? 'Core Organizer' : 'Organizer'}

@@ -1,12 +1,14 @@
 import C4P_Card from './C4P_Card';
 import TicketsCard from './TicketsCard';
+import DecorLayer from '@/components/decor/DecorLayer';
 
 export default function ActionsSection({ data }) {
     if (!data) return null;
 
     return (
-        <section className="bg-brand-blue py-16 lg:py-24" id={"tickets"}>
-            <div className="mx-auto max-w-[1200px] px-6">
+        <section className="relative overflow-hidden bg-brand-blue py-16 lg:py-24" id={"tickets"}>
+            <DecorLayer items={[{ pattern: 'rings', position: 'top-right', size: 'md' }]} />
+            <div className="relative z-10 mx-auto max-w-[1200px] px-6">
                 <h2 className="font-display text-section uppercase text-white">
                     You could be on this stage
                 </h2>

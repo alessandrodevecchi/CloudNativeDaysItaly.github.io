@@ -1,42 +1,29 @@
+/* Card persona — stile pop, vedi docs/design-system.md */
+
 .person-card-link {
     display: block;
     text-decoration: none;
-    perspective: 1000px;
     height: 100%;
 }
 
 .person-card {
     position: relative;
-    border-radius: 1rem;
-    overflow: hidden;
-    transition: transform 0.5s ease, box-shadow 0.5s ease;
-    transform-style: preserve-3d;
+    border: 2px solid #111111;
     background: #ffffff;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: box-shadow 0.1s ease, transform 0.1s ease;
     display: flex;
     flex-direction: column;
     height: 100%;
 }
 
 .person-card-link:hover .person-card {
-    transform: rotateY(5deg) rotateX(5deg) scale(1.05);
-    box-shadow: 0 20px 25px -10px rgba(0, 0, 0, 0.2);
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 0 #111111;
 }
 
 .person-card-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #f9fafb, #f3f4f6);
-    clip-path: circle(120px at 90% 25%);
-    transition: clip-path 0.5s ease-in-out, background 0.5s ease-in-out;
-}
-
-.person-card-link:hover .person-card-background {
-    clip-path: circle(400px at 80% -20%);
-    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    display: none;
 }
 
 .person-card-content {
@@ -60,45 +47,31 @@
     border-radius: 9999px;
     margin: 0 auto;
     object-fit: cover;
-    border: 4px solid white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #111111;
     filter: grayscale(100%);
-    transition: filter 0.5s ease;
+    transition: filter 0.3s ease;
 }
 
 .person-card-link:hover .person-card-image {
     filter: grayscale(0%);
 }
 
-.person-card-info {
-    transition: color 0.5s ease;
-}
-
 .person-card-name {
     font-size: 1.25rem; /* text-xl */
     font-weight: 700;
-    color: #1f2937; /* gray-800 */
-    transition: color 0.5s ease;
+    color: #111111;
 }
 
 .person-card-role {
     font-size: 0.875rem; /* text-sm */
-    color: #6b7280; /* gray-500 */
-    transition: color 0.5s ease;
+    color: #555555;
     min-height: 20px;
 }
 
 .person-card-community-role {
     font-size: 0.8rem;
-    font-weight: 500;
-    color: #4b5563; /* gray-600 */
+    font-weight: 600;
+    color: #3069DE;
     margin-top: 0.25rem;
     min-height: 18px;
-    transition: color 0.5s ease;
-}
-
-.person-card-link:hover .person-card-name,
-.person-card-link:hover .person-card-role,
-.person-card-link:hover .person-card-community-role {
-    color: #ffffff;
 }

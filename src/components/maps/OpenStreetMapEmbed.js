@@ -12,7 +12,7 @@ export default function OpenStreetMapEmbed({
 
   return (
     <div className={rootClassName}>
-      <div className="rounded-xl overflow-hidden border-2 border-white/10 shadow-lg">
+      <div className="overflow-hidden border-pop border-white">
         <div className="h-64 w-full bg-black/30">
           <iframe
             className="w-full h-full"
@@ -32,7 +32,7 @@ export default function OpenStreetMapEmbed({
               href="https://www.openstreetmap.org/copyright"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/60 hover:text-blue-300 underline underline-offset-2 decoration-white/25 hover:decoration-blue-300/70 transition-colors"
+              className="text-white/60 hover:text-brand-yellow underline underline-offset-2 decoration-white/25 hover:decoration-brand-yellow/70 transition-colors"
             >
               © OpenStreetMap contributors
             </a>
@@ -45,7 +45,7 @@ export default function OpenStreetMapEmbed({
             href={mapDirectionsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 text-lg font-semibold text-blue-400 hover:text-white transition-colors"
+            className="group inline-flex items-center gap-2 text-lg font-bold text-brand-yellow hover:text-white transition-colors"
           >
             Get Directions{' '}
             <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />

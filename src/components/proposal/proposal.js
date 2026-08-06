@@ -48,20 +48,20 @@ const Proposal = ({data}) => {
                         <div className="space-y-4">
                             <div className="flex justify-between text-sm">
                                 <div>
-                                    <div className="text-gray-500">Opens</div>
+                                    <div className="text-ink-muted">Opens</div>
                                     <div className="font-medium">{textualOpenDate}</div>
                                 </div>
                                 <div className="text-right">
-                                    <div className="text-gray-500">Closes</div>
+                                    <div className="text-ink-muted">Closes</div>
                                     <div className="font-medium">{textualCloseDate}</div>
                                 </div>
                             </div>
 
                             <div className="h-2 w-full rounded-full bg-gray-200">
-                                <div className="h-2 rounded-full bg-blue-500" style={{width: `${progress}%`}}/>
+                                <div className="h-2 rounded-full bg-brand-magenta" style={{width: `${progress}%`}}/>
                             </div>
 
-                            <div className="flex items-center text-xs text-gray-500">
+                            <div className="flex items-center text-xs text-ink-muted">
                                 <Clock className="mr-1 h-3 w-3"/>
                                 W. Europe Daylight Time (UTC+02:00)
                             </div>
@@ -73,7 +73,7 @@ const Proposal = ({data}) => {
 
                 </div>
                 <div className="flex flex-col items-stretch gap-4 px-6 pb-6">
-                    <p className="text-center text-sm text-gray-500">
+                    <p className="text-center text-sm text-ink-muted">
                         {data.proposal.CTA}
                     </p>
                     <div className="flex flex-col items-center">

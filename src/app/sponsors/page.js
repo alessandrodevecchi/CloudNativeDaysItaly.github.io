@@ -32,7 +32,7 @@ const SponsorCard = ({ sponsor, size = 'lg' }) => {
         className='block group'
       >
         <div
-          className={`flex items-center justify-center bg-white ${card} rounded-2xl border border-gray-200 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1`}
+          className={`flex items-center justify-center bg-white ${card} border-pop border-ink transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop`}
         >
           <img
             src={sponsor.logo}
@@ -53,7 +53,7 @@ const SponsorTierSection = ({ tier, sponsors }) => {
 
   return (
     <div className='mb-16'>
-      <h2 className='text-2xl font-bold text-center text-gray-800 capitalize border-b pb-4 mb-8'>
+      <h2 className='font-display text-2xl uppercase text-center text-ink border-b-2 border-ink pb-4 mb-8'>
         {tierConfig?.title || tier}
       </h2>
       <div className='flex flex-wrap justify-center items-center -m-4'>
@@ -131,16 +131,16 @@ export default async function SponsorsPage() {
   ];
 
   return (
-    <div className='bg-gray-50'>
-      <div className='container mx-auto max-w-7xl px-4 py-16 lg:py-24'>
+    <div className='bg-white'>
+      <div className='mx-auto max-w-[1200px] px-6 py-16 lg:py-24'>
         <div className='text-center max-w-3xl mx-auto'>
-          <span className='text-sm font-bold text-blue-600 uppercase tracking-wider'>
+          <span className='font-display text-sm text-brand-magenta uppercase tracking-wider'>
             Our Partners
           </span>
-          <h1 className='mt-2 text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tighter'>
+          <h1 className='section-heading mt-2'>
             Thank You to Our Sponsors
           </h1>
-          <p className='mt-4 text-lg text-gray-600'>
+          <p className='mt-4 text-lg text-ink-muted'>
             {config.sponsors.active.description}
           </p>
           <div className='mt-8'>
@@ -149,7 +149,7 @@ export default async function SponsorsPage() {
                 href={config.sponsors.prospectus.url}
                 target='_blank'
                 rel='noopener noreferrer'
-                className='group inline-flex items-center justify-center text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105'
+                className='btn-pop btn-pop-primary group inline-flex items-center justify-center'
               >
                 Become a Sponsor{' '}
                 <ArrowRight className='h-5 w-5 ml-2 transition-transform group-hover:translate-x-1' />
@@ -157,7 +157,7 @@ export default async function SponsorsPage() {
             ) : (
               <a
                 href={`mailto:${config.sponsors.contactEmail}`}
-                className='group inline-flex items-center justify-center text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105'
+                className='btn-pop btn-pop-primary group inline-flex items-center justify-center'
               >
                 Contact Us{' '}
                 <ArrowRight className='h-5 w-5 ml-2 transition-transform group-hover:translate-x-1' />
@@ -178,19 +178,19 @@ export default async function SponsorsPage() {
 
         <div
           id='become-a-sponsor'
-          className='mt-16 bg-white p-8 lg:p-12 rounded-2xl shadow-lg border border-gray-200'
+          className='card-pop mt-16 p-8 lg:p-12'
         >
           <div className='text-center'>
-            <h2 className='text-3xl font-bold text-gray-800'>
+            <h2 className='section-heading'>
               {config.sponsors.become.title}
             </h2>
-            <p className='mt-4 text-gray-600 max-w-2xl mx-auto'>
+            <p className='mt-4 text-ink-muted max-w-2xl mx-auto'>
               {config.sponsors.become.description}
             </p>
             <div className='mt-8 flex flex-col sm:flex-row items-center justify-center gap-4'>
               <a
                 href={`mailto:${config.sponsors.contactEmail}`}
-                className='group inline-flex items-center justify-center text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105'
+                className='btn-pop btn-pop-primary group inline-flex items-center justify-center'
               >
                 Contact Us
               </a>
@@ -200,7 +200,7 @@ export default async function SponsorsPage() {
                     href={config.sponsors.prospectus.url}
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='group inline-flex items-center justify-center text-center bg-gray-800 hover:bg-black text-white font-semibold px-6 py-3 rounded-lg transition-all duration-300 transform hover:scale-105'
+                    className='btn-pop btn-pop-dark group inline-flex items-center justify-center'
                   >
                     {config.sponsors.prospectus.label}
                   </a>
@@ -209,7 +209,7 @@ export default async function SponsorsPage() {
                 href={config.sponsors.transparency.url}
                 target='_blank'
                 rel='noopener noreferrer'
-                className='button bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600'
+                className='btn-pop btn-pop-secondary'
               >
                 {config.sponsors.transparency.label}
               </a>
