@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import DecorLayer from '@/components/decor/DecorLayer';
 import config from '@/config/website.json';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
@@ -53,7 +54,7 @@ const SponsorTierSection = ({ tier, sponsors }) => {
 
   return (
     <div className='mb-16'>
-      <h2 className='font-display text-2xl uppercase text-center text-ink border-b-2 border-ink pb-4 mb-8'>
+      <h2 className='font-display text-2xl uppercase text-ink border-b-2 border-ink pb-4 mb-8'>
         {tierConfig?.title || tier}
       </h2>
       <div className='flex flex-wrap justify-center items-center -m-4'>
@@ -131,9 +132,15 @@ export default async function SponsorsPage() {
   ];
 
   return (
-    <div className='bg-white'>
-      <div className='mx-auto max-w-[1200px] px-6 py-16 lg:py-24'>
-        <div className='text-center max-w-3xl mx-auto'>
+    <div className='relative overflow-hidden bg-white'>
+      <DecorLayer
+        items={[
+          { pattern: 'cluster-c', position: 'top-right', size: 'lg' },
+          { pattern: 'halftone', position: 'top-left', size: 'lg', className: 'opacity-25' },
+        ]}
+      />
+      <div className='relative z-10 mx-auto max-w-[1200px] px-6 py-16 lg:py-24'>
+        <div className='max-w-3xl'>
           <span className='font-display text-sm text-brand-magenta uppercase tracking-wider'>
             Our Partners
           </span>
@@ -178,16 +185,16 @@ export default async function SponsorsPage() {
 
         <div
           id='become-a-sponsor'
-          className='card-pop mt-16 p-8 lg:p-12'
+          className='card-pop mt-16 bg-brand-yellow p-8 shadow-pop-lg lg:p-12'
         >
-          <div className='text-center'>
+          <div>
             <h2 className='section-heading'>
               {config.sponsors.become.title}
             </h2>
-            <p className='mt-4 text-ink-muted max-w-2xl mx-auto'>
+            <p className='mt-4 text-ink-soft max-w-2xl'>
               {config.sponsors.become.description}
             </p>
-            <div className='mt-8 flex flex-col sm:flex-row items-center justify-center gap-4'>
+            <div className='mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center'>
               <a
                 href={`mailto:${config.sponsors.contactEmail}`}
                 className='btn-pop btn-pop-primary group inline-flex items-center justify-center'

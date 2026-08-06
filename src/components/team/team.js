@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight, Award, Linkedin, Github, Globe } from "lucide-react";
 import config from '@/config/website.json';
+import DecorLayer from '@/components/decor/DecorLayer';
 
 const PersonCard = ({ person }) => (
     <div className="group relative">
@@ -42,11 +43,11 @@ export default function TeamList({team}) {
     return (
         <div className="bg-white">
             <div className="relative bg-ink">
-                <div className="mx-auto max-w-[1200px] px-6 py-16 lg:py-20 text-center relative z-10">
+                <div className="mx-auto max-w-[1200px] px-6 py-16 lg:py-20 relative z-10">
                     <h1 className="font-display text-section uppercase text-white">
                         The Driving Force
                     </h1>
-                    <p className="mt-6 text-lg lg:text-xl text-white/80 max-w-3xl mx-auto">
+                    <p className="mt-6 text-lg lg:text-xl text-white/80 max-w-3xl">
                         Cloud Native Days Italy is organized by a passionate group of volunteers from the Italian tech community, dedicated to creating an inclusive and valuable experience for everyone.
                     </p>
                 </div>
@@ -65,7 +66,7 @@ export default function TeamList({team}) {
             <div className="bg-cream border-t-2 border-ink">
                 <div className="container mx-auto max-w-4xl px-4 py-16 text-center">
                     <h2 className="section-heading">Want to join the team?</h2>
-                    <p className="mt-4 text-lg text-ink-muted">
+                    <p className="mt-4 max-w-2xl text-lg text-ink-muted">
                         We are always looking for passionate people to help us shape the future of this event. If you want to contribute to the community, this is a great opportunity.
                     </p>
                     <div className="mt-8">

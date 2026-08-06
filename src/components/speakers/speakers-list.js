@@ -13,6 +13,7 @@ import {
 import config from '@/config/website.json';
 import C4P_Card from '@/components/actions/C4P_Card';
 import TicketsCard from '@/components/actions/TicketsCard';
+import DecorLayer from '@/components/decor/DecorLayer';
 
 const SpeakerCard = ({ speaker }) => (
   <div className='card-pop group relative text-center transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop flex flex-col'>
@@ -85,7 +86,7 @@ const SpeakerCard = ({ speaker }) => (
 
 const SpeakersComingSoon = () => (
   <div className='mt-16'>
-    <div className='text-center max-w-3xl mx-auto'>
+    <div className='card-pop max-w-3xl bg-brand-yellow-light p-8'>
       <h2 className='section-heading'>
         Our First Speakers Will Be Announced Soon!
       </h2>
@@ -95,7 +96,7 @@ const SpeakersComingSoon = () => (
         we begin to reveal the brilliant minds joining us for this edition.
       </p>
     </div>
-    <div className='mt-12 container mx-auto max-w-7xl'>
+    <div className='mt-12'>
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12'>
         <C4P_Card data={config.proposal} />
         <TicketsCard data={config.tickets} />
@@ -112,9 +113,15 @@ export default function SpeakersList({ speakers }) {
   );
 
   return (
-    <div className='bg-white py-16 lg:py-24'>
-      <div className='mx-auto max-w-[1200px] px-6'>
-        <div className='text-center max-w-3xl mx-auto'>
+    <div className='relative overflow-hidden bg-white py-16 lg:py-24'>
+      <DecorLayer
+        items={[
+          { pattern: 'cluster-dot', position: 'top-right', size: 'md' },
+          { pattern: 'halftone', position: 'top-left', size: 'lg', className: 'opacity-25' },
+        ]}
+      />
+      <div className='relative z-10 mx-auto max-w-[1200px] px-6'>
+        <div className='max-w-3xl'>
           <h1 className='section-heading'>
             Meet the Experts
           </h1>

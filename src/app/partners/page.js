@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import DecorLayer from '@/components/decor/DecorLayer';
 import communityConfig from '@/config/community.json';
 import generalConfig from '@/config/website.json';
 
@@ -52,23 +53,23 @@ const CommunityTierSection = ({
   return (
     <div className={`mb-16 ${extraTopMargin ? 'mt-20' : ''}`}>
       {label && (
-        <div className='text-center mb-2'>
+        <div className='mb-2'>
           <span className='font-display text-sm text-brand-magenta uppercase tracking-wider'>
             {label}
           </span>
         </div>
       )}
       <h2
-        className={`text-2xl font-bold text-center text-ink border-b pb-4 mb-6 ${uppercase ? 'uppercase' : 'capitalize'}`}
+        className={`font-display text-2xl text-ink border-b-2 border-ink pb-4 mb-6 ${uppercase ? 'uppercase' : 'capitalize'}`}
       >
         {config.title}
       </h2>
       {config.description && (
-        <p className='text-center text-ink-muted mb-8 max-w-2xl mx-auto'>
+        <p className='text-ink-muted mb-8 max-w-2xl'>
           {config.description}
         </p>
       )}
-      <div className='flex flex-wrap justify-center items-center -m-3'>
+      <div className='flex flex-wrap items-center -m-3'>
         {partners.map((partner, index) => (
           <CommunityCard key={`${tier}-${index}`} partner={partner} size={size} />
         ))}
@@ -133,9 +134,15 @@ export default async function PartnersPage() {
   const displayOrder = ['community', 'opensource', 'media'];
 
   return (
-    <div className='bg-white'>
-      <div className='mx-auto max-w-[1200px] px-6 py-16 lg:py-24'>
-        <div className='text-center max-w-3xl mx-auto'>
+    <div className='relative overflow-hidden bg-white'>
+      <DecorLayer
+        items={[
+          { pattern: 'cluster-dot', position: 'top-right', size: 'md' },
+          { pattern: 'halftone', position: 'bottom-right', size: 'lg', className: 'opacity-25' },
+        ]}
+      />
+      <div className='relative z-10 mx-auto max-w-[1200px] px-6 py-16 lg:py-24'>
+        <div className='max-w-3xl'>
           <span className='font-display text-sm text-brand-magenta uppercase tracking-wider'>
             {communityConfig.page.label}
           </span>

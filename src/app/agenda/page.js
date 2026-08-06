@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import DecorLayer from '@/components/decor/DecorLayer';
 import config from "@/config/website.json";
 import AgendaView from "@/components/agenda/agenda-view";
 import { CalendarClock, ArrowLeft, FileText, Lightbulb, CheckCircle, Clock, Mic, Users, Wrench, ArrowRight } from 'lucide-react';
@@ -94,9 +95,15 @@ const ComingSoonAgenda = ({ proposalConfig, infoConfig, pastTalks }) => {
     if (isAfter(now, startDate) && isBefore(now, endDate)) c4pStatus = 'open';
 
     return (
-        <div className="bg-white">
-            <div className="mx-auto max-w-[1200px] px-6 py-16 lg:py-24">
-                <div className="text-center max-w-3xl mx-auto">
+        <div className="relative overflow-hidden bg-white">
+            <DecorLayer
+                items={[
+                    { pattern: 'cluster-a', position: 'top-right', size: 'lg' },
+                    { pattern: 'halftone', position: 'bottom-left', size: 'lg', className: 'opacity-25' },
+                ]}
+            />
+            <div className="relative z-10 mx-auto max-w-[1200px] px-6 py-16 lg:py-24">
+                <div className="max-w-3xl">
                     <div className="inline-flex items-center justify-center h-16 w-16 bg-brand-yellow border-pop border-ink rounded-full mb-6">
                         <CalendarClock size={32} />
                     </div>
@@ -108,17 +115,17 @@ const ComingSoonAgenda = ({ proposalConfig, infoConfig, pastTalks }) => {
                     </p>
                 </div>
 
-                <div className="mt-16 max-w-4xl mx-auto">
-                    <div className="card-pop p-8">
-                        <div className="text-center">
+                <div className="mt-16 max-w-4xl">
+                    <div className="card-pop bg-brand-yellow-light p-8 shadow-pop-lg">
+                        <div>
                             {c4pStatus === 'open' && <span className="inline-flex items-center gap-2 text-sm font-bold px-4 py-1.5 border border-ink bg-brand-yellow text-ink uppercase"><Lightbulb className="h-4 w-4" /> Call for Papers is Open!</span>}
                             {c4pStatus === 'closed' && <span className="inline-flex items-center gap-2 text-sm font-bold px-4 py-1.5 border border-ink bg-gray-200 text-ink-muted uppercase"><CheckCircle className="h-4 w-4" /> Submissions are Closed</span>}
                             {c4pStatus === 'comingsoon' && <span className="inline-flex items-center gap-2 text-sm font-bold px-4 py-1.5 border border-ink bg-white text-brand-blue uppercase"><Clock className="h-4 w-4" /> C4P Opens Soon</span>}
 
                             <h2 className="section-heading mt-4">Become a Speaker</h2>
-                            <p className="mt-3 text-ink-muted max-w-2xl mx-auto">{proposalConfig.rollingSelectionText}</p>
+                            <p className="mt-3 text-ink-soft max-w-2xl">{proposalConfig.rollingSelectionText}</p>
                         </div>
-                        <div className="mt-6 flex flex-col sm:flex-row justify-between items-center text-center gap-4 bg-cream border border-ink p-4">
+                        <div className="mt-6 flex flex-col sm:flex-row justify-between gap-4 bg-white border border-ink p-4">
                             <p className="font-semibold text-ink-soft">Opens: <span className="font-normal text-ink-muted">{format(startDate, 'MMM d, yyyy')}</span></p>
                             <p className="font-semibold text-ink-soft">Closes: <span className="font-normal text-ink-muted">{format(endDate, 'MMM d, yyyy')}</span></p>
                         </div>
@@ -132,9 +139,9 @@ const ComingSoonAgenda = ({ proposalConfig, infoConfig, pastTalks }) => {
                     </div>
                 </div>
 
-                <div className="mt-16 text-center">
+                <div className="mt-16">
                     <h2 className="section-heading">{infoConfig.extra.title}</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 max-w-5xl mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 max-w-5xl">
                         <div className="card-pop p-6"><h3 className="font-bold text-lg flex items-center gap-2"><Mic size={20} className="text-brand-blue" /> {infoConfig.extra.boxes.talks.title}</h3><p className="text-ink-muted text-sm mt-2">{infoConfig.extra.boxes.talks.description}</p></div>
                         <div className="card-pop p-6"><h3 className="font-bold text-lg flex items-center gap-2"><Users size={20} className="text-brand-blue" /> {infoConfig.extra.boxes.networking.title}</h3><p className="text-ink-muted text-sm mt-2">{infoConfig.extra.boxes.networking.description}</p></div>
                         <div className="card-pop p-6"><h3 className="font-bold text-lg flex items-center gap-2"><Wrench size={20} className="text-brand-blue" /> {infoConfig.extra.boxes.workshop.title}</h3><p className="text-ink-muted text-sm mt-2">{infoConfig.extra.boxes.workshop.description}</p></div>
@@ -142,10 +149,10 @@ const ComingSoonAgenda = ({ proposalConfig, infoConfig, pastTalks }) => {
                 </div>
 
                 {pastTalks.length > 0 && (
-                    <div className="mt-16 text-center">
+                    <div className="mt-16">
                         <h2 className="section-heading">From the Archives</h2>
                         <p className="mt-3 text-lg text-ink-muted">Curious about our sessions? Here's a taste from our past editions.</p>
-                        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl">
                             {pastTalks.map(talk => (
                                 <Link key={talk.id} href={`/talk/${talk.id}`} className="card-pop block p-4 transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop text-left">
                                     <div className="flex items-center gap-2">

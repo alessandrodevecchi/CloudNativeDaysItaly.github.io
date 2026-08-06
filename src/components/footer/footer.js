@@ -40,7 +40,13 @@ export default function Footer({ data, editions = [] }) {
   const navLinks = data.navbar.links.header;
 
   return (
-    <footer className='bg-ink text-white border-t-2 border-ink'>
+    <footer className='bg-ink text-white'>
+      {/* Separatore tricolore brand — stacca il footer dalla sezione precedente */}
+      <div aria-hidden='true' className='flex h-1.5'>
+        <div className='flex-1 bg-brand-blue' />
+        <div className='flex-1 bg-brand-magenta' />
+        <div className='flex-1 bg-brand-yellow' />
+      </div>
       <div className='mx-auto max-w-[1200px] px-6'>
         <div className='py-16'>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12'>

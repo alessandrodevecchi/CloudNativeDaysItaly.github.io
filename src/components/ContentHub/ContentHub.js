@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Search, Mic, ArrowRight, ArrowLeft } from 'lucide-react';
+import DecorLayer from '@/components/decor/DecorLayer';
 
 const TalkCard = ({ talk }) => {
   const defaultImage = '/images/placeholder.png';
@@ -146,15 +147,21 @@ export default function ContentHub({
   const showViewAllButton = limit && talks.length > limit;
 
   return (
-    <section className='bg-white min-h-[60vh] py-16 lg:py-24'>
-      <div className='mx-auto max-w-[1200px] px-6'>
-        <div className='text-center max-w-3xl mx-auto mb-12'>
+    <section className='relative overflow-hidden bg-white min-h-[60vh] py-16 lg:py-24'>
+      <DecorLayer
+        items={[
+          { pattern: 'cluster-dot', position: 'top-right', size: 'md' },
+          { pattern: 'halftone', position: 'bottom-left', size: 'lg', className: 'opacity-25' },
+        ]}
+      />
+      <div className='relative z-10 mx-auto max-w-[1200px] px-6'>
+        <div className='max-w-3xl mb-12'>
           <h1 className='section-heading'>
             {title}
           </h1>
           <p className='mt-4 text-lg text-ink-muted'>{description}</p>
           {!limit && (
-            <div className='relative mt-8 max-w-lg mx-auto'>
+            <div className='relative mt-8 max-w-lg'>
               <input
                 type='text'
                 placeholder='Search sessions, speakers, tags...'
@@ -174,7 +181,7 @@ export default function ContentHub({
         </div>
 
         {!limit && filteredTalks.length === 0 && (
-          <div className='text-center mt-16'>
+          <div className='mt-16'>
             <h3 className='font-display text-2xl uppercase text-ink'>
               No results found
             </h3>
@@ -185,7 +192,7 @@ export default function ContentHub({
         )}
 
         {showViewAllButton && (
-          <div className='text-center mt-12'>
+          <div className='mt-12'>
             <Link
               href={hubLink}
               className='btn-pop btn-pop-primary inline-flex items-center gap-2'

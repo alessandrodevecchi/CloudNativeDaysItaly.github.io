@@ -17,6 +17,7 @@ import {
   Coffee,
   TriangleAlert,
 } from 'lucide-react';
+import DecorLayer from '@/components/decor/DecorLayer';
 
 /* ── Alert Banner ────────────────────────────────────── */
 function AlertBanner({ alert }) {
@@ -369,13 +370,19 @@ function UsefulInfoSection({ data }) {
 /* ── Page root ───────────────────────────────────────── */
 export default function FaqPage({ data }) {
   return (
-    <div className='bg-white'>
-      <div className='mx-auto max-w-[1200px] px-6 py-16 lg:py-24'>
+    <div className='relative overflow-hidden bg-white'>
+      <DecorLayer
+        items={[
+          { pattern: 'cluster-dot', position: 'top-right', size: 'md' },
+          { pattern: 'halftone', position: 'top-left', size: 'lg', className: 'opacity-25' },
+        ]}
+      />
+      <div className='relative z-10 mx-auto max-w-[1200px] px-6 py-16 lg:py-24'>
         {/* Alert */}
         <AlertBanner alert={data.alert} />
 
         {/* Header */}
-        <div className='text-center max-w-3xl mx-auto mb-16'>
+        <div className='max-w-3xl mb-16'>
           <span className='font-display text-sm text-brand-magenta uppercase tracking-wider'>
             {data.page.label}
           </span>

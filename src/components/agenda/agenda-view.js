@@ -6,6 +6,7 @@ import { enUS } from 'date-fns/locale';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { Clock, MapPin, Coffee, Utensils, Mic, Users, Wrench } from 'lucide-react';
+import DecorLayer from '@/components/decor/DecorLayer';
 
 const PlaceholderCard = () => (
     <div className="min-h-[150px] border-2 border-dashed border-ink/20 h-full" />
@@ -76,16 +77,17 @@ export default function AgendaView({ agenda }) {
     const gridClass = getGridColsClass(numDayTracks);
 
     return (
-        <div className="bg-white">
-            <div className="mx-auto max-w-[1200px] px-6 py-16 lg:py-24">
-                <div className="text-center max-w-3xl mx-auto">
+        <div className="relative overflow-hidden bg-white">
+            <DecorLayer items={[{ pattern: 'cluster-dot', position: 'top-right', size: 'md' }]} />
+            <div className="relative z-10 mx-auto max-w-[1200px] px-6 py-16 lg:py-24">
+                <div className="max-w-3xl">
                     <h1 className="section-heading">Agenda</h1>
                     <p className="mt-4 text-lg text-ink-muted">
                         Explore our schedule of talks, workshops, and networking opportunities. Select a day to view the detailed timeline.
                     </p>
                 </div>
 
-                <div className="mt-12 flex justify-center gap-2 sm:gap-4 bg-white p-2 max-w-md mx-auto sticky top-20 z-20">
+                <div className="mt-12 flex gap-2 sm:gap-4 bg-white py-2 max-w-md sticky top-20 z-20">
                     {agenda.days.map(day => (
                         <button key={day.id} onClick={() => setSelectedDayId(day.id)} className={clsx("w-full text-center px-4 py-2.5 border-pop border-ink font-bold uppercase transition-colors duration-100", selectedDayId === day.id ? 'bg-brand-yellow text-ink shadow-pop-sm' : 'bg-white text-ink-muted hover:bg-brand-yellow-light')}>
                             <span className="block text-base">{day.name}</span>

@@ -23,15 +23,15 @@ const Sponsors = ({
   return (
     <div id='sponsors'>
       {isCurrent && sectionsContent.become && (
-        <section className='mx-auto max-w-[1200px] px-6 py-8'>
-          <div className='text-center mb-8'>
+        <section className='border-t-2 border-ink bg-cream'>
+          <div className='mx-auto max-w-[1200px] px-6 py-16'>
             <h2 className='section-heading mb-4'>
               {sectionsContent.become.title}
             </h2>
-            <p className='mb-6 text-lg text-ink-muted'>
+            <p className='mb-6 max-w-2xl text-lg text-ink-muted'>
               {sectionsContent.become.description}
             </p>
-            <div className='flex flex-col sm:flex-row items-center justify-center gap-4'>
+            <div className='flex flex-col items-start gap-4 sm:flex-row sm:items-center'>
               <Link
                 type='button'
                 className='btn-pop btn-pop-primary'
@@ -64,21 +64,20 @@ const Sponsors = ({
         </section>
       )}
 
-      <section className='mx-auto max-w-[1200px] px-6 py-8'>
-        <div className='text-center'>
-          <h2 className='section-heading mb-8 text-center'>
+      <section className='border-t-2 border-ink bg-white'>
+        <div className='mx-auto max-w-[1200px] px-6 py-16'>
+        <div>
+          <h2 className='section-heading mb-8'>
             {sectionsContent.active.title}
           </h2>
           {hasActiveSponsors ? (
-            <p className='mb-6 text-lg text-ink-muted'>
+            <p className='mb-6 max-w-2xl text-lg text-ink-muted'>
               {sectionsContent.active.description}
             </p>
           ) : (
-            <div className='text-center'>
-              <p className='text-lg text-ink-muted'>
-                The announcement of sponsors is coming soon! ...
-              </p>
-            </div>
+            <p className='text-lg text-ink-muted'>
+              The announcement of sponsors is coming soon! ...
+            </p>
           )}
         </div>
 
@@ -90,7 +89,7 @@ const Sponsors = ({
 
           return (
             <div key={tier} className='mb-12'>
-              <div className='mb-6 flex items-center justify-center gap-2'>
+              <div className='mb-6 flex items-center gap-2'>
                 <h3 className='font-display text-stamp uppercase text-ink'>
                   {config.title}
                 </h3>
@@ -103,7 +102,7 @@ const Sponsors = ({
                   {tierSponsors.length}
                 </span>
               </div>
-              <div className='flex flex-wrap justify-center gap-4'>
+              <div className='flex flex-wrap gap-4'>
                 {tierSponsors
                   .sort((a, b) => a.name.localeCompare(b.name))
                   .map((sponsor, index) => (
@@ -138,6 +137,7 @@ const Sponsors = ({
             </div>
           );
         })}
+        </div>
       </section>
     </div>
   );
