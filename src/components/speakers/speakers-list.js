@@ -73,7 +73,7 @@ const SpeakerCard = ({ speaker }) => (
         )}
       </div>
     </div>
-    <div className='border-t-2 border-ink bg-brand-blue transition-colors group-hover:bg-ink'>
+    <div className='border-t-2 border-ink bg-brand-blue transition-colors hover:bg-ink'>
       <Link
         href={`/profile/${speaker.id}`}
         className='block w-full p-4 text-center text-sm font-bold uppercase text-white'

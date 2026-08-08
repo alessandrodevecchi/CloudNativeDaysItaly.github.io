@@ -5,7 +5,7 @@ import { format, parseISO } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { Clock, MapPin, Coffee, Utensils, Mic, Users, Wrench } from 'lucide-react';
+import { Clock, MapPin, Coffee, Utensils, Mic, Users, Wrench, Star, Zap, Gem, Hand, Pizza } from 'lucide-react';
 import DecorLayer from '@/components/decor/DecorLayer';
 
 const PlaceholderCard = () => (
@@ -17,12 +17,27 @@ const SESSION_TYPE_STYLES = {
     keynote: 'bg-brand-magenta text-white',
     talk: 'bg-brand-yellow text-ink',
     workshop: 'bg-brand-blue text-white',
-    'lightning-talk': 'bg-white text-ink',
+    'lightning-talk': 'bg-brand-yellow text-ink',
+};
+
+const SESSION_TYPE_ICONS = {
+    keynote: Star,
+    talk: Mic,
+    workshop: Wrench,
+    'lightning-talk': Zap,
 };
 
 const SessionCard = ({ session, tracks }) => {
     if (session.type === 'break') {
-        const Icon = { coffee: Coffee, lunch: Utensils, networking: Users }[session.title?.toLowerCase().match(/coffee|lunch|networking/)?.[0]] || Clock;
+        const BREAK_ICONS = [
+            [/coffee/, Coffee],
+            [/lunch/, Utensils],
+            [/networking/, Users],
+            [/welcome/, Hand],
+            [/closing|aperitivo/, Pizza],
+            [/sponsor keynote|platinum/, Gem],
+        ];
+        const Icon = (BREAK_ICONS.find(([re]) => re.test(session.title?.toLowerCase() || '')) || [null, Clock])[1];
         return (
             <div className="bg-cream border-pop border-ink p-4 text-center h-full flex items-center justify-center">
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -34,7 +49,7 @@ const SessionCard = ({ session, tracks }) => {
     }
     if (!session.details) return null;
     const track = tracks.find(t => t.id === session.trackId);
-    const TypeIcon = session.details.type === 'workshop' ? Wrench : Mic;
+    const TypeIcon = SESSION_TYPE_ICONS[session.details.type] || Mic;
     return (
         <Link href={`/talk/${session.details.id}`} className="card-pop block p-4 sm:p-6 transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop h-full flex flex-col">
             <div className="flex items-center justify-between gap-2 flex-wrap mb-3">

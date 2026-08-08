@@ -12,7 +12,7 @@ const Venue = ({ data }) => {
             <div className="mx-auto max-w-[1200px] px-6 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                     <div>
-                        <span className="text-sm font-bold text-brand-yellow uppercase tracking-wider">
+                        <span className="font-display text-sm text-brand-magenta uppercase tracking-wider">
                             Location
                         </span>
                         <h2 className="mt-4 font-display text-section uppercase text-brand-yellow">
@@ -33,12 +33,12 @@ const Venue = ({ data }) => {
                         />
                     </div>
 
-                    <div className="relative h-[500px] hidden lg:block">
+                    <div className="relative h-[500px] hidden lg:block transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop-white">
                         <Image
                             src={data.image}
                             alt={data.name}
                             fill
-                            className="object-cover border-pop border-white"
+                            className="object-cover border-pop border-white transition-all duration-100"
                         />
                     </div>
                 </div>

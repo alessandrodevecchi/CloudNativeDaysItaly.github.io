@@ -11,7 +11,7 @@ const getYouTubeEmbedUrl = (videoId) => {
 const DOT_COLORS = ['bg-brand-magenta', 'bg-brand-blue', 'bg-brand-yellow', 'bg-brand-magenta'];
 
 const FeatureCard = ({ dotColor, title, children }) => (
-  <div className='card-pop flex items-start gap-4 p-6'>
+  <div className='card-pop flex items-start gap-4 p-6 transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop'>
     <span aria-hidden='true' className={`mt-1 h-5 w-5 flex-shrink-0 rounded-full ${dotColor}`} />
     <div>
       <h3 className='text-lg font-bold text-ink'>{title}</h3>
@@ -65,7 +65,7 @@ const Info = ({ data }) => {
           </div>
 
           {videoEmbedUrl && (
-            <div className='card-pop p-2 shadow-pop-lg'>
+            <div className='card-pop p-2 shadow-pop-lg transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[8px_8px_0_0_#111111]'>
               <div className='aspect-video w-full'>
                 <iframe
                   className='h-full w-full'

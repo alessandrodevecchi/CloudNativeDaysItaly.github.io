@@ -31,7 +31,7 @@ export default function C4P_Card({ data }) {
 
   if (!data || !status) {
     return (
-      <div className='card-pop h-full p-8 flex flex-col relative overflow-hidden'>
+      <div className='card-pop h-full p-8 flex flex-col relative overflow-hidden transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop'>
         <div className='animate-pulse space-y-4'>
           <div className='h-8 bg-gray-200 w-1/3'></div>
           <div className='h-6 bg-gray-200 w-full'></div>
@@ -156,7 +156,7 @@ export default function C4P_Card({ data }) {
   };
 
   return (
-    <div className='card-pop h-full p-8 flex flex-col relative overflow-hidden'>
+    <div className='card-pop h-full p-8 flex flex-col relative overflow-hidden transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop'>
       <div className='absolute top-0 right-0 font-display text-xs uppercase px-4 py-1.5 border-b-2 border-l-2 border-ink bg-brand-yellow text-ink'>
         C4P
       </div>

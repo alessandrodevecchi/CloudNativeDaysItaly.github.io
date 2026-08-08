@@ -5,6 +5,8 @@ import Link from 'next/link';
 import {
   Award,
   Mic,
+  Star,
+  Zap,
   Linkedin,
   Github,
   Globe,
@@ -22,9 +24,14 @@ const TalkTimelineCard = ({ talk }) => {
 
   const typeDetails = {
     keynote: {
-      icon: <Mic className='h-4 w-4' />,
+      icon: <Star className='h-4 w-4' />,
       label: 'Keynote',
       style: 'bg-brand-magenta text-white border border-ink',
+    },
+    'lightning-talk': {
+      icon: <Zap className='h-4 w-4' />,
+      label: 'Lightning Talk',
+      style: 'bg-brand-yellow text-ink border border-ink',
     },
     talk: {
       icon: <Mic className='h-4 w-4' />,

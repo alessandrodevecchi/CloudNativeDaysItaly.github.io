@@ -107,7 +107,7 @@ const Hero = ({ data }) => {
                             width={900}
                             height={600}
                             priority
-                            className="card-pop w-full shadow-pop-lg"
+                            className="card-pop w-full shadow-pop-lg transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[8px_8px_0_0_#111111]"
                         />
                     </div>
                 )}
