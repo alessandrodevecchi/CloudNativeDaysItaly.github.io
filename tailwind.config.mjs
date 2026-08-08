@@ -35,6 +35,8 @@ export default {
         pop: "4px 4px 0 0 #111111",
         "pop-sm": "3px 3px 0 0 #111111",
         "pop-lg": "6px 6px 0 0 #111111",
+        "pop-white": "4px 4px 0 0 #FFFFFF",
+        "pop-white-sm": "3px 3px 0 0 #FFFFFF",
       },
       borderWidth: {
         pop: "2px",

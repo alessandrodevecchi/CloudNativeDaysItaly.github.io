@@ -152,7 +152,7 @@ export default function TicketsCard({ data }) {
   };
 
   return (
-    <div className='card-pop h-full p-8 flex flex-col relative overflow-hidden'>
+    <div className='card-pop h-full p-8 flex flex-col relative overflow-hidden transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop'>
       <div className='absolute top-0 right-0 font-display text-xs uppercase px-4 py-1.5 border-b-2 border-l-2 border-ink bg-brand-yellow text-ink'>
         TICKETS
       </div>

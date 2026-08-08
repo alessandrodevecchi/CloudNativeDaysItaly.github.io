@@ -27,7 +27,7 @@ const TalkCard = ({ talk }) => {
             Edition {talk.year}
           </span>
           {talk.type && (
-            <span className={`text-xs font-bold px-3 py-1 border border-ink uppercase ${{ keynote: 'bg-brand-magenta text-white', workshop: 'bg-brand-blue text-white', 'lightning-talk': 'bg-white text-ink' }[talk.type] || 'bg-brand-yellow text-ink'}`}>
+            <span className={`text-xs font-bold px-3 py-1 border border-ink uppercase ${{ keynote: 'bg-brand-magenta text-white', workshop: 'bg-brand-blue text-white', 'lightning-talk': 'bg-brand-yellow text-ink' }[talk.type] || 'bg-brand-yellow text-ink'}`}>
               {talk.type}
             </span>
           )}
