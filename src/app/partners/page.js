@@ -54,7 +54,7 @@ const CommunityTierSection = ({
     <div className={`mb-16 ${extraTopMargin ? 'mt-20' : ''}`}>
       {label && (
         <div className='mb-2'>
-          <span className='font-display text-sm text-brand-magenta uppercase tracking-wider'>
+          <span className='eyebrow text-brand-magenta'>
             {label}
           </span>
         </div>
@@ -143,10 +143,8 @@ export default async function PartnersPage() {
       />
       <div className='relative z-10 mx-auto max-w-[1200px] px-6 py-16 lg:py-24'>
         <div className='max-w-3xl'>
-          <span className='font-display text-sm text-brand-magenta uppercase tracking-wider'>
-            {communityConfig.page.label}
-          </span>
-          <h1 className='section-heading mt-2'>
+          <span className='stamp'>{communityConfig.page.label}</span>
+          <h1 className='section-heading mt-6'>
             {communityConfig.page.title}
           </h1>
           {Array.isArray(communityConfig.page.description) ? (

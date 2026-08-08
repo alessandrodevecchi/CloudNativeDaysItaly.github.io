@@ -89,6 +89,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
 export default function ContentHub({
   talks = [],
+  eyebrow = null,
   title = 'Event Talks',
   description = 'Explore our schedule of talks, workshops, and networking opportunities.',
   showPagination = false,
@@ -156,7 +157,8 @@ export default function ContentHub({
       />
       <div className='relative z-10 mx-auto max-w-[1200px] px-6'>
         <div className='max-w-3xl mb-12'>
-          <h1 className='section-heading'>
+          {eyebrow && <span className='stamp'>{eyebrow}</span>}
+          <h1 className={`section-heading ${eyebrow ? 'mt-6' : ''}`}>
             {title}
           </h1>
           <p className='mt-4 text-lg text-ink-muted'>{description}</p>

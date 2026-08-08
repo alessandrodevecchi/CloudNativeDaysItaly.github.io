@@ -41,6 +41,7 @@ export default async function ContentHubPage() {
     const allTalks = await getAllContent();
     return (
         <ContentHub
+            eyebrow="Content Hub"
             talks={allTalks}
             title="Content Hub"
             description="Explore all sessions from all editions of our event. Search our archive by title, topic, or speaker."

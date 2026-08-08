@@ -82,7 +82,8 @@ const Info = ({ data }) => {
 
         {data.extra && (
           <div className='mt-20 lg:mt-28'>
-            <h2 className='section-heading'>
+            <span className='eyebrow text-brand-magenta'>The experience</span>
+            <h2 className='section-heading mt-2'>
               {data.extra.title}
             </h2>
             <div className='mt-10 grid grid-cols-1 gap-6 md:grid-cols-2'>

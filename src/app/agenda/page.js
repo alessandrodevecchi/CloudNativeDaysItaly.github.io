@@ -104,10 +104,8 @@ const ComingSoonAgenda = ({ proposalConfig, infoConfig, pastTalks }) => {
             />
             <div className="relative z-10 mx-auto max-w-[1200px] px-6 py-16 lg:py-24">
                 <div className="max-w-3xl">
-                    <div className="inline-flex items-center justify-center h-16 w-16 bg-brand-yellow border-pop border-ink rounded-full mb-6">
-                        <CalendarClock size={32} />
-                    </div>
-                    <h1 className="section-heading">
+                    <span className="stamp">May 20&ndash;21, 2027</span>
+                    <h1 className="section-heading mt-6">
                         Agenda Coming Soon
                     </h1>
                     <p className="mt-4 text-lg text-ink-muted">

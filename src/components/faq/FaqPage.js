@@ -119,7 +119,7 @@ function FaqSection({ data }) {
   return (
     <section>
       {data.eyebrow && (
-        <p className='font-display text-sm text-brand-magenta uppercase tracking-wider mb-2'>
+        <p className='eyebrow text-brand-magenta mb-2'>
           {data.eyebrow}
         </p>
       )}
@@ -224,7 +224,7 @@ function HowToGetHereSection({ data }) {
   return (
     <section>
       {data.eyebrow && (
-        <p className='font-display text-sm text-brand-magenta uppercase tracking-wider mb-2'>
+        <p className='eyebrow text-brand-magenta mb-2'>
           {data.eyebrow}
         </p>
       )}
@@ -291,7 +291,7 @@ function WhereToStaySection({ data }) {
   return (
     <section>
       {data.eyebrow && (
-        <p className='font-display text-sm text-brand-magenta uppercase tracking-wider mb-2'>
+        <p className='eyebrow text-brand-magenta mb-2'>
           {data.eyebrow}
         </p>
       )}
@@ -331,7 +331,7 @@ function UsefulInfoSection({ data }) {
   return (
     <section>
       {data.eyebrow && (
-        <p className='font-display text-sm text-brand-magenta uppercase tracking-wider mb-2'>
+        <p className='eyebrow text-brand-magenta mb-2'>
           {data.eyebrow}
         </p>
       )}
@@ -383,10 +383,8 @@ export default function FaqPage({ data }) {
 
         {/* Header */}
         <div className='max-w-3xl mb-16'>
-          <span className='font-display text-sm text-brand-magenta uppercase tracking-wider'>
-            {data.page.label}
-          </span>
-          <h1 className='section-heading mt-2'>
+          <span className='stamp'>{data.page.label}</span>
+          <h1 className='section-heading mt-6'>
             {data.page.title}
           </h1>
           <p className='mt-4 text-lg text-ink-muted'>{data.page.description}</p>
