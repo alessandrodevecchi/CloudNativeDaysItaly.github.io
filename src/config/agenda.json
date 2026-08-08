@@ -4,17 +4,17 @@
     {
       "id": "conference-day-1",
       "name": "Conference Day 1",
-      "date": "2026-05-18"
+      "date": "2027-05-20"
     },
     {
       "id": "conference-day-2",
       "name": "Conference Day 2",
-      "date": "2026-05-19"
+      "date": "2027-05-21"
     },
     {
       "id": "workshop-day",
       "name": "Workshop Day",
-      "date": "2026-05-19"
+      "date": "2027-05-21"
     }
   ],
   "tracks": [
