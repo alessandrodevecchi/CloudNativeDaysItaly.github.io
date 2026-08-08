@@ -21,6 +21,11 @@ const TalkTimelineCard = ({ talk }) => {
   const [isExpanded, setIsExpanded] = useState(true);
 
   const typeDetails = {
+    keynote: {
+      icon: <Mic className='h-4 w-4' />,
+      label: 'Keynote',
+      style: 'bg-brand-magenta text-white border border-ink',
+    },
     talk: {
       icon: <Mic className='h-4 w-4' />,
       label: 'Talk',

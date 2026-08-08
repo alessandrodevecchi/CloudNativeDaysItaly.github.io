@@ -95,7 +95,7 @@ const Sponsors = ({
                 </h3>
                 <span
                   className={clsx(
-                    'border border-ink bg-brand-yellow px-2 py-0.5 text-xs font-bold text-ink',
+                    'border border-ink bg-white px-2 py-0.5 text-xs font-bold text-ink',
                     config.badgeClass,
                   )}
                 >

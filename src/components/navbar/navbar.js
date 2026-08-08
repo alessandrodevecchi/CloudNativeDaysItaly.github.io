@@ -75,12 +75,12 @@ export default function Navbar({ data, editions = [] }) {
                                     </button>
                                     <div
                                         className={clsx(
-                                            "absolute top-full right-0 mt-3 w-48 bg-white rounded-none shadow-pop border-pop border-ink py-2 transition-all duration-200 ease-out origin-top",
+                                            "absolute top-full right-0 mt-3 w-48 bg-brand-blue rounded-none shadow-pop border-pop border-ink py-2 transition-all duration-200 ease-out origin-top",
                                             isDropdownOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
                                         )}
                                     >
                                         {pastEditions.map(year => (
-                                            <Link key={year} href={`/${year}`} onClick={closeAllMenus} className="block px-4 py-2 text-sm font-semibold text-ink hover:bg-brand-yellow-light hover:text-ink">
+                                            <Link key={year} href={`/${year}`} onClick={closeAllMenus} className="block px-4 py-2 text-sm font-bold text-white hover:bg-ink hover:text-white">
                                                 Edition {year}
                                             </Link>
                                         ))}
