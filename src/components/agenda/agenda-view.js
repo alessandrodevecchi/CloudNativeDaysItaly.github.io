@@ -12,6 +12,14 @@ const PlaceholderCard = () => (
     <div className="min-h-[150px] border-2 border-dashed border-ink/20 h-full" />
 );
 
+// Colori semantici per tipo di sessione — vedi docs/design-system.md
+const SESSION_TYPE_STYLES = {
+    keynote: 'bg-brand-magenta text-white',
+    talk: 'bg-brand-yellow text-ink',
+    workshop: 'bg-brand-blue text-white',
+    'lightning-talk': 'bg-white text-ink',
+};
+
 const SessionCard = ({ session, tracks }) => {
     if (session.type === 'break') {
         const Icon = { coffee: Coffee, lunch: Utensils, networking: Users }[session.title?.toLowerCase().match(/coffee|lunch|networking/)?.[0]] || Clock;
@@ -30,7 +38,7 @@ const SessionCard = ({ session, tracks }) => {
     return (
         <Link href={`/talk/${session.details.id}`} className="card-pop block p-4 sm:p-6 transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop h-full flex flex-col">
             <div className="flex items-center justify-between gap-2 flex-wrap mb-3">
-                <span className={clsx("inline-flex items-center gap-1.5 text-xs font-bold px-2 py-1 border border-ink uppercase", session.details.type === 'workshop' ? 'bg-brand-blue text-white' : 'bg-brand-yellow text-ink')}>
+                <span className={clsx("inline-flex items-center gap-1.5 text-xs font-bold px-2 py-1 border border-ink uppercase", SESSION_TYPE_STYLES[session.details.type] || SESSION_TYPE_STYLES.talk)}>
                     <TypeIcon size={12}/> {session.details.type || 'talk'}
                 </span>
                 <div className="flex items-center gap-2">

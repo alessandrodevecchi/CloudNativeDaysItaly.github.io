@@ -23,11 +23,11 @@ const TalkCard = ({ talk }) => {
       </div>
       <div className='p-6 flex-grow flex flex-col'>
         <div className='flex justify-between items-center mb-3'>
-          <span className='text-xs font-bold px-3 py-1 border border-ink bg-brand-blue text-white uppercase'>
+          <span className='text-xs font-bold px-3 py-1 border border-ink bg-white text-ink uppercase'>
             Edition {talk.year}
           </span>
           {talk.type && (
-            <span className='text-xs font-bold px-3 py-1 border border-ink bg-brand-yellow text-ink uppercase'>
+            <span className={`text-xs font-bold px-3 py-1 border border-ink uppercase ${{ keynote: 'bg-brand-magenta text-white', workshop: 'bg-brand-blue text-white', 'lightning-talk': 'bg-white text-ink' }[talk.type] || 'bg-brand-yellow text-ink'}`}>
               {talk.type}
             </span>
           )}

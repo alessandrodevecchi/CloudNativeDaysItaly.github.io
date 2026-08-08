@@ -73,10 +73,10 @@ const SpeakerCard = ({ speaker }) => (
         )}
       </div>
     </div>
-    <div className='border-t-2 border-ink p-4'>
+    <div className='border-t-2 border-ink bg-brand-blue transition-colors group-hover:bg-ink'>
       <Link
         href={`/profile/${speaker.id}`}
-        className='block w-full text-center text-sm font-bold uppercase text-brand-blue hover:text-brand-magenta'
+        className='block w-full p-4 text-center text-sm font-bold uppercase text-white'
       >
         View Profile
       </Link>
@@ -86,7 +86,7 @@ const SpeakerCard = ({ speaker }) => (
 
 const SpeakersComingSoon = () => (
   <div className='mt-16'>
-    <div className='card-pop max-w-3xl bg-brand-yellow-light p-8'>
+    <div className='card-pop max-w-3xl bg-brand-yellow-light p-8 shadow-pop-lg'>
       <h2 className='section-heading'>
         Our First Speakers Will Be Announced Soon!
       </h2>

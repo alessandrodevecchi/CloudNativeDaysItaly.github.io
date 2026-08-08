@@ -6,8 +6,8 @@ import config from '@/config/website.json';
 import DecorLayer from '@/components/decor/DecorLayer';
 
 const PersonCard = ({ person }) => (
-    <div className="group relative">
-        <div className="relative aspect-square overflow-hidden border-pop border-ink">
+    <div className="group relative border-pop border-ink bg-white transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop">
+        <div className="relative aspect-square overflow-hidden">
             <img
                 src={person.image || "/images/placeholder.png"}
                 alt={person.name}
