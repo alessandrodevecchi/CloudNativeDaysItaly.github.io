@@ -16,10 +16,10 @@ const SessionCard = ({ session, tracks }) => {
     if (session.type === 'break') {
         const Icon = { coffee: Coffee, lunch: Utensils, networking: Users }[session.title?.toLowerCase().match(/coffee|lunch|networking/)?.[0]] || Clock;
         return (
-            <div className="bg-brand-yellow-light border-pop border-ink p-6 text-center h-full flex items-center justify-center">
+            <div className="bg-cream border-pop border-ink p-4 text-center h-full flex items-center justify-center">
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <Icon className="h-6 w-6 text-ink" />
-                    <h3 className="font-display text-xl uppercase text-ink">{session.title}</h3>
+                    <Icon className="h-5 w-5 text-brand-magenta" />
+                    <h3 className="font-display text-lg uppercase text-ink">{session.title}</h3>
                 </div>
             </div>
         );
