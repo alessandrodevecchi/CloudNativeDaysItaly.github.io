@@ -5,7 +5,7 @@ import { format, parseISO } from 'date-fns';
 import { enUS } from 'date-fns/locale';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { Clock, MapPin, Coffee, Utensils, Mic, Users, Wrench, Star, Zap, Gem, Hand, Pizza } from 'lucide-react';
+import { Clock, MapPin, Coffee, Utensils, Mic, Users, Wrench, Star, Zap, Gem, Rocket, Sunset, Pizza } from 'lucide-react';
 import DecorLayer from '@/components/decor/DecorLayer';
 
 const PlaceholderCard = () => (
@@ -33,8 +33,9 @@ const SessionCard = ({ session, tracks }) => {
             [/coffee/, Coffee],
             [/lunch/, Utensils],
             [/networking/, Users],
-            [/welcome/, Hand],
-            [/closing|aperitivo/, Pizza],
+            [/welcome/, Rocket],
+            [/aperitivo/, Pizza],
+            [/closing/, Sunset],
             [/sponsor keynote|platinum/, Gem],
         ];
         const Icon = (BREAK_ICONS.find(([re]) => re.test(session.title?.toLowerCase() || '')) || [null, Clock])[1];
@@ -104,7 +105,8 @@ export default function AgendaView({ agenda }) {
             <DecorLayer items={[{ pattern: 'cluster-dot', position: 'top-right', size: 'md' }]} />
             <div className="relative z-10 mx-auto max-w-[1200px] px-6 py-16 lg:py-24">
                 <div className="max-w-3xl">
-                    <h1 className="section-heading">Agenda</h1>
+                    <span className="stamp">May 20&ndash;21, 2027</span>
+                    <h1 className="section-heading mt-6">Agenda</h1>
                     <p className="mt-4 text-lg text-ink-muted">
                         Explore our schedule of talks, workshops, and networking opportunities. Select a day to view the detailed timeline.
                     </p>

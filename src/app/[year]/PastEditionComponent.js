@@ -58,7 +58,8 @@ export default function PastEditionComponent({ year, initialEventData }) {
           <div className='container mx-auto px-4 relative z-10'>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-8 items-center'>
               <div className='text-center md:text-left'>
-                <h1 className='text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 animate-fade-in-down'>
+                <span className='stamp mb-6'>From the archive</span>
+                <h1 className='mt-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 animate-fade-in-down'>
                   {initialEventData.name}
                 </h1>
                 <p className='text-lg sm:text-xl lg:text-2xl opacity-80 animate-fade-in-up'>

@@ -25,7 +25,8 @@ const Sponsors = ({
       {isCurrent && sectionsContent.become && (
         <section className='border-t-2 border-ink bg-cream'>
           <div className='mx-auto max-w-[1200px] px-6 py-16'>
-            <h2 className='section-heading mb-4'>
+            <span className='eyebrow text-brand-magenta'>Sponsorship</span>
+            <h2 className='section-heading mb-4 mt-2'>
               {sectionsContent.become.title}
             </h2>
             <p className='mb-6 max-w-2xl text-lg text-ink-muted'>
@@ -67,7 +68,8 @@ const Sponsors = ({
       <section className='border-t-2 border-ink bg-white'>
         <div className='mx-auto max-w-[1200px] px-6 py-16'>
         <div>
-          <h2 className='section-heading mb-8'>
+          <span className='stamp rotate-2 mb-6'>They make it possible</span>
+          <h2 className='section-heading mb-8 mt-6'>
             {sectionsContent.active.title}
           </h2>
           {hasActiveSponsors ? (

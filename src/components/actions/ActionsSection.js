@@ -16,7 +16,8 @@ export default function ActionsSection({ data }) {
                 ]}
             />
             <div className="relative z-10 mx-auto max-w-[1200px] px-6">
-                <h2 className="font-display text-section uppercase text-white">
+                <span className="eyebrow text-brand-yellow">Call for Papers</span>
+                <h2 className="mt-2 font-display text-section uppercase text-white">
                     You could be on this stage
                 </h2>
                 <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">

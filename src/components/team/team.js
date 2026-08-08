@@ -44,7 +44,8 @@ export default function TeamList({team}) {
         <div className="bg-white">
             <div className="relative bg-ink">
                 <div className="mx-auto max-w-[1200px] px-6 py-16 lg:py-20 relative z-10">
-                    <h1 className="font-display text-section uppercase text-white">
+                    <span className="stamp">The Team</span>
+                    <h1 className="mt-6 font-display text-section uppercase text-white">
                         The Driving Force
                     </h1>
                     <p className="mt-6 text-lg lg:text-xl text-white/80 max-w-3xl">

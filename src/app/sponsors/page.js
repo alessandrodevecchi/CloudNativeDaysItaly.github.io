@@ -141,10 +141,8 @@ export default async function SponsorsPage() {
       />
       <div className='relative z-10 mx-auto max-w-[1200px] px-6 py-16 lg:py-24'>
         <div className='max-w-3xl'>
-          <span className='font-display text-sm text-brand-magenta uppercase tracking-wider'>
-            Our Partners
-          </span>
-          <h1 className='section-heading mt-2'>
+          <span className='stamp'>They make it possible</span>
+          <h1 className='section-heading mt-6'>
             Thank You to Our Sponsors
           </h1>
           <p className='mt-4 text-lg text-ink-muted'>

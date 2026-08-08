@@ -60,6 +60,11 @@ body {
   .section-heading {
     @apply font-display text-section uppercase text-ink;
   }
+  /* Occhiello di sezione (h2). Colore contestuale: magenta su chiaro,
+     giallo su blu/nero, ink su giallo. Per i titoli di pagina usare .stamp. */
+  .eyebrow {
+    @apply font-display text-base uppercase tracking-widest;
+  }
 }
 
 a {
