@@ -195,13 +195,13 @@ function drawFooter(ctx, layout, colors, fonts, metrics) {
    Foto: crop cover con zoom, cornice quadrata o cerchio.
    Logo: contain su riquadro bianco bordato. `media` è normalizzato a
    { source, width, height } (bitmap o HTMLImageElement). */
-function drawLogo(ctx, media, box, unit) {
+function drawLogo(ctx, media, box, unit, frame) {
   const { x, y, size } = box;
   const border = Math.max(3, Math.round(unit * 0.006));
   const shadow = Math.round(unit * 0.014);
   const inner = Math.round(size * 0.12);
 
-  ctx.fillStyle = '#111111';
+  ctx.fillStyle = frame;
   ctx.fillRect(x + shadow, y + shadow, size, size);
   ctx.fillStyle = '#FFFFFF';
   ctx.fillRect(x, y, size, size);
@@ -212,12 +212,12 @@ function drawLogo(ctx, media, box, unit) {
   const w = media.width * scale;
   const h = media.height * scale;
   ctx.drawImage(media.source, x + (size - w) / 2, y + (size - h) / 2, w, h);
-  ctx.strokeStyle = '#111111';
+  ctx.strokeStyle = frame;
   ctx.lineWidth = border;
   ctx.strokeRect(x + border / 2, y + border / 2, size - border, size - border);
 }
 
-function drawPhoto(ctx, media, box, shape, zoom, unit) {
+function drawPhoto(ctx, media, box, shape, zoom, unit, frame) {
   const { x, y, size } = box;
   const photo = media.source;
   const border = Math.max(3, Math.round(unit * 0.006));
@@ -229,7 +229,7 @@ function drawPhoto(ctx, media, box, shape, zoom, unit) {
   const sy = (media.height - srcSize) / 2;
 
   ctx.save();
-  ctx.fillStyle = '#111111';
+  ctx.fillStyle = frame;
   if (shape === 'circle') {
     ctx.beginPath();
     ctx.arc(x + size / 2 + shadow, y + size / 2 + shadow, size / 2, 0, Math.PI * 2);
@@ -241,7 +241,7 @@ function drawPhoto(ctx, media, box, shape, zoom, unit) {
     ctx.restore();
     ctx.beginPath();
     ctx.arc(x + size / 2, y + size / 2, size / 2 - border / 2, 0, Math.PI * 2);
-    ctx.strokeStyle = '#111111';
+    ctx.strokeStyle = frame;
     ctx.lineWidth = border;
     ctx.stroke();
   } else {
@@ -251,7 +251,7 @@ function drawPhoto(ctx, media, box, shape, zoom, unit) {
     ctx.clip();
     ctx.drawImage(photo, sx, sy, srcSize, srcSize, x, y, size, size);
     ctx.restore();
-    ctx.strokeStyle = '#111111';
+    ctx.strokeStyle = frame;
     ctx.lineWidth = border;
     ctx.strokeRect(x + border / 2, y + border / 2, size - border, size - border);
   }
@@ -294,9 +294,11 @@ export async function renderCard(canvas, state) {
     ringColors: colors.rings,
   });
 
-  // 3. logo CND (bianco sui fondi colorati)
+  // 3. logo CND (variante bianca o a colori a seconda della colorway)
   try {
-    const logo = await loadImage('/images/Logo_CND_W.svg');
+    const logo = await loadImage(
+      colors.logo === 'color' ? '/images/logo.webp' : '/images/Logo_CND_W.svg',
+    );
     const logoW = layout.logo.w;
     const logoH = logoW * (logo.naturalHeight / logo.naturalWidth || 0.32);
     ctx.drawImage(logo, layout.logo.x, layout.logo.y, logoW, logoH);
@@ -307,9 +309,9 @@ export async function renderCard(canvas, state) {
   // 4. media (opzionale: senza, il layout si è già adattato)
   if (photo && layout.photo) {
     if (mediaType === 'logo') {
-      drawLogo(ctx, photo, layout.photo, unit);
+      drawLogo(ctx, photo, layout.photo, unit, colors.frame || '#111111');
     } else {
-      drawPhoto(ctx, photo, layout.photo, photoShape, zoom, unit);
+      drawPhoto(ctx, photo, layout.photo, photoShape, zoom, unit, colors.frame || '#111111');
     }
   }
 
@@ -355,6 +357,12 @@ export async function renderCard(canvas, state) {
 
   const maxBottom = footerMetrics.top - Math.round(unit * 0.05);
   let cursorY = Math.min(layout.headline.y, maxBottom - blockH);
+  if (photo && layout.photo && format.family !== 'story') {
+    // blocco testo centrato verticalmente rispetto al media
+    const mediaCenter = layout.photo.y + layout.photo.size / 2;
+    const minTop = layout.logo.y + Math.round(layout.logo.w * 0.4) + Math.round(unit * 0.05);
+    cursorY = Math.max(minTop, Math.min(mediaCenter - blockH / 2, maxBottom - blockH));
+  }
 
   for (const { accent, fit } of headlineFits) {
     ctx.font = `${fit.px}px ${fonts.display}`;

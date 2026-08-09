@@ -5,7 +5,7 @@
 export const USE_CASES = [
   {
     id: 'attendee-conference',
-    label: 'Conference',
+    label: 'Attending Conference',
     visibility: 'public',
     // headline: righe di testo display; accentIndex = riga in colore accent
     headlines: [
@@ -19,12 +19,12 @@ export const USE_CASES = [
       { id: 'role', label: 'Role (optional)', placeholder: 'Platform Engineer', max: 40 },
     ],
     media: { type: 'photo', label: 'Your photo (optional)' },
-    colorways: ['blue', 'magenta'],
+    colorways: ['blue', 'magenta', 'yellow', 'ink'],
     defaultColorway: 'blue',
   },
   {
     id: 'attendee-workshops',
-    label: 'Workshops',
+    label: 'Attending Workshops',
     visibility: 'public',
     headlines: [
       { id: 'see-you-ws', lines: ['See you at', 'the workshops!'], accentIndex: 1 },
@@ -37,12 +37,12 @@ export const USE_CASES = [
       { id: 'role', label: 'Role (optional)', placeholder: 'Platform Engineer', max: 40 },
     ],
     media: { type: 'photo', label: 'Your photo (optional)' },
-    colorways: ['blue', 'magenta'],
+    colorways: ['blue', 'magenta', 'yellow', 'ink'],
     defaultColorway: 'blue',
   },
   {
     id: 'partner',
-    label: 'Partner',
+    label: 'Supporting Partner',
     visibility: 'public',
     headlines: [
       { id: 'proud', lines: ['Proud', 'partner!'], accentIndex: 1 },
@@ -53,7 +53,7 @@ export const USE_CASES = [
       { id: 'org', label: 'Organization name', placeholder: 'Awesome Community', max: 50 },
     ],
     media: { type: 'logo', label: 'Your logo (optional)' },
-    colorways: ['blue', 'magenta'],
+    colorways: ['blue', 'magenta', 'yellow', 'ink'],
     defaultColorway: 'blue',
   },
 ];

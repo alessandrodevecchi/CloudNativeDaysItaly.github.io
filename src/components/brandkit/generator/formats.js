@@ -15,6 +15,9 @@ export const DEFAULT_FORMAT_ID = '1-1';
 // Alessandro): blu→magenta, magenta→blu, giallo→ink.
 // `rings` = i due colori brand usati nelle bande degli anelli decorativi
 // (mai il colore di sfondo, che le renderebbe invisibili).
+// `icon` = colore icone footer a contrasto (regola di Alessandro).
+// `frame` = bordo/ombra della cornice media (ink di default, bianco su ink).
+// `logo` = variante logo CND: 'white' o 'color'.
 export const COLORWAYS = {
   blue: {
     bg: '#3069DE',
@@ -22,6 +25,7 @@ export const COLORWAYS = {
     accent: '#FBC430',
     icon: '#F91B71',
     rings: ['#FBC430', '#F91B71'],
+    frame: '#111111',
     logo: 'white',
   },
   magenta: {
@@ -30,8 +34,27 @@ export const COLORWAYS = {
     accent: '#FBC430',
     icon: '#3069DE',
     rings: ['#FBC430', '#3069DE'],
+    frame: '#111111',
+    logo: 'white',
+  },
+  yellow: {
+    bg: '#FBC430',
+    text: '#111111',
+    accent: '#F91B71',
+    icon: '#111111',
+    rings: ['#3069DE', '#F91B71'],
+    frame: '#111111',
+    logo: 'color',
+  },
+  ink: {
+    bg: '#111111',
+    text: '#FFFFFF',
+    accent: '#FBC430',
+    icon: '#F91B71',
+    rings: ['#FBC430', '#F91B71'],
+    frame: '#FFFFFF',
     logo: 'white',
   },
 };
 
-export const COLORWAY_LABELS = { blue: 'Blue', magenta: 'Magenta' };
+export const COLORWAY_LABELS = { blue: 'Blue', magenta: 'Magenta', yellow: 'Yellow', ink: 'Black' };
