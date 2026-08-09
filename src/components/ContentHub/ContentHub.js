@@ -11,7 +11,11 @@ const TalkCard = ({ talk }) => {
   const imageUrl = talk.image ? talk.image : defaultImage;
   return (
     <div className='card-pop overflow-hidden transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop group h-full flex flex-col'>
-      <div className='relative w-full h-48 sm:h-56 overflow-hidden bg-ink border-b-2 border-ink'>
+      <Link
+        href={`/talk/${talk.id}`}
+        aria-label={`View session: ${talk.title}`}
+        className='relative block w-full h-48 sm:h-56 overflow-hidden bg-ink border-b-2 border-ink'
+      >
         <Image
           src={imageUrl ? imageUrl : defaultImage}
           alt={`Preview for ${talk.title}`}
@@ -20,7 +24,7 @@ const TalkCard = ({ talk }) => {
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
           priority={false}
         />
-      </div>
+      </Link>
       <div className='p-6 flex-grow flex flex-col'>
         <div className='flex justify-between items-center mb-3'>
           <span className='text-xs font-bold px-3 py-1 border border-ink bg-white text-ink uppercase'>
@@ -36,7 +40,9 @@ const TalkCard = ({ talk }) => {
           className='font-bold text-ink text-lg line-clamp-2'
           title={talk.title}
         >
-          {talk.title}
+          <Link href={`/talk/${talk.id}`} className='hover:text-brand-blue transition-colors'>
+            {talk.title}
+          </Link>
         </h3>
         {talk.speakers && talk.speakers.length > 0 && (
           <p className='text-sm text-ink-muted mt-2 flex items-center gap-2'>
@@ -97,14 +103,22 @@ export default function ContentHub({
   hubLink = '/content-hub',
 }) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedYear, setSelectedYear] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const TALKS_PER_PAGE = 9;
 
-  const filteredTalks = useMemo(() => {
-    const lowercasedQuery = searchQuery.toLowerCase();
-    if (!lowercasedQuery) return talks;
+  const availableYears = useMemo(
+    () => [...new Set(talks.map((t) => t.year).filter(Boolean))].sort((a, b) => b.localeCompare(a)),
+    [talks],
+  );
 
-    return talks.filter(
+  const filteredTalks = useMemo(() => {
+    const byYear =
+      selectedYear === 'all' ? talks : talks.filter((t) => t.year === selectedYear);
+    const lowercasedQuery = searchQuery.toLowerCase();
+    if (!lowercasedQuery) return byYear;
+
+    return byYear.filter(
       (talk) =>
         talk.title.toLowerCase().includes(lowercasedQuery) ||
         (talk.abstract &&
@@ -116,10 +130,15 @@ export default function ContentHub({
         (talk.tags &&
           talk.tags.some((tag) => tag.toLowerCase().includes(lowercasedQuery))),
     );
-  }, [searchQuery, talks]);
+  }, [searchQuery, selectedYear, talks]);
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleYear = (year) => {
+    setSelectedYear(year);
     setCurrentPage(1);
   };
 
@@ -173,6 +192,25 @@ export default function ContentHub({
                 className='w-full pl-12 pr-4 py-3 border-pop border-ink focus:outline-none focus:shadow-pop-sm transition-shadow'
               />
               <Search className='absolute left-4 top-1/2 -translate-y-1/2 h-6 w-6 text-ink-muted' />
+            </div>
+          )}
+          {!limit && availableYears.length > 1 && (
+            <div className='mt-4 flex flex-wrap gap-2'>
+              <button
+                onClick={() => handleYear('all')}
+                className={`border-pop border-ink px-3 py-1 text-sm font-bold uppercase transition-colors ${selectedYear === 'all' ? 'bg-brand-yellow text-ink' : 'bg-white text-ink-muted hover:bg-brand-yellow-light'}`}
+              >
+                All editions
+              </button>
+              {availableYears.map((year) => (
+                <button
+                  key={year}
+                  onClick={() => handleYear(year)}
+                  className={`border-pop border-ink px-3 py-1 text-sm font-bold uppercase transition-colors ${selectedYear === year ? 'bg-brand-yellow text-ink' : 'bg-white text-ink-muted hover:bg-brand-yellow-light'}`}
+                >
+                  {year}
+                </button>
+              ))}
             </div>
           )}
         </div>

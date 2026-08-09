@@ -9,7 +9,11 @@ async function getAllContent() {
     const profilesDir = path.join(process.cwd(), 'src', 'config', 'profiles');
     const allTalks = [];
     try {
-        const years = await fs.readdir(talksByYearDir);
+        // Il Content Hub è un archivio: mostra solo le edizioni già passate.
+        const currentEdition = config.general.edition.toString();
+        const years = (await fs.readdir(talksByYearDir)).filter(
+            (y) => y < currentEdition,
+        );
         const speakersMap = new Map();
         const profileFiles = await fs.readdir(profilesDir);
         for (const file of profileFiles.filter(f => f.endsWith('.md'))) {
