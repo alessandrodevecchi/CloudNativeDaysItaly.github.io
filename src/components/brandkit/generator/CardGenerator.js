@@ -6,7 +6,7 @@
 // La foto non lascia mai il browser: tutto client-side.
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Download, ShieldCheck, Upload, X } from 'lucide-react';
-import { FORMATS, DEFAULT_FORMAT_ID } from './formats';
+import { FORMATS, DEFAULT_FORMAT_ID, COLORWAY_LABELS } from './formats';
 import { publicUseCases, getUseCase } from './useCases';
 import { renderCard } from './renderCard';
 
@@ -78,7 +78,9 @@ export default function CardGenerator() {
     const next = getUseCase(id);
     setUseCaseId(id);
     setHeadlineId(next.defaultHeadline);
-    setColorwayId(next.defaultColorway);
+    setColorwayId((current) =>
+      next.colorways.includes(current) ? current : next.defaultColorway,
+    );
     if (next.media?.type !== useCase.media?.type) {
       setPhoto(null);
       setZoom(1);
@@ -86,6 +88,12 @@ export default function CardGenerator() {
   };
 
   const format = FORMATS.find((f) => f.id === formatId);
+  // Campi generici per il renderer: primo campo = testo primario (bold),
+  // secondo = secondario. Così il motore non conosce gli id dei campi.
+  const texts = {
+    primary: values[useCase.fields[0]?.id] || '',
+    secondary: values[useCase.fields[1]?.id] || '',
+  };
   const headline =
     useCase.headlines.find((h) => h.id === headlineId) || useCase.headlines[0];
 
@@ -100,14 +108,15 @@ export default function CardGenerator() {
     await renderCard(canvas, {
       format,
       headline,
-      values,
+      texts,
       photo,
+      mediaType: useCase.media?.type,
       photoShape,
       zoom,
       colorway: colorwayId,
       fonts: fontsRef.current,
     });
-  }, [format, headline, values, photo, photoShape, zoom, colorwayId]);
+  }, [format, headline, texts, photo, photoShape, zoom, colorwayId]);
 
   useEffect(() => {
     redraw();
@@ -122,8 +131,20 @@ export default function CardGenerator() {
       return;
     }
     try {
-      const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
-      setPhoto(bitmap);
+      if (file.type === 'image/svg+xml') {
+        // createImageBitmap su SVG non è affidabile ovunque: si passa da Image
+        const url = URL.createObjectURL(file);
+        const img = new Image();
+        await new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+          img.src = url;
+        });
+        setPhoto({ source: img, width: img.naturalWidth || 300, height: img.naturalHeight || 300 });
+      } else {
+        const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+        setPhoto({ source: bitmap, width: bitmap.width, height: bitmap.height });
+      }
       setZoom(1);
       setUploadError(null);
     } catch {
@@ -159,8 +180,9 @@ export default function CardGenerator() {
       await renderCard(offscreen, {
         format: f,
         headline,
-        values,
+        texts,
         photo,
+        mediaType: useCase.media?.type,
         photoShape,
         zoom,
         colorway: colorwayId,
@@ -214,6 +236,19 @@ export default function CardGenerator() {
           ))}
         </div>
 
+        {useCase.colorways.length > 1 && (
+          <div className='mt-6'>
+            <p className='text-sm font-bold uppercase tracking-wide text-ink'>Color</p>
+            <div className='mt-2 flex flex-wrap gap-2'>
+              {useCase.colorways.map((cw) => (
+                <OptionChip key={cw} selected={cw === colorwayId} onClick={() => setColorwayId(cw)}>
+                  {COLORWAY_LABELS[cw] || cw}
+                </OptionChip>
+              ))}
+            </div>
+          </div>
+        )}
+
         {useCase.media && (
           <div className='mt-6'>
             <p className='text-sm font-bold uppercase tracking-wide text-ink'>{useCase.media.label}</p>
@@ -246,7 +281,7 @@ export default function CardGenerator() {
             {uploadError && (
               <p className='mt-2 text-sm font-bold text-brand-magenta'>{uploadError}</p>
             )}
-            {photo && (
+            {photo && useCase.media.type !== 'logo' && (
               <div className='mt-4 space-y-3'>
                 <div className='flex flex-wrap gap-2'>
                   <OptionChip selected={photoShape === 'square'} onClick={() => setPhotoShape('square')}>
@@ -272,8 +307,9 @@ export default function CardGenerator() {
             )}
             <p className='mt-4 flex items-start gap-2 text-xs text-ink-muted'>
               <ShieldCheck className='mt-0.5 h-4 w-4 flex-shrink-0 text-brand-blue' />
-              Your photo never leaves your device: the card is generated
-              entirely in your browser.
+              Your {useCase.media.type === 'logo' ? 'logo' : 'photo'} never
+              leaves your device: the card is generated entirely in your
+              browser.
             </p>
           </div>
         )}

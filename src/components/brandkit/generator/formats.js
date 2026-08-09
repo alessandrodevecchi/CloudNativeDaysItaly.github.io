@@ -13,6 +13,25 @@ export const DEFAULT_FORMAT_ID = '1-1';
 // testo bianco su blue/magenta/ink, testo ink su giallo).
 // `icon` = colore brand a contrasto per le icone footer (deciso da
 // Alessandro): blu→magenta, magenta→blu, giallo→ink.
+// `rings` = i due colori brand usati nelle bande degli anelli decorativi
+// (mai il colore di sfondo, che le renderebbe invisibili).
 export const COLORWAYS = {
-  blue: { bg: '#3069DE', text: '#FFFFFF', accent: '#FBC430', icon: '#F91B71', logo: 'white' },
+  blue: {
+    bg: '#3069DE',
+    text: '#FFFFFF',
+    accent: '#FBC430',
+    icon: '#F91B71',
+    rings: ['#FBC430', '#F91B71'],
+    logo: 'white',
+  },
+  magenta: {
+    bg: '#F91B71',
+    text: '#FFFFFF',
+    accent: '#FBC430',
+    icon: '#3069DE',
+    rings: ['#FBC430', '#3069DE'],
+    logo: 'white',
+  },
 };
+
+export const COLORWAY_LABELS = { blue: 'Blue', magenta: 'Magenta' };

@@ -35,7 +35,9 @@ export const LAYOUTS = {
       headline: {
         x: pad,
         y: Math.round(H * 0.36),
-        maxW: hasPhoto ? W - photoSize - pad * 3 : W - pad * 2,
+        maxW: hasPhoto
+          ? W - photoSize - pad * 3
+          : W - pad * 2 - Math.round(unit * 0.16),
         size: Math.round(unit * (hasPhoto ? 0.17 : 0.2)),
       },
       name: { size: Math.round(unit * 0.052) },
@@ -56,7 +58,9 @@ export const LAYOUTS = {
       headline: {
         x: pad,
         y: Math.round(H * (hasPhoto ? 0.38 : 0.42)),
-        maxW: hasPhoto ? W - photoSize - Math.round(pad * 2.4) : W - pad * 2,
+        maxW: hasPhoto
+          ? W - photoSize - Math.round(pad * 2.4)
+          : W - pad * 2 - Math.round(unit * 0.16),
         size: Math.round(unit * 0.15),
       },
       name: { size: Math.round(unit * 0.048) },
@@ -77,7 +81,9 @@ export const LAYOUTS = {
       headline: {
         x: pad,
         y: Math.round(H * (hasPhoto ? 0.42 : 0.44)),
-        maxW: hasPhoto ? W - photoSize - Math.round(pad * 2.4) : W - pad * 2,
+        maxW: hasPhoto
+          ? W - photoSize - Math.round(pad * 2.4)
+          : W - pad * 2 - Math.round(unit * 0.16),
         size: Math.round(unit * 0.155),
       },
       name: { size: Math.round(unit * 0.05) },
@@ -98,7 +104,7 @@ export const LAYOUTS = {
       headline: {
         x: pad,
         y: Math.round(H * (hasPhoto ? 0.55 : 0.4)),
-        maxW: W - pad * 2,
+        maxW: W - pad * 2 - (hasPhoto ? 0 : Math.round(unit * 0.16)),
         size: Math.round(unit * 0.17),
       },
       name: { size: Math.round(unit * 0.052) },

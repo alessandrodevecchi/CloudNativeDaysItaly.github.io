@@ -40,25 +40,29 @@ function ringAt(ctx, cx, cy, r, bands, bgColor) {
 
 // Con foto: anelli che sbucano da dietro (angolo basso-sinistra + alto-destra
 // della foto). Senza foto: anello grande tagliato dal bordo destro + satellite,
-// sempre sopra il footer.
-function drawRingsComposition(ctx, { W, unit, photoBox, footerTop, bg }) {
-  const bigBands = [RING_COLORS.yellow, RING_COLORS.white, RING_COLORS.magenta, RING_COLORS.white, RING_COLORS.yellow];
-  const smallBands = [RING_COLORS.magenta, RING_COLORS.white, RING_COLORS.yellow];
+// sempre sopra il footer. Le bande usano i colori brand della colorway
+// (mai il colore di sfondo).
+function drawRingsComposition(ctx, { W, unit, photoBox, footerTop, bg, ringColors }) {
+  const [a, b] = ringColors || [RING_COLORS.yellow, RING_COLORS.magenta];
+  const bigBands = [a, RING_COLORS.white, b, RING_COLORS.white, a];
+  const smallBands = [b, RING_COLORS.white, a];
 
   if (photoBox) {
     const { x, y, size } = photoBox;
-    const bigR = Math.round(unit * 0.14);
+    const bigR = Math.round(unit * 0.13);
     let bigY = y + size * 0.94;
     if (bigY + bigR > footerTop - unit * 0.015) {
       bigY = footerTop - unit * 0.015 - bigR;
     }
-    ringAt(ctx, x + size * 0.04, bigY, bigR, bigBands, bg);
+    // centro spostato sotto la foto: l'anello non invade la colonna testo
+    ringAt(ctx, x + size * 0.32, bigY, bigR, bigBands, bg);
     ringAt(ctx, x + size * 0.99, y + size * 0.05, Math.round(unit * 0.065), smallBands, bg);
   } else {
     const bigR = Math.round(unit * 0.19);
     const bigY = footerTop - bigR * 1.15;
-    ringAt(ctx, W - bigR * 0.35, bigY, bigR, bigBands, bg);
-    ringAt(ctx, W - bigR * 1.55, bigY - bigR * 1.05, Math.round(unit * 0.07), smallBands, bg);
+    // quasi tutto oltre il bordo destro: resta fuori dalla zona testo
+    ringAt(ctx, W + bigR * 0.05, bigY, bigR, bigBands, bg);
+    ringAt(ctx, W - bigR * 0.75, bigY - bigR * 1.2, Math.round(unit * 0.07), smallBands, bg);
   }
 }
 
@@ -187,16 +191,42 @@ function drawFooter(ctx, layout, colors, fonts, metrics) {
   });
 }
 
-/* ── Foto/media con cornice pop (quadrata o cerchio) e hard shadow ──── */
-function drawPhoto(ctx, photo, box, shape, zoom, unit) {
+/* ── Media con cornice pop e hard shadow ─────────────────────────────
+   Foto: crop cover con zoom, cornice quadrata o cerchio.
+   Logo: contain su riquadro bianco bordato. `media` è normalizzato a
+   { source, width, height } (bitmap o HTMLImageElement). */
+function drawLogo(ctx, media, box, unit) {
   const { x, y, size } = box;
+  const border = Math.max(3, Math.round(unit * 0.006));
+  const shadow = Math.round(unit * 0.014);
+  const inner = Math.round(size * 0.12);
+
+  ctx.fillStyle = '#111111';
+  ctx.fillRect(x + shadow, y + shadow, size, size);
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect(x, y, size, size);
+  const scale = Math.min(
+    (size - inner * 2) / media.width,
+    (size - inner * 2) / media.height,
+  );
+  const w = media.width * scale;
+  const h = media.height * scale;
+  ctx.drawImage(media.source, x + (size - w) / 2, y + (size - h) / 2, w, h);
+  ctx.strokeStyle = '#111111';
+  ctx.lineWidth = border;
+  ctx.strokeRect(x + border / 2, y + border / 2, size - border, size - border);
+}
+
+function drawPhoto(ctx, media, box, shape, zoom, unit) {
+  const { x, y, size } = box;
+  const photo = media.source;
   const border = Math.max(3, Math.round(unit * 0.006));
   const shadow = Math.round(unit * 0.014);
 
   // crop cover centrato con zoom
-  const srcSize = Math.min(photo.width, photo.height) / Math.max(1, zoom);
-  const sx = (photo.width - srcSize) / 2;
-  const sy = (photo.height - srcSize) / 2;
+  const srcSize = Math.min(media.width, media.height) / Math.max(1, zoom);
+  const sx = (media.width - srcSize) / 2;
+  const sy = (media.height - srcSize) / 2;
 
   ctx.save();
   ctx.fillStyle = '#111111';
@@ -229,7 +259,7 @@ function drawPhoto(ctx, photo, box, shape, zoom, unit) {
 
 /* ── Render principale ───────────────────────────────────────────────── */
 export async function renderCard(canvas, state) {
-  const { format, headline, values, photo, photoShape, zoom, colorway, fonts, background } = state;
+  const { format, headline, texts = {}, photo, mediaType = 'photo', photoShape, zoom, colorway, fonts, background } = state;
   const W = format.width;
   const H = format.height;
   const colors = COLORWAYS[colorway] || COLORWAYS.blue;
@@ -249,7 +279,7 @@ export async function renderCard(canvas, state) {
 
   const layout = LAYOUTS[format.family](W, H, {
     hasPhoto: Boolean(photo),
-    hasRole: Boolean(values.role),
+    hasRole: Boolean(texts.secondary),
   });
   const footerMetrics = measureFooter(ctx, W, layout, fonts);
 
@@ -261,6 +291,7 @@ export async function renderCard(canvas, state) {
     photoBox: photo ? layout.photo : null,
     footerTop: footerMetrics.top,
     bg: colors.bg,
+    ringColors: colors.rings,
   });
 
   // 3. logo CND (bianco sui fondi colorati)
@@ -273,9 +304,13 @@ export async function renderCard(canvas, state) {
     // senza logo la card resta valida
   }
 
-  // 4. foto (opzionale: senza, il layout si è già adattato)
+  // 4. media (opzionale: senza, il layout si è già adattato)
   if (photo && layout.photo) {
-    drawPhoto(ctx, photo, layout.photo, photoShape, zoom, unit);
+    if (mediaType === 'logo') {
+      drawLogo(ctx, photo, layout.photo, unit);
+    } else {
+      drawPhoto(ctx, photo, layout.photo, photoShape, zoom, unit);
+    }
   }
 
   // 5. blocco testo (headline + nome + ruolo): prima si misura tutto,
@@ -293,8 +328,8 @@ export async function renderCard(canvas, state) {
       font: fonts.display,
     }),
   }));
-  const nameFit = values.name
-    ? fitText(ctx, values.name, {
+  const nameFit = texts.primary
+    ? fitText(ctx, texts.primary, {
         maxW: layout.headline.maxW,
         size: layout.name.size,
         minSize: Math.round(layout.name.size * 0.6),
@@ -303,8 +338,8 @@ export async function renderCard(canvas, state) {
       })
     : null;
   const roleFit =
-    values.name && values.role
-      ? fitText(ctx, values.role, {
+    texts.primary && texts.secondary
+      ? fitText(ctx, texts.secondary, {
           maxW: layout.headline.maxW,
           size: layout.role.size,
           minSize: Math.round(layout.role.size * 0.6),

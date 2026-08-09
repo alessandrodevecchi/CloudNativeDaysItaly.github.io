@@ -19,7 +19,41 @@ export const USE_CASES = [
       { id: 'role', label: 'Role (optional)', placeholder: 'Platform Engineer', max: 40 },
     ],
     media: { type: 'photo', label: 'Your photo (optional)' },
-    colorways: ['blue'],
+    colorways: ['blue', 'magenta'],
+    defaultColorway: 'blue',
+  },
+  {
+    id: 'attendee-workshops',
+    label: 'Workshops',
+    visibility: 'public',
+    headlines: [
+      { id: 'see-you-ws', lines: ['See you at', 'the workshops!'], accentIndex: 1 },
+      { id: 'learning', lines: ['Learning at', 'the workshops!'], accentIndex: 1 },
+      { id: 'joining-ws', lines: ["I'm joining", 'the workshops!'], accentIndex: 1 },
+    ],
+    defaultHeadline: 'see-you-ws',
+    fields: [
+      { id: 'name', label: 'Full name', placeholder: 'Ada Lovelace', max: 40 },
+      { id: 'role', label: 'Role (optional)', placeholder: 'Platform Engineer', max: 40 },
+    ],
+    media: { type: 'photo', label: 'Your photo (optional)' },
+    colorways: ['blue', 'magenta'],
+    defaultColorway: 'blue',
+  },
+  {
+    id: 'partner',
+    label: 'Partner',
+    visibility: 'public',
+    headlines: [
+      { id: 'proud', lines: ['Proud', 'partner!'], accentIndex: 1 },
+      { id: 'supporting', lines: ["We're", 'supporting!'], accentIndex: 1 },
+    ],
+    defaultHeadline: 'proud',
+    fields: [
+      { id: 'org', label: 'Organization name', placeholder: 'Awesome Community', max: 50 },
+    ],
+    media: { type: 'logo', label: 'Your logo (optional)' },
+    colorways: ['blue', 'magenta'],
     defaultColorway: 'blue',
   },
 ];

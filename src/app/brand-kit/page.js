@@ -165,6 +165,13 @@ export default function BrandKitPage() {
             </div>
           </div>
 
+          <div className='mt-10'>
+            <a href='?uc=partner#generator' className='btn-pop btn-pop-primary group inline-flex items-center'>
+              Create your partner card
+              <ArrowDown className='ml-2 h-5 w-5 transition-transform group-hover:translate-y-1' />
+            </a>
+          </div>
+
           <div className='card-pop mt-10 bg-white p-8'>
             <h3 className='font-display text-xl uppercase text-ink'>Boilerplate</h3>
             <p className='mt-4 max-w-3xl text-ink-soft'>{mediaPartners.boilerplate}</p>
