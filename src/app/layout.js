@@ -39,8 +39,15 @@ export default async function RootLayout({ children }) {
     const availableEditions = await getEditions();
 
     return (
-        <html lang="it" className={`${poppins.variable} ${anton.variable}`}>
+        <html lang="it" className={`${poppins.variable} ${anton.variable}`} suppressHydrationWarning>
         <head>
+            {/* Sceglie la composizione decorativa del hero PRIMA del primo paint:
+                nessuno switch visibile e niente scroll anchoring (vedi heroVariants.js). */}
+            <script
+                dangerouslySetInnerHTML={{
+                    __html: 'document.documentElement.dataset.decor=Math.floor(Math.random()*10);',
+                }}
+            />
             <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-icon-57x57.png" />
             <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-icon-60x60.png" />
             <link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-icon-72x72.png" />
