@@ -108,7 +108,7 @@ const Sponsors = ({
                 className={clsx(
                   MAJOR_TIERS.includes(tier)
                     ? 'flex flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:items-stretch sm:justify-start'
-                    : 'grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4',
+                    : 'grid grid-cols-2 gap-3 [&>:only-child]:col-span-2 [&>:only-child]:justify-self-center [&>:only-child]:w-[200px] sm:flex sm:flex-wrap sm:gap-4 sm:[&>:only-child]:w-[200px]',
                 )}
               >
                 {tierSponsors

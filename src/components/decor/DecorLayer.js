@@ -22,6 +22,11 @@ const POSITIONS = {
   'top-left': '-left-10 -top-10 sm:-left-20 sm:-top-20',
   'bottom-right': '-right-10 -bottom-10 sm:-right-20 sm:-bottom-20',
   'bottom-left': '-left-10 -bottom-10 sm:-left-20 sm:-bottom-20',
+  // Zone centrali: pensate per gli halftone a bassa opacità, non per i cluster.
+  'mid-left': 'left-[8%] top-1/3',
+  'mid-right': 'right-[8%] top-1/4',
+  center: 'left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
+  'center-bottom': 'left-1/3 bottom-[5%]',
 };
 
 // Taglie mobile-first: sotto `md` le decorazioni restano contenute per non
