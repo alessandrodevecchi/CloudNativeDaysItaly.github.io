@@ -20,20 +20,20 @@ const C = {
 const CLUSTERS = {
   // Anello grande tricolore + satellite piccolo (angolo alto della cover)
   a: [
-    { cx: 120, cy: 120, r: 150, colors: [C.blue, C.white, C.magenta, C.white, C.yellow] },
-    { cx: 320, cy: 90, r: 55, colors: [C.blue, C.white, C.yellow] },
+    { cx: 150, cy: 150, r: 148, colors: [C.blue, C.white, C.magenta, C.white, C.yellow] },
+    { cx: 335, cy: 75, r: 55, colors: [C.blue, C.white, C.yellow] },
   ],
   // Composizione fitta di 4 anelli sovrapposti (angolo basso della cover)
   b: [
-    { cx: 90, cy: 300, r: 120, colors: [C.blue, C.white, C.yellow, C.white, C.magenta] },
-    { cx: 230, cy: 210, r: 55, colors: [C.blue, C.white, C.magenta] },
-    { cx: 290, cy: 350, r: 110, colors: [C.blue, C.white, C.magenta, C.white, C.yellow] },
-    { cx: 130, cy: 140, r: 45, colors: [C.magenta, C.white, C.yellow] },
+    { cx: 122, cy: 276, r: 120, colors: [C.blue, C.white, C.yellow, C.white, C.magenta] },
+    { cx: 245, cy: 185, r: 55, colors: [C.blue, C.white, C.magenta] },
+    { cx: 288, cy: 288, r: 110, colors: [C.blue, C.white, C.magenta, C.white, C.yellow] },
+    { cx: 135, cy: 105, r: 45, colors: [C.magenta, C.white, C.yellow] },
   ],
   // Coppia grande duotone (angolo destro della cover)
   c: [
-    { cx: 280, cy: 130, r: 140, colors: [C.magenta, C.white, C.yellow, C.white, C.blue] },
-    { cx: 110, cy: 300, r: 90, colors: [C.blue, C.white, C.magenta] },
+    { cx: 258, cy: 142, r: 140, colors: [C.magenta, C.white, C.yellow, C.white, C.blue] },
+    { cx: 105, cy: 305, r: 90, colors: [C.blue, C.white, C.magenta] },
   ],
   // Anellino singolo duotone (accento sparso)
   dot: [

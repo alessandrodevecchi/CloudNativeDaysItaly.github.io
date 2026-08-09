@@ -21,13 +21,13 @@ const POSITIONS = {
   'bottom-left': '-left-10 -bottom-10 sm:-left-20 sm:-bottom-20',
 };
 
-// Taglie mobile-first: sotto `md` le decorazioni restano piccole per non
-// coprire i contenuti (i cluster xl passano da 288px a 96px su viewport 390).
+// Taglie mobile-first: sotto `md` le decorazioni restano contenute per non
+// coprire i contenuti (xl: 128px su mobile, 416px da md in su).
 const SIZES = {
-  sm: 'w-16 md:w-36',
-  md: 'w-20 md:w-56',
-  lg: 'w-24 md:w-72',
-  xl: 'w-24 md:w-96',
+  sm: 'w-20 md:w-40',
+  md: 'w-24 md:w-64',
+  lg: 'w-28 md:w-80',
+  xl: 'w-32 md:w-[26rem]',
 };
 
 /**
