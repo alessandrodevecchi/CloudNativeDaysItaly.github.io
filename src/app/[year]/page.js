@@ -70,7 +70,7 @@ async function getEventData(year) {
             const speakerDetails = (talk.speakerIds || []).map(id =>
                 validSpeakers.find(s => s.id === id)
             ).filter(Boolean);
-            return { ...talk, speakers: speakerDetails };
+            return { ...talk, year, speakers: speakerDetails };
         });
 
         return {

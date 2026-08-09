@@ -29,13 +29,22 @@ const POSITIONS = {
   'center-bottom': 'left-1/3 bottom-[5%]',
 };
 
-// Taglie mobile-first: sotto `md` le decorazioni restano contenute per non
+// Taglie mobile-first: sotto `md` i cluster restano contenuti per non
 // coprire i contenuti (xl: 128px su mobile, 416px da md in su).
 const SIZES = {
   sm: 'w-20 md:w-40',
   md: 'w-24 md:w-64',
   lg: 'w-28 md:w-80',
   xl: 'w-32 md:w-[26rem]',
+};
+
+// Gli halftone non ostacolano la lettura (opacità bassa): scala maggiore
+// e nessuna riduzione drastica su mobile.
+const HALFTONE_SIZES = {
+  sm: 'w-40 md:w-56',
+  md: 'w-56 md:w-72',
+  lg: 'w-64 md:w-96',
+  xl: 'w-80 md:w-[34rem]',
 };
 
 /**
@@ -52,7 +61,9 @@ export default function DecorLayer({ items = [] }) {
   return (
     <div aria-hidden='true' className='pointer-events-none absolute inset-0 z-0'>
       {items.map((item, i) => {
-        const cls = `absolute ${POSITIONS[item.position]} ${SIZES[item.size || 'md']} ${item.className || ''}`;
+        const isHalftone = item.pattern.startsWith('halftone');
+        const sizes = isHalftone ? HALFTONE_SIZES : SIZES;
+        const cls = `absolute ${POSITIONS[item.position]} ${sizes[item.size || 'md']} ${item.className || ''}`;
         if (item.pattern.startsWith('cluster-')) {
           return <BrandRings key={i} cluster={item.pattern.slice(8)} className={cls} />;
         }
