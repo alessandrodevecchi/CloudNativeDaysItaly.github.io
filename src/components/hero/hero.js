@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
 import DecorLayer from '@/components/decor/DecorLayer';
+import { HERO_VARIANTS } from '@/components/decor/heroVariants';
 
 const CountdownUnit = ({ value, label }) => (
     <div className="card-pop flex min-w-[80px] flex-col items-center px-4 py-2">
@@ -46,18 +47,16 @@ const Hero = ({ data }) => {
 
     const isCountdownActive = targetDate && timeLeft && (timeLeft.days > 0 || timeLeft.hours > 0 || timeLeft.minutes > 0 || timeLeft.seconds > 0);
 
+    // Composizione decorativa casuale a ogni page load. La scelta avviene solo
+    // dopo il mount per non divergere dall'HTML statico (variante 0).
+    const [decorVariant, setDecorVariant] = useState(0);
+    useEffect(() => {
+        setDecorVariant(Math.floor(Math.random() * HERO_VARIANTS.length));
+    }, []);
+
     return (
         <section className="relative overflow-hidden bg-white">
-            <DecorLayer
-                items={[
-                    { pattern: 'cluster-a', position: 'top-left', size: 'xl' },
-                    { pattern: 'cluster-c', position: 'top-right', size: 'xl' },
-                    { pattern: 'cluster-b', position: 'bottom-left', size: 'lg', className: 'hidden md:block' },
-                    { pattern: 'cluster-dot', position: 'bottom-right', size: 'sm' },
-                    { pattern: 'halftone', position: 'top-left', size: 'xl', className: 'opacity-30 !-left-4 !top-32' },
-                    { pattern: 'halftone', position: 'bottom-right', size: 'xl', className: 'opacity-30' },
-                ]}
-            />
+            <DecorLayer items={HERO_VARIANTS[decorVariant]} />
             <div className="relative z-10 mx-auto max-w-[1200px] px-6 py-16 text-center lg:py-20">
                 <span className="stamp">Save the date</span>
 

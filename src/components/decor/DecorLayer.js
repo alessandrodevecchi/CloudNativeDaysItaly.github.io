@@ -12,18 +12,22 @@ const PATTERNS = {
 };
 
 // Preset di posizionamento: angoli parzialmente fuori viewport, come nel brand book.
+// Su mobile l'offset è proporzionalmente più aggressivo: insieme alle SIZES
+// ridotte tiene le decorazioni ai margini, mai sotto il testo.
 const POSITIONS = {
-  'top-right': '-right-16 -top-16 sm:-right-20 sm:-top-20',
-  'top-left': '-left-16 -top-16 sm:-left-20 sm:-top-20',
-  'bottom-right': '-right-16 -bottom-16 sm:-right-20 sm:-bottom-20',
-  'bottom-left': '-left-16 -bottom-16 sm:-left-20 sm:-bottom-20',
+  'top-right': '-right-10 -top-10 sm:-right-20 sm:-top-20',
+  'top-left': '-left-10 -top-10 sm:-left-20 sm:-top-20',
+  'bottom-right': '-right-10 -bottom-10 sm:-right-20 sm:-bottom-20',
+  'bottom-left': '-left-10 -bottom-10 sm:-left-20 sm:-bottom-20',
 };
 
+// Taglie mobile-first: sotto `md` le decorazioni restano piccole per non
+// coprire i contenuti (i cluster xl passano da 288px a 96px su viewport 390).
 const SIZES = {
-  sm: 'w-28 sm:w-36',
-  md: 'w-40 sm:w-56',
-  lg: 'w-56 sm:w-72',
-  xl: 'w-72 sm:w-96',
+  sm: 'w-16 md:w-36',
+  md: 'w-20 md:w-56',
+  lg: 'w-24 md:w-72',
+  xl: 'w-24 md:w-96',
 };
 
 /**

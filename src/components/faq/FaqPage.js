@@ -373,7 +373,8 @@ export default function FaqPage({ data }) {
     <div className='relative overflow-hidden bg-white'>
       <DecorLayer
         items={[
-          { pattern: 'cluster-dot', position: 'top-right', size: 'md' },
+          { pattern: 'cluster-d', position: 'top-right', size: 'lg' },
+          { pattern: 'cluster-dot', position: 'bottom-left', size: 'sm' },
           { pattern: 'halftone', position: 'top-left', size: 'lg', className: 'opacity-25' },
         ]}
       />

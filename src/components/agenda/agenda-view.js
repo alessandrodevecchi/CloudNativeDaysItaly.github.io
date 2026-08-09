@@ -102,7 +102,13 @@ export default function AgendaView({ agenda }) {
 
     return (
         <div className="relative overflow-hidden bg-white">
-            <DecorLayer items={[{ pattern: 'cluster-dot', position: 'top-right', size: 'md' }]} />
+            <DecorLayer
+                items={[
+                    { pattern: 'cluster-dot', position: 'top-right', size: 'md' },
+                    { pattern: 'cluster-a', position: 'bottom-left', size: 'md' },
+                    { pattern: 'halftone', position: 'top-left', size: 'lg', className: 'opacity-25' },
+                ]}
+            />
             <div className="relative z-10 mx-auto max-w-[1200px] px-6 py-16 lg:py-24">
                 <div className="max-w-3xl">
                     <span className="stamp">May 20&ndash;21, 2027</span>

@@ -137,7 +137,8 @@ export default async function PartnersPage() {
     <div className='relative overflow-hidden bg-white'>
       <DecorLayer
         items={[
-          { pattern: 'cluster-dot', position: 'top-right', size: 'md' },
+          { pattern: 'cluster-b', position: 'top-right', size: 'lg' },
+          { pattern: 'cluster-dot', position: 'bottom-left', size: 'sm' },
           { pattern: 'halftone', position: 'bottom-right', size: 'lg', className: 'opacity-25' },
         ]}
       />
