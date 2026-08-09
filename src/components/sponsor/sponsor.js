@@ -22,49 +22,6 @@ const Sponsors = ({
 
   return (
     <div id='sponsors'>
-      {isCurrent && sectionsContent.become && (
-        <section className='border-t-2 border-ink bg-cream'>
-          <div className='mx-auto max-w-[1200px] px-6 py-16'>
-            <span className='eyebrow text-brand-magenta'>Sponsorship</span>
-            <h2 className='section-heading mb-4 mt-2'>
-              {sectionsContent.become.title}
-            </h2>
-            <p className='mb-6 max-w-2xl text-lg text-ink-muted'>
-              {sectionsContent.become.description}
-            </p>
-            <div className='flex flex-col items-start gap-4 sm:flex-row sm:items-center'>
-              <Link
-                type='button'
-                className='btn-pop btn-pop-primary'
-                href={`mailto:${sectionsContent.contactEmail}`}
-              >
-                Contact Us
-              </Link>
-
-              {sectionsContent.become.active &&
-                sectionsContent.prospectus?.active !== false && (
-                  <a
-                    href={sectionsContent.prospectus.url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='btn-pop btn-pop-secondary'
-                  >
-                    {sectionsContent.prospectus.label}
-                  </a>
-                )}
-              <a
-                href={sectionsContent.transparency.url}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='btn-pop btn-pop-secondary'
-              >
-                {sectionsContent.transparency.label}
-              </a>
-            </div>
-          </div>
-        </section>
-      )}
-
       <section className='border-t-2 border-ink bg-white'>
         <div className='mx-auto max-w-[1200px] px-6 py-16'>
         <div>
@@ -162,6 +119,51 @@ const Sponsors = ({
         )}
         </div>
       </section>
+
+      {/* CTA sponsorship DOPO la vetrina (wireframe 09: loghi → testimonial
+          → CTA); evita anche due bande cream adiacenti con la sezione tickets. */}
+      {isCurrent && sectionsContent.become && (
+        <section className='border-t-2 border-ink bg-cream'>
+          <div className='mx-auto max-w-[1200px] px-6 py-16'>
+            <span className='eyebrow text-brand-magenta'>Sponsorship</span>
+            <h2 className='section-heading mb-4 mt-2'>
+              {sectionsContent.become.title}
+            </h2>
+            <p className='mb-6 max-w-2xl text-lg text-ink-muted'>
+              {sectionsContent.become.description}
+            </p>
+            <div className='flex flex-col items-start gap-4 sm:flex-row sm:items-center'>
+              <Link
+                type='button'
+                className='btn-pop btn-pop-primary'
+                href={`mailto:${sectionsContent.contactEmail}`}
+              >
+                Contact Us
+              </Link>
+
+              {sectionsContent.become.active &&
+                sectionsContent.prospectus?.active !== false && (
+                  <a
+                    href={sectionsContent.prospectus.url}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='btn-pop btn-pop-secondary'
+                  >
+                    {sectionsContent.prospectus.label}
+                  </a>
+                )}
+              <a
+                href={sectionsContent.transparency.url}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='btn-pop btn-pop-secondary'
+              >
+                {sectionsContent.transparency.label}
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 };
