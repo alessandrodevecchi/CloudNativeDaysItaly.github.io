@@ -64,6 +64,42 @@ Regola "superfici colorate, atomi neutri": colore in blocchi grandi (bande, card
 - Due bande chiare adiacenti si separano con `border-t-2 border-ink`.
 - Ritmo colori homepage: vedi tabella in `figma-token-mapping.md`. Regola generale: mai due bande colorate forti adiacenti — interporre bianco.
 
+## Navigazione (ristrutturazione contenuti 2027)
+
+- **Menu desktop**: 4 voci piatte (Agenda, Speakers, Sponsors, Partners) + 2
+  dropdown a pannello colorato (Hub = `brand-blue`, About = `brand-magenta`).
+  Config in `website.json > navbar.links.header`: una voce con `items` è un
+  gruppo; `pastEditions: true` inietta le edizioni passate nel pannello.
+- **Pannelli dropdown** (reference Gumroad): superficie piena colorata,
+  `border-pop` + `shadow-pop`, voci bold con hover invert (`hover:bg-ink
+  hover:text-white`), sticker `BrandRings` in basso a destra, sezioni interne
+  separate da `border-t-2 border-ink` con label `font-display` uppercase.
+- **Menu mobile**: drill-down. Livello principale bianco (voci + gruppi con
+  `ChevronRight`); tap su un gruppo → il drawer assume il colore del pannello,
+  header con "Back", CTA sticky in fondo sempre visibili. L'area voci ha
+  `overflow-y-auto min-h-0`.
+- **CTA navbar a fasi**: `website.json > navbar.ctas` in ordine di priorità;
+  si mostrano le prime 2 con `active: true`, la prima è primaria (gialla),
+  la seconda secondaria (bianca). Cambio fase = flip di `active`, no deploy
+  di codice.
+
+## Pattern contenuto (pagine 2027)
+
+- **Sezioni configurabili spente**: componenti come ThemeSection, testimonial
+  sponsor e newsletter rendono `null` con `active: false` e si accendono da
+  config quando il contenuto esiste. Mai placeholder finti in produzione.
+- **Download "Soon"**: asset scaricabili con `url: null` rendono un bottone
+  disabilitato con chip "Soon" (vedi `/brand-kit`); valorizzare `url` li
+  attiva.
+- **Anchor chips**: nav interna di pagina con chip bordati hover invert
+  (hero di `/brand-kit`).
+- **Timeline**: lista verticale con nodo quadrato giallo `border-pop`, linea
+  `bg-ink`, anno in `font-display text-stat text-brand-blue` (pagina
+  `/about`).
+- **Anteprime asset in CSS**: le preview del brand kit (card "I'll be
+  there", slide template) sono rese coi token del design system, non
+  immagini da produrre.
+
 ## Decorazioni
 
 Gestite da `src/components/decor/DecorLayer.js` (layer assoluto `pointer-events-none aria-hidden`; il padre deve essere `relative overflow-hidden`).
