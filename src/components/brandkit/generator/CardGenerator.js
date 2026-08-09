@@ -7,7 +7,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Download, ShieldCheck, Upload, X } from 'lucide-react';
 import { FORMATS, DEFAULT_FORMAT_ID, COLORWAYS, COLORWAY_LABELS } from './formats';
-import { publicUseCases, getUseCase } from './useCases';
+import { publicUseCases, allUseCases, getUseCase } from './useCases';
 import { renderCard } from './renderCard';
 
 // Risolve le family effettive dei font brand dalle CSS variable di next/font,
@@ -47,8 +47,8 @@ const OptionChip = ({ selected, onClick, children }) => (
   </button>
 );
 
-export default function CardGenerator() {
-  const useCases = publicUseCases();
+export default function CardGenerator({ scope = 'public' }) {
+  const useCases = scope === 'all' ? allUseCases() : publicUseCases();
   const [useCaseId, setUseCaseId] = useState(useCases[0].id);
   const useCase = getUseCase(useCaseId);
 
@@ -60,6 +60,9 @@ export default function CardGenerator() {
   const [zoom, setZoom] = useState(1);
   const [photoOffset, setPhotoOffset] = useState({ x: 0, y: 0 });
   const [logoStyle, setLogoStyle] = useState('white');
+  const [customLines, setCustomLines] = useState(['Your text', 'here!']);
+  const [customAccent, setCustomAccent] = useState(1);
+  const [mediaKind, setMediaKind] = useState('photo');
   const [uploadError, setUploadError] = useState(null);
   const [colorwayId, setColorwayId] = useState(useCase.defaultColorway);
 
@@ -70,10 +73,11 @@ export default function CardGenerator() {
   // Preset use case da query param (?uc=...) per i link "Create yours"
   useEffect(() => {
     const preset = new URLSearchParams(window.location.search).get('uc');
-    if (preset && getUseCase(preset)?.visibility === 'public') {
+    const presetCase = preset && getUseCase(preset);
+    if (presetCase && (scope === 'all' || presetCase.visibility === 'public')) {
       setUseCaseId(preset);
     }
-  }, []);
+  }, [scope]);
 
   // Cambio use case: preserva i valori dei campi con lo stesso id
   const switchUseCase = (id) => {
@@ -100,13 +104,26 @@ export default function CardGenerator() {
 
   const format = FORMATS.find((f) => f.id === formatId);
   // Campi generici per il renderer: primo campo = testo primario (bold),
-  // secondo = secondario. Così il motore non conosce gli id dei campi.
+  // gli altri diventano righe extra con lo stile dichiarato dal campo
+  // (text, chip, quote). Il motore non conosce gli id dei campi.
   const texts = {
     primary: values[useCase.fields[0]?.id] || '',
     secondary: values[useCase.fields[1]?.id] || '',
+    tertiary: values[useCase.fields[2]?.id] || '',
   };
-  const headline =
-    useCase.headlines.find((h) => h.id === headlineId) || useCase.headlines[0];
+  const textStyles = {
+    secondary: useCase.fields[1]?.style || 'text',
+    tertiary: useCase.fields[2]?.style || 'text',
+  };
+  const effectiveMediaType =
+    useCase.media?.type === 'choice' ? mediaKind : useCase.media?.type;
+  const headline = useCase.customHeadline
+    ? {
+        id: 'custom',
+        lines: customLines.filter(Boolean).length > 0 ? customLines.filter(Boolean) : ['Your text', 'here!'],
+        accentIndex: customAccent,
+      }
+    : useCase.headlines.find((h) => h.id === headlineId) || useCase.headlines[0];
 
   // Ridisegno a ogni cambio stato: unica pipeline preview/export
   const redraw = useCallback(async () => {
@@ -121,7 +138,8 @@ export default function CardGenerator() {
       headline,
       texts,
       photo,
-      mediaType: useCase.media?.type,
+      mediaType: effectiveMediaType,
+      textStyles,
       photoShape,
       zoom,
       photoOffset,
@@ -129,7 +147,7 @@ export default function CardGenerator() {
       colorway: colorwayId,
       fonts: fontsRef.current,
     });
-  }, [format, headline, texts, photo, photoShape, zoom, photoOffset, effectiveLogoStyle, colorwayId]);
+  }, [format, headline, texts, textStyles, photo, photoShape, zoom, photoOffset, effectiveLogoStyle, colorwayId, effectiveMediaType]);
 
   useEffect(() => {
     redraw();
@@ -196,7 +214,8 @@ export default function CardGenerator() {
         headline,
         texts,
         photo,
-        mediaType: useCase.media?.type,
+        mediaType: effectiveMediaType,
+        textStyles,
         photoShape,
         zoom,
         photoOffset,
@@ -227,13 +246,40 @@ export default function CardGenerator() {
 
         <div>
           <p className='text-sm font-bold uppercase tracking-wide text-ink'>Headline</p>
-          <div className='mt-2 flex flex-wrap gap-2'>
-            {useCase.headlines.map((h) => (
-              <OptionChip key={h.id} selected={h.id === headline.id} onClick={() => setHeadlineId(h.id)}>
-                {h.lines.join(' ')}
-              </OptionChip>
-            ))}
-          </div>
+          {useCase.customHeadline ? (
+            <div className='mt-2 space-y-2'>
+              {[0, 1].map((i) => (
+                <input
+                  key={i}
+                  type='text'
+                  maxLength={20}
+                  placeholder={i === 0 ? 'First line' : 'Second line'}
+                  value={customLines[i] || ''}
+                  onChange={(e) =>
+                    setCustomLines((lines) => {
+                      const next = [...lines];
+                      next[i] = e.target.value;
+                      return next;
+                    })
+                  }
+                  className='w-full border-pop border-ink bg-white px-3 py-2 text-ink focus:outline-none focus:ring-2 focus:ring-brand-blue'
+                />
+              ))}
+              <div className='flex flex-wrap items-center gap-2'>
+                <span className='text-xs font-bold uppercase text-ink-muted'>Accent on</span>
+                <OptionChip selected={customAccent === 0} onClick={() => setCustomAccent(0)}>Line 1</OptionChip>
+                <OptionChip selected={customAccent === 1} onClick={() => setCustomAccent(1)}>Line 2</OptionChip>
+              </div>
+            </div>
+          ) : (
+            <div className='mt-2 flex flex-wrap gap-2'>
+              {useCase.headlines.map((h) => (
+                <OptionChip key={h.id} selected={h.id === headline.id} onClick={() => setHeadlineId(h.id)}>
+                  {h.lines.join(' ')}
+                </OptionChip>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className='mt-6 space-y-4'>
@@ -282,6 +328,12 @@ export default function CardGenerator() {
         {useCase.media && (
           <div className='mt-6'>
             <p className='text-sm font-bold uppercase tracking-wide text-ink'>{useCase.media.label}</p>
+            {useCase.media.type === 'choice' && (
+              <div className='mt-2 flex flex-wrap gap-2'>
+                <OptionChip selected={mediaKind === 'photo'} onClick={() => setMediaKind('photo')}>Photo</OptionChip>
+                <OptionChip selected={mediaKind === 'logo'} onClick={() => setMediaKind('logo')}>Logo</OptionChip>
+              </div>
+            )}
             <div className='mt-2 flex flex-wrap items-center gap-3'>
               <button
                 type='button'
@@ -311,7 +363,7 @@ export default function CardGenerator() {
             {uploadError && (
               <p className='mt-2 text-sm font-bold text-brand-magenta'>{uploadError}</p>
             )}
-            {photo && useCase.media.type !== 'logo' && (
+            {photo && effectiveMediaType !== 'logo' && (
               <div className='mt-4 space-y-3'>
                 <div className='flex flex-wrap gap-2'>
                   <OptionChip selected={photoShape === 'square'} onClick={() => setPhotoShape('square')}>
@@ -361,7 +413,7 @@ export default function CardGenerator() {
             )}
             <p className='mt-4 flex items-start gap-2 text-xs text-ink-muted'>
               <ShieldCheck className='mt-0.5 h-4 w-4 flex-shrink-0 text-brand-blue' />
-              Your {useCase.media.type === 'logo' ? 'logo' : 'photo'} never
+              Your {effectiveMediaType === 'logo' ? 'logo' : 'photo'} never
               leaves your device: the card is generated entirely in your
               browser.
             </p>

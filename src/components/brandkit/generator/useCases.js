@@ -56,9 +56,83 @@ export const USE_CASES = [
     colorways: ['blue', 'magenta', 'yellow', 'ink'],
     defaultColorway: 'blue',
   },
+
+  /* ── Use case interni: visibili solo su /brand-kit/studio (team) ──── */
+  {
+    id: 'speaker',
+    label: 'Speaker',
+    visibility: 'internal',
+    headlines: [
+      { id: 'speaking', lines: ["I'm", 'speaking!'], accentIndex: 1 },
+      { id: 'meet', lines: ['Meet our', 'speaker!'], accentIndex: 1 },
+      { id: 'on-stage', lines: ['On', 'stage!'], accentIndex: 1 },
+    ],
+    defaultHeadline: 'speaking',
+    fields: [
+      { id: 'name', label: 'Full name', placeholder: 'Ada Lovelace', max: 40 },
+      { id: 'role', label: 'Role / company (optional)', placeholder: 'Platform Engineer @ ACME', max: 50 },
+      { id: 'talk', label: 'Talk title (optional)', placeholder: 'Scaling Kubernetes the hard way', max: 80, style: 'quote' },
+    ],
+    media: { type: 'photo', label: 'Speaker photo (optional)' },
+    colorways: ['blue', 'magenta', 'yellow', 'ink'],
+    defaultColorway: 'blue',
+  },
+  {
+    id: 'sponsor',
+    label: 'Sponsor',
+    visibility: 'internal',
+    headlines: [
+      { id: 'proud-sponsor', lines: ['Proud', 'sponsor!'], accentIndex: 1 },
+      { id: 'sponsoring', lines: ["We're", 'sponsoring!'], accentIndex: 1 },
+    ],
+    defaultHeadline: 'proud-sponsor',
+    fields: [
+      { id: 'org', label: 'Company name', placeholder: 'ACME Corp', max: 50 },
+      { id: 'tier', label: 'Tier (optional)', placeholder: 'Gold Sponsor', max: 30, style: 'chip' },
+    ],
+    media: { type: 'logo', label: 'Company logo (optional)' },
+    colorways: ['blue', 'magenta', 'yellow', 'ink'],
+    defaultColorway: 'blue',
+  },
+  {
+    id: 'community',
+    label: 'Community / OS Project',
+    visibility: 'internal',
+    headlines: [
+      { id: 'meet-us', lines: ['Meet us', 'there!'], accentIndex: 1 },
+      { id: 'we-there', lines: ["We'll be", 'there!'], accentIndex: 1 },
+      { id: 'find-us', lines: ['Find us at', 'the event!'], accentIndex: 1 },
+    ],
+    defaultHeadline: 'meet-us',
+    fields: [
+      { id: 'org', label: 'Community / project name', placeholder: 'Kubernetes Community Milano', max: 50 },
+    ],
+    media: { type: 'logo', label: 'Logo (optional)' },
+    colorways: ['blue', 'magenta', 'yellow', 'ink'],
+    defaultColorway: 'blue',
+  },
+  {
+    id: 'custom',
+    label: 'Custom',
+    visibility: 'internal',
+    customHeadline: true,
+    headlines: [
+      { id: 'custom', lines: ['Your text', 'here!'], accentIndex: 1 },
+    ],
+    defaultHeadline: 'custom',
+    fields: [
+      { id: 'primary', label: 'Primary text (optional)', placeholder: 'Bold line under the headline', max: 60 },
+      { id: 'secondary', label: 'Secondary text (optional)', placeholder: 'Smaller line below', max: 80 },
+    ],
+    media: { type: 'choice', label: 'Photo or logo (optional)' },
+    colorways: ['blue', 'magenta', 'yellow', 'ink'],
+    defaultColorway: 'blue',
+  },
 ];
 
 export const publicUseCases = () =>
   USE_CASES.filter((useCase) => useCase.visibility === 'public');
+
+export const allUseCases = () => USE_CASES;
 
 export const getUseCase = (id) => USE_CASES.find((useCase) => useCase.id === id);

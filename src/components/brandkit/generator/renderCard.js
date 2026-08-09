@@ -20,6 +20,46 @@ function loadImage(src) {
   return promise;
 }
 
+/* ── Logo a colori rifilato: il webp ha aria attorno, si ritaglia al
+   bounding box dei pixel non trasparenti e non quasi-bianchi (in attesa
+   di un SVG a colori rifilato da Alessandro) ─────────────────────────── */
+let trimmedLogoPromise = null;
+
+function loadTrimmedColorLogo() {
+  if (trimmedLogoPromise) return trimmedLogoPromise;
+  trimmedLogoPromise = loadImage('/images/logo.webp').then((img) => {
+    const off = document.createElement('canvas');
+    off.width = img.naturalWidth;
+    off.height = img.naturalHeight;
+    const octx = off.getContext('2d');
+    octx.drawImage(img, 0, 0);
+    const { data } = octx.getImageData(0, 0, off.width, off.height);
+    let minX = off.width, minY = off.height, maxX = 0, maxY = 0;
+    for (let y = 0; y < off.height; y++) {
+      for (let x = 0; x < off.width; x++) {
+        const i = (y * off.width + x) * 4;
+        const solid = data[i + 3] > 16 &&
+          !(data[i] > 245 && data[i + 1] > 245 && data[i + 2] > 245);
+        if (solid) {
+          if (x < minX) minX = x;
+          if (x > maxX) maxX = x;
+          if (y < minY) minY = y;
+          if (y > maxY) maxY = y;
+        }
+      }
+    }
+    if (maxX <= minX || maxY <= minY) return { source: img, width: img.naturalWidth, height: img.naturalHeight };
+    const w = maxX - minX + 1;
+    const h = maxY - minY + 1;
+    const cropped = document.createElement('canvas');
+    cropped.width = w;
+    cropped.height = h;
+    cropped.getContext('2d').drawImage(off, minX, minY, w, h, 0, 0, w, h);
+    return { source: cropped, width: w, height: h };
+  });
+  return trimmedLogoPromise;
+}
+
 /* ── Anelli brand: composizione grande tricolore + satellite ─────────── */
 const RING_COLORS = { blue: '#3069DE', magenta: '#F91B71', yellow: '#FBC430', white: '#FFFFFF' };
 
@@ -263,7 +303,7 @@ function drawPhoto(ctx, media, box, shape, zoom, offset, unit, frame) {
 
 /* ── Render principale ───────────────────────────────────────────────── */
 export async function renderCard(canvas, state) {
-  const { format, headline, texts = {}, photo, mediaType = 'photo', photoShape, zoom, photoOffset, logoStyle, colorway, fonts, background } = state;
+  const { format, headline, texts = {}, textStyles = {}, photo, mediaType = 'photo', photoShape, zoom, photoOffset, logoStyle, colorway, fonts, background } = state;
   const W = format.width;
   const H = format.height;
   const colors = COLORWAYS[colorway] || COLORWAYS.blue;
@@ -303,10 +343,10 @@ export async function renderCard(canvas, state) {
   const effectiveLogoStyle = logoStyle || (colors.logo === 'color' ? 'color' : 'white');
   try {
     if (effectiveLogoStyle === 'color') {
-      const logo = await loadImage('/images/logo.webp');
+      const logo = await loadTrimmedColorLogo();
       const logoW = layout.logo.w;
-      const logoH = logoW * (logo.naturalHeight / logo.naturalWidth || 0.32);
-      const inner = Math.round(logoW * 0.1);
+      const logoH = logoW * (logo.height / logo.width || 0.32);
+      const inner = Math.round(logoW * 0.07);
       const boxW = logoW + inner * 2;
       const boxH = logoH + inner * 2;
       const border = Math.max(3, Math.round(unit * 0.005));
@@ -319,7 +359,7 @@ export async function renderCard(canvas, state) {
       ctx.strokeStyle = '#111111';
       ctx.lineWidth = border;
       ctx.strokeRect(layout.logo.x + border / 2, layout.logo.y + border / 2, boxW - border, boxH - border);
-      ctx.drawImage(logo, layout.logo.x + inner, layout.logo.y + inner, logoW, logoH);
+      ctx.drawImage(logo.source, layout.logo.x + inner, layout.logo.y + inner, logoW, logoH);
     } else {
       const logo = await loadImage('/images/Logo_CND_W.svg');
       const logoW = layout.logo.w;
@@ -363,21 +403,33 @@ export async function renderCard(canvas, state) {
         weight: '700',
       })
     : null;
-  const roleFit =
-    texts.primary && texts.secondary
-      ? fitText(ctx, texts.secondary, {
-          maxW: layout.headline.maxW,
-          size: layout.role.size,
-          minSize: Math.round(layout.role.size * 0.6),
-          font: fonts.sans,
-          weight: '400',
-        })
-      : null;
+  // Righe extra sotto il primario: testo semplice, chip bordata (es. tier
+  // sponsor) o citazione in accent (es. titolo talk)
+  const extras = [];
+  for (const key of ['secondary', 'tertiary']) {
+    const value = texts[key];
+    if (!value) continue;
+    const style = textStyles[key] || 'text';
+    if (style === 'chip') {
+      const chipPx = Math.round(layout.role.size * 0.85);
+      ctx.font = `700 ${chipPx}px ${fonts.sans}`;
+      extras.push({ style, value, px: chipPx, w: ctx.measureText(value.toUpperCase()).width, h: Math.round(chipPx * 2.1) });
+    } else {
+      const fit = fitText(ctx, style === 'quote' ? `“${value}”` : value, {
+        maxW: layout.headline.maxW,
+        size: layout.role.size,
+        minSize: Math.round(layout.role.size * 0.6),
+        font: fonts.sans,
+        weight: style === 'quote' ? '600' : '400',
+      });
+      extras.push({ style, fit, h: fit.lines.length * Math.round(fit.px * 1.3) });
+    }
+  }
 
   let blockH = 0;
   for (const { fit } of headlineFits) blockH += fit.lines.length * Math.round(fit.px * lineH);
   if (nameFit) blockH += Math.round(unit * 0.035) + nameFit.lines.length * Math.round(nameFit.px * 1.25);
-  if (roleFit) blockH += roleFit.lines.length * Math.round(roleFit.px * 1.3);
+  for (const extra of extras) blockH += extra.h + Math.round(unit * 0.012);
 
   const maxBottom = footerMetrics.top - Math.round(unit * 0.05);
   let cursorY = Math.min(layout.headline.y, maxBottom - blockH);
@@ -405,13 +457,27 @@ export async function renderCard(canvas, state) {
       cursorY += Math.round(nameFit.px * 1.25);
     }
   }
-  if (roleFit) {
-    ctx.font = `400 ${roleFit.px}px ${fonts.sans}`;
-    ctx.fillStyle = colors.text;
-    for (const l of roleFit.lines) {
-      ctx.fillText(l, layout.headline.x, cursorY);
-      cursorY += Math.round(roleFit.px * 1.3);
+  if (!nameFit && extras.length > 0) cursorY += Math.round(unit * 0.035);
+  for (const extra of extras) {
+    if (extra.style === 'chip') {
+      const padX = Math.round(extra.px * 0.7);
+      const chipW = extra.w + padX * 2;
+      ctx.strokeStyle = colors.text;
+      ctx.lineWidth = Math.max(2, Math.round(unit * 0.003));
+      ctx.strokeRect(layout.headline.x, cursorY, chipW, extra.h);
+      ctx.font = `700 ${extra.px}px ${fonts.sans}`;
+      ctx.fillStyle = colors.text;
+      ctx.fillText(extra.value.toUpperCase(), layout.headline.x + padX, cursorY + Math.round((extra.h - extra.px) / 2));
+    } else {
+      ctx.font = `${extra.style === 'quote' ? 'italic 600' : '400'} ${extra.fit.px}px ${fonts.sans}`;
+      ctx.fillStyle = extra.style === 'quote' ? colors.accent : colors.text;
+      let lineY = cursorY;
+      for (const l of extra.fit.lines) {
+        ctx.fillText(l, layout.headline.x, lineY);
+        lineY += Math.round(extra.fit.px * 1.3);
+      }
     }
+    cursorY += extra.h + Math.round(unit * 0.012);
   }
 
   // 6. footer fisso con icone
