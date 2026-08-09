@@ -1,5 +1,6 @@
 import config from '@/config/website.json';
 import CardGenerator from '@/components/brandkit/generator/CardGenerator';
+import BatchPanel from '@/components/brandkit/generator/BatchPanel';
 
 // Versione interna del card generator per il team: include anche gli use
 // case 'internal' (speaker, sponsor, community/OS, custom). Pagina non
@@ -21,6 +22,7 @@ export default function CardStudioPage() {
           speakers, sponsors, communities and a free custom card.
         </p>
         <CardGenerator scope='all' />
+        <BatchPanel />
       </div>
     </section>
   );

@@ -1,0 +1,136 @@
+// Logica batch: parsing CSV e costruzione dello stato di rendering per
+// riga. Pura (niente DOM tranne il canvas creato dal chiamante), così è
+// testabile e riusabile.
+import { FORMATS, COLORWAYS } from './formats';
+import { getUseCase } from './useCases';
+
+// Parser CSV minimale con supporto ai campi quotati ("a, b").
+export function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let field = '';
+  let inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (inQuotes) {
+      if (ch === '"' && text[i + 1] === '"') {
+        field += '"';
+        i++;
+      } else if (ch === '"') {
+        inQuotes = false;
+      } else {
+        field += ch;
+      }
+    } else if (ch === '"') {
+      inQuotes = true;
+    } else if (ch === ',') {
+      row.push(field);
+      field = '';
+    } else if (ch === '\n' || ch === '\r') {
+      if (ch === '\r' && text[i + 1] === '\n') i++;
+      row.push(field);
+      field = '';
+      if (row.some((cell) => cell.trim() !== '')) rows.push(row);
+      row = [];
+    } else {
+      field += ch;
+    }
+  }
+  row.push(field);
+  if (row.some((cell) => cell.trim() !== '')) rows.push(row);
+
+  const [header, ...records] = rows;
+  if (!header) return [];
+  const keys = header.map((k) => k.trim().toLowerCase());
+  return records.map((record) => {
+    const entry = {};
+    keys.forEach((key, i) => {
+      entry[key] = (record[i] || '').trim();
+    });
+    return entry;
+  });
+}
+
+export const CSV_TEMPLATE = [
+  'usecase,headline,colorway,formats,primary,secondary,tertiary,media,shape,zoom,offsetx,offsety,logostyle',
+  'speaker,speaking,blue,1-1|9-16,Ada Lovelace,Platform Engineer @ ACME,Scaling Kubernetes the hard way,ada.jpg,square,1.2,0,-0.3,white',
+  'sponsor,proud-sponsor,magenta,all,ACME Corp,Gold Sponsor,,acme-logo.png,,,,,color',
+  'custom,Tickets on|sale now!,yellow,1-1,,,,,,,,,',
+].join('\n');
+
+// Traduce una riga CSV nello stato per renderCard. Lancia con messaggio
+// chiaro se la riga non è valida; il chiamante raccoglie gli errori.
+export function rowToRenderState(row, mediaByName) {
+  const useCase = getUseCase(row.usecase || 'attendee-conference');
+  if (!useCase) throw new Error(`unknown use case "${row.usecase}"`);
+
+  let headline;
+  if (row.headline?.includes('|')) {
+    const lines = row.headline.split('|').map((line) => line.trim()).filter(Boolean);
+    headline = { id: 'custom', lines, accentIndex: lines.length - 1 };
+  } else {
+    headline =
+      useCase.headlines.find((h) => h.id === row.headline) ||
+      useCase.headlines.find((h) => h.id === useCase.defaultHeadline) ||
+      useCase.headlines[0];
+  }
+
+  const colorway = row.colorway && COLORWAYS[row.colorway] ? row.colorway : useCase.defaultColorway;
+
+  let formats;
+  if (!row.formats || row.formats === 'all') {
+    formats = FORMATS;
+  } else {
+    formats = row.formats
+      .split('|')
+      .map((id) => FORMATS.find((f) => f.id === id.trim()))
+      .filter(Boolean);
+    if (formats.length === 0) throw new Error(`no valid formats in "${row.formats}"`);
+  }
+
+  let photo = null;
+  if (row.media) {
+    photo = mediaByName.get(row.media);
+    if (!photo) throw new Error(`media file "${row.media}" not uploaded`);
+  }
+
+  const colorwayDef = COLORWAYS[colorway];
+  const logoOptions = colorwayDef.logoOptions || ['white'];
+  const logoStyle = logoOptions.includes(row.logostyle) ? row.logostyle : colorwayDef.logo;
+
+  return {
+    useCaseId: useCase.id,
+    formats,
+    state: {
+      headline,
+      texts: {
+        primary: row.primary || '',
+        secondary: row.secondary || '',
+        tertiary: row.tertiary || '',
+      },
+      textStyles: {
+        secondary: useCase.fields[1]?.style || 'text',
+        tertiary: useCase.fields[2]?.style || 'text',
+      },
+      photo,
+      mediaType: useCase.media?.type === 'choice'
+        ? (row.media && /logo/i.test(row.media) ? 'logo' : 'photo')
+        : useCase.media?.type,
+      photoShape: row.shape === 'circle' ? 'circle' : 'square',
+      zoom: Number(row.zoom) || 1,
+      photoOffset: { x: Number(row.offsetx) || 0, y: Number(row.offsety) || 0 },
+      logoStyle,
+      colorway,
+    },
+  };
+}
+
+export function slugify(text, fallback) {
+  const slug = (text || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return slug || fallback;
+}
