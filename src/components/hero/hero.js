@@ -47,16 +47,15 @@ const Hero = ({ data }) => {
 
     const isCountdownActive = targetDate && timeLeft && (timeLeft.days > 0 || timeLeft.hours > 0 || timeLeft.minutes > 0 || timeLeft.seconds > 0);
 
-    // Composizione decorativa casuale a ogni page load. La scelta avviene solo
-    // dopo il mount per non divergere dall'HTML statico (variante 0).
-    const [decorVariant, setDecorVariant] = useState(0);
-    useEffect(() => {
-        setDecorVariant(Math.floor(Math.random() * HERO_VARIANTS.length));
-    }, []);
-
     return (
         <section className="relative overflow-hidden bg-white">
-            <DecorLayer items={HERO_VARIANTS[decorVariant]} />
+            {/* Tutte le varianti sono nel markup; lo script inline in layout.js
+                sceglie quale mostrare via html[data-decor] prima del paint. */}
+            {HERO_VARIANTS.map((items, i) => (
+                <div key={i} className={`decor-variant decor-variant-${i}`}>
+                    <DecorLayer items={items} />
+                </div>
+            ))}
             <div className="relative z-10 mx-auto max-w-[1200px] px-6 py-16 text-center lg:py-20">
                 <span className="stamp">Save the date</span>
 

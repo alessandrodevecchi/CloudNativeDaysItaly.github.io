@@ -67,6 +67,28 @@ body {
   }
 }
 
+/* ===== VARIANTI DECORATIVE HERO =====
+   Tutte nel markup statico; lo script inline in layout.js setta
+   html[data-decor] prima del paint. Senza JS resta visibile la variante 0. */
+.decor-variant {
+  display: none;
+  overflow-anchor: none;
+}
+html:not([data-decor]) .decor-variant-0 {
+  display: block;
+}
+html[data-decor="0"] .decor-variant-0 { display: block; }
+html[data-decor="1"] .decor-variant-1 { display: block; }
+html[data-decor="2"] .decor-variant-2 { display: block; }
+html[data-decor="3"] .decor-variant-3 { display: block; }
+html[data-decor="4"] .decor-variant-4 { display: block; }
+html[data-decor="5"] .decor-variant-5 { display: block; }
+html[data-decor="6"] .decor-variant-6 { display: block; }
+html[data-decor="7"] .decor-variant-7 { display: block; }
+html[data-decor="8"] .decor-variant-8 { display: block; }
+html[data-decor="9"] .decor-variant-9 { display: block; }
+
+
 a {
   text-decoration: none;
   color: inherit;
