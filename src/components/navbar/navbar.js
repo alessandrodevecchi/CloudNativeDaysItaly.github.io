@@ -129,7 +129,8 @@ export default function Navbar({ data, editions = [] }) {
                             <X className="h-6 w-6" />
                         </button>
                     </div>
-                    <div className="mt-8 flex-1 flex flex-col gap-6">
+                    {/* overflow-y-auto: con molte voci il menu deve scrollare, la CTA sotto resta visibile */}
+                    <div className="mt-8 flex-1 flex flex-col gap-6 overflow-y-auto min-h-0">
                         {navLinks.map((link) => (
                             <Link key={link.to} href={link.to} target={link.target ? link.target : "_blank"} onClick={closeAllMenus} className="text-xl font-semibold text-ink hover:text-brand-blue">
                                 {link.text}
