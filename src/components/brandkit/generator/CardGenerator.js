@@ -6,7 +6,7 @@
 // La foto non lascia mai il browser: tutto client-side.
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Download, ShieldCheck, Upload, X } from 'lucide-react';
-import { FORMATS, DEFAULT_FORMAT_ID, COLORWAY_LABELS } from './formats';
+import { FORMATS, DEFAULT_FORMAT_ID, COLORWAYS, COLORWAY_LABELS } from './formats';
 import { publicUseCases, getUseCase } from './useCases';
 import { renderCard } from './renderCard';
 
@@ -58,6 +58,8 @@ export default function CardGenerator() {
   const [photo, setPhoto] = useState(null);
   const [photoShape, setPhotoShape] = useState('square');
   const [zoom, setZoom] = useState(1);
+  const [photoOffset, setPhotoOffset] = useState({ x: 0, y: 0 });
+  const [logoStyle, setLogoStyle] = useState('white');
   const [uploadError, setUploadError] = useState(null);
   const [colorwayId, setColorwayId] = useState(useCase.defaultColorway);
 
@@ -84,8 +86,17 @@ export default function CardGenerator() {
     if (next.media?.type !== useCase.media?.type) {
       setPhoto(null);
       setZoom(1);
+      setPhotoOffset({ x: 0, y: 0 });
     }
   };
+
+  // La colorway decide quali varianti logo sono possibili (es. su giallo il
+  // logo bianco sparisce: solo versione a colori)
+  const colorwayDef = COLORWAYS[colorwayId] || COLORWAYS.blue;
+  const logoOptions = colorwayDef.logoOptions || ['white'];
+  const effectiveLogoStyle = logoOptions.includes(logoStyle)
+    ? logoStyle
+    : colorwayDef.logo;
 
   const format = FORMATS.find((f) => f.id === formatId);
   // Campi generici per il renderer: primo campo = testo primario (bold),
@@ -113,10 +124,12 @@ export default function CardGenerator() {
       mediaType: useCase.media?.type,
       photoShape,
       zoom,
+      photoOffset,
+      logoStyle: effectiveLogoStyle,
       colorway: colorwayId,
       fonts: fontsRef.current,
     });
-  }, [format, headline, texts, photo, photoShape, zoom, colorwayId]);
+  }, [format, headline, texts, photo, photoShape, zoom, photoOffset, effectiveLogoStyle, colorwayId]);
 
   useEffect(() => {
     redraw();
@@ -146,6 +159,7 @@ export default function CardGenerator() {
         setPhoto({ source: bitmap, width: bitmap.width, height: bitmap.height });
       }
       setZoom(1);
+      setPhotoOffset({ x: 0, y: 0 });
       setUploadError(null);
     } catch {
       setUploadError('We could not read that image. Try another file.');
@@ -185,6 +199,8 @@ export default function CardGenerator() {
         mediaType: useCase.media?.type,
         photoShape,
         zoom,
+        photoOffset,
+        logoStyle: effectiveLogoStyle,
         colorway: colorwayId,
         fonts: fontsRef.current || resolveFonts(),
       });
@@ -249,6 +265,20 @@ export default function CardGenerator() {
           </div>
         )}
 
+        {logoOptions.length > 1 && (
+          <div className='mt-6'>
+            <p className='text-sm font-bold uppercase tracking-wide text-ink'>CND logo</p>
+            <div className='mt-2 flex flex-wrap gap-2'>
+              <OptionChip selected={effectiveLogoStyle === 'white'} onClick={() => setLogoStyle('white')}>
+                White
+              </OptionChip>
+              <OptionChip selected={effectiveLogoStyle === 'color'} onClick={() => setLogoStyle('color')}>
+                Color
+              </OptionChip>
+            </div>
+          </div>
+        )}
+
         {useCase.media && (
           <div className='mt-6'>
             <p className='text-sm font-bold uppercase tracking-wide text-ink'>{useCase.media.label}</p>
@@ -300,6 +330,30 @@ export default function CardGenerator() {
                     step='0.05'
                     value={zoom}
                     onChange={(e) => setZoom(Number(e.target.value))}
+                    className='mt-1 w-full accent-brand-blue'
+                  />
+                </label>
+                <label className='block'>
+                  <span className='text-sm font-bold uppercase tracking-wide text-ink'>Horizontal position</span>
+                  <input
+                    type='range'
+                    min='-1'
+                    max='1'
+                    step='0.02'
+                    value={photoOffset.x}
+                    onChange={(e) => setPhotoOffset((o) => ({ ...o, x: Number(e.target.value) }))}
+                    className='mt-1 w-full accent-brand-blue'
+                  />
+                </label>
+                <label className='block'>
+                  <span className='text-sm font-bold uppercase tracking-wide text-ink'>Vertical position</span>
+                  <input
+                    type='range'
+                    min='-1'
+                    max='1'
+                    step='0.02'
+                    value={photoOffset.y}
+                    onChange={(e) => setPhotoOffset((o) => ({ ...o, y: Number(e.target.value) }))}
                     className='mt-1 w-full accent-brand-blue'
                   />
                 </label>

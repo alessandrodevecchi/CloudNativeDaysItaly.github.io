@@ -76,11 +76,11 @@ export const LAYOUTS = {
       pad,
       logo: logoBox(pad, unit),
       photo: hasPhoto
-        ? { x: W - pad - photoSize, y: Math.round(H * 0.26), size: photoSize }
+        ? { x: W - pad - photoSize, y: Math.round(H * 0.34), size: photoSize }
         : null,
       headline: {
         x: pad,
-        y: Math.round(H * (hasPhoto ? 0.42 : 0.44)),
+        y: Math.round(H * (hasPhoto ? 0.46 : 0.44)),
         maxW: hasPhoto
           ? W - photoSize - Math.round(pad * 2.4)
           : W - pad * 2 - Math.round(unit * 0.16),
@@ -99,7 +99,11 @@ export const LAYOUTS = {
       pad,
       logo: logoBox(pad, unit, 0.3),
       photo: hasPhoto
-        ? { x: Math.round((W - photoSize) / 2), y: Math.round(H * 0.24), size: photoSize }
+        ? {
+            x: Math.round((W - photoSize) / 2 - unit * 0.04),
+            y: Math.round(H * 0.2),
+            size: photoSize,
+          }
         : null,
       headline: {
         x: pad,

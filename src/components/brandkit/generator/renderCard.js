@@ -217,16 +217,20 @@ function drawLogo(ctx, media, box, unit, frame) {
   ctx.strokeRect(x + border / 2, y + border / 2, size - border, size - border);
 }
 
-function drawPhoto(ctx, media, box, shape, zoom, unit, frame) {
+function drawPhoto(ctx, media, box, shape, zoom, offset, unit, frame) {
   const { x, y, size } = box;
   const photo = media.source;
   const border = Math.max(3, Math.round(unit * 0.006));
   const shadow = Math.round(unit * 0.014);
 
-  // crop cover centrato con zoom
+  // crop cover con zoom e pan: offset -1..1 sposta la finestra di ritaglio
+  // dentro lo spazio disponibile (utile per centrare il soggetto,
+  // soprattutto con foto verticali)
   const srcSize = Math.min(media.width, media.height) / Math.max(1, zoom);
-  const sx = (media.width - srcSize) / 2;
-  const sy = (media.height - srcSize) / 2;
+  const ox = offset?.x || 0;
+  const oy = offset?.y || 0;
+  const sx = ((media.width - srcSize) / 2) * (1 + ox);
+  const sy = ((media.height - srcSize) / 2) * (1 + oy);
 
   ctx.save();
   ctx.fillStyle = frame;
@@ -259,7 +263,7 @@ function drawPhoto(ctx, media, box, shape, zoom, unit, frame) {
 
 /* ── Render principale ───────────────────────────────────────────────── */
 export async function renderCard(canvas, state) {
-  const { format, headline, texts = {}, photo, mediaType = 'photo', photoShape, zoom, colorway, fonts, background } = state;
+  const { format, headline, texts = {}, photo, mediaType = 'photo', photoShape, zoom, photoOffset, logoStyle, colorway, fonts, background } = state;
   const W = format.width;
   const H = format.height;
   const colors = COLORWAYS[colorway] || COLORWAYS.blue;
@@ -294,14 +298,34 @@ export async function renderCard(canvas, state) {
     ringColors: colors.rings,
   });
 
-  // 3. logo CND (variante bianca o a colori a seconda della colorway)
+  // 3. logo CND: bianco, oppure a colori dentro un box effetto stamp
+  // (bianco, bordo, hard shadow)
+  const effectiveLogoStyle = logoStyle || (colors.logo === 'color' ? 'color' : 'white');
   try {
-    const logo = await loadImage(
-      colors.logo === 'color' ? '/images/logo.webp' : '/images/Logo_CND_W.svg',
-    );
-    const logoW = layout.logo.w;
-    const logoH = logoW * (logo.naturalHeight / logo.naturalWidth || 0.32);
-    ctx.drawImage(logo, layout.logo.x, layout.logo.y, logoW, logoH);
+    if (effectiveLogoStyle === 'color') {
+      const logo = await loadImage('/images/logo.webp');
+      const logoW = layout.logo.w;
+      const logoH = logoW * (logo.naturalHeight / logo.naturalWidth || 0.32);
+      const inner = Math.round(logoW * 0.1);
+      const boxW = logoW + inner * 2;
+      const boxH = logoH + inner * 2;
+      const border = Math.max(3, Math.round(unit * 0.005));
+      const shadow = Math.round(unit * 0.01);
+      const frame = colors.frame || '#111111';
+      ctx.fillStyle = frame === '#FFFFFF' ? '#111111' : frame;
+      ctx.fillRect(layout.logo.x + shadow, layout.logo.y + shadow, boxW, boxH);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(layout.logo.x, layout.logo.y, boxW, boxH);
+      ctx.strokeStyle = '#111111';
+      ctx.lineWidth = border;
+      ctx.strokeRect(layout.logo.x + border / 2, layout.logo.y + border / 2, boxW - border, boxH - border);
+      ctx.drawImage(logo, layout.logo.x + inner, layout.logo.y + inner, logoW, logoH);
+    } else {
+      const logo = await loadImage('/images/Logo_CND_W.svg');
+      const logoW = layout.logo.w;
+      const logoH = logoW * (logo.naturalHeight / logo.naturalWidth || 0.32);
+      ctx.drawImage(logo, layout.logo.x, layout.logo.y, logoW, logoH);
+    }
   } catch {
     // senza logo la card resta valida
   }
@@ -311,7 +335,7 @@ export async function renderCard(canvas, state) {
     if (mediaType === 'logo') {
       drawLogo(ctx, photo, layout.photo, unit, colors.frame || '#111111');
     } else {
-      drawPhoto(ctx, photo, layout.photo, photoShape, zoom, unit, colors.frame || '#111111');
+      drawPhoto(ctx, photo, layout.photo, photoShape, zoom, photoOffset, unit, colors.frame || '#111111');
     }
   }
 

@@ -27,6 +27,7 @@ export const COLORWAYS = {
     rings: ['#FBC430', '#F91B71'],
     frame: '#111111',
     logo: 'white',
+    logoOptions: ['white', 'color'],
   },
   magenta: {
     bg: '#F91B71',
@@ -36,6 +37,7 @@ export const COLORWAYS = {
     rings: ['#FBC430', '#3069DE'],
     frame: '#111111',
     logo: 'white',
+    logoOptions: ['white', 'color'],
   },
   yellow: {
     bg: '#FBC430',
@@ -45,6 +47,7 @@ export const COLORWAYS = {
     rings: ['#3069DE', '#F91B71'],
     frame: '#111111',
     logo: 'color',
+    logoOptions: ['color'],
   },
   ink: {
     bg: '#111111',
@@ -54,6 +57,7 @@ export const COLORWAYS = {
     rings: ['#FBC430', '#F91B71'],
     frame: '#FFFFFF',
     logo: 'white',
+    logoOptions: ['white', 'color'],
   },
 };
 
