@@ -1,27 +1,289 @@
+import Image from 'next/image';
+import { Download, Check, X } from 'lucide-react';
 import config from '@/config/website.json';
+import brandKit from '@/config/brand-kit.json';
+import CopyButton from '@/components/brandkit/CopyButton';
+import DecorLayer from '@/components/decor/DecorLayer';
 
 export const metadata = {
   title: `Brand Kit - ${config.general.event.name}`,
   description:
-    'Logos, colors, templates and ready-made assets to share Cloud Native Days Italy.',
+    'Logos, colors, templates and ready-made assets to share Cloud Native Days Italy: for attendees, media partners and speakers.',
 };
 
-// Stub: la pagina completa (brand basics, media partners, attendees,
-// speakers, usage rules) arriva nella fase 3 della ristrutturazione contenuti.
-export default function BrandKitPage() {
+// Bottone download: con url scarica, senza url stato "coming soon"
+// disabilitato — gli asset arrivano man mano che vengono prodotti.
+const DownloadButton = ({ item }) => {
+  if (!item.url) {
+    return (
+      <span className='inline-flex cursor-not-allowed items-center border-pop border-ink bg-gray-100 px-4 py-2 text-sm font-bold uppercase tracking-wide text-ink-muted'>
+        <Download className='mr-2 h-4 w-4' />
+        {item.label}
+        <span className='ml-3 border border-ink bg-white px-2 py-0.5 text-xs text-brand-blue'>
+          Soon
+        </span>
+      </span>
+    );
+  }
   return (
-    <section className='w-full bg-white'>
-      <div className='mx-auto max-w-[1200px] px-6 py-16 md:py-24 pt-32 md:pt-40'>
-        <span className='stamp'>Brand Kit</span>
-        <h1 className='section-heading mt-6'>Share Cloud Native Days Italy</h1>
-        <p className='mt-6 max-w-2xl text-ink-soft'>
-          Logos, colors, templates and ready-made assets for attendees, media
-          partners and speakers.
-        </p>
-        <p className='mt-4 max-w-2xl text-ink-muted'>
-          The full kit is coming soon.
-        </p>
-      </div>
-    </section>
+    <a
+      href={item.url}
+      download
+      className='btn-pop btn-pop-secondary inline-flex items-center !px-4 !py-2 text-sm'
+    >
+      <Download className='mr-2 h-4 w-4' />
+      {item.label}
+    </a>
+  );
+};
+
+const DownloadList = ({ items }) => (
+  <div className='flex flex-wrap gap-3'>
+    {items.map((item) => (
+      <DownloadButton key={item.label} item={item} />
+    ))}
+  </div>
+);
+
+const SectionHeading = ({ eyebrow, title, dark = false }) => (
+  <>
+    <span className={`eyebrow ${dark ? 'text-brand-yellow' : 'text-brand-magenta'}`}>
+      {eyebrow}
+    </span>
+    <h2 className={`mt-2 font-display text-section uppercase ${dark ? 'text-white' : 'text-ink'}`}>
+      {title}
+    </h2>
+  </>
+);
+
+export default function BrandKitPage() {
+  const { hero, basics, mediaPartners, attendees, speakers, usage } = brandKit;
+
+  return (
+    <>
+      {/* Hero + anchor links */}
+      <section className='relative overflow-hidden bg-white'>
+        <DecorLayer
+          items={[
+            { pattern: 'cluster-c', position: 'top-right', size: 'lg' },
+            { pattern: 'halftone', position: 'mid-right', size: 'lg', className: 'opacity-20' },
+          ]}
+        />
+        <div className='relative z-10 mx-auto max-w-[1200px] px-6 py-16 pt-32 md:py-24 md:pt-40'>
+          <span className='stamp'>Brand Kit</span>
+          <h1 className='section-heading mt-6'>{hero.title}</h1>
+          <p className='mt-8 max-w-3xl text-xl text-ink-soft'>{hero.lead}</p>
+          <nav className='mt-8 flex flex-wrap gap-2' aria-label='Brand kit sections'>
+            {hero.anchors.map((anchor) => (
+              <a
+                key={anchor.target}
+                href={anchor.target}
+                className='border-pop border-ink bg-white px-3 py-1 text-sm font-bold text-ink transition-colors hover:bg-ink hover:text-white'
+              >
+                {anchor.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </section>
+
+      {/* Brand basics */}
+      <section className='border-t-2 border-ink bg-white py-16 lg:py-24' id='basics'>
+        <div className='mx-auto max-w-[1200px] px-6'>
+          <SectionHeading eyebrow='For everyone' title={basics.title} />
+          <p className='mt-6 max-w-2xl text-lg text-ink-muted'>{basics.description}</p>
+
+          <div className='mt-10 grid grid-cols-1 gap-8 lg:grid-cols-2'>
+            {/* Logo box: versione positiva e negativa */}
+            <div className='grid grid-rows-2 gap-4'>
+              <div className='card-pop flex items-center justify-center bg-white p-10'>
+                <Image src='/images/logo.webp' alt='Cloud Native Days Italy logo' width={280} height={90} />
+              </div>
+              <div className='card-pop flex items-center justify-center bg-ink p-10'>
+                <Image src='/images/Logo_CND_W.svg' alt='Cloud Native Days Italy logo, white version' width={280} height={90} />
+              </div>
+            </div>
+
+            {/* Palette + type */}
+            <div>
+              <div className='grid grid-cols-2 gap-3 sm:grid-cols-3'>
+                {basics.palette.map((color) => (
+                  <div key={color.hex} className='border-pop border-ink'>
+                    <div className='h-16' style={{ backgroundColor: color.hex }} />
+                    <div className='border-t-2 border-ink bg-white px-3 py-2'>
+                      <p className='text-sm font-bold text-ink'>{color.name}</p>
+                      <p className='text-xs uppercase text-ink-muted'>{color.hex}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className='card-pop mt-4 p-6'>
+                <p className='font-display text-3xl uppercase text-ink'>Extenda / Anton</p>
+                <p className='mt-1 text-sm text-ink-muted'>Display font — headings, always uppercase</p>
+                <p className='mt-4 text-2xl font-bold text-ink'>Poppins</p>
+                <p className='mt-1 text-sm text-ink-muted'>Body font — everything else</p>
+              </div>
+            </div>
+          </div>
+
+          <div className='mt-10'>
+            <DownloadList items={basics.downloads} />
+          </div>
+        </div>
+      </section>
+
+      {/* Media partners */}
+      <section className='border-t-2 border-ink bg-cream py-16 lg:py-24' id='media-partners'>
+        <div className='mx-auto max-w-[1200px] px-6'>
+          <SectionHeading eyebrow='Spread the word' title={mediaPartners.title} />
+          <p className='mt-6 max-w-2xl text-lg text-ink-muted'>{mediaPartners.description}</p>
+
+          <div className='mt-10 grid grid-cols-1 gap-6 md:grid-cols-2'>
+            <div className='card-pop bg-white p-8'>
+              <h3 className='font-display text-xl uppercase text-ink'>What you get</h3>
+              <ul className='mt-4 space-y-3'>
+                {mediaPartners.offer.map((item) => (
+                  <li key={item} className='flex gap-3 text-ink-soft'>
+                    <Check className='mt-0.5 h-5 w-5 flex-shrink-0 text-brand-blue' />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className='card-pop bg-white p-8'>
+              <h3 className='font-display text-xl uppercase text-ink'>What we ask</h3>
+              <ul className='mt-4 space-y-3'>
+                {mediaPartners.ask.map((item) => (
+                  <li key={item} className='flex gap-3 text-ink-soft'>
+                    <Check className='mt-0.5 h-5 w-5 flex-shrink-0 text-brand-magenta' />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className='mt-10'>
+            <h3 className='font-display text-xl uppercase text-ink'>Ready-made banners</h3>
+            <div className='mt-4'>
+              <DownloadList items={mediaPartners.banners} />
+            </div>
+          </div>
+
+          <div className='card-pop mt-10 bg-white p-8'>
+            <h3 className='font-display text-xl uppercase text-ink'>Boilerplate</h3>
+            <p className='mt-4 max-w-3xl text-ink-soft'>{mediaPartners.boilerplate}</p>
+            <div className='mt-6'>
+              <CopyButton text={mediaPartners.boilerplate} label='Copy boilerplate' />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Attendees */}
+      <section className='border-t-2 border-ink bg-white py-16 lg:py-24' id='attendees'>
+        <div className='mx-auto max-w-[1200px] px-6'>
+          <SectionHeading eyebrow='Coming to the event?' title={attendees.title} />
+          <p className='mt-6 max-w-2xl text-lg text-ink-muted'>{attendees.description}</p>
+
+          <div className='mt-10 grid grid-cols-1 items-start gap-8 lg:grid-cols-2'>
+            {/* Anteprima card "I'll be there" resa in CSS col design system */}
+            <div className='card-pop relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden bg-brand-blue p-8 shadow-pop-lg'>
+              <DecorLayer
+                items={[{ pattern: 'cluster-duo', position: 'bottom-right', size: 'md' }]}
+              />
+              <div className='relative z-10 flex h-full flex-col'>
+                <Image src='/images/Logo_CND_W.svg' alt='' width={140} height={40} aria-hidden />
+                <p className='mt-auto font-display text-5xl uppercase leading-none text-white'>
+                  I&apos;ll be
+                  <br />
+                  <span className='text-brand-yellow'>there</span>
+                </p>
+                <p className='mt-4 text-sm font-bold text-white'>
+                  Bologna — 20 May 2027 · cloudnativedaysitaly.org
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <DownloadList items={attendees.downloads} />
+              <p className='mt-6 max-w-md text-sm text-ink-muted'>{attendees.note}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Speakers */}
+      <section className='border-t-2 border-ink bg-cream py-16 lg:py-24' id='speakers'>
+        <div className='mx-auto max-w-[1200px] px-6'>
+          <SectionHeading eyebrow='On stage' title={speakers.title} />
+          <p className='mt-6 max-w-2xl text-lg text-ink-muted'>{speakers.description}</p>
+
+          <div className='mt-10 grid grid-cols-1 items-start gap-8 lg:grid-cols-2'>
+            {/* Anteprima slide template resa in CSS */}
+            <div className='card-pop aspect-video w-full bg-white p-8 shadow-pop-lg'>
+              <div className='flex h-full flex-col'>
+                <Image src='/images/logo_xs.webp' alt='' width={120} height={32} aria-hidden />
+                <p className='mt-auto font-display text-3xl uppercase leading-tight text-ink'>
+                  Your talk title here
+                </p>
+                <p className='mt-2 text-sm font-bold text-brand-magenta'>
+                  Your Name — @yourhandle
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <DownloadList items={speakers.downloads} />
+              <ul className='mt-8 space-y-3'>
+                {speakers.guidelines.map((item) => (
+                  <li key={item} className='flex gap-3 text-ink-soft'>
+                    <Check className='mt-0.5 h-5 w-5 flex-shrink-0 text-brand-blue' />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p className='mt-8 max-w-md border-pop border-ink bg-brand-yellow-light p-4 text-sm font-medium text-ink'>
+                {speakers.note}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Usage rules */}
+      <section className='relative overflow-hidden bg-ink py-16 lg:py-24' id='usage'>
+        <DecorLayer
+          items={[{ pattern: 'halftone', position: 'mid-right', size: 'lg', className: 'opacity-20 invert' }]}
+        />
+        <div className='relative z-10 mx-auto max-w-[1200px] px-6'>
+          <SectionHeading eyebrow='The fine print' title={usage.title} dark />
+          <div className='mt-10 grid grid-cols-1 gap-6 md:grid-cols-2'>
+            <div>
+              <h3 className='font-display text-xl uppercase text-brand-yellow'>Do</h3>
+              <ul className='mt-4 space-y-3'>
+                {usage.do.map((item) => (
+                  <li key={item} className='flex gap-3 text-white'>
+                    <Check className='mt-0.5 h-5 w-5 flex-shrink-0 text-brand-yellow' />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className='font-display text-xl uppercase text-brand-magenta'>Don&apos;t</h3>
+              <ul className='mt-4 space-y-3'>
+                {usage.dont.map((item) => (
+                  <li key={item} className='flex gap-3 text-white'>
+                    <X className='mt-0.5 h-5 w-5 flex-shrink-0 text-brand-magenta' />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

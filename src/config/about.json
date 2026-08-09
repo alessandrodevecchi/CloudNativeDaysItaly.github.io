@@ -1,0 +1,113 @@
+{
+  "intro": {
+    "title": "What is Cloud Native Days Italy",
+    "lead": "Cloud Native Days Italy is a community-driven event dedicated to cloud native and open source technologies.",
+    "description": "It brings together developers, architects, engineers, DevOps and IT professionals — the whole Italian cloud native and Kubernetes community, and anyone excited about what cloud native makes possible. Our goal is simple: grow the Italian cloud native community by giving it a place to meet, share and learn, together."
+  },
+  "story": {
+    "title": "Our story",
+    "channelUrl": "https://www.youtube.com/@kcditaly/",
+    "steps": [
+      {
+        "year": "2021",
+        "title": "Born as KCD Italy",
+        "text": "The first Kubernetes Community Days Italy: a fully virtual edition, organized by the community for the community.",
+        "link": {
+          "label": "Watch the 2021 talks",
+          "url": "https://www.youtube.com/watch?v=xe-ZCvbrnoM&list=PLJhuHmyf2-IzFNdkmA31Ll6HZViu25yW0"
+        }
+      },
+      {
+        "year": "2022",
+        "title": "The community grows",
+        "text": "A second virtual edition, with more talks, more speakers and a growing community around the event.",
+        "link": {
+          "label": "Watch the 2022 talks",
+          "url": "https://www.youtube.com/watch?v=8VrnSXzCI6M&list=PLJhuHmyf2-Iw_CPXupu6Pzbyiu9TUu7TC"
+        }
+      },
+      {
+        "year": "2023",
+        "title": "Finally in person",
+        "text": "For the first time the community meets in person: faces, hallway chats and live demos replace the video calls.",
+        "link": {
+          "label": "Watch the 2023 talks",
+          "url": "https://www.youtube.com/watch?v=4Lb8Tz21P8A&list=PLJhuHmyf2-IwoH3TefuTzCMySw_FI9izE"
+        }
+      },
+      {
+        "year": "2024",
+        "title": "The last KCD",
+        "text": "The fourth edition closes the Kubernetes Community Days chapter of our story.",
+        "link": {
+          "label": "Browse the KCD Italy channel",
+          "url": "https://www.youtube.com/@kcditaly/"
+        }
+      },
+      {
+        "year": "2025",
+        "title": "Cloud Native Days Italy",
+        "text": "A new, independent identity with a wider scope: all things cloud native, beyond Kubernetes.",
+        "link": {
+          "label": "Explore the 2025 edition",
+          "url": "/2025"
+        }
+      },
+      {
+        "year": "2026",
+        "title": "The biggest edition so far",
+        "text": "Two days in Bologna with hundreds of attendees, workshops, a sponsor area and a community & open source area.",
+        "link": {
+          "label": "Explore the 2026 edition",
+          "url": "/2026"
+        }
+      },
+      {
+        "year": "2027",
+        "title": "Next stop: Bologna",
+        "text": "The story continues on 20 May 2027. Be part of it.",
+        "link": {
+          "label": "Save the date",
+          "url": "/"
+        }
+      }
+    ]
+  },
+  "pictures": {
+    "title": "Pictures"
+  },
+  "community": {
+    "title": "Made possible by the community",
+    "description": "Cloud Native Days Italy is a non-profit, community-run event. It exists because people give it their time, energy and support.",
+    "cards": [
+      {
+        "color": "blue",
+        "title": "A team of volunteers",
+        "text": "Organizers who dedicate their time and energy to make the event happen.",
+        "label": "Meet the team",
+        "url": "/team"
+      },
+      {
+        "color": "magenta",
+        "title": "Sponsors who believe in it",
+        "text": "Companies that fund the event and make it accessible to everyone.",
+        "label": "Our sponsors",
+        "url": "/sponsors"
+      },
+      {
+        "color": "yellow",
+        "title": "Speakers who share",
+        "text": "Incredible people bringing their stories and know-how on stage, edition after edition.",
+        "label": "Watch their talks",
+        "url": "/content-hub"
+      },
+      {
+        "color": "ink",
+        "title": "You",
+        "text": "Send a talk, grab a ticket, or just spread the word: the event is what the community makes of it.",
+        "label": "Contribute",
+        "url": "/#cfp"
+      }
+    ]
+  }
+}

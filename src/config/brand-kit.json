@@ -1,0 +1,86 @@
+{
+  "hero": {
+    "title": "Share Cloud Native Days Italy",
+    "lead": "Logos, colors, templates and ready-made assets to talk about the event — the right way, without asking us first.",
+    "anchors": [
+      { "label": "Brand basics", "target": "#basics" },
+      { "label": "Media partners", "target": "#media-partners" },
+      { "label": "Attendees", "target": "#attendees" },
+      { "label": "Speakers", "target": "#speakers" },
+      { "label": "Usage rules", "target": "#usage" }
+    ]
+  },
+  "basics": {
+    "title": "Brand basics",
+    "description": "The essentials of the Cloud Native Days Italy identity. Use them as they are: no recoloring, no stretching, no remixing.",
+    "palette": [
+      { "name": "Blue", "hex": "#3069DE" },
+      { "name": "Magenta", "hex": "#F91B71" },
+      { "name": "Yellow", "hex": "#FBC430" },
+      { "name": "Yellow Light", "hex": "#FADD64" },
+      { "name": "Ink", "hex": "#111111" },
+      { "name": "Cream", "hex": "#FDF6E3" }
+    ],
+    "downloads": [
+      { "label": "Logo pack (SVG + PNG)", "url": null },
+      { "label": "Brand guidelines (PDF)", "url": null }
+    ]
+  },
+  "mediaPartners": {
+    "title": "For media partners",
+    "description": "Everything you need to talk about the event on your channels.",
+    "offer": [
+      "Your logo on the website and on the partners wall",
+      "A shout-out on our social channels",
+      "Ready-made banners and copy for your audience"
+    ],
+    "ask": [
+      "Share the event with your community",
+      "Publish the Call for Papers and ticket announcements",
+      "Use the official assets and boilerplate below"
+    ],
+    "banners": [
+      { "label": "Banner 16:9 (post)", "url": null },
+      { "label": "Banner 1:1 (square)", "url": null },
+      { "label": "Banner 9:16 (story)", "url": null }
+    ],
+    "boilerplate": "Cloud Native Days Italy is a community-organized event dedicated to cloud native and open source technologies, gathering the Italian community of developers, architects, engineers and IT professionals for two days of talks, workshops and networking. The 2027 edition takes place in Bologna on 20 May 2027. Learn more at cloudnativedaysitaly.org."
+  },
+  "attendees": {
+    "title": "For attendees",
+    "description": "Coming to the event? Say it loud. Grab an \"I'll be there\" card for your socials and tag @cloudnativedaysitaly.",
+    "downloads": [
+      { "label": "\"I'll be there\" card 1:1", "url": null },
+      { "label": "\"I'll be there\" story 9:16", "url": null }
+    ],
+    "note": "An interactive generator to personalize your card is in the works."
+  },
+  "speakers": {
+    "title": "For speakers",
+    "description": "Selected as a speaker? Congrats! Here is what you need for your talk and your announcement.",
+    "downloads": [
+      { "label": "Slide template (Google Slides)", "url": null },
+      { "label": "Slide template (PDF)", "url": null }
+    ],
+    "guidelines": [
+      "Use the official slide template, or at least its title and closing slides",
+      "16:9 format, minimum 24pt body text: the room is big",
+      "Add your social handle on the title slide, the audience will look for you",
+      "Live demos welcome — with a recorded backup, conference Wi-Fi is what it is"
+    ],
+    "note": "Your personalized speaker announcement card is on us: we prepare it and send it to you before the announcement."
+  },
+  "usage": {
+    "title": "Usage rules",
+    "do": [
+      "Use the official logos, colors and templates as provided",
+      "Pair the logo with generous white space",
+      "Tag @cloudnativedaysitaly so we can reshare your posts"
+    ],
+    "dont": [
+      "Do not recolor, distort, outline or add effects to the logo",
+      "Do not use the brand to imply sponsorship or endorsement",
+      "Do not alter the templates beyond the marked editable areas"
+    ]
+  }
+}
