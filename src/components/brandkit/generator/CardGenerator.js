@@ -131,18 +131,43 @@ export default function CardGenerator() {
     }
   };
 
+  const saveBlob = (canvas, filename) =>
+    new Promise((resolve) => {
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = filename;
+          link.click();
+          URL.revokeObjectURL(url);
+        }
+        resolve();
+      }, 'image/png');
+    });
+
   const handleDownload = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    canvas.toBlob((blob) => {
-      if (!blob) return;
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `cnd2027-${useCaseId}-${format.id}.png`;
-      link.click();
-      URL.revokeObjectURL(url);
-    }, 'image/png');
+    if (!canvasRef.current) return;
+    saveBlob(canvasRef.current, `cnd2027-${useCaseId}-${format.id}.png`);
+  };
+
+  // Tutti i formati in un click, con le impostazioni correnti: ogni formato
+  // viene renderizzato su un canvas offscreen con la stessa pipeline.
+  const handleDownloadAll = async () => {
+    for (const f of FORMATS) {
+      const offscreen = document.createElement('canvas');
+      await renderCard(offscreen, {
+        format: f,
+        headline,
+        values,
+        photo,
+        photoShape,
+        zoom,
+        colorway: colorwayId,
+        fonts: fontsRef.current || resolveFonts(),
+      });
+      await saveBlob(offscreen, `cnd2027-${useCaseId}-${f.id}.png`);
+    }
   };
 
   return (
@@ -270,7 +295,7 @@ export default function CardGenerator() {
             aria-label='Card preview'
           />
         </div>
-        <div className='mt-4'>
+        <div className='mt-4 flex flex-wrap gap-3'>
           <button
             type='button'
             onClick={handleDownload}
@@ -278,6 +303,14 @@ export default function CardGenerator() {
           >
             <Download className='mr-2 h-5 w-5' />
             Download PNG
+          </button>
+          <button
+            type='button'
+            onClick={handleDownloadAll}
+            className='btn-pop btn-pop-secondary inline-flex items-center'
+          >
+            <Download className='mr-2 h-5 w-5' />
+            All formats
           </button>
         </div>
       </div>

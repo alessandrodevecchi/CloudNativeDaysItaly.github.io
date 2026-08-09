@@ -11,6 +11,8 @@ export const DEFAULT_FORMAT_ID = '1-1';
 
 // Colorway = superficie piena + colori a contrasto (regole design system:
 // testo bianco su blue/magenta/ink, testo ink su giallo).
+// `icon` = colore brand a contrasto per le icone footer (deciso da
+// Alessandro): blu→magenta, magenta→blu, giallo→ink.
 export const COLORWAYS = {
-  blue: { bg: '#3069DE', text: '#FFFFFF', accent: '#FBC430', logo: 'white' },
+  blue: { bg: '#3069DE', text: '#FFFFFF', accent: '#FBC430', icon: '#F91B71', logo: 'white' },
 };

@@ -46,15 +46,17 @@ export const LAYOUTS = {
 
   square(W, H, { hasPhoto }) {
     const { unit, pad } = base(W, H);
-    const photoSize = Math.round(W * 0.34);
+    const photoSize = Math.round(W * 0.36);
     return {
       pad,
       logo: logoBox(pad, unit),
-      photo: hasPhoto ? { x: W - pad - photoSize, y: pad, size: photoSize } : null,
+      photo: hasPhoto
+        ? { x: W - pad - photoSize, y: Math.round(H * 0.3), size: photoSize }
+        : null,
       headline: {
         x: pad,
-        y: Math.round(H * 0.42),
-        maxW: W - pad * 2,
+        y: Math.round(H * (hasPhoto ? 0.38 : 0.42)),
+        maxW: hasPhoto ? W - photoSize - Math.round(pad * 2.4) : W - pad * 2,
         size: Math.round(unit * 0.15),
       },
       name: { size: Math.round(unit * 0.048) },
@@ -65,15 +67,17 @@ export const LAYOUTS = {
 
   portrait(W, H, { hasPhoto }) {
     const { unit, pad } = base(W, H);
-    const photoSize = Math.round(W * 0.38);
+    const photoSize = Math.round(W * 0.4);
     return {
       pad,
       logo: logoBox(pad, unit),
-      photo: hasPhoto ? { x: W - pad - photoSize, y: pad, size: photoSize } : null,
+      photo: hasPhoto
+        ? { x: W - pad - photoSize, y: Math.round(H * 0.26), size: photoSize }
+        : null,
       headline: {
         x: pad,
-        y: Math.round(H * 0.44),
-        maxW: W - pad * 2,
+        y: Math.round(H * (hasPhoto ? 0.42 : 0.44)),
+        maxW: hasPhoto ? W - photoSize - Math.round(pad * 2.4) : W - pad * 2,
         size: Math.round(unit * 0.155),
       },
       name: { size: Math.round(unit * 0.05) },
@@ -89,11 +93,11 @@ export const LAYOUTS = {
       pad,
       logo: logoBox(pad, unit, 0.3),
       photo: hasPhoto
-        ? { x: Math.round((W - photoSize) / 2), y: Math.round(H * 0.2), size: photoSize }
+        ? { x: Math.round((W - photoSize) / 2), y: Math.round(H * 0.24), size: photoSize }
         : null,
       headline: {
         x: pad,
-        y: Math.round(H * (hasPhoto ? 0.52 : 0.4)),
+        y: Math.round(H * (hasPhoto ? 0.55 : 0.4)),
         maxW: W - pad * 2,
         size: Math.round(unit * 0.17),
       },

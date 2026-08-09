@@ -9,9 +9,9 @@ export const USE_CASES = [
     visibility: 'public',
     // headline: righe di testo display; accentIndex = riga in colore accent
     headlines: [
-      { id: 'see-you', lines: ['See you', 'there'], accentIndex: 1 },
-      { id: 'be-there', lines: ["I'll be", 'there'], accentIndex: 1 },
-      { id: 'joining', lines: ["I'm", 'joining'], accentIndex: 1 },
+      { id: 'see-you', lines: ['See you', 'there!'], accentIndex: 1 },
+      { id: 'be-there', lines: ["I'll be", 'there!'], accentIndex: 1 },
+      { id: 'joining', lines: ["I'm", 'joining!'], accentIndex: 1 },
     ],
     defaultHeadline: 'see-you',
     fields: [

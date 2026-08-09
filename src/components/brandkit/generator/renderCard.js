@@ -20,32 +20,46 @@ function loadImage(src) {
   return promise;
 }
 
-/* ── Anelli brand (dati del cluster `duo` di BrandRings, viewBox 400) ── */
+/* ── Anelli brand: composizione grande tricolore + satellite ─────────── */
 const RING_COLORS = { blue: '#3069DE', magenta: '#F91B71', yellow: '#FBC430', white: '#FFFFFF' };
-const DUO_CLUSTER = [
-  { cx: 150, cy: 190, r: 95, colors: [RING_COLORS.blue, RING_COLORS.white, RING_COLORS.yellow] },
-  { cx: 275, cy: 255, r: 65, colors: [RING_COLORS.magenta, RING_COLORS.white, RING_COLORS.blue] },
-];
 
-function drawRings(ctx, x, y, scale, bgColor) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.scale(scale / 400, scale / 400);
-  for (const ring of DUO_CLUSTER) {
-    const band = ring.r / (ring.colors.length + 1);
-    ring.colors.forEach((color, i) => {
-      ctx.beginPath();
-      ctx.arc(ring.cx, ring.cy, ring.r - band * i, 0, Math.PI * 2);
-      ctx.fillStyle = color;
-      ctx.fill();
-    });
-    // foro centrale nel colore di sfondo (nell'SVG è bianco, qui si fonde)
+function ringAt(ctx, cx, cy, r, bands, bgColor) {
+  const band = r / (bands.length + 1);
+  bands.forEach((color, i) => {
     ctx.beginPath();
-    ctx.arc(ring.cx, ring.cy, ring.r - band * ring.colors.length, 0, Math.PI * 2);
-    ctx.fillStyle = bgColor;
+    ctx.arc(cx, cy, r - band * i, 0, Math.PI * 2);
+    ctx.fillStyle = color;
     ctx.fill();
+  });
+  // foro centrale nel colore di sfondo
+  ctx.beginPath();
+  ctx.arc(cx, cy, r - band * bands.length, 0, Math.PI * 2);
+  ctx.fillStyle = bgColor;
+  ctx.fill();
+}
+
+// Con foto: anelli che sbucano da dietro (angolo basso-sinistra + alto-destra
+// della foto). Senza foto: anello grande tagliato dal bordo destro + satellite,
+// sempre sopra il footer.
+function drawRingsComposition(ctx, { W, unit, photoBox, footerTop, bg }) {
+  const bigBands = [RING_COLORS.yellow, RING_COLORS.white, RING_COLORS.magenta, RING_COLORS.white, RING_COLORS.yellow];
+  const smallBands = [RING_COLORS.magenta, RING_COLORS.white, RING_COLORS.yellow];
+
+  if (photoBox) {
+    const { x, y, size } = photoBox;
+    const bigR = Math.round(unit * 0.14);
+    let bigY = y + size * 0.94;
+    if (bigY + bigR > footerTop - unit * 0.015) {
+      bigY = footerTop - unit * 0.015 - bigR;
+    }
+    ringAt(ctx, x + size * 0.04, bigY, bigR, bigBands, bg);
+    ringAt(ctx, x + size * 0.99, y + size * 0.05, Math.round(unit * 0.065), smallBands, bg);
+  } else {
+    const bigR = Math.round(unit * 0.19);
+    const bigY = footerTop - bigR * 1.15;
+    ringAt(ctx, W - bigR * 0.35, bigY, bigR, bigBands, bg);
+    ringAt(ctx, W - bigR * 1.55, bigY - bigR * 1.05, Math.round(unit * 0.07), smallBands, bg);
   }
-  ctx.restore();
 }
 
 /* ── Icone footer: tracciati lucide (viewBox 24, stroke 2, round) ───── */
@@ -164,7 +178,7 @@ function drawFooter(ctx, layout, colors, fonts, metrics) {
     const rowY = y - (rows.length - 1 - rowIndex) * rowH;
     for (const item of row) {
       const textW = ctx.measureText(item.text).width;
-      drawIcon(ctx, item.icon, x, rowY - icon, icon, colors.text);
+      drawIcon(ctx, item.icon, x, rowY - icon, icon, colors.icon || colors.text);
       ctx.fillStyle = colors.text;
       ctx.textBaseline = 'alphabetic';
       ctx.fillText(item.text, x + icon + iconGap, rowY - icon * 0.18);
@@ -239,16 +253,15 @@ export async function renderCard(canvas, state) {
   });
   const footerMetrics = measureFooter(ctx, W, layout, fonts);
 
-  // 2. decorazioni: cluster anelli sul bordo destro, tagliato, sempre
-  // sopra il footer per non coprirlo
-  const ringSize = unit * 0.5;
-  drawRings(
-    ctx,
-    W - ringSize * 0.62,
-    footerMetrics.top - ringSize - unit * 0.02,
-    ringSize,
-    colors.bg,
-  );
+  // 2. decorazioni: anelli dietro la foto (se presente) o sul bordo destro,
+  // sempre sopra il footer
+  drawRingsComposition(ctx, {
+    W,
+    unit,
+    photoBox: photo ? layout.photo : null,
+    footerTop: footerMetrics.top,
+    bg: colors.bg,
+  });
 
   // 3. logo CND (bianco sui fondi colorati)
   try {
