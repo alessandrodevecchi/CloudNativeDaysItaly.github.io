@@ -146,6 +146,20 @@ const Sponsors = ({
             </div>
           );
         })}
+
+        {/* Testimonial sponsor (wireframe: 09-sponsor-testimonial) — si
+            attiva da config quando c'è una quote reale. */}
+        {isCurrent && sectionsContent.testimonial?.active && (
+          <blockquote className='card-pop mt-4 bg-brand-yellow-light p-8'>
+            <p className='max-w-3xl text-xl font-bold text-ink'>
+              “{sectionsContent.testimonial.quote}”
+            </p>
+            <footer className='mt-4 text-sm text-ink-muted'>
+              {sectionsContent.testimonial.author}
+              {sectionsContent.testimonial.role && ` — ${sectionsContent.testimonial.role}`}
+            </footer>
+          </blockquote>
+        )}
         </div>
       </section>
     </div>

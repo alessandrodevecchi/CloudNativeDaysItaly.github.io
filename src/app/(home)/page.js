@@ -3,11 +3,42 @@ import path from 'path';
 import matter from 'gray-matter';
 import Hero from '@/components/hero/hero';
 import Info from '@/components/info/info';
-import ActionsSection from '@/components/actions/ActionsSection';
+import WhatToExpect from '@/components/info/WhatToExpect';
+import ThemeSection from '@/components/theme/ThemeSection';
+import CfpSection from '@/components/actions/CfpSection';
+import AgendaGlance from '@/components/agenda/AgendaGlance';
+import TicketsSection from '@/components/tickets/TicketsSection';
 import Sponsors from '@/components/sponsor/sponsor';
 import Metrics from '@/components/metrics/metrics';
+import CommunityStrip from '@/components/community/CommunityStrip';
+import FaqTeaser from '@/components/faq/FaqTeaser';
 import config from '@/config/website.json';
+import faqConfig from '@/config/faq.json';
 import Venue from '@/components/venue/venue';
+
+// Communities e progetti OS presenti all'evento, per la strip in home
+// (wireframe: 11-community-partners). I md vivono in config/communities.
+async function getEventCommunities(edition) {
+  const groups = ['community', 'opensource'];
+  const ids = groups.flatMap((group) => edition.communities?.[group] || []);
+  const partners = await Promise.all(
+    ids.map(async (id) => {
+      try {
+        const filePath = path.join(
+          process.cwd(),
+          'src',
+          'config',
+          'communities',
+          `${id}.md`,
+        );
+        return matter(await fs.readFile(filePath, 'utf8')).data;
+      } catch {
+        return null;
+      }
+    }),
+  );
+  return partners.filter(Boolean);
+}
 
 // Statistiche dell'edizione precedente per la banda numeri sotto il hero
 // (wireframe: 02-numbers-strip). Communities & OS projects e media partner
@@ -133,6 +164,8 @@ export default async function HomePage() {
   const currentEdition = await getCurrentEdition();
   const previousYear = config.general.edition - 1;
   const previousStats = await getPreviousEditionStats(previousYear);
+  const eventCommunities = await getEventCommunities(currentEdition);
+  const faqTeaserQuestions = (faqConfig.faq?.items || []).slice(0, 4);
   const siteUrl = config.general.event.website;
 
   const convertToISOWithTimezone = (dateString) => {
@@ -201,9 +234,11 @@ export default async function HomePage() {
         />
       )}
       <Info data={config.info} />
-      <ActionsSection
-        data={{ c4p: config.proposal, tickets: config.tickets }}
-      />
+      <ThemeSection data={config.theme} />
+      <WhatToExpect data={config.info.extra} />
+      <CfpSection data={config.proposal} />
+      <AgendaGlance data={config.agendaGlance} />
+      <TicketsSection data={config.tickets} />
 
       <Sponsors
         sponsorsByTier={sponsorsData}
@@ -214,6 +249,8 @@ export default async function HomePage() {
       />
 
       <Venue data={currentEdition.location} />
+      <CommunityStrip partners={eventCommunities} />
+      <FaqTeaser questions={faqTeaserQuestions} newsletter={config.newsletter} />
     </>
   );
 }
