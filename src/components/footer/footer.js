@@ -37,7 +37,10 @@ export default function Footer({ data, editions = [] }) {
   const pastEditions = editions
     .filter((e) => e !== currentEdition)
     .sort((a, b) => b.localeCompare(a));
-  const navLinks = data.navbar.links.header;
+  // La config navbar ha voci singole e gruppi (items): qui serve la lista piatta.
+  const navLinks = data.navbar.links.header.flatMap((entry) =>
+    entry.items ? entry.items : [entry],
+  );
 
   return (
     <footer className='bg-ink text-white'>

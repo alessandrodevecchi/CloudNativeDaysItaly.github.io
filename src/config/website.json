@@ -14,19 +14,48 @@
   },
   "navbar": {
     "logo": "/images/logo_xs.webp",
-    "CTA": {
-      "label": "Join our Telegram",
-      "url": "https://t.me/cloudnativedaysitaly"
-    },
+    "ctas": [
+      {
+        "id": "tickets",
+        "label": "Tickets",
+        "url": "https://t.me/cloudnativedaysitaly",
+        "active": false
+      },
+      {
+        "id": "cfp",
+        "label": "CFP",
+        "url": "https://sessionize.com/cloud-native-days-italy-2027",
+        "active": false
+      },
+      {
+        "id": "telegram",
+        "label": "Join our Telegram",
+        "url": "https://t.me/cloudnativedaysitaly",
+        "active": true
+      }
+    ],
     "links": {
       "header": [
         { "text": "Agenda", "to": "/agenda" },
         { "text": "Speakers", "to": "/speakers" },
         { "text": "Sponsors", "to": "/sponsors" },
         { "text": "Partners", "to": "/partners" },
-        { "text": "Team", "to": "/team" },
-        { "text": "Content Hub", "to": "/content-hub" },
-        { "text": "FAQ", "to": "/faq" }
+        {
+          "text": "Hub",
+          "color": "blue",
+          "items": [{ "text": "Content Hub", "to": "/content-hub" }],
+          "pastEditions": true
+        },
+        {
+          "text": "About",
+          "color": "magenta",
+          "items": [
+            { "text": "What is CND", "to": "/about" },
+            { "text": "Team", "to": "/team" },
+            { "text": "Brand Kit", "to": "/brand-kit" },
+            { "text": "FAQ", "to": "/faq" }
+          ]
+        }
       ]
     }
   },
