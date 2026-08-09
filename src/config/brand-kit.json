@@ -24,6 +24,10 @@
         "target": "#speakers"
       },
       {
+        "label": "Card generator",
+        "target": "#generator"
+      },
+      {
         "label": "The only rules",
         "target": "#usage"
       }

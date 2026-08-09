@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, Check, X } from 'lucide-react';
+import { ArrowDown, ArrowRight, Check, X } from 'lucide-react';
 import config from '@/config/website.json';
 import brandKit from '@/config/brand-kit.json';
 import CopyButton from '@/components/brandkit/CopyButton';
 import PressFacts from '@/components/brandkit/PressFacts';
 import { DownloadList } from '@/components/brandkit/DownloadButtons';
+import CardGenerator from '@/components/brandkit/generator/CardGenerator';
 import DecorLayer from '@/components/decor/DecorLayer';
 
 export const metadata = {
@@ -207,8 +208,14 @@ export default function BrandKitPage() {
             </div>
 
             <div>
-              <DownloadList items={attendees.downloads} />
-              <p className='mt-6 max-w-md text-sm text-ink-muted'>{attendees.note}</p>
+              <a href='#generator' className='btn-pop btn-pop-primary group inline-flex items-center'>
+                Create yours
+                <ArrowDown className='ml-2 h-5 w-5 transition-transform group-hover:translate-y-1' />
+              </a>
+              <p className='mt-6 max-w-md text-sm text-ink-muted'>
+                Personalize your card with the generator below: name, photo
+                and format, ready to post.
+              </p>
             </div>
           </div>
         </div>
@@ -249,6 +256,18 @@ export default function BrandKitPage() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Card generator */}
+      <section className='border-t-2 border-ink bg-white py-16 lg:py-24' id='generator'>
+        <div className='mx-auto max-w-[1200px] px-6'>
+          <SectionHeading eyebrow='Make it yours' title='Card generator' />
+          <p className='mt-6 max-w-2xl text-lg text-ink-muted'>
+            Pick a format, add your details and download your card. Everything
+            happens in your browser.
+          </p>
+          <CardGenerator />
         </div>
       </section>
 
