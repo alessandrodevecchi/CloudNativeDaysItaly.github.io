@@ -375,7 +375,7 @@ export default function FaqPage({ data }) {
         items={[
           { pattern: 'cluster-d', position: 'top-right', size: 'lg' },
           { pattern: 'cluster-duo', position: 'bottom-left', size: 'md' },
-          { pattern: 'halftone', position: 'top-left', size: 'lg', className: 'opacity-25' },
+          { pattern: 'halftone-b', position: 'top-left', size: 'lg', className: 'opacity-25' },
         ]}
       />
       <div className='relative z-10 mx-auto max-w-[1200px] px-6 py-16 lg:py-24'>

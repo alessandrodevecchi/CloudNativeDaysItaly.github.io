@@ -9,6 +9,9 @@ import BrandRings from './BrandRings';
 const PATTERNS = {
   rings: '/images/pattern_rings.svg',
   halftone: '/images/pattern_halftone.svg',
+  'halftone-b': '/images/pattern_halftone_b.svg',
+  'halftone-c': '/images/pattern_halftone_c.svg',
+  'halftone-d': '/images/pattern_halftone_d.svg',
 };
 
 // Preset di posizionamento: angoli parzialmente fuori viewport, come nel brand book.

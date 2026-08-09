@@ -139,7 +139,7 @@ export default async function PartnersPage() {
         items={[
           { pattern: 'cluster-b', position: 'top-right', size: 'lg' },
           { pattern: 'cluster-duo', position: 'bottom-left', size: 'md' },
-          { pattern: 'halftone', position: 'bottom-right', size: 'lg', className: 'opacity-25' },
+          { pattern: 'halftone-c', position: 'bottom-right', size: 'lg', className: 'opacity-25' },
         ]}
       />
       <div className='relative z-10 mx-auto max-w-[1200px] px-6 py-16 lg:py-24'>

@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import styles from './sponsor.css';
 
-const CARD_STYLES = 'w-[200px] h-[100px]';
+const MAJOR_TIERS = ['main', 'platinum', 'gold'];
 
 const Sponsors = ({
   sponsorsByTier,
@@ -91,7 +91,7 @@ const Sponsors = ({
 
           return (
             <div key={tier} className='mb-12'>
-              <div className='mb-6 flex items-center gap-2'>
+              <div className='mb-6 flex items-center justify-center gap-2 sm:justify-start'>
                 <h3 className='font-display text-stamp uppercase text-ink'>
                   {config.title}
                 </h3>
@@ -104,7 +104,13 @@ const Sponsors = ({
                   {tierSponsors.length}
                 </span>
               </div>
-              <div className='flex flex-wrap gap-4'>
+              <div
+                className={clsx(
+                  MAJOR_TIERS.includes(tier)
+                    ? 'flex flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:items-stretch sm:justify-start'
+                    : 'grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4',
+                )}
+              >
                 {tierSponsors
                   .sort((a, b) => a.name.localeCompare(b.name))
                   .map((sponsor, index) => (
@@ -116,7 +122,9 @@ const Sponsors = ({
                       className={clsx(
                         'flex items-center justify-center border-pop border-ink bg-white transition-all duration-100',
                         'hover:shadow-pop-sm',
-                        CARD_STYLES,
+                        MAJOR_TIERS.includes(tier)
+                          ? 'h-[100px] w-[200px]'
+                          : 'h-[80px] w-full sm:h-[100px] sm:w-[200px]',
                         config.class,
                         !isCurrent && 'pastSponsor',
                       )}

@@ -18,7 +18,7 @@ const CommunityTierSection = ({ tierKey, partners }) => {
       <h3 className='font-display text-stamp uppercase text-ink mb-6'>
         {tierConfig.title}
       </h3>
-      <div className='flex flex-wrap gap-4'>
+      <div className='grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4'>
         {partners
           .sort((a, b) => a.name.localeCompare(b.name))
           .map((partner, index) => (
@@ -27,7 +27,7 @@ const CommunityTierSection = ({ tierKey, partners }) => {
               href={partner.url}
               target='_blank'
               rel='noopener noreferrer'
-              className='flex w-[160px] h-[80px] items-center justify-center border-pop border-ink bg-white transition-all duration-100 hover:shadow-pop-sm'
+              className='flex h-[70px] w-full items-center justify-center border-pop border-ink bg-white transition-all duration-100 hover:shadow-pop-sm sm:h-[80px] sm:w-[160px]'
             >
               <img
                 src={partner.logo}

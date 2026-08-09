@@ -22,14 +22,14 @@ export const HERO_VARIANTS = [
     { pattern: 'cluster-a', position: 'top-right', size: 'xl' },
     { pattern: 'cluster-duo', position: 'bottom-left', size: 'md' },
     { pattern: 'cluster-b', position: 'bottom-right', size: 'lg' },
-    { pattern: 'halftone', position: 'bottom-left', size: 'xl', className: 'opacity-30' },
+    { pattern: 'halftone-c', position: 'bottom-left', size: 'xl', className: 'opacity-30' },
   ],
   // 2 — trio diagonale a sinistra, gigante a destra
   [
     { pattern: 'cluster-d', position: 'top-left', size: 'xl' },
     { pattern: 'cluster-e', position: 'top-right', size: 'lg' },
     { pattern: 'cluster-duo', position: 'bottom-left', size: 'md' },
-    { pattern: 'halftone', position: 'bottom-right', size: 'xl', className: 'opacity-30' },
+    { pattern: 'halftone-d', position: 'bottom-right', size: 'xl', className: 'opacity-30' },
   ],
   // 3 — gigante a sinistra, fitto in basso
   [
@@ -51,14 +51,14 @@ export const HERO_VARIANTS = [
     { pattern: 'cluster-duo', position: 'top-left', size: 'md' },
     { pattern: 'cluster-b', position: 'top-right', size: 'xl' },
     { pattern: 'cluster-e', position: 'bottom-right', size: 'lg' },
-    { pattern: 'halftone', position: 'bottom-left', size: 'xl', className: 'opacity-30' },
+    { pattern: 'halftone-b', position: 'bottom-left', size: 'xl', className: 'opacity-30' },
   ],
   // 6 — asimmetrica: tutto il peso a sinistra
   [
     { pattern: 'cluster-b', position: 'top-left', size: 'xl' },
     { pattern: 'cluster-duo', position: 'top-right', size: 'md' },
     { pattern: 'cluster-a', position: 'bottom-left', size: 'lg' },
-    { pattern: 'halftone', position: 'bottom-right', size: 'xl', className: 'opacity-30' },
+    { pattern: 'halftone-c', position: 'bottom-right', size: 'xl', className: 'opacity-30' },
   ],
   // 7 — trio diagonale doppio
   [
@@ -73,7 +73,7 @@ export const HERO_VARIANTS = [
     { pattern: 'cluster-e', position: 'top-left', size: 'xl' },
     { pattern: 'cluster-e', position: 'bottom-right', size: 'xl', className: 'rotate-180' },
     { pattern: 'cluster-duo', position: 'top-right', size: 'md' },
-    { pattern: 'halftone', position: 'bottom-left', size: 'xl', className: 'opacity-30' },
+    { pattern: 'halftone-d', position: 'bottom-left', size: 'xl', className: 'opacity-30' },
   ],
   // 9 — classica del brand book: tricolore + satellite su entrambi i lati alti
   [

@@ -38,8 +38,8 @@ const MetricItem = ({ accent, value, label, duration = 2000 }) => {
     }, [ref, value, duration]);
 
     return (
-        <div ref={ref} className="flex flex-col items-center p-8 text-center">
-            <p className={`font-display text-6xl tabular-nums ${accent}`}>
+        <div ref={ref} className="flex flex-col items-center p-4 md:p-8 text-center">
+            <p className={`font-display text-5xl md:text-6xl tabular-nums ${accent}`}>
                 {count}
                 {String(value).endsWith('+') && '+'}
             </p>
@@ -65,7 +65,7 @@ const Metrics = ({ data, teamCount, speakersCount, sponsorsCount, items }) => {
     return (
         <div className="py-12 bg-ink">
             <div className="mx-auto max-w-[1200px] px-6">
-                <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${{3:'lg:grid-cols-3',4:'lg:grid-cols-4',5:'lg:grid-cols-5'}[entries.length] || 'lg:grid-cols-4'}`}>
+                <div className={`grid grid-cols-2 gap-4 md:gap-8 ${{3:'lg:grid-cols-3',4:'lg:grid-cols-4',5:'lg:grid-cols-5'}[entries.length] || 'lg:grid-cols-4'}`}>
                     {entries.map((e, i) => (
                         <MetricItem key={i} accent={e.accent} value={e.value} label={e.label} />
                     ))}
