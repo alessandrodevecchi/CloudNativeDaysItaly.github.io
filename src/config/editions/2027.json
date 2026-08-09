@@ -4,8 +4,57 @@
   "description": "Cloud Native Days (CND) Italy is a local, community-organized event that brings together adopters and technologists from open source and cloud native communities. The Italian Cloud Native community will come together for two unforgettable days of sharing, learning and connection.",
   "headerVideo": "https://www.youtube.com/embed/RFf1GNm7qJQ",
   "thankyou": "Thank you for being part of Cloud Native Days Italy! Stay tuned for updates on the 2027 edition and community activities.",
-  "metrics": {},
-  "speakers": ["william-rizzo", "artem-lajko", "stefano-sibilia", "luca-de-carne", "giorgia-rondinini", "gregorio-palama", "paolo-filippelli", "shahar-shporer", "gianluca-recchia", "nurudeen-kamilu", "kevin-dubois", "erandi-ganepola", "roberto-bandini", "eleni-grosdouli", "ralph-squillace", "luca-vassallo", "enrico-la-sala", "fabrizio-cafolla", "mauricio-salatino", "santiago-merlos", "gianluca-mardente", "serena-sensini", "graziano-casto", "mauro-morales", "giacomo-tenaglia", "vladi-stevanovic", "flamur-gogolli", "alessandro-rossi", "jacopo-bufalino", "federico-soave", "rabieh-fashwall", "riccardo-capraro", "alessandro-liscio", "federico-quaglia", "kostis-kapelonis", "stephane-montri", "chiara-corrado", "riccardo-atzori", "stefano-morotti", "francesco-canovai", "niccolo-fei", "dillon-barry", "stephane-karagulmez", "marco-pernigo", "jacopo-nardiello"],
+  "metrics": {
+    "attendees": 285,
+    "sponsors": 14
+  },
+  "speakers": [
+    "william-rizzo",
+    "artem-lajko",
+    "stefano-sibilia",
+    "luca-de-carne",
+    "giorgia-rondinini",
+    "gregorio-palama",
+    "paolo-filippelli",
+    "shahar-shporer",
+    "gianluca-recchia",
+    "nurudeen-kamilu",
+    "kevin-dubois",
+    "erandi-ganepola",
+    "roberto-bandini",
+    "eleni-grosdouli",
+    "ralph-squillace",
+    "luca-vassallo",
+    "enrico-la-sala",
+    "fabrizio-cafolla",
+    "mauricio-salatino",
+    "santiago-merlos",
+    "gianluca-mardente",
+    "serena-sensini",
+    "graziano-casto",
+    "mauro-morales",
+    "giacomo-tenaglia",
+    "vladi-stevanovic",
+    "flamur-gogolli",
+    "alessandro-rossi",
+    "jacopo-bufalino",
+    "federico-soave",
+    "rabieh-fashwall",
+    "riccardo-capraro",
+    "alessandro-liscio",
+    "federico-quaglia",
+    "kostis-kapelonis",
+    "stephane-montri",
+    "chiara-corrado",
+    "riccardo-atzori",
+    "stefano-morotti",
+    "francesco-canovai",
+    "niccolo-fei",
+    "dillon-barry",
+    "stephane-karagulmez",
+    "marco-pernigo",
+    "jacopo-nardiello"
+  ],
   "coreTeam": [
     "michel-murabito",
     "paolo-mainardi",
@@ -29,20 +78,74 @@
     "sara-boggio-marzet"
   ],
   "sponsors": {
-    "main": ["sparkfabrik", "clastix", "desotech", "seacom", "reevo"],
-    "platinum": [],
-    "gold": [],
-    "silver": [],
-    "bronze": [],
-    "workshop": [],
-    "techPartner": [],
-    "smart": [],
+    "silver": [
+      "adeptic-reply"
+    ],
+    "main": [
+      "sparkfabrik",
+      "clastix",
+      "desotech",
+      "seacom",
+      "reevo"
+    ],
+    "platinum": [
+      "spectrocloud"
+    ],
+    "gold": [
+      "edb",
+      "sentinelone",
+      "aruba-cloud",
+      "docker",
+      "tigera"
+    ],
+    "workshop": [
+      "docker",
+      "octopus-deploy"
+    ],
+    "techPartner": [
+      "emblemalive",
+      "reevo"
+    ],
+    "smart": [
+      "cncf"
+    ],
     "partner": []
   },
   "communities": {
-    "community": [],
-    "opensource": [],
-    "media": []
+    "community": [
+      "aws-user-group",
+      "the-red-code",
+      "green-software-italy",
+      "ctc",
+      "plug",
+      "unibo-mobile-middleware-research-group"
+    ],
+    "opensource": [
+      "liqo",
+      "sveltos",
+      "cloudnative-pg",
+      "falco",
+      "cilium",
+      "krateo"
+    ],
+    "media": [
+      "cloud-native-trento",
+      "italia-open-source",
+      "gdg-vicenza",
+      "azure-meetup-veneto",
+      "imparago",
+      "schroedinger-hat",
+      "coderful",
+      "tlfe",
+      "xstreamdatalab",
+      "opensearch-milan",
+      "opensearch-rome",
+      "django-girls-italy",
+      "eventitech",
+      "devdojo",
+      "women-techmakers-italia",
+      "la-locanda-del-tech"
+    ]
   },
   "location": {
     "name": "Savoia Hotel Regency",
