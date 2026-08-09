@@ -126,7 +126,6 @@ const Sponsors = ({
                           ? 'h-[100px] w-[200px]'
                           : 'h-[80px] w-full sm:h-[100px] sm:w-[200px]',
                         config.class,
-                        !isCurrent && 'pastSponsor',
                       )}
                     >
                       <div className='relative flex h-full w-full items-center justify-center'>
