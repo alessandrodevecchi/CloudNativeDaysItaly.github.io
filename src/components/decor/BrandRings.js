@@ -35,9 +35,15 @@ const CLUSTERS = {
     { cx: 258, cy: 142, r: 140, colors: [C.magenta, C.white, C.yellow, C.white, C.blue] },
     { cx: 105, cy: 305, r: 90, colors: [C.blue, C.white, C.magenta] },
   ],
-  // Anellino singolo duotone (accento sparso)
+  // Anellino singolo duotone — MAI da solo in un angolo (sembra un errore):
+  // usarlo solo accostato ad altri cluster; altrimenti preferire `duo`.
   dot: [
     { cx: 200, cy: 200, r: 70, colors: [C.yellow, C.white, C.blue] },
+  ],
+  // Coppia di anelli piccoli sovrapposti (accento minimo per gli angoli)
+  duo: [
+    { cx: 150, cy: 190, r: 95, colors: [C.blue, C.white, C.yellow] },
+    { cx: 275, cy: 255, r: 65, colors: [C.magenta, C.white, C.blue] },
   ],
   // Trio in diagonale (piccolo-grande-piccolo)
   d: [

@@ -117,7 +117,7 @@ export default function SpeakersList({ speakers }) {
       <DecorLayer
         items={[
           { pattern: 'cluster-e', position: 'top-right', size: 'lg' },
-          { pattern: 'cluster-dot', position: 'bottom-left', size: 'sm' },
+          { pattern: 'cluster-duo', position: 'bottom-left', size: 'md' },
           { pattern: 'halftone', position: 'top-left', size: 'lg', className: 'opacity-25' },
         ]}
       />

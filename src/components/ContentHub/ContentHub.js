@@ -152,7 +152,7 @@ export default function ContentHub({
       <DecorLayer
         items={[
           { pattern: 'cluster-a', position: 'top-right', size: 'lg' },
-          { pattern: 'cluster-dot', position: 'bottom-left', size: 'sm' },
+          { pattern: 'cluster-duo', position: 'bottom-left', size: 'md' },
           { pattern: 'halftone', position: 'bottom-left', size: 'lg', className: 'opacity-25' },
         ]}
       />

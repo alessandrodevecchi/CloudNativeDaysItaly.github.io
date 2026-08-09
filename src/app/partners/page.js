@@ -138,7 +138,7 @@ export default async function PartnersPage() {
       <DecorLayer
         items={[
           { pattern: 'cluster-b', position: 'top-right', size: 'lg' },
-          { pattern: 'cluster-dot', position: 'bottom-left', size: 'sm' },
+          { pattern: 'cluster-duo', position: 'bottom-left', size: 'md' },
           { pattern: 'halftone', position: 'bottom-right', size: 'lg', className: 'opacity-25' },
         ]}
       />

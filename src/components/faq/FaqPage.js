@@ -374,7 +374,7 @@ export default function FaqPage({ data }) {
       <DecorLayer
         items={[
           { pattern: 'cluster-d', position: 'top-right', size: 'lg' },
-          { pattern: 'cluster-dot', position: 'bottom-left', size: 'sm' },
+          { pattern: 'cluster-duo', position: 'bottom-left', size: 'md' },
           { pattern: 'halftone', position: 'top-left', size: 'lg', className: 'opacity-25' },
         ]}
       />

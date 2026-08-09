@@ -10,7 +10,7 @@ export default function ActionsSection({ data }) {
             <DecorLayer
                 items={[
                     { pattern: 'cluster-c', position: 'top-right', size: 'lg' },
-                    { pattern: 'cluster-dot', position: 'bottom-left', size: 'md' },
+                    { pattern: 'cluster-duo', position: 'bottom-left', size: 'md' },
                     { pattern: 'cluster-a', position: 'bottom-right', size: 'md', className: 'hidden lg:block opacity-90' },
                     { pattern: 'halftone', position: 'top-left', size: 'xl', className: 'opacity-20 invert' },
                 ]}
