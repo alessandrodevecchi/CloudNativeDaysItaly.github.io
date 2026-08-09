@@ -151,7 +151,8 @@ export default function ContentHub({
     <section className='relative overflow-hidden bg-white min-h-[60vh] py-16 lg:py-24'>
       <DecorLayer
         items={[
-          { pattern: 'cluster-dot', position: 'top-right', size: 'md' },
+          { pattern: 'cluster-a', position: 'top-right', size: 'lg' },
+          { pattern: 'cluster-dot', position: 'bottom-left', size: 'sm' },
           { pattern: 'halftone', position: 'bottom-left', size: 'lg', className: 'opacity-25' },
         ]}
       />

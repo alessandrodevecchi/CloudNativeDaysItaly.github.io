@@ -116,7 +116,8 @@ export default function SpeakersList({ speakers }) {
     <div className='relative overflow-hidden bg-white py-16 lg:py-24'>
       <DecorLayer
         items={[
-          { pattern: 'cluster-dot', position: 'top-right', size: 'md' },
+          { pattern: 'cluster-e', position: 'top-right', size: 'lg' },
+          { pattern: 'cluster-dot', position: 'bottom-left', size: 'sm' },
           { pattern: 'halftone', position: 'top-left', size: 'lg', className: 'opacity-25' },
         ]}
       />

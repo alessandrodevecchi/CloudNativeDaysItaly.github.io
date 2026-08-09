@@ -39,6 +39,17 @@ const CLUSTERS = {
   dot: [
     { cx: 200, cy: 200, r: 70, colors: [C.yellow, C.white, C.blue] },
   ],
+  // Trio in diagonale (piccolo-grande-piccolo)
+  d: [
+    { cx: 90, cy: 90, r: 60, colors: [C.magenta, C.white, C.blue] },
+    { cx: 210, cy: 210, r: 110, colors: [C.yellow, C.white, C.magenta, C.white, C.blue] },
+    { cx: 330, cy: 330, r: 55, colors: [C.blue, C.white, C.yellow] },
+  ],
+  // Anello gigante tricolore con satellite ravvicinato
+  e: [
+    { cx: 170, cy: 230, r: 170, colors: [C.blue, C.white, C.yellow, C.white, C.magenta] },
+    { cx: 340, cy: 90, r: 60, colors: [C.magenta, C.white, C.yellow] },
+  ],
 };
 
 const Ring = ({ cx, cy, r, colors }) => {
