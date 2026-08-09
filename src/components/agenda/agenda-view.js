@@ -104,7 +104,7 @@ export default function AgendaView({ agenda }) {
         <div className="relative overflow-hidden bg-white">
             <DecorLayer
                 items={[
-                    { pattern: 'cluster-dot', position: 'top-right', size: 'md' },
+                    { pattern: 'cluster-duo', position: 'top-right', size: 'md' },
                     { pattern: 'cluster-a', position: 'bottom-left', size: 'md' },
                     { pattern: 'halftone', position: 'top-left', size: 'lg', className: 'opacity-25' },
                 ]}
