@@ -119,9 +119,9 @@ export default function BrandKitPage() {
               </div>
               <div className='card-pop mt-4 p-6'>
                 <p className='font-display text-3xl uppercase text-ink'>Extenda / Anton</p>
-                <p className='mt-1 text-sm text-ink-muted'>Display font — headings, always uppercase</p>
+                <p className='mt-1 text-sm text-ink-muted'>Display font: headings, always uppercase</p>
                 <p className='mt-4 text-2xl font-bold text-ink'>Poppins</p>
-                <p className='mt-1 text-sm text-ink-muted'>Body font — everything else</p>
+                <p className='mt-1 text-sm text-ink-muted'>Body font: everything else</p>
               </div>
             </div>
           </div>
@@ -200,7 +200,7 @@ export default function BrandKitPage() {
                   <span className='text-brand-yellow'>there</span>
                 </p>
                 <p className='mt-4 text-sm font-bold text-white'>
-                  Bologna — 20 May 2027 · cloudnativedaysitaly.org
+                  Bologna, 20 May 2027 · cloudnativedaysitaly.org
                 </p>
               </div>
             </div>
@@ -228,7 +228,7 @@ export default function BrandKitPage() {
                   Your talk title here
                 </p>
                 <p className='mt-2 text-sm font-bold text-brand-magenta'>
-                  Your Name — @yourhandle
+                  Your Name · @yourhandle
                 </p>
               </div>
             </div>

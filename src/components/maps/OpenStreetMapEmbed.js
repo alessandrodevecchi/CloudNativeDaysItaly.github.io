@@ -6,7 +6,7 @@ export default function OpenStreetMapEmbed({
   mapLink,
   mapDirectionsUrl,
   rootClassName = 'mt-8',
-  iframeTitle = 'Map — venue location (OpenStreetMap)',
+  iframeTitle = 'Map: venue location (OpenStreetMap)',
 }) {
   if (!mapLink) return null;
 

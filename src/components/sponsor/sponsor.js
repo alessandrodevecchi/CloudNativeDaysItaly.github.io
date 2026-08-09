@@ -113,7 +113,7 @@ const Sponsors = ({
             </p>
             <footer className='mt-4 text-sm text-ink-muted'>
               {sectionsContent.testimonial.author}
-              {sectionsContent.testimonial.role && ` — ${sectionsContent.testimonial.role}`}
+              {sectionsContent.testimonial.role && `, ${sectionsContent.testimonial.role}`}
             </footer>
           </blockquote>
         )}

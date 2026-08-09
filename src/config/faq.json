@@ -93,7 +93,7 @@
               "Take the A14 motorway exit toward Ancona / Bologna / Padova / Bologna ring road / Bologna Centro / Casalecchio.",
               "Follow signs for the Bologna ring road (tangenziale), exit for S. Lazzaro di Savena / Ancona / Padova / Bologna / Centro / Airport / Casalecchio.",
               "Take ring road exit 9 toward Bologna Centro / S. Donato.",
-              "Take the exit for Minerbio / Granarolo dell'Emilia / CAAB. Turn left onto Via S. Donato, then right onto Via del Pilastro — the Savoia Hotel Regency is there."
+              "Take the exit for Minerbio / Granarolo dell'Emilia / CAAB. Turn left onto Via S. Donato, then right onto Via del Pilastro: the Savoia Hotel Regency is there."
             ]
           },
           {
@@ -103,7 +103,7 @@
               "Take the exit toward Bologna / Borgo Panigale / Ring road / Bologna Centro / Bologna Airport.",
               "Follow signs for the ring road / Airport exit.",
               "Take ring road exit 9 toward Bologna Centro / S. Donato.",
-              "Take the exit for Minerbio / Granarolo dell'Emilia / CAAB. Turn left onto Via S. Donato, then right onto Via del Pilastro — the Savoia Hotel Regency is there."
+              "Take the exit for Minerbio / Granarolo dell'Emilia / CAAB. Turn left onto Via S. Donato, then right onto Via del Pilastro: the Savoia Hotel Regency is there."
             ]
           }
         ]
@@ -124,7 +124,7 @@
         "type": "paragraphs",
         "paragraphs": [
           "Bologna Central Station is served by high-speed and regional trains. Check timetables at Italo and Trenitalia.",
-          "From Bologna Central Station, the Savoia Hotel Regency is approximately 6 km away — reachable by public bus, taxi, or Uber."
+          "From Bologna Central Station, the Savoia Hotel Regency is approximately 6 km away, reachable by public bus, taxi, or Uber."
         ]
       },
       {
@@ -145,12 +145,12 @@
           {
             "line": "Line 88",
             "description": "From Bologna Central Station toward Granarolo dell'Emilia.",
-            "stop": "Cadriano Bivio — 700 m from Via del Pilastro 2"
+            "stop": "Cadriano Bivio, 700 m from Via del Pilastro 2"
           },
           {
             "line": "Line 35",
             "description": "From Bologna Central Station toward the Faculty of Agriculture.",
-            "stop": "Bivio Pilastro — 450 m from Via del Pilastro 2"
+            "stop": "Bivio Pilastro, 450 m from Via del Pilastro 2"
           }
         ],
         "taxis": [

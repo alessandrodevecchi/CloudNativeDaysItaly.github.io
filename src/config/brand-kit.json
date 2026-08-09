@@ -1,7 +1,7 @@
 {
   "hero": {
     "title": "Share Cloud Native Days Italy",
-    "lead": "Logos, colors, templates and ready-made assets to talk about the event — the right way, without asking us first.",
+    "lead": "Logos, colors, templates and ready-made assets to talk about the event, the right way, without asking us first.",
     "anchors": [
       { "label": "Brand basics", "target": "#basics" },
       { "label": "Media partners", "target": "#media-partners" },
@@ -66,7 +66,7 @@
       "Use the official slide template, or at least its title and closing slides",
       "16:9 format, minimum 24pt body text: the room is big",
       "Add your social handle on the title slide, the audience will look for you",
-      "Live demos welcome — with a recorded backup, conference Wi-Fi is what it is"
+      "Live demos welcome, with a recorded backup (conference Wi-Fi is what it is)"
     ],
     "note": "Your personalized speaker announcement card is on us: we prepare it and send it to you before the announcement."
   },

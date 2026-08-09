@@ -197,7 +197,7 @@ export default function PastEditionComponent({ year, initialEventData }) {
               mapLink={initialEventData.location.mapLink}
               mapDirectionsUrl={initialEventData.location.mapDirectionsUrl}
               rootClassName='mt-8 max-w-4xl mx-auto w-full'
-              iframeTitle={`Map — ${initialEventData.location.name} (OpenStreetMap)`}
+              iframeTitle={`Map: ${initialEventData.location.name} (OpenStreetMap)`}
             />
           </div>
         </section>

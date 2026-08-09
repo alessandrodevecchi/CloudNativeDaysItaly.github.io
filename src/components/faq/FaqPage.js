@@ -207,7 +207,7 @@ function TransportContent({ section }) {
                   </a>
                 )}
                 {taxi.note && (
-                  <span className='text-ink-faint'>— {taxi.note}</span>
+                  <span className='text-ink-faint'>({taxi.note})</span>
                 )}
               </div>
             ))}

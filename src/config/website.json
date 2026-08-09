@@ -207,7 +207,7 @@
     "disclaimer": "The event structure is still being defined and may change. The full agenda will be published after the Call for Papers closes.",
     "days": [
       {
-        "label": "Day 1 — Workshops",
+        "label": "Day 1: Workshops",
         "bullets": [
           { "text": "Hands-on workshops", "bold": true },
           { "text": "Small groups, limited seats" },
@@ -215,7 +215,7 @@
         ]
       },
       {
-        "label": "Day 2 — Conference",
+        "label": "Day 2: Conference",
         "bullets": [
           { "text": "Talks & keynotes", "bold": true },
           { "text": "Sponsor area" },
@@ -251,7 +251,7 @@
       },
       {
         "id": "conference-early-bird",
-        "name": "Conference – Early Bird",
+        "name": "Conference Early Bird",
         "price": "100€ (ex. VAT @22%)",
         "description": "2-day Conference access (lunches included), Workshops (subject to availability), and Community Area access.",
         "salesStartDate": "2027-02-01T00:00:00",
@@ -259,7 +259,7 @@
       },
       {
         "id": "conference-regular",
-        "name": "Conference – Regular",
+        "name": "Conference Regular",
         "price": "160€ (ex. VAT @22%)",
         "description": "2-day Conference access (lunches included), Workshops (subject to availability), and Community Area access.",
         "salesStartDate": "2027-04-01T00:00:00",

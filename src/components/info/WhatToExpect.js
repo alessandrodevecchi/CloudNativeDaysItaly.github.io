@@ -28,7 +28,7 @@ export default function WhatToExpect({ data }) {
           ))}
         </div>
         <p className='mt-10 max-w-3xl text-lg text-ink-soft'>
-          For developers, architects, engineers, DevOps and IT professionals —
+          For developers, architects, engineers, DevOps and IT professionals,
           and anyone excited about cloud native and open source.
         </p>
       </div>
