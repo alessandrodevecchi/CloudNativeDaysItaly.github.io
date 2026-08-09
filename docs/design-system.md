@@ -29,6 +29,32 @@ Contrasto: su `brand-yellow` e `cream` solo testo `ink`. Su `brand-blue` e `ink`
 - **`.stamp`**: badge "timbro" — bg bianco, `border-pop`, `shadow-pop-sm`, `font-display` uppercase, leggera rotazione (−2°/+2° alternata).
 - **`.chip-pop`**: tag piccolo — bg `brand-yellow`, `border-pop`, testo ink bold, no shadow.
 - **`.section-heading`**: H2 in `font-display text-section uppercase text-ink` (nome distinto dal legacy `.section-title` ancora usato dalle pagine di dettaglio).
+- **`.eyebrow`**: occhiello di sezione — `font-display text-base uppercase tracking-widest` + colore contestuale.
+
+## Occhielli — regola dei livelli
+
+Il livello del titolo decide lo stile:
+- **`.stamp`** sopra ogni titolo di pagina (h1) e nei momenti hero ("Save the date", "The Event"). Mai in serie nella stessa vista.
+- **`.eyebrow`** sopra i titoli di sezione (h2). Colore contestuale: `text-brand-magenta` su bianco/cream, `text-brand-yellow` su blu/nero, `text-ink` su giallo.
+
+## Ombre — regola dei 3 livelli
+
+- **Sempre** (e crescono in hover): stamp, CTA primarie, card feature colorate, dropdown aperti.
+- **Solo hover** (lift: trasla −2px, ombra appare): card di griglia interattive — talk, speaker, team, loghi sponsor.
+- **Mai**: righe/break agenda, accordion FAQ, input, footer, superfici informative dense.
+- Su fondo scuro: `shadow-pop-white` / `shadow-pop-white-sm`.
+
+## Hover — due pattern canonici
+
+- **Lift** per le card (translate + shadow).
+- **Invert** (bg `ink`, testo bianco) per voci di menu/dropdown e footer di card colorate.
+
+## Colore nei componenti
+
+Regola "superfici colorate, atomi neutri": colore in blocchi grandi (bande, card feature, pannelli dropdown, footer di card), tag/chip neutri bianchi bordati. Colore nei tag SOLO semantico:
+- keynote → magenta/bianco (icona `Star`), talk → giallo (`Mic`), lightning-talk → giallo (`Zap`), workshop → blu/bianco (`Wrench`).
+- Break agenda: cream con icona magenta (`Rocket` welcome, `Sunset` closing, `Pizza` aperitivo, `Gem` platinum keynote, `Coffee`/`Utensils`/`Clock` standard).
+- Badge stato: giallo = attivo/on sale, bianco+blu = upcoming, grigio = chiuso.
 
 ## Layout sezioni
 
@@ -38,9 +64,13 @@ Contrasto: su `brand-yellow` e `cream` solo testo `ink`. Su `brand-blue` e `ink`
 - Due bande chiare adiacenti si separano con `border-t-2 border-ink`.
 - Ritmo colori homepage: vedi tabella in `figma-token-mapping.md`. Regola generale: mai due bande colorate forti adiacenti — interporre bianco.
 
-## Decorazioni (fase 2)
+## Decorazioni
 
-- Anelli concentrici e halftone dots: layer assoluti `pointer-events-none aria-hidden`, gestiti da un componente unico, non dentro le singole sezioni. Asset ufficiali in arrivo.
+Gestite da `src/components/decor/DecorLayer.js` (layer assoluto `pointer-events-none aria-hidden`; il padre deve essere `relative overflow-hidden`).
+
+- **Cluster di anelli** (`BrandRings.js`): preset `a`–`e`, `dot`, `duo` — SVG inline parametrici nei colori brand. Regole: mai un anello singolo solo in un angolo (usare `duo`); ogni sezione decorata ha almeno 2 elementi; densità proporzionale all'altezza della sezione; taglie ridotte sotto `md` per non coprire i contenuti.
+- **Halftone**: originale + 3 varianti generate (`pattern_halftone_b/c/d.svg`, ~7KB). Opacità 20–30%; hanno una scala dedicata più grande, non ridotta su mobile; possono vivere anche nelle zone centrali (`mid-left`, `mid-right`, `center`, `center-bottom`).
+- **Varianti hero** (`heroVariants.js`): 10 composizioni curate; uno script inline in `layout.js` ne sceglie una prima del primo paint via `html[data-decor]` (niente switch visibile, niente hydration mismatch). La variante 0 è il fallback senza JS.
 
 ## Cosa NON fare
 
