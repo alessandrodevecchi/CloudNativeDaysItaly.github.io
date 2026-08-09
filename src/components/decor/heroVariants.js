@@ -15,6 +15,7 @@ export const HERO_VARIANTS = [
     { pattern: 'cluster-duo', position: 'bottom-right', size: 'md' },
     { pattern: 'halftone', position: 'top-left', size: 'xl', className: 'opacity-30 !-left-4 !top-32' },
     { pattern: 'halftone', position: 'bottom-right', size: 'xl', className: 'opacity-30' },
+    { pattern: 'halftone-c', position: 'center', size: 'xl', className: 'opacity-20' },
   ],
   // 1 — specchiata: pesi invertiti
   [
@@ -23,6 +24,7 @@ export const HERO_VARIANTS = [
     { pattern: 'cluster-duo', position: 'bottom-left', size: 'md' },
     { pattern: 'cluster-b', position: 'bottom-right', size: 'lg' },
     { pattern: 'halftone-c', position: 'bottom-left', size: 'xl', className: 'opacity-30' },
+    { pattern: 'halftone-b', position: 'mid-right', size: 'lg', className: 'opacity-20' },
   ],
   // 2 — trio diagonale a sinistra, gigante a destra
   [
@@ -30,6 +32,7 @@ export const HERO_VARIANTS = [
     { pattern: 'cluster-e', position: 'top-right', size: 'lg' },
     { pattern: 'cluster-duo', position: 'bottom-left', size: 'md' },
     { pattern: 'halftone-d', position: 'bottom-right', size: 'xl', className: 'opacity-30' },
+    { pattern: 'halftone-c', position: 'mid-left', size: 'lg', className: 'opacity-20' },
   ],
   // 3 — gigante a sinistra, fitto in basso
   [
@@ -37,6 +40,7 @@ export const HERO_VARIANTS = [
     { pattern: 'cluster-duo', position: 'top-right', size: 'md' },
     { pattern: 'cluster-b', position: 'bottom-right', size: 'lg' },
     { pattern: 'halftone', position: 'top-right', size: 'xl', className: 'opacity-30 !-right-4 !top-32' },
+    { pattern: 'halftone-b', position: 'center-bottom', size: 'lg', className: 'opacity-20' },
   ],
   // 4 — angoli bassi protagonisti
   [
@@ -45,6 +49,7 @@ export const HERO_VARIANTS = [
     { pattern: 'cluster-c', position: 'bottom-left', size: 'xl' },
     { pattern: 'cluster-d', position: 'bottom-right', size: 'lg' },
     { pattern: 'halftone', position: 'top-left', size: 'xl', className: 'opacity-30 !-left-4 !top-32' },
+    { pattern: 'halftone-c', position: 'mid-right', size: 'lg', className: 'opacity-20' },
   ],
   // 5 — asimmetrica: tutto il peso a destra
   [
@@ -52,6 +57,7 @@ export const HERO_VARIANTS = [
     { pattern: 'cluster-b', position: 'top-right', size: 'xl' },
     { pattern: 'cluster-e', position: 'bottom-right', size: 'lg' },
     { pattern: 'halftone-b', position: 'bottom-left', size: 'xl', className: 'opacity-30' },
+    { pattern: 'halftone-d', position: 'center', size: 'lg', className: 'opacity-20' },
   ],
   // 6 — asimmetrica: tutto il peso a sinistra
   [
@@ -59,6 +65,7 @@ export const HERO_VARIANTS = [
     { pattern: 'cluster-duo', position: 'top-right', size: 'md' },
     { pattern: 'cluster-a', position: 'bottom-left', size: 'lg' },
     { pattern: 'halftone-c', position: 'bottom-right', size: 'xl', className: 'opacity-30' },
+    { pattern: 'halftone', position: 'mid-right', size: 'lg', className: 'opacity-20' },
   ],
   // 7 — trio diagonale doppio
   [
@@ -74,6 +81,7 @@ export const HERO_VARIANTS = [
     { pattern: 'cluster-e', position: 'bottom-right', size: 'xl', className: 'rotate-180' },
     { pattern: 'cluster-duo', position: 'top-right', size: 'md' },
     { pattern: 'halftone-d', position: 'bottom-left', size: 'xl', className: 'opacity-30' },
+    { pattern: 'halftone-c', position: 'mid-right', size: 'lg', className: 'opacity-20' },
   ],
   // 9 — classica del brand book: tricolore + satellite su entrambi i lati alti
   [
@@ -82,5 +90,6 @@ export const HERO_VARIANTS = [
     { pattern: 'cluster-duo', position: 'bottom-left', size: 'md' },
     { pattern: 'cluster-duo', position: 'bottom-right', size: 'md', className: '-scale-x-100' },
     { pattern: 'halftone', position: 'top-left', size: 'xl', className: 'opacity-30 !-left-4 !top-32' },
+    { pattern: 'halftone-b', position: 'center', size: 'xl', className: 'opacity-20' },
   ],
 ];

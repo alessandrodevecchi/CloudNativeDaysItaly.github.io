@@ -18,7 +18,7 @@ const CommunityTierSection = ({ tierKey, partners }) => {
       <h3 className='font-display text-stamp uppercase text-ink mb-6'>
         {tierConfig.title}
       </h3>
-      <div className='grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:gap-4'>
+      <div className='grid grid-cols-2 gap-3 [&>:only-child]:col-span-2 [&>:only-child]:justify-self-center [&>:only-child]:w-[200px] sm:flex sm:flex-wrap sm:gap-4 sm:[&>:only-child]:w-[160px]'>
         {partners
           .sort((a, b) => a.name.localeCompare(b.name))
           .map((partner, index) => (
