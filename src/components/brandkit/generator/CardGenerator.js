@@ -9,6 +9,7 @@ import { Download, ShieldCheck, Upload, X } from 'lucide-react';
 import { FORMATS, DEFAULT_FORMAT_ID, COLORWAYS, COLORWAY_LABELS } from './formats';
 import { publicUseCases, allUseCases, getUseCase } from './useCases';
 import { renderCard } from './renderCard';
+import CopyButton from '../CopyButton';
 
 import { resolveFonts, ensureFontsLoaded } from './fonts';
 
@@ -412,7 +413,7 @@ export default function CardGenerator({ scope = 'public' }) {
         <div className='card-pop mt-4 bg-white p-2'>
           <canvas
             ref={canvasRef}
-            className='block h-auto w-full'
+            className='mx-auto block h-auto max-h-[62vh] w-auto max-w-full'
             aria-label='Card preview'
           />
         </div>
@@ -434,6 +435,15 @@ export default function CardGenerator({ scope = 'public' }) {
             All formats
           </button>
         </div>
+        {useCase.caption && (
+          <div className='mt-6 border-pop border-ink bg-white p-4'>
+            <p className='text-sm font-bold uppercase tracking-wide text-ink'>Suggested caption</p>
+            <p className='mt-2 text-sm text-ink-soft'>{useCase.caption}</p>
+            <div className='mt-3'>
+              <CopyButton text={useCase.caption} label='Copy caption' />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

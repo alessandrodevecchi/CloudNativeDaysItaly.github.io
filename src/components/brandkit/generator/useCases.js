@@ -5,6 +5,8 @@
 export const USE_CASES = [
   {
     id: 'attendee-conference',
+    caption:
+      'I\'ll be at Cloud Native Days Italy 2027 in Bologna on 20 May, two days of cloud native talks, workshops and community. Come say hi! cloudnativedaysitaly.org #CNDItaly #CloudNative',
     label: 'Attending Conference',
     visibility: 'public',
     // headline: righe di testo display; accentIndex = riga in colore accent
@@ -24,6 +26,8 @@ export const USE_CASES = [
   },
   {
     id: 'attendee-workshops',
+    caption:
+      'Hands-on day for me: I\'m joining the Cloud Native Days Italy 2027 workshops in Bologna on 20 May. cloudnativedaysitaly.org #CNDItaly #CloudNative',
     label: 'Attending Workshops',
     visibility: 'public',
     headlines: [
@@ -42,6 +46,8 @@ export const USE_CASES = [
   },
   {
     id: 'partner',
+    caption:
+      'We\'re proud to support Cloud Native Days Italy 2027, the event of the Italian cloud native community. See you in Bologna on 20 May! cloudnativedaysitaly.org #CNDItaly',
     label: 'Supporting Partner',
     visibility: 'public',
     headlines: [
@@ -60,6 +66,8 @@ export const USE_CASES = [
   /* ── Use case interni: visibili solo su /brand-kit/studio (team) ──── */
   {
     id: 'speaker',
+    caption:
+      'I\'m speaking at Cloud Native Days Italy 2027 in Bologna on 20 May! Join me and the Italian cloud native community. cloudnativedaysitaly.org #CNDItaly #CloudNative',
     label: 'Speaker',
     visibility: 'internal',
     headlines: [
@@ -79,6 +87,8 @@ export const USE_CASES = [
   },
   {
     id: 'sponsor',
+    caption:
+      'We\'re a proud sponsor of Cloud Native Days Italy 2027, two days of cloud native talks, workshops and community in Bologna on 20 May. cloudnativedaysitaly.org #CNDItaly',
     label: 'Sponsor',
     visibility: 'internal',
     headlines: [
@@ -96,6 +106,8 @@ export const USE_CASES = [
   },
   {
     id: 'community',
+    caption:
+      'Meet us at Cloud Native Days Italy 2027! We\'ll be in the community and open source area in Bologna on 20 May. cloudnativedaysitaly.org #CNDItaly #OpenSource',
     label: 'Community / OS Project',
     visibility: 'internal',
     headlines: [

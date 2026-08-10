@@ -8,6 +8,7 @@ import PressFacts from '@/components/brandkit/PressFacts';
 import { DownloadList } from '@/components/brandkit/DownloadButtons';
 import CardGenerator from '@/components/brandkit/generator/CardGenerator';
 import DecorLayer from '@/components/decor/DecorLayer';
+import BrandRings from '@/components/decor/BrandRings';
 
 export const metadata = {
   title: `Brand & Media Kit - ${config.general.event.name}`,
@@ -158,25 +159,39 @@ export default function BrandKitPage() {
             </div>
           </div>
 
-          <div className='mt-10'>
-            <h3 className='font-display text-xl uppercase text-ink'>Ready-made banners</h3>
-            <div className='mt-4'>
-              <DownloadList items={mediaPartners.banners} />
-            </div>
-          </div>
-
-          <div className='mt-10'>
-            <a href='?uc=partner#generator' className='btn-pop btn-pop-primary group inline-flex items-center'>
-              Create your partner card
-              <ArrowDown className='ml-2 h-5 w-5 transition-transform group-hover:translate-y-1' />
-            </a>
-          </div>
-
           <div className='card-pop mt-10 bg-white p-8'>
             <h3 className='font-display text-xl uppercase text-ink'>Boilerplate</h3>
             <p className='mt-4 max-w-3xl text-ink-soft'>{mediaPartners.boilerplate}</p>
             <div className='mt-6'>
               <CopyButton text={mediaPartners.boilerplate} label='Copy boilerplate' />
+            </div>
+          </div>
+
+          {/* Anteprima card partner (resa in CSS) + link al generator */}
+          <div className='mt-10 grid grid-cols-1 items-start gap-8 lg:grid-cols-2'>
+            <div className='card-pop relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden bg-brand-blue p-8 shadow-pop-lg'>
+              <BrandRings cluster='d' className='pointer-events-none absolute -right-[12%] -top-[12%] w-[65%] opacity-95' aria-hidden />
+              <div className='relative z-10 flex h-full flex-col'>
+                <Image src='/images/Logo_CND_W.svg' alt='' width={140} height={40} aria-hidden />
+                <p className='mt-auto font-display text-5xl uppercase leading-none text-white'>
+                  Proud
+                  <br />
+                  <span className='text-brand-yellow'>partner!</span>
+                </p>
+                <div className='mt-4 inline-flex w-fit items-center border-pop border-ink bg-white px-4 py-2'>
+                  <span className='text-sm font-bold text-ink'>Your logo here</span>
+                </div>
+              </div>
+            </div>
+            <div>
+              <a href='?uc=partner#generator' className='btn-pop btn-pop-primary group inline-flex items-center'>
+                Create your partner card
+                <ArrowDown className='ml-2 h-5 w-5 transition-transform group-hover:translate-y-1' />
+              </a>
+              <p className='mt-6 max-w-md text-sm text-ink-muted'>
+                Add your organization name and logo in the generator below,
+                pick a format and post it with the boilerplate above.
+              </p>
             </div>
           </div>
 
@@ -195,11 +210,9 @@ export default function BrandKitPage() {
           <div className='mt-10 grid grid-cols-1 items-start gap-8 lg:grid-cols-2'>
             {/* Anteprima card "I'll be there" resa in CSS col design system */}
             <div className='card-pop relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden bg-brand-blue p-8 shadow-pop-lg'>
-              {/* Trio di anelli in alto a destra: visibile anche su mobile,
-                  non finisce sotto il testo in basso */}
-              <DecorLayer
-                items={[{ pattern: 'cluster-d', position: 'top-right', size: 'lg' }]}
-              />
+              {/* Trio di anelli in alto a destra: dimensione fissa relativa
+                  alla card, ben visibile anche su mobile */}
+              <BrandRings cluster='d' className='pointer-events-none absolute -right-[12%] -top-[12%] w-[65%] opacity-95' aria-hidden />
               <div className='relative z-10 flex h-full flex-col'>
                 <Image src='/images/Logo_CND_W.svg' alt='' width={140} height={91} style={{ height: 'auto' }} aria-hidden />
                 <p className='mt-auto font-display text-5xl uppercase leading-none text-white'>

@@ -100,20 +100,6 @@
       "Publish the Call for Papers and ticket announcements",
       "Use the official assets and boilerplate below"
     ],
-    "banners": [
-      {
-        "label": "Banner 16:9 (post)",
-        "url": null
-      },
-      {
-        "label": "Banner 1:1 (square)",
-        "url": null
-      },
-      {
-        "label": "Banner 9:16 (story)",
-        "url": null
-      }
-    ],
     "boilerplate": "Cloud Native Days Italy is a community-organized event dedicated to cloud native and open source technologies, gathering the Italian community of developers, architects, engineers and IT professionals for two days of talks, workshops and networking. The 2027 edition takes place in Bologna on 20 May 2027. Learn more at cloudnativedaysitaly.org."
   },
   "attendees": {
