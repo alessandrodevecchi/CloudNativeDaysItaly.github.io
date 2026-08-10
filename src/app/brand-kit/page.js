@@ -125,6 +125,15 @@ export default function BrandKitPage() {
               </Link>
             </div>
           </div>
+
+          {/* Boilerplate: breve descrizione ufficiale dell'evento, per tutti */}
+          <div className='card-pop mt-10 bg-white p-8'>
+            <h3 className='font-display text-xl uppercase text-ink'>Boilerplate</h3>
+            <p className='mt-4 max-w-3xl text-ink-soft'>{basics.boilerplate}</p>
+            <div className='mt-6'>
+              <CopyButton text={basics.boilerplate} label='Copy boilerplate' />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -159,18 +168,10 @@ export default function BrandKitPage() {
             </div>
           </div>
 
-          <div className='card-pop mt-10 bg-white p-8'>
-            <h3 className='font-display text-xl uppercase text-ink'>Boilerplate</h3>
-            <p className='mt-4 max-w-3xl text-ink-soft'>{mediaPartners.boilerplate}</p>
-            <div className='mt-6'>
-              <CopyButton text={mediaPartners.boilerplate} label='Copy boilerplate' />
-            </div>
-          </div>
-
           {/* Anteprima card partner (resa in CSS) + link al generator */}
           <div className='mt-10 grid grid-cols-1 items-start gap-8 lg:grid-cols-2'>
-            <div className='card-pop relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden bg-brand-blue p-8 shadow-pop-lg'>
-              <BrandRings cluster='d' className='pointer-events-none absolute -right-[12%] -top-[12%] w-[65%] opacity-95' aria-hidden />
+            <div className='card-pop relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden bg-brand-magenta p-8 shadow-pop-lg'>
+              <BrandRings cluster='a' className='pointer-events-none absolute -right-[18%] -top-[20%] w-[80%] opacity-95' aria-hidden />
               <div className='relative z-10 flex h-full flex-col'>
                 <Image src='/images/Logo_CND_W.svg' alt='' width={140} height={40} aria-hidden />
                 <p className='mt-auto font-display text-5xl uppercase leading-none text-white'>
