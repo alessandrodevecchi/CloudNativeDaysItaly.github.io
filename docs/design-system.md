@@ -34,8 +34,11 @@ Contrasto: su `brand-yellow` e `cream` solo testo `ink`. Su `brand-blue` e `ink`
 ## Occhielli — regola dei livelli
 
 Il livello del titolo decide lo stile:
-- **`.stamp`** sopra ogni titolo di pagina (h1) e nei momenti hero ("Save the date", "The Event"). Mai in serie nella stessa vista.
-- **`.eyebrow`** sopra i titoli di sezione (h2). Colore contestuale: `text-brand-magenta` su bianco/cream, `text-brand-yellow` su blu/nero, `text-ink` su giallo.
+- **`.stamp`** sopra ogni titolo di pagina (h1), nei momenti hero ("Save
+  the date", "The Event") e sulle **sezioni-azione chiave** della home:
+  Call for Papers, Tickets, Become a Sponsor ("We need you"). Mai due
+  stamp adiacenti nella stessa vista.
+- **`.eyebrow`** sopra i titoli di sezione (h2) informativi. Colore contestuale: `text-brand-magenta` su bianco/cream, `text-brand-yellow` su blu/nero, `text-ink` su giallo.
 
 ## Ombre — regola dei 3 livelli
 

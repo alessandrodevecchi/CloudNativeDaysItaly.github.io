@@ -594,3 +594,21 @@ img {
     grid-template-columns: 1fr;
   }
 }
+
+/* Nodo "live" della timeline (pagina about): l'ultimo anno lampeggia
+   alternando blu e magenta, i nodi passati restano gialli. */
+@keyframes timeline-node-blink {
+  0%, 100% { background-color: #3069de; }
+  50% { background-color: #f91b71; }
+}
+
+.timeline-node-live {
+  animation: timeline-node-blink 1.6s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-node-live {
+    animation: none;
+    background-color: #f91b71;
+  }
+}

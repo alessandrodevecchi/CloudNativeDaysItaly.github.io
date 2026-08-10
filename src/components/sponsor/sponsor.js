@@ -125,8 +125,8 @@ const Sponsors = ({
       {isCurrent && sectionsContent.become && (
         <section className='border-t-2 border-ink bg-cream'>
           <div className='mx-auto max-w-[1200px] px-6 py-16'>
-            <span className='eyebrow text-brand-magenta'>Sponsorship</span>
-            <h2 className='section-heading mb-4 mt-2'>
+            <span className='stamp'>We need you</span>
+            <h2 className='section-heading mb-4 mt-6'>
               {sectionsContent.become.title}
             </h2>
             <p className='mb-6 max-w-2xl text-lg text-ink-muted'>

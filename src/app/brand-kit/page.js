@@ -6,7 +6,7 @@ import CopyButton from '@/components/brandkit/CopyButton';
 import DecorLayer from '@/components/decor/DecorLayer';
 
 export const metadata = {
-  title: `Brand Kit - ${config.general.event.name}`,
+  title: `Brand & Media Kit - ${config.general.event.name}`,
   description:
     'Logos, colors, templates and ready-made assets to share Cloud Native Days Italy: for attendees, media partners and speakers.',
 };
@@ -61,18 +61,19 @@ export default function BrandKitPage() {
 
   return (
     <>
-      {/* Hero + anchor links */}
-      <section className='relative overflow-hidden bg-white'>
+      {/* Hero + anchor links: banda blu piena, evita due sezioni bianche
+          adiacenti con brand basics */}
+      <section className='relative overflow-hidden bg-brand-blue'>
         <DecorLayer
           items={[
             { pattern: 'cluster-c', position: 'top-right', size: 'lg' },
-            { pattern: 'halftone', position: 'mid-right', size: 'lg', className: 'opacity-20' },
+            { pattern: 'halftone', position: 'mid-right', size: 'lg', className: 'opacity-20 invert' },
           ]}
         />
         <div className='relative z-10 mx-auto max-w-[1200px] px-6 py-16 pt-32 md:py-24 md:pt-40'>
-          <span className='stamp'>Brand Kit</span>
-          <h1 className='section-heading mt-6'>{hero.title}</h1>
-          <p className='mt-8 max-w-3xl text-xl text-ink-soft'>{hero.lead}</p>
+          <span className='stamp'>Brand & Media Kit</span>
+          <h1 className='mt-6 font-display text-section uppercase text-white'>{hero.title}</h1>
+          <p className='mt-8 max-w-3xl text-xl text-white'>{hero.lead}</p>
           <nav className='mt-8 flex flex-wrap gap-2' aria-label='Brand kit sections'>
             {hero.anchors.map((anchor) => (
               <a
@@ -251,37 +252,24 @@ export default function BrandKitPage() {
         </div>
       </section>
 
-      {/* Usage rules */}
-      <section className='relative overflow-hidden bg-ink py-16 lg:py-24' id='usage'>
-        <DecorLayer
-          items={[{ pattern: 'halftone', position: 'mid-right', size: 'lg', className: 'opacity-20 invert' }]}
-        />
-        <div className='relative z-10 mx-auto max-w-[1200px] px-6'>
-          <SectionHeading eyebrow='The fine print' title={usage.title} dark />
-          <div className='mt-10 grid grid-cols-1 gap-6 md:grid-cols-2'>
-            <div>
-              <h3 className='font-display text-xl uppercase text-brand-yellow'>Do</h3>
-              <ul className='mt-4 space-y-3'>
-                {usage.do.map((item) => (
-                  <li key={item} className='flex gap-3 text-white'>
-                    <Check className='mt-0.5 h-5 w-5 flex-shrink-0 text-brand-yellow' />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3 className='font-display text-xl uppercase text-brand-magenta'>Don&apos;t</h3>
-              <ul className='mt-4 space-y-3'>
-                {usage.dont.map((item) => (
-                  <li key={item} className='flex gap-3 text-white'>
-                    <X className='mt-0.5 h-5 w-5 flex-shrink-0 text-brand-magenta' />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+      {/* The only rules: banda cream compatta come da wireframe Figma
+          (06-usage-rules), niente colonne do/don't */}
+      <section className='border-t-2 border-ink bg-cream py-16 lg:py-20' id='usage'>
+        <div className='mx-auto max-w-[1200px] px-6'>
+          <h2 className='font-display text-section uppercase text-ink'>{usage.title}</h2>
+          <ul className='mt-8 flex flex-wrap gap-x-10 gap-y-4'>
+            {usage.rules.map((rule) => (
+              <li key={rule.text} className='flex items-start gap-2 text-ink-soft'>
+                {rule.ok ? (
+                  <Check className='mt-0.5 h-5 w-5 flex-shrink-0 text-brand-blue' />
+                ) : (
+                  <X className='mt-0.5 h-5 w-5 flex-shrink-0 text-brand-magenta' />
+                )}
+                {rule.text}
+              </li>
+            ))}
+          </ul>
+          <p className='mt-8 font-medium text-ink-muted'>{usage.contact}</p>
         </div>
       </section>
     </>

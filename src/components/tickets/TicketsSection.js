@@ -96,8 +96,8 @@ export default function TicketsSection({ data }) {
   return (
     <section className='border-t-2 border-ink bg-cream py-16 lg:py-24' id='tickets'>
       <div className='mx-auto max-w-[1200px] px-6'>
-        <span className='eyebrow text-brand-magenta'>Tickets</span>
-        <h2 className='section-heading mt-2'>Be part of it</h2>
+        <span className='stamp'>Tickets</span>
+        <h2 className='section-heading mt-6'>Be part of it</h2>
         {isComingSoon && (
           <p className='mt-6 max-w-2xl text-lg text-ink-muted'>
             {data.comingSoonText}

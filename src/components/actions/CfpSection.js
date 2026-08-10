@@ -16,8 +16,9 @@ export default function CfpSection({ data }) {
                 ]}
             />
             <div className="relative z-10 mx-auto max-w-[1200px] px-6">
-                <span className="eyebrow text-brand-yellow">Call for Papers</span>
-                <h2 className="mt-2 font-display text-section uppercase text-white">
+                {/* Sezione-azione chiave: stamp, non eyebrow (regola occhielli) */}
+                <span className="stamp">Call for Papers</span>
+                <h2 className="mt-6 font-display text-section uppercase text-white">
                     You could be on this stage
                 </h2>
                 <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12 lg:items-start">

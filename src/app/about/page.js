@@ -27,7 +27,11 @@ const StoryStep = ({ step, isLast }) => {
       {!isLast && (
         <span aria-hidden='true' className='absolute left-[7px] top-6 h-full w-0.5 bg-ink sm:left-[11px]' />
       )}
-      <span aria-hidden='true' className='absolute left-0 top-1.5 h-4 w-4 border-pop border-ink bg-brand-yellow sm:h-6 sm:w-6' />
+      {/* Il nodo dell'anno in arrivo lampeggia blu/magenta, i passati sono gialli */}
+      <span
+        aria-hidden='true'
+        className={`absolute left-0 top-1.5 h-4 w-4 border-pop border-ink sm:h-6 sm:w-6 ${isLast ? 'timeline-node-live' : 'bg-brand-yellow'}`}
+      />
       <div className='pb-12'>
         <span className='font-display text-stat uppercase leading-none text-brand-blue'>
           {step.year}
@@ -52,7 +56,11 @@ const StoryStep = ({ step, isLast }) => {
 
 export default function AboutPage() {
   const { intro, story, pictures, community } = aboutConfig;
-  const photos = config.info.photoStrip?.images || [];
+  // Il photo wall ha una lista propria (target: almeno 9 foto, 3 righe da 3);
+  // finché non c'è, riusa le foto della photo strip di home.
+  const photos = pictures.images?.length
+    ? pictures.images
+    : config.info.photoStrip?.images || [];
 
   return (
     <>
@@ -85,28 +93,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Photo wall */}
-      {photos.length > 0 && (
-        <section className='border-t-2 border-ink bg-white py-16 lg:py-24' id='pictures'>
-          <div className='mx-auto max-w-[1200px] px-6'>
-            <span className='eyebrow text-brand-magenta'>Live moments</span>
-            <h2 className='section-heading mt-2'>{pictures.title}</h2>
-            <div className='mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3'>
-              {photos.map((image, i) => (
-                <div key={image.src} className={`card-pop overflow-hidden p-2 ${i % 2 ? '-rotate-1' : 'rotate-1'}`}>
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    loading='lazy'
-                    className='aspect-[4/3] w-full object-cover'
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* Made possible by the community */}
       <section className='border-t-2 border-ink bg-white py-16 lg:py-24' id='community'>
         <div className='mx-auto max-w-[1200px] px-6'>
@@ -136,6 +122,29 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Photo wall: ultima sezione; griglia 3 colonne pensata per almeno
+          9 foto (le altre arrivano dall'archivio 2026) */}
+      {photos.length > 0 && (
+        <section className='border-t-2 border-ink bg-white py-16 lg:py-24' id='pictures'>
+          <div className='mx-auto max-w-[1200px] px-6'>
+            <span className='eyebrow text-brand-magenta'>Live moments</span>
+            <h2 className='section-heading mt-2'>{pictures.title}</h2>
+            <div className='mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3'>
+              {photos.map((image, i) => (
+                <div key={`${image.src}-${i}`} className={`card-pop overflow-hidden p-2 ${i % 2 ? '-rotate-1' : 'rotate-1'}`}>
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    loading='lazy'
+                    className='aspect-[4/3] w-full object-cover'
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 }
