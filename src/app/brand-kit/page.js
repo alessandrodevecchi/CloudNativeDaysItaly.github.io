@@ -190,8 +190,10 @@ export default function BrandKitPage() {
           <div className='mt-10 grid grid-cols-1 items-start gap-8 lg:grid-cols-2'>
             {/* Anteprima card "I'll be there" resa in CSS col design system */}
             <div className='card-pop relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden bg-brand-blue p-8 shadow-pop-lg'>
+              {/* Trio di anelli in alto a destra: visibile anche su mobile,
+                  non finisce sotto il testo in basso */}
               <DecorLayer
-                items={[{ pattern: 'cluster-duo', position: 'bottom-right', size: 'md' }]}
+                items={[{ pattern: 'cluster-d', position: 'top-right', size: 'lg' }]}
               />
               <div className='relative z-10 flex h-full flex-col'>
                 <Image src='/images/Logo_CND_W.svg' alt='' width={140} height={40} aria-hidden />

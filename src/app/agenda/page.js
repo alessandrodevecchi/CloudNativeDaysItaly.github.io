@@ -138,7 +138,9 @@ const ComingSoonAgenda = ({ proposalConfig, infoConfig, pastTalks }) => {
                 </div>
 
                 <div className="mt-16">
-                    <h2 className="section-heading">{infoConfig.extra.title}</h2>
+                    {/* Stesso occhiello della sezione in home (da config) */}
+                    <span className="eyebrow text-brand-magenta">{infoConfig.extra.eyebrow}</span>
+                    <h2 className="section-heading mt-2">{infoConfig.extra.title}</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 max-w-5xl">
                         <div className="card-pop p-6"><h3 className="font-bold text-lg flex items-center gap-2"><Mic size={20} className="text-brand-blue" /> {infoConfig.extra.boxes.talks.title}</h3><p className="text-ink-muted text-sm mt-2">{infoConfig.extra.boxes.talks.description}</p></div>
                         <div className="card-pop p-6"><h3 className="font-bold text-lg flex items-center gap-2"><Users size={20} className="text-brand-blue" /> {infoConfig.extra.boxes.networking.title}</h3><p className="text-ink-muted text-sm mt-2">{infoConfig.extra.boxes.networking.description}</p></div>

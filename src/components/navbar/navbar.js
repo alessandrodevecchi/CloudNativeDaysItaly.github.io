@@ -12,7 +12,7 @@ import './navbar.css';
 // grandi"); su blu/magenta testo bianco, su giallo testo ink.
 const PANEL_COLORS = {
     blue: { bg: 'bg-brand-blue', text: 'text-white', ring: 'duo' },
-    magenta: { bg: 'bg-brand-magenta', text: 'text-white', ring: 'dot' },
+    magenta: { bg: 'bg-brand-magenta', text: 'text-white', ring: 'duo' },
     yellow: { bg: 'bg-brand-yellow', text: 'text-ink', ring: 'duo' },
 };
 
@@ -176,11 +176,15 @@ export default function Navbar({ data, editions = [] }) {
                     return (
                         <nav
                             className={clsx(
-                                "absolute top-0 right-0 h-full w-4/5 max-w-sm border-l-2 border-ink p-6 flex flex-col transition-all duration-300 ease-in-out",
+                                "absolute top-0 right-0 h-full w-4/5 max-w-sm border-l-2 border-ink p-6 flex flex-col transition-all duration-300 ease-in-out overflow-hidden",
                                 activeEntry ? colors.bg : 'bg-white',
                                 isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
                             )}
                         >
+                            {/* Sticker decorativo del panel drill-down, come sui panel desktop */}
+                            {activeEntry && (
+                                <BrandRings cluster={colors.ring} className="pointer-events-none absolute bottom-28 -right-10 w-44 h-44 opacity-80" aria-hidden />
+                            )}
                             <div className={clsx("flex items-center justify-between pb-6 border-b-2 border-ink")}>
                                 {activeEntry ? (
                                     // Drill-down attivo: "back" al posto del logo (reference Gumroad mobile)

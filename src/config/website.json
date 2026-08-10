@@ -36,24 +36,53 @@
     ],
     "links": {
       "header": [
-        { "text": "Agenda", "to": "/agenda" },
-        { "text": "Speakers", "to": "/speakers" },
-        { "text": "Sponsors", "to": "/sponsors" },
-        { "text": "Partners", "to": "/partners" },
+        {
+          "text": "Agenda",
+          "to": "/agenda"
+        },
+        {
+          "text": "Speakers",
+          "to": "/speakers"
+        },
+        {
+          "text": "Sponsors",
+          "to": "/sponsors"
+        },
+        {
+          "text": "Partners",
+          "to": "/partners"
+        },
         {
           "text": "Hub",
           "color": "blue",
-          "items": [{ "text": "Content Hub", "to": "/content-hub" }],
+          "items": [
+            {
+              "text": "Content Hub",
+              "to": "/content-hub"
+            }
+          ],
           "pastEditions": true
         },
         {
           "text": "About",
           "color": "magenta",
           "items": [
-            { "text": "What is CND", "to": "/about" },
-            { "text": "Team", "to": "/team" },
-            { "text": "Brand Kit", "to": "/brand-kit" },
-            { "text": "FAQ", "to": "/faq" }
+            {
+              "text": "What is CND",
+              "to": "/about"
+            },
+            {
+              "text": "Team",
+              "to": "/team"
+            },
+            {
+              "text": "Brand Kit",
+              "to": "/brand-kit"
+            },
+            {
+              "text": "FAQ",
+              "to": "/faq"
+            }
           ]
         }
       ]
@@ -140,12 +169,22 @@
     "photoStrip": {
       "active": true,
       "images": [
-        { "src": "/images/cndteam-2024.webp", "alt": "KCD Italy 2024" },
-        { "src": "/images/cndteam-2025.webp", "alt": "Cloud Native Days Italy 2025" },
-        { "src": "/images/cndteam-2026.webp", "alt": "Cloud Native Days Italy 2026" }
+        {
+          "src": "/images/cndteam-2024.webp",
+          "alt": "KCD Italy 2024"
+        },
+        {
+          "src": "/images/cndteam-2025.webp",
+          "alt": "Cloud Native Days Italy 2025"
+        },
+        {
+          "src": "/images/cndteam-2026.webp",
+          "alt": "Cloud Native Days Italy 2026"
+        }
       ]
     },
     "extra": {
+      "eyebrow": "The experience",
       "title": "What to Expect?",
       "boxes": {
         "talks": {
@@ -202,17 +241,31 @@
       {
         "label": "Day 1: Workshops",
         "bullets": [
-          { "text": "Hands-on workshops", "bold": true },
-          { "text": "Small groups, limited seats" },
-          { "text": "Led by industry experts" }
+          {
+            "text": "Hands-on workshops",
+            "bold": true
+          },
+          {
+            "text": "Small groups, limited seats"
+          },
+          {
+            "text": "Led by industry experts"
+          }
         ]
       },
       {
         "label": "Day 2: Conference",
         "bullets": [
-          { "text": "Talks & keynotes", "bold": true },
-          { "text": "Sponsor area" },
-          { "text": "Community & open source projects area" }
+          {
+            "text": "Talks & keynotes",
+            "bold": true
+          },
+          {
+            "text": "Sponsor area"
+          },
+          {
+            "text": "Community & open source projects area"
+          }
         ]
       }
     ],

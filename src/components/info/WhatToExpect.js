@@ -18,7 +18,8 @@ export default function WhatToExpect({ data }) {
   return (
     <section className='border-t-2 border-ink bg-white py-16 lg:py-24' id='what-to-expect'>
       <div className='mx-auto max-w-[1200px] px-6'>
-        <span className='eyebrow text-brand-magenta'>The experience</span>
+        {/* Occhiello da config: stesso testo ovunque la sezione compare */}
+        <span className='eyebrow text-brand-magenta'>{data.eyebrow || 'The experience'}</span>
         <h2 className='section-heading mt-2'>{data.title}</h2>
         <div className='mt-10 grid grid-cols-1 gap-6 md:grid-cols-2'>
           {['talks', 'networking', 'workshop', 'community'].map((key, i) => (

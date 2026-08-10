@@ -21,7 +21,9 @@ import DecorLayer from '@/components/decor/DecorLayer';
 
 /* ── Alert Banner ────────────────────────────────────── */
 function AlertBanner({ alert }) {
-  if (!alert) return null;
+  // active: false = alert archiviato (es. sciopero trasporti 2026),
+  // tenuto in config come reference per alert futuri
+  if (!alert || alert.active === false) return null;
 
   return (
     <div className='mb-12 bg-brand-yellow-light border-pop border-ink p-6'>

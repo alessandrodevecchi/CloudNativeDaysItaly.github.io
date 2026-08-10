@@ -5,6 +5,7 @@
     "description": "Find answers to the most common questions about Cloud Native Days Italy 2026, and everything you need to plan your visit to Bologna."
   },
   "alert": {
+    "active": false,
     "title": "Transport Strike Alert - Monday, May 18",
     "intro": "Quick heads-up: **national strike in Italy on Monday** affecting trains, buses, and airport transit in Bologna.",
     "sections": [
@@ -154,9 +155,18 @@
           }
         ],
         "taxis": [
-          { "name": "Taxi COTABO", "phone": "051 372727" },
-          { "name": "Taxi CAT", "phone": "051 4590" },
-          { "name": "Uber", "note": "Book via the app" }
+          {
+            "name": "Taxi COTABO",
+            "phone": "051 372727"
+          },
+          {
+            "name": "Taxi CAT",
+            "phone": "051 4590"
+          },
+          {
+            "name": "Uber",
+            "note": "Book via the app"
+          }
         ]
       }
     ]
@@ -170,15 +180,59 @@
         "icon": "Star",
         "stars": 4,
         "hotels": [
-          { "name": "Savoia Hotel Regency", "address": "Via del Pilastro, 2, Bologna", "phone": "+39 051/3767777", "email": "regency@savoia.eu" },
-          { "name": "Savoia Hotel Country House", "address": "Via San Donato, 159/161, Bologna", "phone": "+39 051/6332366", "email": "countryhouse@savoia.eu" },
-          { "name": "The Sidney Hotel", "address": "Via Michelino, 73, Bologna", "phone": "+39 051/030409", "email": "info@thesydneyhotel.eu" },
-          { "name": "Hilton Garden Inn Bologna", "address": "Via S. Donato, Quarto Inferiore, Bologna", "phone": "+39 051 606 0811", "email": "info@hgi-bologna.com" },
-          { "name": "Bleis Hotel", "address": "Via del Gomito, 16, Bologna", "phone": "+39 051 327183", "email": "info@bleishotel.com" },
-          { "name": "Holiday Inn Bologna", "address": "Via del Commercio Associato 3, Bologna", "phone": "+39 0516-6334588", "email": "info@hibolognafiera.it" },
-          { "name": "UNA Hotels Bologna", "address": "Piazza della Costituzione 1, Bologna", "phone": "02 91483767" },
-          { "name": "Hotel Cosmopolitan", "address": "Via del Commercio Associato, 9, Bologna", "phone": "+39 051 6926403", "email": "info@cosmo.bo" },
-          { "name": "Hotel Best Western Bologna", "address": "Viale Lenin, 43, Bologna", "phone": "+39 051 6024111", "email": "info@towerhotelbologna.com" }
+          {
+            "name": "Savoia Hotel Regency",
+            "address": "Via del Pilastro, 2, Bologna",
+            "phone": "+39 051/3767777",
+            "email": "regency@savoia.eu"
+          },
+          {
+            "name": "Savoia Hotel Country House",
+            "address": "Via San Donato, 159/161, Bologna",
+            "phone": "+39 051/6332366",
+            "email": "countryhouse@savoia.eu"
+          },
+          {
+            "name": "The Sidney Hotel",
+            "address": "Via Michelino, 73, Bologna",
+            "phone": "+39 051/030409",
+            "email": "info@thesydneyhotel.eu"
+          },
+          {
+            "name": "Hilton Garden Inn Bologna",
+            "address": "Via S. Donato, Quarto Inferiore, Bologna",
+            "phone": "+39 051 606 0811",
+            "email": "info@hgi-bologna.com"
+          },
+          {
+            "name": "Bleis Hotel",
+            "address": "Via del Gomito, 16, Bologna",
+            "phone": "+39 051 327183",
+            "email": "info@bleishotel.com"
+          },
+          {
+            "name": "Holiday Inn Bologna",
+            "address": "Via del Commercio Associato 3, Bologna",
+            "phone": "+39 0516-6334588",
+            "email": "info@hibolognafiera.it"
+          },
+          {
+            "name": "UNA Hotels Bologna",
+            "address": "Piazza della Costituzione 1, Bologna",
+            "phone": "02 91483767"
+          },
+          {
+            "name": "Hotel Cosmopolitan",
+            "address": "Via del Commercio Associato, 9, Bologna",
+            "phone": "+39 051 6926403",
+            "email": "info@cosmo.bo"
+          },
+          {
+            "name": "Hotel Best Western Bologna",
+            "address": "Viale Lenin, 43, Bologna",
+            "phone": "+39 051 6024111",
+            "email": "info@towerhotelbologna.com"
+          }
         ]
       },
       {
@@ -186,14 +240,52 @@
         "icon": "Star",
         "stars": 3,
         "hotels": [
-          { "name": "Hotel Fiera Wellness & Spa", "address": "Via Stalingrado 82, Bologna", "phone": "+39 051 377735", "email": "info@hotel-fiera.com" },
-          { "name": "Hotel Michelino 75", "address": "Via Michelino, 75, Bologna", "phone": "+39 051/516356", "email": "info@hotelmichelino.eu" },
-          { "name": "Hotel Maxim", "address": "Via Stalingrado, 152, Bologna", "phone": "+39 051 323235", "email": "info@hotelmaximbologna.com" },
-          { "name": "B&B Hotel Bologna", "address": "Via Marino Serenari, 13, Castel Maggiore, Bologna", "phone": "+39 0289691630", "email": "bologna@hotelbb.com" },
-          { "name": "Hotel Marco Polo", "address": "Via Marco Polo, 89/A, Bologna", "phone": "+39 0516341272" },
-          { "name": "Villa Aretusi", "address": "Via Aretusi, 5, Bologna", "phone": "+39 051 6199848", "email": "info@villa-aretusi.it" },
-          { "name": "Hotel Maggiore", "address": "Via Emilia Ponente 62/3, Bologna", "phone": "+39 051 381 634" },
-          { "name": "Hotel Astoria", "address": "Via F.lli Rosselli, 14, Bologna", "phone": "+39 051 521410", "email": "info@astoria.bo.it" }
+          {
+            "name": "Hotel Fiera Wellness & Spa",
+            "address": "Via Stalingrado 82, Bologna",
+            "phone": "+39 051 377735",
+            "email": "info@hotel-fiera.com"
+          },
+          {
+            "name": "Hotel Michelino 75",
+            "address": "Via Michelino, 75, Bologna",
+            "phone": "+39 051/516356",
+            "email": "info@hotelmichelino.eu"
+          },
+          {
+            "name": "Hotel Maxim",
+            "address": "Via Stalingrado, 152, Bologna",
+            "phone": "+39 051 323235",
+            "email": "info@hotelmaximbologna.com"
+          },
+          {
+            "name": "B&B Hotel Bologna",
+            "address": "Via Marino Serenari, 13, Castel Maggiore, Bologna",
+            "phone": "+39 0289691630",
+            "email": "bologna@hotelbb.com"
+          },
+          {
+            "name": "Hotel Marco Polo",
+            "address": "Via Marco Polo, 89/A, Bologna",
+            "phone": "+39 0516341272"
+          },
+          {
+            "name": "Villa Aretusi",
+            "address": "Via Aretusi, 5, Bologna",
+            "phone": "+39 051 6199848",
+            "email": "info@villa-aretusi.it"
+          },
+          {
+            "name": "Hotel Maggiore",
+            "address": "Via Emilia Ponente 62/3, Bologna",
+            "phone": "+39 051 381 634"
+          },
+          {
+            "name": "Hotel Astoria",
+            "address": "Via F.lli Rosselli, 14, Bologna",
+            "phone": "+39 051 521410",
+            "email": "info@astoria.bo.it"
+          }
         ]
       },
       {
@@ -201,9 +293,24 @@
         "icon": "Star",
         "stars": 2,
         "hotels": [
-          { "name": "Hotel Roveri Fattori", "address": "Via Enrico Mattei, 72, Bologna", "phone": "+39 051 532118", "email": "info@hotelroverifattori.it" },
-          { "name": "Albergo Aurora", "address": "Via P. C. S. Nasica, 110, Castenaso, Bologna", "phone": "+39 0516052174", "email": "info@albergoaurorasrl.it" },
-          { "name": "Hotel Sant'Orsola", "address": "Via Palmieri, 25, Bologna", "phone": "+39 051 302997", "email": "info@hotelsantorsola.it" }
+          {
+            "name": "Hotel Roveri Fattori",
+            "address": "Via Enrico Mattei, 72, Bologna",
+            "phone": "+39 051 532118",
+            "email": "info@hotelroverifattori.it"
+          },
+          {
+            "name": "Albergo Aurora",
+            "address": "Via P. C. S. Nasica, 110, Castenaso, Bologna",
+            "phone": "+39 0516052174",
+            "email": "info@albergoaurorasrl.it"
+          },
+          {
+            "name": "Hotel Sant'Orsola",
+            "address": "Via Palmieri, 25, Bologna",
+            "phone": "+39 051 302997",
+            "email": "info@hotelsantorsola.it"
+          }
         ]
       },
       {
@@ -211,8 +318,16 @@
         "icon": "Star",
         "stars": 1,
         "hotels": [
-          { "name": "Hotel Perla", "address": "Via S. Vitale, 77/2, Bologna", "phone": "051 224579" },
-          { "name": "Hotel Panorama", "address": "Via Giovanni Livraghi, 1, Bologna", "phone": "051 221802" }
+          {
+            "name": "Hotel Perla",
+            "address": "Via S. Vitale, 77/2, Bologna",
+            "phone": "051 224579"
+          },
+          {
+            "name": "Hotel Panorama",
+            "address": "Via Giovanni Livraghi, 1, Bologna",
+            "phone": "051 221802"
+          }
         ]
       },
       {
@@ -220,8 +335,17 @@
         "icon": "Coffee",
         "stars": 0,
         "hotels": [
-          { "name": "Locanda Corte Roveri", "address": "Via delle Biscie, 35, Bologna", "phone": "+39 051 535212", "email": "corteroveri2018@gmail.com" },
-          { "name": "Ai Tre Cedri", "address": "Via Luca Ghini 5, Int. 1, Bologna", "phone": "335 667 8859" }
+          {
+            "name": "Locanda Corte Roveri",
+            "address": "Via delle Biscie, 35, Bologna",
+            "phone": "+39 051 535212",
+            "email": "corteroveri2018@gmail.com"
+          },
+          {
+            "name": "Ai Tre Cedri",
+            "address": "Via Luca Ghini 5, Int. 1, Bologna",
+            "phone": "335 667 8859"
+          }
         ]
       }
     ]
