@@ -12,6 +12,10 @@
         "target": "#media-partners"
       },
       {
+        "label": "Press facts",
+        "target": "#press-facts"
+      },
+      {
         "label": "Attendees",
         "target": "#attendees"
       },
@@ -62,8 +66,22 @@
       {
         "label": "Brand book (PDF)",
         "url": null
+      },
+      {
+        "label": "Halftone pattern (SVG)",
+        "url": "/images/pattern_halftone.svg"
+      },
+      {
+        "label": "Rings pattern (SVG)",
+        "url": "/images/pattern_rings.svg"
       }
-    ]
+    ],
+    "decorNote": "The halftone and the rings are ours, take them. The decorative elements on our social cards (donuts, diamonds, stars, clouds) are licensed material we cannot redistribute: use the card generator to get graphics that include them. Extenda, our display typeface, is licensed too and never travels with the assets: the site renders Anton, free on Google Fonts.",
+    "designSystem": {
+      "title": "Design system",
+      "description": "Colours, typography, components and patterns, rendered with the real code of the website. Read it before designing a slide, a card or a page for the event: it shows what our design does, and what it never does.",
+      "cta": "Open the design system"
+    }
   },
   "mediaPartners": {
     "title": "For media partners",

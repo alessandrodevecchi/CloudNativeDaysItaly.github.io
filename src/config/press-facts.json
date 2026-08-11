@@ -1,0 +1,31 @@
+{
+  "_source": "Cloud Native Days Italy 2026 Transparency Report (public/transparency/cloudnativedays-italy-2026-transparency-report.pdf). I numeri del report contano anche chi non ha una pagina sul sito, quindi possono differire dai conteggi di src/config/editions/2026.json usati dalla banda numeri in home. Non allineare i due: hanno fonti diverse.",
+  "edition": "2026",
+  "intro": "Numbers from our 2026 transparency report, ready to be quoted. The full report has the detail behind them.",
+  "facts": [
+    { "value": "285", "label": "Attendees", "delta": "+27%" },
+    { "value": "117", "label": "Companies represented" },
+    { "value": "228", "label": "CFP submissions", "delta": "+68%" },
+    { "value": "60%", "label": "First-timers" },
+    { "value": "15", "label": "Sponsors", "delta": "+36%" },
+    { "value": "49", "label": "Speakers", "delta": "+44%" },
+    { "value": "18", "label": "Countries" },
+    { "value": "29", "label": "Communities", "delta": "+100%" },
+    { "value": "18", "label": "Organizers", "delta": "+80%" }
+  ],
+  "seniority": [
+    { "value": "10%", "label": "Junior" },
+    { "value": "24%", "label": "Mid-level" },
+    { "value": "62%", "label": "Senior" }
+  ],
+  "satisfaction": [
+    { "value": "4.70", "label": "Sessions satisfaction score" },
+    { "value": "4.71", "label": "Speakers satisfaction score" }
+  ],
+  "copyText": "Cloud Native Days Italy 2026: 285 attendees from 117 companies and 18 countries, 60% first-timers, 49 speakers, 228 CFP submissions, 15 sponsors, 29 communities and open source projects, 18 organizers. Sessions satisfaction score 4.70 out of 5. Savoia Hotel Regency, Bologna. Full transparency report: cloudnativedaysitaly.org",
+  "report": {
+    "label": "Download the transparency report",
+    "url": "/transparency/cloudnativedays-italy-2026-transparency-report.pdf",
+    "cover": "/transparency/transparency-report-cover.webp"
+  }
+}

@@ -14,8 +14,12 @@ async function getStaticPages() {
         '/speakers',
         '/sponsors',
         '/team',
+        '/brand-kit',
+        '/brand-kit/design-system',
         '/code-of-conduct', // Assuming you have this page
     ];
+    // /brand-kit/studio resta fuori: è la versione interna del generator,
+    // noindex e non linkata.
 }
 
 async function getDynamicPages(directory, prefix = '') {

@@ -1,8 +1,11 @@
 import Image from 'next/image';
-import { Download, Check, X } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowRight, Check, X } from 'lucide-react';
 import config from '@/config/website.json';
 import brandKit from '@/config/brand-kit.json';
 import CopyButton from '@/components/brandkit/CopyButton';
+import PressFacts from '@/components/brandkit/PressFacts';
+import { DownloadList } from '@/components/brandkit/DownloadButtons';
 import DecorLayer from '@/components/decor/DecorLayer';
 
 export const metadata = {
@@ -10,40 +13,6 @@ export const metadata = {
   description:
     'Logos, colors, templates and ready-made assets to share Cloud Native Days Italy: for attendees, media partners and speakers.',
 };
-
-// Bottone download: con url scarica, senza url stato "coming soon"
-// disabilitato — gli asset arrivano man mano che vengono prodotti.
-const DownloadButton = ({ item }) => {
-  if (!item.url) {
-    return (
-      <span className='inline-flex cursor-not-allowed items-center border-pop border-ink bg-gray-100 px-4 py-2 text-sm font-bold uppercase tracking-wide text-ink-muted'>
-        <Download className='mr-2 h-4 w-4' />
-        {item.label}
-        <span className='ml-3 border border-ink bg-white px-2 py-0.5 text-xs text-brand-blue'>
-          Soon
-        </span>
-      </span>
-    );
-  }
-  return (
-    <a
-      href={item.url}
-      download
-      className='btn-pop btn-pop-secondary inline-flex items-center !px-4 !py-2 text-sm'
-    >
-      <Download className='mr-2 h-4 w-4' />
-      {item.label}
-    </a>
-  );
-};
-
-const DownloadList = ({ items }) => (
-  <div className='flex flex-wrap gap-3'>
-    {items.map((item) => (
-      <DownloadButton key={item.label} item={item} />
-    ))}
-  </div>
-);
 
 const SectionHeading = ({ eyebrow, title, dark = false }) => (
   <>
@@ -129,6 +98,30 @@ export default function BrandKitPage() {
 
           <div className='mt-10'>
             <DownloadList items={basics.downloads} />
+            {/* Gli elementi decorativi delle card (donut, diamanti, stelle,
+                nuvole) non sono nostri da redistribuire: nessun download,
+                si passa dal generator. */}
+            <p className='mt-4 max-w-2xl text-sm text-ink-muted'>{basics.decorNote}</p>
+          </div>
+
+          {/* Ingresso alla pagina design system: è un link, non un
+              download, quindi freccia e nessun chip "Soon" */}
+          <div className='card-pop mt-10 grid grid-cols-1 gap-6 bg-white p-8 lg:grid-cols-[1.4fr_1fr] lg:items-center'>
+            <div>
+              <h3 className='font-display text-xl uppercase text-ink'>
+                {basics.designSystem.title}
+              </h3>
+              <p className='mt-4 max-w-2xl text-ink-soft'>{basics.designSystem.description}</p>
+            </div>
+            <div className='lg:justify-self-end'>
+              <Link
+                href='/brand-kit/design-system'
+                className='btn-pop btn-pop-primary group inline-flex items-center'
+              >
+                {basics.designSystem.cta}
+                <ArrowRight className='ml-2 h-5 w-5 transition-transform group-hover:translate-x-1' />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -178,6 +171,10 @@ export default function BrandKitPage() {
               <CopyButton text={mediaPartners.boilerplate} label='Copy boilerplate' />
             </div>
           </div>
+
+          {/* Press facts: chi cerca i numeri è lo stesso lettore che cerca
+              il boilerplate, quindi stanno qui e non in fondo alla pagina */}
+          <PressFacts />
         </div>
       </section>
 

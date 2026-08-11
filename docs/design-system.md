@@ -4,11 +4,13 @@ Stile: **pop / neo-brutalist**. Spigoli vivi, bordi neri netti, hard shadow senz
 
 I valori dei token vivono in `tailwind.config.mjs` e `src/styles/globals.css`. Questo documento dice **quando** usarli. La derivazione dai file sorgente è in `figma-token-mapping.md`.
 
+Gli **esempi resi** stanno su `/brand-kit/design-system` (pagina pubblica, componenti e classi veri, niente screenshot). Qui le regole, là il riscontro visivo: se una regola cambia si aggiorna questo file e la pagina la mostra.
+
 ## Colori — regole d'uso
 
 - **`brand-blue`**: colore identitario. Date/titoli hero, banda CFP, banda FAQ/newsletter, link.
 - **`brand-magenta`**: solo per ciò che deve spingere all'azione o colpire: CTA primaria, prezzi, evidenziazione card, accento nella banda numeri. Mai come sfondo di sezione con testo; ammesso come banda solo-immagini (photo strip in home).
-- **`brand-yellow`**: banda tema, chips/tag, celle orario agenda, titoli su sfondo scuro.
+- **`brand-yellow`**: **accenti e blocchi, mai banda di sezione**. Chips/tag, celle orario agenda, titoli su sfondo scuro, box invito (Become a Sponsor), CTA primaria della navbar. Unica eccezione dichiarata: la banda tema (`ThemeSection`), momento editoriale unico e non ricorrente, spenta in config.
 - **`brand-yellow-light`**: sfondi soft dove il giallo pieno è troppo.
 - **`ink` (#111)**: testo di default, tutti i bordi pop, bande scure (numeri, venue).
 - **`cream` (#FDF6E3)**: banda alternativa calda (tickets). Alternativa al bianco quando servono due sezioni chiare adiacenti.
@@ -21,6 +23,15 @@ Contrasto: su `brand-yellow` e `cream` solo testo `ink`. Su `brand-blue` e `ink`
 - **`font-display`** (Anton → Extenda): SOLO titoli sezione, display hero, stat/prezzi, stamp. Sempre `uppercase`. Mai per body o UI copy.
 - **`font-sans`** (Poppins): tutto il resto. Bold per CTA e lead, regular per body.
 - Scale fluide: `text-display` (hero), `text-section` (H2 sezione), `text-stat` (numeri/prezzi), `text-stamp` (badge).
+
+## Logo
+
+Esiste **una sola versione**: nuvola + wordmark, in variante colore (`/images/logo.webp`) e bianca (`/images/Logo_CND_W.svg`). Niente variante solo-simbolo, niente quadrata: se servissero è una decisione di brand, non un ritaglio.
+
+- **Clear space**: spazio libero su tutti i lati almeno pari all'altezza della nuvola. Dentro quell'area non entra niente (testo, anelli, bordo di una foto).
+- **Dimensione minima**: 140px di larghezza a schermo, 25mm in stampa. Sotto, il wordmark si chiude e la fetta di pizza diventa una macchia.
+- **Fondo**: colore su bianco, cream e `brand-yellow`; bianco su `ink`, `brand-blue` e `brand-magenta`. Il logo bianco su giallo non ha contrasto.
+- **Non fare**: stirarlo o comprimerlo, ricolorarlo, metterci un'ombra sfumata, appoggiarlo su una foto senza una superficie piena sotto.
 
 ## Pattern componenti (utility in globals.css)
 
@@ -135,6 +146,7 @@ Gestite da `src/components/decor/DecorLayer.js` (layer assoluto `pointer-events-
 
 - **Cluster di anelli** (`BrandRings.js`): preset `a`–`e`, `dot`, `duo` — SVG inline parametrici nei colori brand. Regole: mai un anello singolo solo in un angolo (usare `duo`); ogni sezione decorata ha almeno 2 elementi; densità proporzionale all'altezza della sezione; taglie ridotte sotto `md` per non coprire i contenuti.
 - **Halftone**: originale + 3 varianti generate (`pattern_halftone_b/c/d.svg`, ~7KB). Opacità 20–30%; hanno una scala dedicata più grande, non ridotta su mobile; possono vivere anche nelle zone centrali (`mid-left`, `mid-right`, `center`, `center-bottom`).
+- **Redistribuzione**: halftone e anelli sono asset nostri, offerti come download nel brand kit. Gli elementi decorativi delle card social (donut, diamanti, stelle, nuvole, bauhaus) sono materiale licenziato: nessun download e nessun rimando a dove vivono, per le grafiche pronte c'è il card generator. Il font **Extenda** è licenziato e non entra mai in un logo pack o in uno zip.
 - **Varianti hero** (`heroVariants.js`): 10 composizioni curate; uno script inline in `layout.js` ne sceglie una prima del primo paint via `html[data-decor]` (niente switch visibile, niente hydration mismatch). La variante 0 è il fallback senza JS.
 
 ## Cosa NON fare
