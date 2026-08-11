@@ -12,20 +12,7 @@ const PlaceholderCard = () => (
     <div className="min-h-[150px] border-2 border-dashed border-ink/20 h-full" />
 );
 
-// Colori semantici per tipo di sessione — vedi docs/design-system.md
-const SESSION_TYPE_STYLES = {
-    keynote: 'bg-brand-magenta text-white',
-    talk: 'bg-brand-yellow text-ink',
-    workshop: 'bg-brand-blue text-white',
-    'lightning-talk': 'bg-brand-yellow text-ink',
-};
-
-const SESSION_TYPE_ICONS = {
-    keynote: Star,
-    talk: Mic,
-    workshop: Wrench,
-    'lightning-talk': Zap,
-};
+import { SESSION_TYPE_STYLES, SESSION_TYPE_ICONS } from './sessionTypes';
 
 const SessionCard = ({ session, tracks }) => {
     if (session.type === 'break') {

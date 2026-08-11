@@ -7,7 +7,7 @@ I valori dei token vivono in `tailwind.config.mjs` e `src/styles/globals.css`. Q
 ## Colori — regole d'uso
 
 - **`brand-blue`**: colore identitario. Date/titoli hero, banda CFP, banda FAQ/newsletter, link.
-- **`brand-magenta`**: solo per ciò che deve spingere all'azione o colpire: CTA primaria, prezzi, evidenziazione card, accento nella banda numeri. Mai come sfondo di sezione intera.
+- **`brand-magenta`**: solo per ciò che deve spingere all'azione o colpire: CTA primaria, prezzi, evidenziazione card, accento nella banda numeri. Mai come sfondo di sezione con testo; ammesso come banda solo-immagini (photo strip in home).
 - **`brand-yellow`**: banda tema, chips/tag, celle orario agenda, titoli su sfondo scuro.
 - **`brand-yellow-light`**: sfondi soft dove il giallo pieno è troppo.
 - **`ink` (#111)**: testo di default, tutti i bordi pop, bande scure (numeri, venue).

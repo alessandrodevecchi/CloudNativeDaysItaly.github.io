@@ -51,22 +51,6 @@ const Info = ({ data }) => {
           )}
         </div>
 
-        {/* Photo strip del recap (wireframe: 03-about-recap) */}
-        {data.photoStrip?.active && data.photoStrip.images?.length > 0 && (
-          <div className='mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3'>
-            {data.photoStrip.images.map((image, i) => (
-              <div key={image.src} className={`card-pop overflow-hidden p-2 ${i % 2 ? '-rotate-1' : 'rotate-1'}`}>
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  loading='lazy'
-                  className='aspect-[4/3] w-full object-cover'
-                />
-              </div>
-            ))}
-          </div>
-        )}
-
       </div>
     </section>
   );

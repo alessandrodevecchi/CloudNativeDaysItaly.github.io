@@ -146,6 +146,7 @@ export default function PastEditionComponent({ year, initialEventData }) {
             'silver',
             'smart',
             'workshop',
+            'techPartner',
             'partner',
           ]}
           isCurrent={isCurrentEvent}

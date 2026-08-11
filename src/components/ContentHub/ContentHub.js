@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Search, Mic, ArrowRight, ArrowLeft } from 'lucide-react';
 import DecorLayer from '@/components/decor/DecorLayer';
+import { SessionTypeBadge } from '@/components/agenda/sessionTypes';
 
 const TalkCard = ({ talk }) => {
   const defaultImage = '/images/placeholder.png';
@@ -30,11 +31,7 @@ const TalkCard = ({ talk }) => {
           <span className='text-xs font-bold px-3 py-1 border border-ink bg-white text-ink uppercase'>
             Edition {talk.year}
           </span>
-          {talk.type && (
-            <span className={`text-xs font-bold px-3 py-1 border border-ink uppercase ${{ keynote: 'bg-brand-magenta text-white', workshop: 'bg-brand-blue text-white', 'lightning-talk': 'bg-brand-yellow text-ink' }[talk.type] || 'bg-brand-yellow text-ink'}`}>
-              {talk.type}
-            </span>
-          )}
+          {talk.type && <SessionTypeBadge type={talk.type} />}
         </div>
         <h3
           className='font-bold text-ink text-lg line-clamp-2'

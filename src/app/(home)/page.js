@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import Hero from '@/components/hero/hero';
 import Info from '@/components/info/info';
 import WhatToExpect from '@/components/info/WhatToExpect';
+import PhotoStrip from '@/components/info/PhotoStrip';
 import ThemeSection from '@/components/theme/ThemeSection';
 import CfpSection from '@/components/actions/CfpSection';
 import AgendaGlance from '@/components/agenda/AgendaGlance';
@@ -234,6 +235,7 @@ export default async function HomePage() {
         />
       )}
       <Info data={config.info} />
+      <PhotoStrip data={config.info.photoStrip} />
       <ThemeSection data={config.theme} />
       <WhatToExpect data={config.info.extra} />
       <CfpSection data={config.proposal} />
