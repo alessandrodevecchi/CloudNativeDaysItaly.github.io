@@ -45,7 +45,7 @@ export default function SurfacesSection() {
 
       <DsBlock
         title='The three shadows'
-        rule='Same direction, three sizes. On a dark surface the shadow turns white.'
+        rule='Same direction, three sizes. Against the ink band they turn white, and so do the borders: black on black is nothing. On blue and magenta the black shadow still reads and stays as it is.'
       >
         <div className='grid grid-cols-1 gap-6 sm:grid-cols-3'>
           {SHADOW_STEPS.map((step) => (

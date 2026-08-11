@@ -24,6 +24,16 @@ const HOME_BANDS = [
   { label: 'FAQ and newsletter', surface: 'bg-brand-blue', text: 'text-white' },
 ];
 
+// Quattro pesi della stessa texture, registrati in DecorLayer. L'asset è
+// grigio chiarissimo: su fondo chiaro resta appena percepibile, su banda
+// colorata si aggiunge `invert` e diventa scuro.
+const HALFTONES = [
+  { name: 'halftone', file: '/images/pattern_halftone.svg', note: 'The brand book original. Diagonal blob, the biggest dots, the loudest of the four.' },
+  { name: 'halftone-b', file: '/images/pattern_halftone_b.svg', note: 'Rectangular field, medium density fading to the bottom right.' },
+  { name: 'halftone-c', file: '/images/pattern_halftone_c.svg', note: 'The sparsest. For dense sections where the texture must not compete.' },
+  { name: 'halftone-d', file: '/images/pattern_halftone_d.svg', note: 'The densest, strong gradient from one corner. Holds tall bands.' },
+];
+
 const CLUSTERS = [
   { name: 'duo', note: 'The minimum accent. Two rings, never one.' },
   { name: 'a', note: 'Big tricolour ring with a satellite.' },
@@ -44,7 +54,7 @@ export default function PatternsSection() {
     >
       <DsBlock
         title='Calls to action by context'
-        rule='The colour of a call to action depends on the surface it sits on, not on the kind of action. The same action can be yellow in the navbar and magenta in the content, and that is on purpose.'
+        rule='The colour of a call to action depends on the surface it sits on, not on the kind of action. The same action can be yellow in the navbar and magenta in the content, and that is on purpose. The fourth context is the ink band, where borders and shadows turn white: it is in the atoms section.'
       >
         <div className='grid grid-cols-1 gap-6 lg:grid-cols-3'>
           <div className='border-pop border-ink bg-white'>
@@ -68,14 +78,15 @@ export default function PatternsSection() {
             <div className='flex flex-wrap items-center gap-3 border-b-2 border-ink p-4'>
               <span className='btn-pop btn-pop-primary !px-3 !py-1.5 !text-xs'>Get tickets</span>
               <span className='btn-pop btn-pop-secondary !px-3 !py-1.5 !text-xs'>Agenda</span>
-              <span className='btn-pop btn-pop-dark inline-flex items-center !px-3 !py-1.5 !text-xs'>
+              <span className='btn-pop btn-pop-secondary inline-flex items-center !px-3 !py-1.5 !text-xs'>
                 <Download className='mr-1 h-3 w-3' />
                 Report
               </span>
             </div>
             <p className='px-4 py-3 text-sm text-ink-soft'>
-              Content: magenta primary, white secondary, ink for documents. One magenta per
-              block.
+              Content: magenta primary, white secondary. One magenta per block. A document
+              is a white button with the Download icon: the icon carries the meaning, not a
+              colour of its own.
             </p>
           </div>
 
@@ -126,8 +137,8 @@ export default function PatternsSection() {
       </DsBlock>
 
       <DsBlock
-        title='Decorations'
-        rule='Rings come in clusters: at least two elements in a decorated section, never a lonely ring in a corner, smaller sizes below the md breakpoint. Halftone lives at 20 to 30 percent opacity and can sit in the middle of a band.'
+        title='Ring clusters'
+        rule='At least two elements in a decorated section, never a lonely ring in a corner, smaller sizes below the md breakpoint.'
       >
         <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6'>
           {CLUSTERS.map((cluster) => (
@@ -141,6 +152,34 @@ export default function PatternsSection() {
             </div>
           ))}
         </div>
+      </DsBlock>
+
+      <DsBlock
+        title='Halftone'
+        rule='Four weights of the same texture, picked by density exactly like the ring clusters. They live at 20 to 30 percent opacity, keep a larger scale that is not reduced on mobile, and can sit in the middle of a band.'
+      >
+        <div className='grid grid-cols-2 gap-4 lg:grid-cols-4'>
+          {HALFTONES.map((pattern) => (
+            <div key={pattern.name} className='flex flex-col border-pop border-ink bg-white'>
+              <div className='flex items-center justify-center bg-brand-blue p-4'>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={pattern.file}
+                  alt=''
+                  aria-hidden='true'
+                  className='w-full invert'
+                />
+              </div>
+              <p className='border-t-2 border-ink px-3 py-2 text-xs text-ink-soft'>
+                <span className='font-bold text-ink'>{pattern.name}</span> · {pattern.note}
+              </p>
+            </div>
+          ))}
+        </div>
+        <p className='mt-3 text-sm text-ink-muted'>
+          Shown at full strength to compare the four. In a page they never go above 30
+          percent.
+        </p>
 
         <div className='mt-6 grid grid-cols-1 gap-6 md:grid-cols-2'>
           <div className='relative overflow-hidden border-pop border-ink bg-brand-blue p-8'>
@@ -152,24 +191,56 @@ export default function PatternsSection() {
               className='pointer-events-none absolute -right-10 -top-10 w-64 opacity-20 invert'
             />
             <p className='relative z-10 font-display text-xl uppercase text-white'>
-              Halftone on a colour band
+              On a colour band
             </p>
             <p className='relative z-10 mt-2 text-sm text-white'>
-              Inverted to white and kept at{' '}
+              The asset is a very light grey, so on blue, magenta or ink it takes{' '}
+              <span className='font-bold'>invert</span>: it turns dark and appears. Kept at{' '}
               <span className='font-bold'>opacity-20</span> so the text stays first.
             </p>
           </div>
+          <div className='relative overflow-hidden border-pop border-ink bg-white p-8'>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src='/images/pattern_halftone_c.svg'
+              alt=''
+              aria-hidden='true'
+              className='pointer-events-none absolute -right-10 -top-10 w-64 opacity-25'
+            />
+            <p className='relative z-10 font-display text-xl uppercase text-ink'>
+              On white and cream
+            </p>
+            <p className='relative z-10 mt-2 text-sm text-ink-soft'>
+              No invert here: the grey stays light and the texture is barely there, which is
+              the point. If you can read it as a shape, it is too strong.
+            </p>
+          </div>
+        </div>
+      </DsBlock>
+
+      <DsBlock
+        title='Where they live'
+        rule='What is ours travels, what is licensed does not.'
+      >
+        <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
           <div className='border-pop border-ink bg-white p-8'>
-            <p className='font-display text-xl uppercase text-ink'>Where they live</p>
+            <p className='font-display text-xl uppercase text-ink'>Ours</p>
             <p className='mt-2 text-sm text-ink-soft'>
-              Rings and halftone are ours and they are in the brand kit as downloads. The
-              decorative elements on the social cards (donuts, diamonds, stars, clouds) are
-              licensed material we cannot redistribute: the card generator is the way to
-              get graphics that use them.
+              Rings and halftone are ours: the two base patterns are downloadable in the
+              brand kit, the four halftone weights and the ring clusters live in the code
+              and are documented here.
             </p>
             <p className='mt-3 text-sm text-ink-muted'>
               Layer: <DsToken>src/components/decor/DecorLayer.js</DsToken>, ten curated hero
               compositions in <DsToken>heroVariants.js</DsToken>.
+            </p>
+          </div>
+          <div className='border-pop border-ink bg-white p-8'>
+            <p className='font-display text-xl uppercase text-ink'>Not ours</p>
+            <p className='mt-2 text-sm text-ink-soft'>
+              The decorative elements on the social cards (donuts, diamonds, stars, clouds)
+              are licensed material we cannot redistribute: the card generator is the way to
+              get graphics that use them.
             </p>
           </div>
         </div>

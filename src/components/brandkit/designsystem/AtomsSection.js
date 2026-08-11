@@ -10,9 +10,9 @@ import { DsBlock, DsSection, DsStage, DsToken } from './DsKit';
 
 const BUTTONS = [
   { label: 'Get your ticket', className: 'btn-pop btn-pop-primary', token: 'btn-pop-primary', use: 'Primary action in the content. One per block.' },
-  { label: 'Read the agenda', className: 'btn-pop btn-pop-secondary', token: 'btn-pop-secondary', use: 'Secondary action, next to a primary one.' },
-  { label: 'Download the report', className: 'btn-pop btn-pop-dark', token: 'btn-pop-dark', use: 'Documents and downloads.' },
+  { label: 'Read the agenda', className: 'btn-pop btn-pop-secondary', token: 'btn-pop-secondary', use: 'Secondary action, next to a primary one. Documents and downloads use this one too, with a Download icon.' },
   { label: 'Submit a talk', className: 'btn-pop bg-brand-yellow text-ink', token: 'btn-pop bg-brand-yellow', use: 'Primary action in the navbar only.' },
+  { label: 'Save your seat', className: 'btn-pop btn-pop-dark', token: 'btn-pop-dark', use: 'Ink button. Belongs on the ink band, where it takes the white companions below. Available, not in use anywhere yet.' },
 ];
 
 // Stato hover reso staticamente: .btn-pop hover trasla di 2px e riduce
@@ -66,6 +66,34 @@ export default function AtomsSection() {
             </div>
           ))}
         </div>
+      </DsBlock>
+
+      <DsBlock
+        title='Buttons on the ink band'
+        rule='Against ink, a black border and a black shadow disappear into the background. The modifier turns both white and it goes next to a variant, it does not replace it. On blue and magenta nothing changes: there the black shadow still reads.'
+      >
+        <div className='border-pop border-ink bg-ink p-8'>
+          <div className='flex flex-wrap items-center gap-6'>
+            <span className='btn-pop btn-pop-secondary btn-pop-on-ink'>Get your ticket</span>
+            <span className='btn-pop btn-pop-dark btn-pop-on-ink'>Save your seat</span>
+            <a
+              href='#atoms'
+              className='group inline-flex items-center gap-2 text-lg font-bold text-brand-yellow transition-colors hover:text-white'
+            >
+              Get directions
+              <ArrowRight className='h-5 w-5 transition-transform group-hover:translate-x-1' />
+            </a>
+          </div>
+          <p className='mt-6 text-sm text-white/70'>
+            White filled is the loud one, ink with a white outline is the quiet one, and
+            the yellow bold link is what the venue band uses today: a button here is for
+            an action worth stopping for, not for every link.
+          </p>
+        </div>
+        <p className='mt-3 text-sm text-ink-muted'>
+          <DsToken>btn-pop btn-pop-secondary btn-pop-on-ink</DsToken> ·{' '}
+          <DsToken>btn-pop btn-pop-dark btn-pop-on-ink</DsToken>
+        </p>
       </DsBlock>
 
       <DsBlock

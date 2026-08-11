@@ -26,16 +26,23 @@ Contrasto: su `brand-yellow` e `cream` solo testo `ink`. Su `brand-blue` e `ink`
 
 ## Logo
 
-Esiste **una sola versione**: nuvola + wordmark, in variante colore (`/images/logo.webp`) e bianca (`/images/Logo_CND_W.svg`). Niente variante solo-simbolo, niente quadrata: se servissero è una decisione di brand, non un ritaglio.
+Esiste **un solo lockup**: nuvola + wordmark. Niente variante solo-simbolo, niente quadrata: se servissero è una decisione di brand, non un ritaglio. Tre versioni cromatiche dello stesso lockup:
+
+| Versione | File | Note |
+|---|---|---|
+| Colore | `/images/logo.webp` | Quella che il sito usa quasi ovunque |
+| Bianca | `/images/Logo_CND_W.svg` | Unica vettoriale vera |
+| Ink | `/images/logo-ink.webp` | Monocromatica `#1D1D1B`, nata per il giallo. Disponibile, oggi non usata |
 
 - **Clear space**: spazio libero su tutti i lati almeno pari all'altezza della nuvola. Dentro quell'area non entra niente (testo, anelli, bordo di una foto).
 - **Dimensione minima**: 140px di larghezza a schermo, 25mm in stampa. Sotto, il wordmark si chiude e la fetta di pizza diventa una macchia.
-- **Fondo**: colore su bianco, cream e `brand-yellow`; bianco su `ink`, `brand-blue` e `brand-magenta`. Il logo bianco su giallo non ha contrasto.
+- **Fondo**: colore su bianco e cream; bianca su `ink`, `brand-blue` e `brand-magenta`; su `brand-yellow` funzionano sia colore sia ink, e la bianca no (niente contrasto).
+- **Il caso giallo**: nella versione a colori la fetta di pizza ha il ripieno giallo, che su fondo giallo si perde, e il wordmark blu tiene un contrasto debole. La versione ink risolve entrambe le cose, la fetta diventa una silhouette col fondo che passa dai buchi. Il sito continua a usare la colore: la ink è un'opzione dichiarata, non un obbligo.
 - **Non fare**: stirarlo o comprimerlo, ricolorarlo, metterci un'ombra sfumata, appoggiarlo su una foto senza una superficie piena sotto.
 
 ## Pattern componenti (utility in globals.css)
 
-- **`.btn-pop`**: base bottone — `border-pop`, `shadow-pop`, uppercase bold, `rounded-none`. Hover: trasla di 2px verso il basso-destra e riduce l'ombra (effetto "pressione"). Varianti: `.btn-pop-primary` (bg magenta, testo bianco), `.btn-pop-secondary` (bg bianco, testo ink), `.btn-pop-dark` (bg ink, testo bianco).
+- **`.btn-pop`**: base bottone — `border-pop`, `shadow-pop`, uppercase bold, `rounded-none`. Hover: trasla di 2px verso il basso-destra e riduce l'ombra (effetto "pressione"). Varianti: `.btn-pop-primary` (bg magenta, testo bianco), `.btn-pop-secondary` (bg bianco, testo ink), `.btn-pop-dark` (bg ink, testo bianco). Modificatore `.btn-pop-on-ink`: porta bordo e ombra a bianco per la banda ink, si accosta a una variante.
 - **`.card-pop`**: card — bg bianco, `border-pop`, spigoli vivi. Variante evidenziata: `.card-pop-accent` con `border-pop-accent`.
 - **`.stamp`**: badge "timbro" — bg bianco, `border-pop`, `shadow-pop-sm`, `font-display` uppercase, leggera rotazione (−2°/+2° alternata).
 - **`.chip-pop`**: tag piccolo — bg `brand-yellow`, `border-pop`, testo ink bold, no shadow.
@@ -50,6 +57,7 @@ Il livello del titolo decide lo stile:
   Call for Papers, Tickets, Become a Sponsor ("We need you"). Mai due
   stamp adiacenti nella stessa vista.
 - **`.eyebrow`** sopra i titoli di sezione (h2) informativi. Colore contestuale: `text-brand-magenta` su bianco/cream, `text-brand-yellow` su blu/nero, `text-ink` su giallo.
+- Sulla **banda ink** si usa l'occhiello, non lo stamp: lo stamp lì avrebbe bisogno di bordo e ombra bianchi e diventerebbe indistinguibile da un bottone `.btn-pop-on-ink` (venue e banda numeri fanno già così).
 
 ## CTA — colori e gerarchia
 
@@ -61,14 +69,24 @@ azione può avere colori diversi in navbar e nel corpo, ed è voluto.
   `navbar.ctas` (vedi Navigazione). Il giallo tiene la barra leggibile
   senza competere coi magenta del contenuto che le scorre sotto.
 - **Nel contenuto**: primaria **magenta** (`.btn-pop-primary`),
-  secondaria **bianca** (`.btn-pop-secondary`), documenti e download
-  **ink** (`.btn-pop-dark`). Un solo magenta per blocco.
+  secondaria **bianca** (`.btn-pop-secondary`). Un solo magenta per blocco.
+- **Documenti e download**: bottone **bianco** con icona `Download`.
+  Quello che segnala il download è l'icona, insieme al chip "Soon" e alla
+  cover cliccabile, non un colore dedicato (transparency report, download
+  del brand kit, template CSV del batch).
 - **Superfici gialle**: il giallo pieno segna un *invito* quando la
   sezione non ha già una banda propria (box "Become a Sponsor" dentro la
-  vetrina sponsor, banda tema). Dentro una superficie gialla i bottoni
-  restano magenta/bianco/ink: il giallo è il contenitore, non il bottone.
-  Le sezioni-azione con banda propria (CFP su blu, Tickets su cream) non
+  vetrina sponsor, banda tema). Dentro una superficie gialla **il bottone
+  che agisce è magenta**: il giallo è il contenitore, non il bottone. Le
+  sezioni-azione con banda propria (CFP su blu, Tickets su cream) non
   hanno bisogno del giallo.
+- **Banda ink**: bordi e ombre nere spariscono nel fondo, quindi vanno a
+  bianco (`.btn-pop-on-ink`, da accostare a una variante). L'azione
+  secondaria della banda ink oggi è un **link giallo bold con freccia**,
+  hover bianco (venue, "Get Directions"): il bottone si usa quando serve
+  un'azione forte, non per ogni link. `.btn-pop-dark` (bg ink) esiste per
+  questo contesto ed è la variante quieta accanto al bottone bianco;
+  al momento non è usata da nessuna parte, ed è una scelta, non un buco.
 - **Marker giallo su voce di menu** (`highlight: 'marker'` in config,
   classe `.nav-marker`): evidenziatore sotto il testo per le voci che
   ospitano anche un invito e non solo informazione (Sponsors = vetrina +
@@ -82,7 +100,7 @@ azione può avere colori diversi in navbar e nel corpo, ed è voluto.
 - **Sempre** (e crescono in hover): stamp, CTA primarie, card feature colorate, dropdown aperti.
 - **Solo hover** (lift: trasla −2px, ombra appare): card di griglia interattive — talk, speaker, team, loghi sponsor.
 - **Mai**: righe/break agenda, accordion FAQ, input, footer, superfici informative dense.
-- Su fondo scuro: `shadow-pop-white` / `shadow-pop-white-sm`.
+- Su fondo scuro: `shadow-pop-white` / `shadow-pop-white-sm`. La regola vale contro `ink`, dove nero su nero sparisce: su blu e magenta l'ombra nera si vede e resta quella standard (bottone bianco della banda FAQ). Sulla banda ink vanno a bianco anche i bordi (foto della venue: `border-pop border-white` + `hover:shadow-pop-white`).
 
 ## Hover — due pattern canonici
 
@@ -145,7 +163,13 @@ Regola "superfici colorate, atomi neutri": colore in blocchi grandi (bande, card
 Gestite da `src/components/decor/DecorLayer.js` (layer assoluto `pointer-events-none aria-hidden`; il padre deve essere `relative overflow-hidden`).
 
 - **Cluster di anelli** (`BrandRings.js`): preset `a`–`e`, `dot`, `duo` — SVG inline parametrici nei colori brand. Regole: mai un anello singolo solo in un angolo (usare `duo`); ogni sezione decorata ha almeno 2 elementi; densità proporzionale all'altezza della sezione; taglie ridotte sotto `md` per non coprire i contenuti.
-- **Halftone**: originale + 3 varianti generate (`pattern_halftone_b/c/d.svg`, ~7KB). Opacità 20–30%; hanno una scala dedicata più grande, non ridotta su mobile; possono vivere anche nelle zone centrali (`mid-left`, `mid-right`, `center`, `center-bottom`).
+- **Halftone**: quattro pesi della stessa texture, si scelgono per densità come i cluster di anelli.
+  - `halftone` — originale del brand book (`pattern_halftone.svg`, 53KB, path): blob diagonale a punti grossi, il più marcato.
+  - `halftone-b` — campo rettangolare medio, punti fitti al centro che sfumano in basso a destra.
+  - `halftone-c` — il più rado e leggero, per le sezioni dense dove la texture non deve competere.
+  - `halftone-d` — il più fitto, gradiente forte da un angolo: regge le bande alte.
+
+  L'asset è grigio chiarissimo (`#e4e4e4`), quindi ha **due ricette**: su banda colorata o scura si aggiunge `invert`, che lo rende scuro e visibile; su bianco e cream si lascia com'è e resta una texture appena percepibile. Opacità 20–30% in entrambi i casi; scala dedicata più grande, non ridotta su mobile; possono vivere anche nelle zone centrali (`mid-left`, `mid-right`, `center`, `center-bottom`).
 - **Redistribuzione**: halftone e anelli sono asset nostri, offerti come download nel brand kit. Gli elementi decorativi delle card social (donut, diamanti, stelle, nuvole, bauhaus) sono materiale licenziato: nessun download e nessun rimando a dove vivono, per le grafiche pronte c'è il card generator. Il font **Extenda** è licenziato e non entra mai in un logo pack o in uno zip.
 - **Varianti hero** (`heroVariants.js`): 10 composizioni curate; uno script inline in `layout.js` ne sceglie una prima del primo paint via `html[data-decor]` (niente switch visibile, niente hydration mismatch). La variante 0 è il fallback senza JS.
 

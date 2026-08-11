@@ -64,6 +64,11 @@ export default function StampsSection() {
         <p className='mt-4 text-sm font-bold text-ink'>
           Never two stamps in the same view: a second one makes both look decorative.
         </p>
+        <p className='mt-2 text-sm text-ink-soft'>
+          On the ink band use the eyebrow, never the stamp: a stamp there would need a
+          white border and a white shadow, and it would end up looking like a button.
+          The venue band and the numbers band already work this way.
+        </p>
       </DsBlock>
 
       <DsBlock

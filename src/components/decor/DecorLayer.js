@@ -49,7 +49,10 @@ const HALFTONE_SIZES = {
 
 /**
  * items: [{
- *   pattern: 'rings' | 'halftone' | 'cluster-a' | 'cluster-b' | 'cluster-c' | 'cluster-dot',
+ *   pattern: 'rings'
+ *          | 'halftone' | 'halftone-b' | 'halftone-c' | 'halftone-d'
+ *          | 'cluster-a' | 'cluster-b' | 'cluster-c' | 'cluster-d' | 'cluster-e'
+ *          | 'cluster-duo' | 'cluster-dot',
  *   position: keyof POSITIONS,
  *   size?: 'sm' | 'md' | 'lg' | 'xl',
  *   className?: string,

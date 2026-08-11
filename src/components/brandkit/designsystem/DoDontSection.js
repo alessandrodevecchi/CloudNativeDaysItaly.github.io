@@ -116,20 +116,18 @@ export default function DoDontSection() {
           </DsCase>
         </DsCompare>
 
-        <DsCompare title='7. Ink button on a yellow surface'>
-          <DsCase kind='dont' note='Ink is the colour of documents and downloads. On yellow it reads as a file, not as an invitation.'>
-            <div className='w-full bg-brand-yellow p-6'>
-              <p className='font-display text-lg uppercase text-ink'>Become a sponsor</p>
-              <span className='btn-pop btn-pop-dark mt-3 inline-block !px-4 !py-2 text-sm'>
-                Contact us
+        <DsCompare title='7. Black shadow on the ink band'>
+          <DsCase kind='dont' note='Border and shadow are ink and so is the band: they disappear, and with them the shape of the button and the press effect on hover.'>
+            <div className='flex w-full items-center justify-center bg-ink p-8'>
+              <span className='btn-pop btn-pop-secondary !px-4 !py-2 text-sm'>
+                Get your ticket
               </span>
             </div>
           </DsCase>
-          <DsCase kind='do' note='Magenta. The yellow is the container of the invitation, the button is the action.'>
-            <div className='w-full bg-brand-yellow p-6'>
-              <p className='font-display text-lg uppercase text-ink'>Become a sponsor</p>
-              <span className='btn-pop btn-pop-primary mt-3 inline-block !px-4 !py-2 text-sm'>
-                Contact us
+          <DsCase kind='do' note='On the ink band border and shadow turn white, with btn-pop-on-ink. The venue photo frame already works this way.'>
+            <div className='flex w-full items-center justify-center bg-ink p-8'>
+              <span className='btn-pop btn-pop-secondary btn-pop-on-ink !px-4 !py-2 text-sm'>
+                Get your ticket
               </span>
             </div>
           </DsCase>
@@ -146,11 +144,11 @@ export default function DoDontSection() {
               />
             </div>
           </DsCase>
-          <DsCase kind='do' note='The colour version on yellow, or the white version on blue, magenta or ink.'>
+          <DsCase kind='do' note='On yellow the ink version is the safest, and the colour one works too. Keep the white version for blue, magenta and ink.'>
             <div className='flex w-full items-center justify-center bg-brand-yellow p-6'>
               <Image
-                src='/images/logo.webp'
-                alt='Cloud Native Days Italy logo on yellow'
+                src='/images/logo-ink.webp'
+                alt='Cloud Native Days Italy logo, ink version, on yellow'
                 width={170}
                 height={110}
               />

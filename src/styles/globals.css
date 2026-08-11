@@ -45,6 +45,15 @@ body {
   .btn-pop-dark {
     @apply bg-ink text-white;
   }
+  /* Sulla banda ink il bordo e l'ombra neri sparirebbero nel fondo: questo
+     modificatore li porta a bianco. Si accosta a una variante, non la
+     sostituisce (es. `btn-pop btn-pop-dark btn-pop-on-ink`). */
+  .btn-pop-on-ink {
+    @apply border-white shadow-pop-white;
+  }
+  .btn-pop-on-ink:hover {
+    @apply shadow-pop-white-sm;
+  }
   .card-pop {
     @apply rounded-none border-pop border-ink bg-white;
   }
