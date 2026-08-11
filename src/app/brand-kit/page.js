@@ -170,7 +170,7 @@ export default function BrandKitPage() {
 
           {/* Anteprima card partner (resa in CSS) + link al generator */}
           <div className='mt-10 grid grid-cols-1 items-start gap-8 lg:grid-cols-2'>
-            <div className='card-pop relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden bg-brand-magenta p-8 shadow-pop-lg'>
+            <div className='card-pop relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden bg-brand-magenta p-8 shadow-pop-lg transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[8px_8px_0_0_#111111]'>
               <BrandRings cluster='a' className='pointer-events-none absolute -right-[18%] -top-[20%] w-[80%] opacity-95' aria-hidden />
               <div className='relative z-10 flex h-full flex-col'>
                 <Image src='/images/Logo_CND_W.svg' alt='' width={140} height={40} aria-hidden />
@@ -210,7 +210,7 @@ export default function BrandKitPage() {
 
           <div className='mt-10 grid grid-cols-1 items-start gap-8 lg:grid-cols-2'>
             {/* Anteprima card "I'll be there" resa in CSS col design system */}
-            <div className='card-pop relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden bg-brand-blue p-8 shadow-pop-lg'>
+            <div className='card-pop relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden bg-brand-blue p-8 shadow-pop-lg transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[8px_8px_0_0_#111111]'>
               {/* Trio di anelli in alto a destra: dimensione fissa relativa
                   alla card, ben visibile anche su mobile */}
               <BrandRings cluster='d' className='pointer-events-none absolute -right-[12%] -top-[12%] w-[65%] opacity-95' aria-hidden />
@@ -250,8 +250,10 @@ export default function BrandKitPage() {
 
           <div className='mt-10 grid grid-cols-1 items-start gap-8 lg:grid-cols-2'>
             {/* Anteprima slide template resa in CSS */}
-            <div className='card-pop aspect-video w-full bg-white p-8 shadow-pop-lg'>
-              <div className='flex h-full flex-col'>
+            <div className='card-pop relative aspect-video w-full overflow-hidden bg-white p-8 shadow-pop-lg transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[8px_8px_0_0_#111111]'>
+              {/* Anelli anche qui, cluster diverso dalle altre preview */}
+              <BrandRings cluster='e' className='pointer-events-none absolute -right-[10%] -top-[28%] w-[45%] opacity-90' aria-hidden />
+              <div className='relative z-10 flex h-full flex-col'>
                 <Image src='/images/logo_xs.webp' alt='' width={120} height={78} style={{ height: 'auto' }} aria-hidden />
                 <p className='mt-auto font-display text-3xl uppercase leading-tight text-ink'>
                   Your talk title here
