@@ -117,53 +117,77 @@ const Sponsors = ({
             </footer>
           </blockquote>
         )}
-        </div>
-      </section>
 
-      {/* CTA sponsorship DOPO la vetrina (wireframe 09: loghi → testimonial
-          → CTA); evita anche due bande cream adiacenti con la sezione tickets. */}
-      {isCurrent && sectionsContent.become && (
-        <section className='border-t-2 border-ink bg-cream'>
-          <div className='mx-auto max-w-[1200px] px-6 py-16'>
-            <span className='stamp'>We need you</span>
-            <h2 className='section-heading mb-4 mt-6'>
-              {sectionsContent.become.title}
-            </h2>
-            <p className='mb-6 max-w-2xl text-lg text-ink-muted'>
-              {sectionsContent.become.description}
-            </p>
-            <div className='flex flex-col items-start gap-4 sm:flex-row sm:items-center'>
-              <Link
-                type='button'
-                className='btn-pop btn-pop-primary'
-                href={`mailto:${sectionsContent.contactEmail}`}
-              >
-                Contact Us
-              </Link>
+        {isCurrent && sectionsContent.become && (
+          <div
+            id='become-a-sponsor'
+            className='card-pop mt-16 grid grid-cols-1 gap-8 bg-brand-yellow p-8 shadow-pop-lg lg:grid-cols-[1.1fr_1fr] lg:items-center lg:p-12'
+          >
+            <div>
+              <span className='stamp'>We need you</span>
+              <h2 className='section-heading mt-6'>
+                {sectionsContent.become.title}
+              </h2>
+              <p className='mt-4 max-w-2xl text-ink-soft'>
+                {sectionsContent.become.description}
+              </p>
+              <div className='mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center'>
+                <Link
+                  type='button'
+                  className='btn-pop btn-pop-primary'
+                  href={`mailto:${sectionsContent.contactEmail}`}
+                >
+                  Contact Us
+                </Link>
+                <a
+                  href={sectionsContent.transparency.url}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='btn-pop btn-pop-secondary'
+                >
+                  {sectionsContent.transparency.label}
+                </a>
+              </div>
+            </div>
 
-              {sectionsContent.become.active &&
-                sectionsContent.prospectus?.active !== false && (
+            {/* Cover del prospectus: scaricabile quando è pronto,
+                altrimenti anteprima con chip "Soon" (pattern brand kit) */}
+            {sectionsContent.prospectus?.cover && (
+              <div className='justify-self-center lg:justify-self-end'>
+                {sectionsContent.prospectus.active ? (
                   <a
                     href={sectionsContent.prospectus.url}
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='btn-pop btn-pop-secondary'
+                    className='card-pop group block max-w-[420px] overflow-hidden p-2 transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop'
                   >
-                    {sectionsContent.prospectus.label}
+                    <img src={sectionsContent.prospectus.cover} alt={sectionsContent.prospectus.label} className='block w-full' />
+                    <span className='mt-2 flex items-center justify-center gap-2 py-1 text-sm font-bold uppercase tracking-wide text-ink'>
+                      {sectionsContent.prospectus.label}
+                    </span>
                   </a>
+                ) : (
+                  <div className='card-pop relative max-w-[420px] overflow-hidden p-2'>
+                    <img src={sectionsContent.prospectus.cover} alt='Sponsorship prospectus' className='block w-full opacity-90' />
+                    <span className='absolute right-4 top-4 border-pop border-ink bg-white px-2 py-0.5 text-xs font-bold uppercase text-brand-blue'>
+                      Soon
+                    </span>
+                    <span className='mt-2 flex items-center justify-center py-1 text-sm font-bold uppercase tracking-wide text-ink-muted'>
+                      Sponsorship prospectus
+                    </span>
+                  </div>
                 )}
-              <a
-                href={sectionsContent.transparency.url}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='btn-pop btn-pop-secondary'
-              >
-                {sectionsContent.transparency.label}
-              </a>
-            </div>
+              </div>
+            )}
           </div>
-        </section>
-      )}
+        )}
+        </div>
+      </section>
+
+      {/* Invito alla sponsorship: box giallo DENTRO la sezione vetrina
+          (stesso pattern di /sponsors). Il giallo è la superficie
+          d'invito, i bottoni restano magenta/bianco: rompe l'alternanza
+          delle bande senza aggiungere una sezione. */}
     </div>
   );
 };

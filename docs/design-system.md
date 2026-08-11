@@ -40,6 +40,32 @@ Il livello del titolo decide lo stile:
   stamp adiacenti nella stessa vista.
 - **`.eyebrow`** sopra i titoli di sezione (h2) informativi. Colore contestuale: `text-brand-magenta` su bianco/cream, `text-brand-yellow` su blu/nero, `text-ink` su giallo.
 
+## CTA — colori e gerarchia
+
+Il colore di una CTA dipende dal **contesto**, non dall'azione: la stessa
+azione può avere colori diversi in navbar e nel corpo, ed è voluto.
+
+- **Navbar** (barra bianca, sempre visibile): primaria **gialla** con
+  freccia, secondaria **bianca** bordata. Massimo 2 bottoni, gestiti da
+  `navbar.ctas` (vedi Navigazione). Il giallo tiene la barra leggibile
+  senza competere coi magenta del contenuto che le scorre sotto.
+- **Nel contenuto**: primaria **magenta** (`.btn-pop-primary`),
+  secondaria **bianca** (`.btn-pop-secondary`), documenti e download
+  **ink** (`.btn-pop-dark`). Un solo magenta per blocco.
+- **Superfici gialle**: il giallo pieno segna un *invito* quando la
+  sezione non ha già una banda propria (box "Become a Sponsor" dentro la
+  vetrina sponsor, banda tema). Dentro una superficie gialla i bottoni
+  restano magenta/bianco/ink: il giallo è il contenitore, non il bottone.
+  Le sezioni-azione con banda propria (CFP su blu, Tickets su cream) non
+  hanno bisogno del giallo.
+- **Marker giallo su voce di menu** (`highlight: 'marker'` in config,
+  classe `.nav-marker`): evidenziatore sotto il testo per le voci che
+  ospitano anche un invito e non solo informazione (Sponsors = vetrina +
+  diventa sponsor). Mai più di una voce marcata per volta.
+- **Anteprime scaricabili**: documento non ancora pronto → cover con chip
+  "Soon" (pattern del brand kit); quando è pronto la stessa cover diventa
+  un link con hover lift.
+
 ## Ombre — regola dei 3 livelli
 
 - **Sempre** (e crescono in hover): stamp, CTA primarie, card feature colorate, dropdown aperti.

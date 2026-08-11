@@ -98,7 +98,17 @@ export default function Navbar({ data, editions = [] }) {
                             {navEntries.map((entry) => {
                                 if (!entry.items) {
                                     return (
-                                        <Link key={entry.to} href={entry.to} target={entry.target ? entry.target : "_self"} className="text-sm font-bold text-ink hover:text-brand-blue transition-colors">
+                                        <Link
+                                            key={entry.to}
+                                            href={entry.to}
+                                            target={entry.target ? entry.target : "_self"}
+                                            className={clsx(
+                                                "text-sm font-bold text-ink hover:text-brand-blue transition-colors",
+                                                // highlight 'marker': evidenziatore giallo, per le voci
+                                                // che ospitano anche un invito all'azione (Sponsors)
+                                                entry.highlight === 'marker' && "nav-marker",
+                                            )}
+                                        >
                                             {entry.text}
                                         </Link>
                                     );
@@ -207,7 +217,16 @@ export default function Navbar({ data, editions = [] }) {
                                 {!activeEntry && navEntries.map((entry) => {
                                     if (!entry.items) {
                                         return (
-                                            <Link key={entry.to} href={entry.to} target={entry.target ? entry.target : "_self"} onClick={closeAllMenus} className="text-xl font-semibold text-ink hover:text-brand-blue">
+                                            <Link
+                                                key={entry.to}
+                                                href={entry.to}
+                                                target={entry.target ? entry.target : "_self"}
+                                                onClick={closeAllMenus}
+                                                className={clsx(
+                                                    "self-start text-xl font-semibold text-ink hover:text-brand-blue",
+                                                    entry.highlight === 'marker' && "nav-marker",
+                                                )}
+                                            >
                                                 {entry.text}
                                             </Link>
                                         );

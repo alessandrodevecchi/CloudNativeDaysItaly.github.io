@@ -612,3 +612,12 @@ img {
     background-color: #f91b71;
   }
 }
+
+/* Evidenziatore giallo per le voci di menu che ospitano anche un invito
+   all'azione (es. Sponsors: vetrina + diventa sponsor). Il giallo segna
+   il contesto d'azione, i bottoni restano magenta (vedi design-system). */
+.nav-marker {
+  background-image: linear-gradient(transparent 55%, #fbc430 55%);
+  padding-left: 2px;
+  padding-right: 2px;
+}
