@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import React from 'react';
 import Link from 'next/link';
 import styles from './sponsor.css';
+import BecomeSponsorBox from './BecomeSponsorBox';
 
 const MAJOR_TIERS = ['main', 'platinum', 'gold'];
 
@@ -118,68 +119,12 @@ const Sponsors = ({
           </blockquote>
         )}
 
-        {isCurrent && sectionsContent.become && (
-          <div
-            id='become-a-sponsor'
-            className='card-pop mt-16 grid grid-cols-1 gap-8 bg-brand-yellow p-8 shadow-pop-lg lg:grid-cols-[1.1fr_1fr] lg:items-center lg:p-12'
-          >
-            <div>
-              <span className='stamp'>We need you</span>
-              <h2 className='section-heading mt-6'>
-                {sectionsContent.become.title}
-              </h2>
-              <p className='mt-4 max-w-2xl text-ink-soft'>
-                {sectionsContent.become.description}
-              </p>
-              <div className='mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center'>
-                <Link
-                  type='button'
-                  className='btn-pop btn-pop-primary'
-                  href={`mailto:${sectionsContent.contactEmail}`}
-                >
-                  Contact Us
-                </Link>
-                <a
-                  href={sectionsContent.transparency.url}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='btn-pop btn-pop-secondary'
-                >
-                  {sectionsContent.transparency.label}
-                </a>
-              </div>
-            </div>
-
-            {/* Cover del prospectus: scaricabile quando è pronto,
-                altrimenti anteprima con chip "Soon" (pattern brand kit) */}
-            {sectionsContent.prospectus?.cover && (
-              <div className='justify-self-center lg:justify-self-end'>
-                {sectionsContent.prospectus.active ? (
-                  <a
-                    href={sectionsContent.prospectus.url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='card-pop group block max-w-[420px] overflow-hidden p-2 transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop'
-                  >
-                    <img src={sectionsContent.prospectus.cover} alt={sectionsContent.prospectus.label} className='block w-full' />
-                    <span className='mt-2 flex items-center justify-center gap-2 py-1 text-sm font-bold uppercase tracking-wide text-ink'>
-                      {sectionsContent.prospectus.label}
-                    </span>
-                  </a>
-                ) : (
-                  <div className='card-pop relative max-w-[420px] overflow-hidden p-2'>
-                    <img src={sectionsContent.prospectus.cover} alt='Sponsorship prospectus' className='block w-full opacity-90' />
-                    <span className='absolute right-4 top-4 border-pop border-ink bg-white px-2 py-0.5 text-xs font-bold uppercase text-brand-blue'>
-                      Soon
-                    </span>
-                    <span className='mt-2 flex items-center justify-center py-1 text-sm font-bold uppercase tracking-wide text-ink-muted'>
-                      Sponsorship prospectus
-                    </span>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
+        {isCurrent && (
+          <BecomeSponsorBox
+            content={sectionsContent}
+            contactEmail={sectionsContent.contactEmail}
+            className='mt-16'
+          />
         )}
         </div>
       </section>

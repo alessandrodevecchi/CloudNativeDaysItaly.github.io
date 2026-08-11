@@ -126,7 +126,7 @@ export default function AboutPage() {
       {/* Photo wall: ultima sezione; griglia 3 colonne pensata per almeno
           9 foto (le altre arrivano dall'archivio 2026) */}
       {photos.length > 0 && (
-        <section className='border-t-2 border-ink bg-white py-16 lg:py-24' id='pictures'>
+        <section className='border-t-2 border-ink bg-cream py-16 lg:py-24' id='pictures'>
           <div className='mx-auto max-w-[1200px] px-6'>
             <span className='eyebrow text-brand-magenta'>Live moments</span>
             <h2 className='section-heading mt-2'>{pictures.title}</h2>

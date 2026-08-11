@@ -59,7 +59,7 @@ export default function FaqTeaser({ questions = [], newsletter }) {
                     href={signup.url}
                     target={signup.url.startsWith('http') ? '_blank' : undefined}
                     rel={signup.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className='btn-pop btn-pop-dark group inline-flex items-center'
+                    className='btn-pop btn-pop-primary group inline-flex items-center'
                   >
                     {signup.label}
                     <ArrowRight className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />

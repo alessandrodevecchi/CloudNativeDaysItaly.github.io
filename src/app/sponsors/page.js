@@ -5,6 +5,7 @@ import DecorLayer from '@/components/decor/DecorLayer';
 import config from '@/config/website.json';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import BecomeSponsorBox from '@/components/sponsor/BecomeSponsorBox';
 
 const SPONSOR_SIZE_CLASSES = {
   lg: {
@@ -181,46 +182,11 @@ export default async function SponsorsPage() {
           ))}
         </div>
 
-        <div
-          id='become-a-sponsor'
-          className='card-pop mt-16 bg-brand-yellow p-8 shadow-pop-lg lg:p-12'
-        >
-          <div>
-            <h2 className='section-heading'>
-              {config.sponsors.become.title}
-            </h2>
-            <p className='mt-4 text-ink-soft max-w-2xl'>
-              {config.sponsors.become.description}
-            </p>
-            <div className='mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center'>
-              <a
-                href={`mailto:${config.sponsors.contactEmail}`}
-                className='btn-pop btn-pop-primary group inline-flex items-center justify-center'
-              >
-                Contact Us
-              </a>
-              {config.sponsors.become?.active &&
-                config.sponsors.prospectus?.active !== false && (
-                  <a
-                    href={config.sponsors.prospectus.url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='btn-pop btn-pop-dark group inline-flex items-center justify-center'
-                  >
-                    {config.sponsors.prospectus.label}
-                  </a>
-                )}
-              <a
-                href={config.sponsors.transparency.url}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='btn-pop btn-pop-secondary'
-              >
-                {config.sponsors.transparency.label}
-              </a>
-            </div>
-          </div>
-        </div>
+        <BecomeSponsorBox
+          content={config.sponsors}
+          contactEmail={config.sponsors.contactEmail}
+          className='mt-16'
+        />
       </div>
     </div>
   );
