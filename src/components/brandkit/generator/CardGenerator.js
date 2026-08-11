@@ -9,6 +9,16 @@ import { Download, ShieldCheck, Upload, X } from 'lucide-react';
 import { FORMATS, DEFAULT_FORMAT_ID, COLORWAYS, COLORWAY_LABELS } from './formats';
 import { publicUseCases, allUseCases, getUseCase } from './useCases';
 import { renderCard } from './renderCard';
+import { renderProCard, toSpeakerData, toSponsorData } from './pro/renderProCard';
+import {
+  SPEAKER_TEMPLATES,
+  SPONSOR_TEMPLATES,
+  SPONSOR_TIER_PRESETS,
+  SPONSOR_BACKGROUNDS,
+  SPONSOR_CORNERS,
+  getSponsorTemplate,
+} from './pro/registry';
+import { EVENT } from './event';
 import CopyButton from '../CopyButton';
 
 import { resolveFonts, ensureFontsLoaded } from './fonts';
@@ -41,6 +51,11 @@ export default function CardGenerator({ scope = 'public' }) {
   const [photoOffset, setPhotoOffset] = useState({ x: 0, y: 0 });
   const [logoStyle, setLogoStyle] = useState('white');
   const [customLines, setCustomLines] = useState(['Your text', 'here!']);
+  // stato dei template pro (speaker/sponsor)
+  const [proTemplateId, setProTemplateId] = useState(SPEAKER_TEMPLATES[0].id);
+  const [tierPresetId, setTierPresetId] = useState(SPONSOR_TIER_PRESETS[0].id);
+  const [sponsorBg, setSponsorBg] = useState(null);
+  const [sponsorCorner, setSponsorCorner] = useState(null);
   const [customAccent, setCustomAccent] = useState(1);
   const [mediaKind, setMediaKind] = useState('photo');
   const [uploadError, setUploadError] = useState(null);
@@ -65,8 +80,14 @@ export default function CardGenerator({ scope = 'public' }) {
     setUseCaseId(id);
     setHeadlineId(next.defaultHeadline);
     setColorwayId((current) =>
-      next.colorways.includes(current) ? current : next.defaultColorway,
+      next.colorways?.includes(current) ? current : next.defaultColorway,
     );
+    if (next.pro) {
+      const list = next.pro === 'sponsor' ? SPONSOR_TEMPLATES : SPEAKER_TEMPLATES;
+      setProTemplateId(list[0].id);
+      setSponsorBg(null);
+      setSponsorCorner(null);
+    }
     if (next.media?.type !== useCase.media?.type) {
       setPhoto(null);
       setZoom(1);
@@ -97,7 +118,29 @@ export default function CardGenerator({ scope = 'public' }) {
   };
   const effectiveMediaType =
     useCase.media?.type === 'choice' ? mediaKind : useCase.media?.type;
-  const headline = useCase.customHeadline
+
+  // Template pro: lista e stato derivato per lo use case corrente
+  const proKind = useCase.pro || null;
+  const proTemplates = proKind === 'sponsor' ? SPONSOR_TEMPLATES : SPEAKER_TEMPLATES;
+  const proTemplate = proTemplates.find((tpl) => tpl.id === proTemplateId) || proTemplates[0];
+  const tierPreset =
+    SPONSOR_TIER_PRESETS.find((preset) => preset.id === tierPresetId) || SPONSOR_TIER_PRESETS[0];
+  const proOptions =
+    proKind === 'sponsor' && getSponsorTemplate(proTemplate.id).options?.tierPresets
+      ? { bg: sponsorBg || tierPreset.bg, corner: sponsorCorner || tierPreset.corner }
+      : {};
+  const proData =
+    proKind === 'speaker'
+      ? toSpeakerData(values, { date: EVENT.date, city: EVENT.city })
+      : proKind === 'sponsor'
+        ? toSponsorData(
+            { ...values, tier: values.tier || tierPreset.tier },
+            { date: EVENT.date, venue: EVENT.venue },
+          )
+        : null;
+  const headline = !useCase.headlines
+    ? { id: 'none', lines: [], accentIndex: -1 }
+    : useCase.customHeadline
     ? {
         id: 'custom',
         lines: customLines.filter(Boolean).length > 0 ? customLines.filter(Boolean) : ['Your text', 'here!'],
@@ -113,6 +156,18 @@ export default function CardGenerator({ scope = 'public' }) {
       fontsRef.current = resolveFonts();
       await ensureFontsLoaded(fontsRef.current);
     }
+    if (proKind) {
+      await renderProCard(canvas, {
+        kind: proKind,
+        templateId: proTemplate.id,
+        data: proData,
+        format,
+        media: photo,
+        fonts: fontsRef.current,
+        options: proOptions,
+      });
+      return;
+    }
     await renderCard(canvas, {
       format,
       headline,
@@ -127,7 +182,7 @@ export default function CardGenerator({ scope = 'public' }) {
       colorway: colorwayId,
       fonts: fontsRef.current,
     });
-  }, [format, headline, texts, textStyles, photo, photoShape, zoom, photoOffset, effectiveLogoStyle, colorwayId, effectiveMediaType]);
+  }, [format, headline, texts, textStyles, photo, photoShape, zoom, photoOffset, effectiveLogoStyle, colorwayId, effectiveMediaType, proKind, proTemplate, proData, proOptions]);
 
   useEffect(() => {
     redraw();
@@ -181,7 +236,10 @@ export default function CardGenerator({ scope = 'public' }) {
 
   const handleDownload = () => {
     if (!canvasRef.current) return;
-    saveBlob(canvasRef.current, `cnd2027-${useCaseId}-${format.id}.png`);
+    const name = proKind
+      ? `cnd2027-${useCaseId}-${proTemplate.id}-${format.id}.png`
+      : `cnd2027-${useCaseId}-${format.id}.png`;
+    saveBlob(canvasRef.current, name);
   };
 
   // Tutti i formati in un click, con le impostazioni correnti: ogni formato
@@ -189,6 +247,19 @@ export default function CardGenerator({ scope = 'public' }) {
   const handleDownloadAll = async () => {
     for (const f of FORMATS) {
       const offscreen = document.createElement('canvas');
+      if (proKind) {
+        await renderProCard(offscreen, {
+          kind: proKind,
+          templateId: proTemplate.id,
+          data: proData,
+          format: f,
+          media: photo,
+          fonts: fontsRef.current || resolveFonts(),
+          options: proOptions,
+        });
+        await saveBlob(offscreen, `cnd2027-${useCaseId}-${proTemplate.id}-${f.id}.png`);
+        continue;
+      }
       await renderCard(offscreen, {
         format: f,
         headline,
@@ -224,6 +295,81 @@ export default function CardGenerator({ scope = 'public' }) {
           </div>
         )}
 
+        {proKind && (
+          <div className='mb-6'>
+            <p className='text-sm font-bold uppercase tracking-wide text-ink'>Template</p>
+            <div className='mt-2 flex flex-wrap gap-2'>
+              {proTemplates.map((tpl) => (
+                <OptionChip
+                  key={tpl.id}
+                  selected={tpl.id === proTemplate.id}
+                  onClick={() => setProTemplateId(tpl.id)}
+                >
+                  {tpl.label}
+                </OptionChip>
+              ))}
+            </div>
+            {proKind === 'speaker' && values.name2 && !proTemplate.duo && (
+              <p className='mt-2 text-xs font-bold text-brand-magenta'>
+                This template shows one speaker only: pick Pop blue, Pop split
+                or Comic panel for two speakers.
+              </p>
+            )}
+            {proKind === 'sponsor' && proTemplate.options?.tierPresets && (
+              <div className='mt-4 space-y-4'>
+                <div>
+                  <p className='text-sm font-bold uppercase tracking-wide text-ink'>Tier preset</p>
+                  <div className='mt-2 flex flex-wrap gap-2'>
+                    {SPONSOR_TIER_PRESETS.map((preset) => (
+                      <OptionChip
+                        key={preset.id}
+                        selected={preset.id === tierPresetId}
+                        onClick={() => {
+                          setTierPresetId(preset.id);
+                          setSponsorBg(null);
+                          setSponsorCorner(null);
+                          setValues((v) => ({ ...v, tier: preset.tier }));
+                        }}
+                      >
+                        {preset.label}
+                      </OptionChip>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className='text-sm font-bold uppercase tracking-wide text-ink'>Background</p>
+                  <div className='mt-2 flex flex-wrap gap-2'>
+                    {SPONSOR_BACKGROUNDS.map((bg) => (
+                      <OptionChip
+                        key={bg.id}
+                        selected={(sponsorBg || tierPreset.bg) === bg.id}
+                        onClick={() => setSponsorBg(bg.id)}
+                      >
+                        {bg.label}
+                      </OptionChip>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <p className='text-sm font-bold uppercase tracking-wide text-ink'>Corner elements</p>
+                  <div className='mt-2 flex flex-wrap gap-2'>
+                    {SPONSOR_CORNERS.map((corner) => (
+                      <OptionChip
+                        key={corner.id}
+                        selected={(sponsorCorner || tierPreset.corner) === corner.id}
+                        onClick={() => setSponsorCorner(corner.id)}
+                      >
+                        {corner.label}
+                      </OptionChip>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {!proKind && (
         <div>
           <p className='text-sm font-bold uppercase tracking-wide text-ink'>Headline</p>
           {useCase.customHeadline ? (
@@ -261,6 +407,7 @@ export default function CardGenerator({ scope = 'public' }) {
             </div>
           )}
         </div>
+        )}
 
         <div className='mt-6 space-y-4'>
           {useCase.fields.map((field) => (
@@ -278,7 +425,7 @@ export default function CardGenerator({ scope = 'public' }) {
           ))}
         </div>
 
-        {useCase.colorways.length > 1 && (
+        {!proKind && useCase.colorways?.length > 1 && (
           <div className='mt-6'>
             <p className='text-sm font-bold uppercase tracking-wide text-ink'>Color</p>
             <div className='mt-2 flex flex-wrap gap-2'>
@@ -291,7 +438,7 @@ export default function CardGenerator({ scope = 'public' }) {
           </div>
         )}
 
-        {logoOptions.length > 1 && (
+        {!proKind && logoOptions.length > 1 && (
           <div className='mt-6'>
             <p className='text-sm font-bold uppercase tracking-wide text-ink'>CND logo</p>
             <div className='mt-2 flex flex-wrap gap-2'>
@@ -343,7 +490,7 @@ export default function CardGenerator({ scope = 'public' }) {
             {uploadError && (
               <p className='mt-2 text-sm font-bold text-brand-magenta'>{uploadError}</p>
             )}
-            {photo && effectiveMediaType !== 'logo' && (
+            {photo && !proKind && effectiveMediaType !== 'logo' && (
               <div className='mt-4 space-y-3'>
                 <div className='flex flex-wrap gap-2'>
                   <OptionChip selected={photoShape === 'square'} onClick={() => setPhotoShape('square')}>

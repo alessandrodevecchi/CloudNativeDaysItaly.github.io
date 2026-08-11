@@ -6,8 +6,9 @@
 import { useRef, useState } from 'react';
 import { Download, FileSpreadsheet, FolderOpen, Images, Play } from 'lucide-react';
 import { renderCard } from './renderCard';
+import { renderProCard } from './pro/renderProCard';
 import { resolveFonts, ensureFontsLoaded } from './fonts';
-import { parseCsv, rowToRenderState, slugify, CSV_TEMPLATE } from './batch';
+import { parseCsv, rowToRenderState, slugify, CSV_TEMPLATE, CSV_TEMPLATE_PRO } from './batch';
 
 async function loadMediaFile(file) {
   if (file.type === 'image/svg+xml') {
@@ -60,11 +61,12 @@ export default function BatchPanel() {
     setMediaByName(next);
   };
 
-  const downloadTemplate = () => {
-    const url = URL.createObjectURL(new Blob([CSV_TEMPLATE], { type: 'text/csv' }));
+  const downloadTemplate = (kind) => {
+    const body = kind === 'pro' ? CSV_TEMPLATE_PRO : CSV_TEMPLATE;
+    const url = URL.createObjectURL(new Blob([body], { type: 'text/csv' }));
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'cnd-cards-template.csv';
+    link.download = kind === 'pro' ? 'cnd-cards-template-pro.csv' : 'cnd-cards-template.csv';
     link.click();
     URL.revokeObjectURL(url);
   };
@@ -111,14 +113,29 @@ export default function BatchPanel() {
     for (let i = 0; i < totalRows; i++) {
       setProgress(`Row ${i + 1}/${totalRows}…`);
       try {
-        const { useCaseId, formats, state } = rowToRenderState(rows[i], mediaByName);
-        const slug = slugify(state.texts.primary, `row-${i + 1}`);
+        const { useCaseId, formats, state, pro, slugSource } = rowToRenderState(rows[i], mediaByName);
+        const slug = slugify(pro ? slugSource : state.texts.primary, `row-${i + 1}`);
         for (const format of formats) {
           const canvas = document.createElement('canvas');
-          await renderCard(canvas, { ...state, format, fonts });
+          if (pro) {
+            await renderProCard(canvas, {
+              kind: pro.kind,
+              templateId: pro.templateId,
+              data: pro.data,
+              format,
+              media: state.photo,
+              fonts,
+              options: pro.options,
+            });
+          } else {
+            await renderCard(canvas, { ...state, format, fonts });
+          }
           const blob = await toBlob(canvas);
           if (!blob) throw new Error('PNG encoding failed');
-          await saveBlob(blob, `cnd2027-${useCaseId}-${slug}-${format.id}.png`);
+          const name = pro
+            ? `cnd2027-${useCaseId}-${pro.templateId}-${slug}-${format.id}.png`
+            : `cnd2027-${useCaseId}-${slug}-${format.id}.png`;
+          await saveBlob(blob, name);
           generated++;
         }
       } catch (error) {
@@ -141,8 +158,11 @@ export default function BatchPanel() {
       </p>
 
       <div className='mt-6 flex flex-wrap items-center gap-3'>
-        <button type='button' onClick={downloadTemplate} className='btn-pop btn-pop-secondary inline-flex items-center !px-4 !py-1.5 text-sm'>
+        <button type='button' onClick={() => downloadTemplate('base')} className='btn-pop btn-pop-secondary inline-flex items-center !px-4 !py-1.5 text-sm'>
           <Download className='mr-2 h-4 w-4' /> CSV template
+        </button>
+        <button type='button' onClick={() => downloadTemplate('pro')} className='btn-pop btn-pop-secondary inline-flex items-center !px-4 !py-1.5 text-sm'>
+          <Download className='mr-2 h-4 w-4' /> CSV template (speaker/sponsor)
         </button>
         <button type='button' onClick={() => csvInputRef.current?.click()} className='btn-pop btn-pop-secondary inline-flex items-center !px-4 !py-1.5 text-sm'>
           <FileSpreadsheet className='mr-2 h-4 w-4' />

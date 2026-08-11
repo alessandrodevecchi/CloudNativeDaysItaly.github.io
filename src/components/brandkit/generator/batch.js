@@ -3,6 +3,9 @@
 // testabile e riusabile.
 import { FORMATS, COLORWAYS } from './formats';
 import { getUseCase } from './useCases';
+import { toSpeakerData, toSponsorData } from './pro/renderProCard';
+import { SPEAKER_TEMPLATES, SPONSOR_TEMPLATES, SPONSOR_TIER_PRESETS } from './pro/registry';
+import { EVENT } from './event';
 
 // Parser CSV minimale con supporto ai campi quotati ("a, b").
 export function parseCsv(text) {
@@ -51,6 +54,19 @@ export function parseCsv(text) {
   });
 }
 
+// Colonne dei template pro (speaker/sponsor): il CSV dichiara template,
+// campi e, per lo sponsor, il preset tier o background+corner espliciti.
+export const CSV_TEMPLATE_PRO = [
+  'usecase,template,formats,badge,talk,name,role,name2,role2,media',
+  'speaker,pop-blue,all,KEYNOTE SPEAKER,The New Digital Nervous System,Serena Sensini,Innovation Leader at Dedalus,,,serena.jpg',
+  'speaker,comic-panel,1-1|9-16,SPEAKER,AI e Sicurezza Cloud-Native,Giulio Puri,Sr Solutions Engineer at Sysdig,Andrea Vivaldi,Sr Customer Solution Architect at Sysdig,duo.jpg',
+  '',
+  'usecase,template,formats,org,tier,preset,bg,corner,media',
+  'sponsor,tier,all,Clastix,GOLD,gold,,,clastix.png',
+  'sponsor,tier,1-1,ACME Corp,PLATINUM,platinum,,,acme.svg',
+  'sponsor,pop-cream,4-5,ACME Corp,SILVER,,,,acme.svg',
+].join('\n');
+
 export const CSV_TEMPLATE = [
   'usecase,headline,colorway,formats,primary,secondary,tertiary,media,shape,zoom,offsetx,offsety,logostyle',
   'speaker,speaking,blue,1-1|9-16,Ada Lovelace,Platform Engineer @ ACME,Scaling Kubernetes the hard way,ada.jpg,square,1.2,0,-0.3,white',
@@ -63,6 +79,67 @@ export const CSV_TEMPLATE = [
 export function rowToRenderState(row, mediaByName) {
   const useCase = getUseCase(row.usecase || 'attendee-conference');
   if (!useCase) throw new Error(`unknown use case "${row.usecase}"`);
+
+  const formatsFor = (spec) => {
+    if (!spec || spec === 'all') return FORMATS;
+    const list = spec
+      .split('|')
+      .map((id) => FORMATS.find((f) => f.id === id.trim()))
+      .filter(Boolean);
+    if (list.length === 0) throw new Error(`no valid formats in "${spec}"`);
+    return list;
+  };
+
+  const mediaFor = (name) => {
+    if (!name) return null;
+    const found = mediaByName.get(name);
+    if (!found) throw new Error(`media file "${name}" not uploaded`);
+    return found;
+  };
+
+  // Template pro: layout approvati per speaker e sponsor
+  if (useCase.pro) {
+    const kind = useCase.pro;
+    const list = kind === 'sponsor' ? SPONSOR_TEMPLATES : SPEAKER_TEMPLATES;
+    const template = list.find((tpl) => tpl.id === row.template) || list[0];
+    if (row.template && !list.some((tpl) => tpl.id === row.template)) {
+      throw new Error(`unknown ${kind} template "${row.template}"`);
+    }
+    let options = {};
+    let data;
+    if (kind === 'sponsor') {
+      const preset =
+        SPONSOR_TIER_PRESETS.find((p) => p.id === (row.preset || '').toLowerCase()) || null;
+      if (row.preset && !preset) throw new Error(`unknown tier preset "${row.preset}"`);
+      options = {
+        bg: row.bg || preset?.bg || 'sponsorSoft',
+        corner: row.corner || preset?.corner || 'bauhaus',
+      };
+      data = toSponsorData(
+        { org: row.org, tier: row.tier || preset?.tier },
+        { date: EVENT.date, venue: EVENT.venue },
+      );
+    } else {
+      data = toSpeakerData(
+        {
+          badge: row.badge,
+          talk: row.talk,
+          name: row.name,
+          role: row.role,
+          name2: row.name2,
+          role2: row.role2,
+        },
+        { date: EVENT.date, city: EVENT.city },
+      );
+    }
+    return {
+      useCaseId: useCase.id,
+      formats: formatsFor(row.formats),
+      pro: { kind, templateId: template.id, data, options },
+      slugSource: kind === 'sponsor' ? row.org : row.name,
+      state: { photo: mediaFor(row.media) },
+    };
+  }
 
   let headline;
   if (row.headline?.includes('|')) {

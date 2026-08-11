@@ -66,43 +66,35 @@ export const USE_CASES = [
   /* ── Use case interni: visibili solo su /brand-kit/studio (team) ──── */
   {
     id: 'speaker',
-    caption:
-      'I\'m speaking at Cloud Native Days Italy 2027 in Bologna on 20 May! Join me and the Italian cloud native community. cloudnativedaysitaly.org #CNDItaly #CloudNative',
     label: 'Speaker',
     visibility: 'internal',
-    headlines: [
-      { id: 'speaking', lines: ["I'm", 'speaking!'], accentIndex: 1 },
-      { id: 'meet', lines: ['Meet our', 'speaker!'], accentIndex: 1 },
-      { id: 'on-stage', lines: ['On', 'stage!'], accentIndex: 1 },
-    ],
-    defaultHeadline: 'speaking',
+    // Template pro (layout approvati): niente headline/colorway generici,
+    // il design è nel template scelto.
+    pro: 'speaker',
+    caption:
+      "I'm speaking at Cloud Native Days Italy 2027 in Bologna on 20 May! Join me and the Italian cloud native community. cloudnativedaysitaly.org #CNDItaly #CloudNative",
     fields: [
-      { id: 'name', label: 'Full name', placeholder: 'Ada Lovelace', max: 40 },
-      { id: 'role', label: 'Role / company (optional)', placeholder: 'Platform Engineer @ ACME', max: 50 },
-      { id: 'talk', label: 'Talk title (optional)', placeholder: 'Scaling Kubernetes the hard way', max: 80, style: 'quote' },
+      { id: 'badge', label: 'Badge', placeholder: 'KEYNOTE SPEAKER', max: 30 },
+      { id: 'talk', label: 'Talk title', placeholder: 'The New Digital Nervous System', max: 120 },
+      { id: 'name', label: 'Speaker name', placeholder: 'Ada Lovelace', max: 40 },
+      { id: 'role', label: 'Role (optional)', placeholder: 'Platform Engineer at ACME', max: 70 },
+      { id: 'name2', label: 'Second speaker (optional)', placeholder: '', max: 40 },
+      { id: 'role2', label: 'Second role (optional)', placeholder: '', max: 70 },
     ],
-    media: { type: 'photo', label: 'Speaker photo (optional)' },
-    colorways: ['blue', 'magenta', 'yellow', 'ink'],
-    defaultColorway: 'blue',
+    media: { type: 'photo', label: 'Speaker photo' },
   },
   {
     id: 'sponsor',
-    caption:
-      'We\'re a proud sponsor of Cloud Native Days Italy 2027, two days of cloud native talks, workshops and community in Bologna on 20 May. cloudnativedaysitaly.org #CNDItaly',
     label: 'Sponsor',
     visibility: 'internal',
-    headlines: [
-      { id: 'proud-sponsor', lines: ['Proud', 'sponsor!'], accentIndex: 1 },
-      { id: 'sponsoring', lines: ["We're", 'sponsoring!'], accentIndex: 1 },
-    ],
-    defaultHeadline: 'proud-sponsor',
+    pro: 'sponsor',
+    caption:
+      "We're a proud sponsor of Cloud Native Days Italy 2027, two days of cloud native talks, workshops and community in Bologna on 20 May. cloudnativedaysitaly.org #CNDItaly",
     fields: [
       { id: 'org', label: 'Company name', placeholder: 'ACME Corp', max: 50 },
-      { id: 'tier', label: 'Tier (optional)', placeholder: 'Gold Sponsor', max: 30, style: 'chip' },
+      { id: 'tier', label: 'Tier label', placeholder: 'GOLD', max: 20 },
     ],
-    media: { type: 'logo', label: 'Company logo (optional)' },
-    colorways: ['blue', 'magenta', 'yellow', 'ink'],
-    defaultColorway: 'blue',
+    media: { type: 'logo', label: 'Company logo' },
   },
   {
     id: 'community',
