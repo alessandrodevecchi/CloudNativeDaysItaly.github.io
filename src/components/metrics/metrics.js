@@ -26,16 +26,17 @@ const MetricItem = ({ accent, value, label, duration = 2000 }) => {
             { threshold: 0.1 }
         );
 
-        if (ref.current) {
-            observer.observe(ref.current);
+        // Il nodo osservato si cattura ora: alla cleanup `ref.current` può
+        // essere già cambiato (o null) e resterebbe un observer appeso.
+        const node = ref.current;
+        if (node) {
+            observer.observe(node);
         }
 
         return () => {
-            if (ref.current) {
-                observer.unobserve(ref.current);
-            }
+            observer.disconnect();
         };
-    }, [ref, value, duration]);
+    }, [value, duration]);
 
     return (
         <div ref={ref} className="flex flex-col items-center p-4 md:p-8 text-center">

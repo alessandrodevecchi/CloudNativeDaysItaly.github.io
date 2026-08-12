@@ -162,7 +162,6 @@ export default function PatternsSection() {
           {HALFTONES.map((pattern) => (
             <div key={pattern.name} className='flex flex-col border-pop border-ink bg-white'>
               <div className='flex items-center justify-center bg-brand-blue p-4'>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={pattern.file}
                   alt=''
@@ -183,7 +182,6 @@ export default function PatternsSection() {
 
         <div className='mt-6 grid grid-cols-1 gap-6 md:grid-cols-2'>
           <div className='relative overflow-hidden border-pop border-ink bg-brand-blue p-8'>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src='/images/pattern_halftone.svg'
               alt=''
@@ -200,7 +198,6 @@ export default function PatternsSection() {
             </p>
           </div>
           <div className='relative overflow-hidden border-pop border-ink bg-white p-8'>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src='/images/pattern_halftone_c.svg'
               alt=''

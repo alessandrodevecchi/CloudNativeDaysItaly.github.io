@@ -81,7 +81,6 @@ export default function PressFacts() {
             rel='noopener noreferrer'
             className='card-pop group block max-w-[320px] overflow-hidden p-2 shadow-pop-lg transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[8px_8px_0_0_#111111]'
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={report.cover}
               alt={`Cloud Native Days Italy ${edition} transparency report cover`}

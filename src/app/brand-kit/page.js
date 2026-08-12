@@ -67,10 +67,10 @@ export default function BrandKitPage() {
             {/* Logo box: versione positiva e negativa */}
             <div className='grid grid-rows-2 gap-4'>
               <div className='card-pop flex items-center justify-center bg-white p-10'>
-                <Image src='/images/logo.webp' alt='Cloud Native Days Italy logo' width={280} height={90} />
+                <Image src='/images/logo.webp' alt='Cloud Native Days Italy logo' width={280} height={181} style={{ height: 'auto' }} />
               </div>
               <div className='card-pop flex items-center justify-center bg-ink p-10'>
-                <Image src='/images/Logo_CND_W.svg' alt='Cloud Native Days Italy logo, white version' width={280} height={90} />
+                <Image src='/images/Logo_CND_W.svg' alt='Cloud Native Days Italy logo, white version' width={280} height={181} style={{ height: 'auto' }} />
               </div>
             </div>
 
@@ -193,7 +193,7 @@ export default function BrandKitPage() {
                 items={[{ pattern: 'cluster-d', position: 'top-right', size: 'lg' }]}
               />
               <div className='relative z-10 flex h-full flex-col'>
-                <Image src='/images/Logo_CND_W.svg' alt='' width={140} height={40} aria-hidden />
+                <Image src='/images/Logo_CND_W.svg' alt='' width={140} height={91} style={{ height: 'auto' }} aria-hidden />
                 <p className='mt-auto font-display text-5xl uppercase leading-none text-white'>
                   I&apos;ll be
                   <br />
@@ -223,7 +223,7 @@ export default function BrandKitPage() {
             {/* Anteprima slide template resa in CSS */}
             <div className='card-pop aspect-video w-full bg-white p-8 shadow-pop-lg'>
               <div className='flex h-full flex-col'>
-                <Image src='/images/logo_xs.webp' alt='' width={120} height={32} aria-hidden />
+                <Image src='/images/logo_xs.webp' alt='' width={120} height={78} style={{ height: 'auto' }} aria-hidden />
                 <p className='mt-auto font-display text-3xl uppercase leading-tight text-ink'>
                   Your talk title here
                 </p>

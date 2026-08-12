@@ -90,7 +90,7 @@ export default function Navbar({ data, editions = [] }) {
                 <div className="mx-auto max-w-[1200px] px-6 h-full">
                     <div className="flex items-center justify-between h-full">
                         <Link href="/" onClick={closeAllMenus}>
-                            <Image src={data.navbar.logo} alt="logo" width={150} height={40} priority />
+                            <Image src={data.navbar.logo} alt="logo" width={150} height={97} style={{ height: 'auto' }} priority />
                         </Link>
 
                         {/* Item raggruppati a destra come da wireframe Figma (00-nav) */}
