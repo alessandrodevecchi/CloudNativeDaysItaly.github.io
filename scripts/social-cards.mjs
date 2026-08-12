@@ -97,6 +97,23 @@ async function servePhotos(dir) {
   return { base: `http://127.0.0.1:${port}`, close: () => new Promise((r) => server.close(r)) };
 }
 
+// Lo slug viene dal soggetto (speaker o azienda): due talk dello stesso
+// relatore genererebbero lo stesso nome e la seconda card cancellerebbe la
+// prima. Alla collisione si aggiunge un numero.
+async function freeFilename(dir, filename) {
+  const ext = path.extname(filename);
+  const stem = filename.slice(0, -ext.length);
+  for (let n = 1; n < 1000; n++) {
+    const candidate = n === 1 ? filename : `${stem}-${n}${ext}`;
+    try {
+      await stat(path.join(dir, candidate));
+    } catch {
+      return candidate;
+    }
+  }
+  throw new Error(`cannot find a free name for ${filename}`);
+}
+
 async function launchBrowser() {
   // Chrome di sistema: playwright-core non scarica browser propri.
   try {
@@ -168,12 +185,18 @@ async function main() {
         console.log(`  ${label}: ${notice}`);
       }
       for (const file of result.files) {
+        const filename = await freeFilename(outDir, file.filename);
+        if (filename !== file.filename) {
+          const notice = `${file.filename} already existed, written as ${filename}`;
+          notices.push(`${label}: ${notice}`);
+          console.log(`  ${label}: ${notice}`);
+        }
         await writeFile(
-          path.join(outDir, file.filename),
+          path.join(outDir, filename),
           Buffer.from(file.dataUrl.split(',')[1], 'base64'),
         );
         written++;
-        console.log(`  ${file.filename}`);
+        console.log(`  ${filename}`);
       }
     }
   } finally {
@@ -182,7 +205,10 @@ async function main() {
   }
 
   console.log(`\n${written} PNG written to ${outDir}`);
-  if (notices.length > 0) console.log(`${notices.length} notices (see above)`);
+  if (notices.length > 0) {
+    console.log(`${notices.length} notices:`);
+    notices.forEach((notice) => console.log(`  ${notice}`));
+  }
   if (errors.length > 0) {
     console.log(`${errors.length} rows failed:`);
     errors.forEach((error) => console.log(`  ${error}`));
