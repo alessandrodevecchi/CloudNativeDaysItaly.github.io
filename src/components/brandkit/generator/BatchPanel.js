@@ -193,10 +193,11 @@ export default function BatchPanel() {
         </p>
         <p className='mt-2 max-w-3xl text-sm text-ink-soft'>
           Writing the CSV by hand is the manual fallback, not the recommended
-          way. This repository ships a skill that drives this panel for you:
-          hand your coding agent the raw list of talks or sponsors and the
-          folder with the photos, and it prepares the CSV, runs the batch and
-          collects the PNG files. It works for a single card too.
+          way. This repository ships a skill and a command line script: hand
+          your coding agent the raw list of talks or sponsors and the folder
+          with the photos, and it prepares the CSV, renders every card without
+          touching this panel and leaves the PNG files in a folder. It works
+          for a single card too.
         </p>
         <div className='mt-4 flex flex-wrap items-center gap-3'>
           <a

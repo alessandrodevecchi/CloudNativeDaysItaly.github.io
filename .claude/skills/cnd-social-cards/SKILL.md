@@ -6,11 +6,17 @@ description: Genera le card social di Cloud Native Days Italy (speaker, sponsor,
 # Card social CND: generazione
 
 Il sito ha un generatore di card che rende su canvas i template approvati.
-Non esiste (e non serve) un servizio esterno: si pilota il generatore nel
-browser e i PNG finiscono in una cartella.
+Il renderer vive nel browser (canvas, font e asset del sito) e non esiste un
+servizio esterno, ma **tu non devi usare nessuna interfaccia**: c'è uno
+script che apre una pagina di servizio in un browser headless, le passa il
+CSV e scrive i PNG su disco.
 
-Vale per **una card come per cento**: per una sola compila il form della
-pagina studio e scarica, per un elenco usa il pannello batch con un CSV.
+```bash
+npx next dev -p 3100                                    # una volta
+node scripts/social-cards.mjs --csv cards.csv --photos ./foto
+```
+
+Vale per **una card come per cento**: cambia solo quante righe ha il CSV.
 
 ## 1. Dove vive
 
@@ -19,8 +25,13 @@ pagina studio e scarica, per un elenco usa il pannello batch con un CSV.
   pubbliche (attendee conference/workshops, supporting partner).
 - **Pagina interna `/brand-kit/studio`**: tutti gli use case, inclusi
   **speaker** e **sponsor** (template "pro" approvati), più il pannello
-  **Batch generation**. Non è linkata dal sito e va usata per il lavoro
-  massivo.
+  **Batch generation**. Non è linkata dal sito, è l'interfaccia per le
+  persone: serve a te solo se l'utente vuole provare varianti a occhio.
+- **Pagina di servizio `/brand-kit/card`**: nessuna interfaccia, espone il
+  renderer su `window.__cndCards`. La guida `scripts/social-cards.mjs`, che
+  è la strada da usare.
+- Script: `scripts/social-cards.mjs` (Node, usa `playwright-core` e il
+  Chrome di sistema).
 - Codice: `src/components/brandkit/generator/` (motore base) e
   `.../generator/pro/` (template speaker/sponsor: `templates.js` con i
   layout approvati, `registry.js` col catalogo, `assets.js` per gli SVG
@@ -39,9 +50,9 @@ Il generator vive sui branch `feat/card-generator` e
 `src/components/brandkit/generator/pro/`, fai checkout di
 `feat/card-generator` (chiedi conferma se ci sono modifiche pendenti).
 
-Le foto degli speaker e i loghi degli sponsor devono stare in una
-cartella locale: si caricano nel pannello batch e **il nome del file nel
-CSV deve combaciare esattamente** con quello caricato.
+Il dev server serve al renderer: le card si disegnano su canvas coi font e
+gli asset del sito. Non serve nient'altro, in particolare **non serve
+aprire nessuna pagina a mano**.
 
 ## 3. CSV
 
@@ -103,45 +114,44 @@ gli speaker e `tier` per gli sponsor).
 
 ## 4. Esecuzione
 
-Il pannello scrive in una cartella scelta via File System Access API;
-pilotandolo da playwright conviene disabilitarla e raccogliere i
-download, che finiscono in `.playwright-cli/`.
+Un comando solo. Lo script apre la pagina di servizio `/brand-kit/card` in
+un browser headless, le passa il CSV riga per riga e **scrive i PNG**:
+niente interfaccia, niente upload, niente click.
 
 ```bash
-playwright-cli open http://localhost:3100/brand-kit/studio
-playwright-cli run-code "async page => {
-  await page.waitForTimeout(2500);
-  await page.evaluate(() => { delete window.showDirectoryPicker; });
-  const files = [];
-  page.on('download', d => files.push(d.suggestedFilename()));
-  await page.locator('input[accept=\".csv,text/csv\"]').setInputFiles('/path/to/cards.csv');
-  await page.locator('input[accept=\"image/*\"][multiple]').setInputFiles([
-    '/path/to/photos/serena.jpg',
-    '/path/to/photos/duo.jpg',
-  ]);
-  await page.waitForTimeout(800);
-  await page.getByRole('button', { name: /Generate/ }).click();
-  await page.waitForTimeout(20000);   // ~1-2s per card per formato
-  const summary = await page.locator('div.border-pop.bg-white.p-4').innerText().catch(() => 'nessun riepilogo');
-  return JSON.stringify({ files, summary });
-}"
+node scripts/social-cards.mjs --csv /path/to/cards.csv --photos /path/to/foto
 ```
 
-Poi sposta i PNG dove serve e chiudi il browser:
+- `--csv` è l'unico argomento obbligatorio.
+- `--photos` serve solo per le immagini fuori dal sito. I valori della
+  colonna `media` che iniziano con `/` o con `http` sono già URL e
+  funzionano senza: le foto degli speaker stanno in
+  `public/images/profiles/`, quindi per loro basta scrivere
+  `/images/profiles/nome.webp`.
+- `--out DIR` per scegliere la cartella. Senza, lo script crea
+  `~/Downloads/cnd-social-cards/batch-N`, con N nuovo a ogni run.
+- `--base URL` se il sito non è su `http://localhost:3100`. Funziona anche
+  contro una build servita (`npm run build && npx serve out -l 4321`, poi
+  `--base http://localhost:4321`): il dev server non è obbligatorio.
+- `--keep` lascia il browser aperto, utile solo per guardare la pagina di
+  servizio mentre lavora.
 
-```bash
-mkdir -p out/social-cards && mv .playwright-cli/cnd2027-*.png out/social-cards/
-playwright-cli close
-```
+Lo script stampa una riga per ogni file scritto, una per ogni notice e una
+per ogni riga fallita, e chiude con il conto dei PNG e la cartella. Se
+serve un altro schema di nomi (per esempio solo nome speaker e formato),
+rinomina i file dopo: i nomi di default sono
+`cnd2027-<usecase>-<template>-<slug>-<formato>.png`.
 
-Alza il timeout in proporzione: N righe × N formati × ~1,5s.
+Il **pannello batch** nella pagina studio fa la stessa cosa dall'interfaccia
+ed esiste per le persone: non serve a te.
 
 ## 5. Verifica prima di consegnare
 
-- Leggi il riepilogo del pannello: riporta i PNG generati e **una riga
-  per ogni errore** (media mancante, template inesistente, preset
-  sconosciuto). Le righe con errore vengono saltate, le altre completate:
-  non dare per riuscito un batch senza aver letto il riepilogo.
+- Leggi l'output dello script: elenca i file scritti, le **notice** (per
+  esempio il template cambiato perché la riga aveva due relatori) e **una
+  riga per ogni errore** (media mancante, template inesistente, preset
+  sconosciuto). Le righe con errore vengono saltate e lo script esce con
+  codice 1: non dare per riuscito un batch senza aver letto l'output.
 - Apri con Read almeno 2-3 PNG e controlla: nome e ruolo leggibili e non
   troncati male, titolo che non sfonda, foto ritagliata sul viso, logo
   sponsor dentro il pannello, badge/tier corretti.
@@ -151,10 +161,10 @@ Alza il timeout in proporzione: N righe × N formati × ~1,5s.
 
 ## 6. Card singole
 
-Per una card sola conviene la UI: apri lo studio, scegli card type e
-template, compila i campi, carica la foto, poi "Download PNG" (formato
-corrente) o "All formats". Ogni use case mostra anche una **caption
-suggerita** con bottone di copia: passala all'utente insieme
+Stesso comando con un CSV di una riga: è la strada più rapida e lascia
+traccia di cosa è stato generato. La UI dello studio resta utile quando
+l'utente vuole provare varianti a occhio, e lì ogni use case mostra anche
+una **caption suggerita** con bottone di copia: passala all'utente insieme
 all'immagine.
 
 ## 7. Limiti noti
