@@ -48,7 +48,7 @@ function toDrawable(media) {
 }
 
 export async function renderProCard(canvas, state) {
-  const { kind, templateId, data, format, media, fonts, options = {} } = state;
+  const { kind, templateId, data, format, media, media2, fonts, options = {} } = state;
 
   canvas.width = format.width;
   canvas.height = format.height;
@@ -60,9 +60,13 @@ export async function renderProCard(canvas, state) {
   // media utente: foto speaker o logo sponsor (fallback: logo CND, così
   // la preview è sempre valida anche senza upload)
   const drawable = toDrawable(media);
+  // Seconda foto: serve ai template duo per il secondo speaker. Se manca si
+  // ricade sulla prima, così la preview resta valida con un solo upload.
+  const drawable2 = toDrawable(media2);
   const A = {
     ...assets,
     photo: drawable || assets.logoWhite,
+    photo2: drawable2 || drawable || assets.logoWhite,
     sponsorLogo: drawable || assets.logoColor,
   };
 

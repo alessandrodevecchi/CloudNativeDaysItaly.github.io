@@ -57,9 +57,9 @@ export function parseCsv(text) {
 // Colonne dei template pro (speaker/sponsor): il CSV dichiara template,
 // campi e, per lo sponsor, il preset tier o background+corner espliciti.
 export const CSV_TEMPLATE_PRO = [
-  'usecase,template,formats,badge,talk,name,role,name2,role2,media',
-  'speaker,pop-blue,all,KEYNOTE SPEAKER,The New Digital Nervous System,Serena Sensini,Innovation Leader at Dedalus,,,serena.jpg',
-  'speaker,comic-panel,1-1|9-16,SPEAKER,AI e Sicurezza Cloud-Native,Giulio Puri,Sr Solutions Engineer at Sysdig,Andrea Vivaldi,Sr Customer Solution Architect at Sysdig,duo.jpg',
+  'usecase,template,formats,badge,talk,name,role,name2,role2,media,media2',
+  'speaker,pop-blue,all,KEYNOTE SPEAKER,The New Digital Nervous System,Serena Sensini,Innovation Leader at Dedalus,,,serena.jpg,',
+  'speaker,comic-panel,1-1|9-16,SPEAKER,AI e Sicurezza Cloud-Native,Giulio Puri,Sr Solutions Engineer at Sysdig,Andrea Vivaldi,Sr Customer Solution Architect at Sysdig,giulio.jpg,andrea.jpg',
   '',
   'usecase,template,formats,org,tier,preset,bg,corner,media',
   'sponsor,tier,all,Clastix,GOLD,gold,,,clastix.png',
@@ -137,7 +137,9 @@ export function rowToRenderState(row, mediaByName) {
       formats: formatsFor(row.formats),
       pro: { kind, templateId: template.id, data, options },
       slugSource: kind === 'sponsor' ? row.org : row.name,
-      state: { photo: mediaFor(row.media) },
+      // media2: foto del secondo speaker nei template duo. Se manca, il
+      // renderer ricade sulla prima foto con due crop diversi.
+      state: { photo: mediaFor(row.media), photo2: mediaFor(row.media2) },
     };
   }
 

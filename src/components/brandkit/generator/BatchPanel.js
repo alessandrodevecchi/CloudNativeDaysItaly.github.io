@@ -124,6 +124,7 @@ export default function BatchPanel() {
               data: pro.data,
               format,
               media: state.photo,
+              media2: state.photo2,
               fonts,
               options: pro.options,
             });

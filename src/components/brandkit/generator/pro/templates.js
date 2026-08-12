@@ -27,6 +27,13 @@ import {
 } from './helpers';
 
 
+/* ── Duo: la seconda foto ─────────────────────────────────────────────
+   I template duo disegnano due ritratti. Con due upload distinti ognuno
+   va inquadrato al centro; con un solo upload si tengono due crop diversi
+   (0.28 e 0.72) per non ripetere la stessa inquadratura due volte. */
+const duoPhoto2 = (A) => A.photo2 || A.photo;
+const duoCrops = (A) => (A.photo2 && A.photo2 !== A.photo ? [0.5, 0.5] : [0.28, 0.72]);
+
 export const FORMATS = {
   portrait: { W: 1080, H: 1350 },
   square: { W: 1080, H: 1080 },
@@ -135,6 +142,7 @@ export function speakerComicBlue(ctx, A, S = SPEAKER, F = FORMATS.portrait) {
 export function speakerPop2027(ctx, A, S = SPEAKER, F = FORMATS.portrait) {
   const { W, H, fmt } = F;
   const duo = S.speakers.length > 1;
+  const duoFx = duoCrops(A);
   const L = {
     portrait: { logo: [80, 80, 250], badgeY: 92, photo1: [80, 260, 430], duo1: [80, 280, 320], duo2: [430, 315, 320], titleY: 770, titleSize: 115, titleMaxW: W - 160, bandH: 118, textX: 80 },
     square: { logo: [70, 65, 230], badgeY: 78, photo1: [70, 215, 360], duo1: [70, 235, 280], duo2: [380, 265, 280], titleY: 630, titleSize: 84, titleMaxW: W - 140, bandH: 100, textX: 70 },
@@ -150,8 +158,8 @@ export function speakerPop2027(ctx, A, S = SPEAKER, F = FORMATS.portrait) {
     drawEl(ctx, A.el.donutGlaze, gl[0], gl[1], gl[2], -0.15);
   }
   if (duo) {
-    popPhoto(ctx, A.photo, L.duo1[0], L.duo1[1], L.duo1[2], { rot: -0.03, fx: 0.28 });
-    popPhoto(ctx, A.photo, L.duo2[0], L.duo2[1], L.duo2[2], { rot: 0.035, fx: 0.72 });
+    popPhoto(ctx, A.photo, L.duo1[0], L.duo1[1], L.duo1[2], { rot: -0.03, fx: duoFx[0] });
+    popPhoto(ctx, duoPhoto2(A), L.duo2[0], L.duo2[1], L.duo2[2], { rot: 0.035, fx: duoFx[1] });
   } else {
     popPhoto(ctx, A.photo, L.photo1[0], L.photo1[1], L.photo1[2], { zoom: 1 });
   }
@@ -202,6 +210,7 @@ export function speakerPop2027(ctx, A, S = SPEAKER, F = FORMATS.portrait) {
 export function speakerPopSplit(ctx, A, S = SPEAKER, F = FORMATS.portrait) {
   const { W, H, fmt } = F;
   const duo = S.speakers.length > 1;
+  const duoFx = duoCrops(A);
   const L = {
     portrait: { split: [0.62, 0.45], texSize: 260, texY: 30, logo: [W - 270, 75, 230], photo1: [90, 260, 430], duo1: [90, 270, 330], duo2: [450, 320, 330], donut: [640, 620, 190], donutDuo: [865, 620, 190], star: [W - 130, 500, 150], starDuo: [W - 130, 430, 150], titleY: 795, titleSize: 96, titleMaxW: W - 180, stampMin: 1160, stampMax: 1225 },
     square: { split: [0.58, 0.42], texSize: 210, texY: 22, logo: [W - 250, 62, 210], photo1: [80, 210, 350], duo1: [80, 220, 280], duo2: [390, 255, 280], donut: [540, 480, 160], donutDuo: [730, 480, 160], star: [W - 115, 390, 130], titleY: 630, titleSize: 78, titleMaxW: W - 160, stampMin: 930, stampMax: 985 },
@@ -233,8 +242,8 @@ export function speakerPopSplit(ctx, A, S = SPEAKER, F = FORMATS.portrait) {
   // logo centrato in altezza sulla scritta SPEAKER
   drawLogoWhite(ctx, A.logoWhite, L.logo[0], L.logo[1], L.logo[2]);
   if (duo) {
-    popPhoto(ctx, A.photo, L.duo1[0], L.duo1[1], L.duo1[2], { rot: -0.03, frame: C.ink, fx: 0.28 });
-    popPhoto(ctx, A.photo, L.duo2[0], L.duo2[1], L.duo2[2], { rot: 0.03, frame: C.ink, fx: 0.72 });
+    popPhoto(ctx, A.photo, L.duo1[0], L.duo1[1], L.duo1[2], { rot: -0.03, frame: C.ink, fx: duoFx[0] });
+    popPhoto(ctx, duoPhoto2(A), L.duo2[0], L.duo2[1], L.duo2[2], { rot: 0.03, frame: C.ink, fx: duoFx[1] });
   } else {
     popPhoto(ctx, A.photo, L.photo1[0], L.photo1[1], L.photo1[2], { rot: -0.03, frame: C.ink });
   }
@@ -361,6 +370,7 @@ export function speakerHybrid(ctx, A, S = SPEAKER, F = FORMATS.portrait, photoSh
 export function speakerComicRealBg(ctx, A, S = SPEAKER, F = FORMATS.portrait) {
   const { W, H, fmt } = F;
   const duo = S.speakers.length > 1;
+  const duoFx = duoCrops(A);
   const L = {
     // duoExpl/duoBadge: explosion e badge A CAVALLO tra le due foto
     portrait: { logoBox: [80, 80, 200], expl: [820, 360, 400], duoExpl: [545, 430, 400], photo1: [W / 2 - 250, 340, 500], duo1: [70, 400, 400], duo2: [590, 430, 400], badge: [520, 295], duoBadge: [425, 372], star: [120, 780, 160], panelY: 905, titleSize: 86, blockGap: 4 },
@@ -375,8 +385,8 @@ export function speakerComicRealBg(ctx, A, S = SPEAKER, F = FORMATS.portrait) {
   const expl = duo ? L.duoExpl : L.expl;
   drawEl(ctx, A.el.explosion, expl[0], expl[1], expl[2], 0.1);
   if (duo) {
-    popPhoto(ctx, A.photo, L.duo1[0], L.duo1[1], L.duo1[2], { rot: -0.035, frame: C.ink, shadow: 20, fx: 0.28 });
-    popPhoto(ctx, A.photo, L.duo2[0], L.duo2[1], L.duo2[2], { rot: 0.03, frame: C.ink, shadow: 20, fx: 0.72 });
+    popPhoto(ctx, A.photo, L.duo1[0], L.duo1[1], L.duo1[2], { rot: -0.035, frame: C.ink, shadow: 20, fx: duoFx[0] });
+    popPhoto(ctx, duoPhoto2(A), L.duo2[0], L.duo2[1], L.duo2[2], { rot: 0.03, frame: C.ink, shadow: 20, fx: duoFx[1] });
   } else {
     popPhoto(ctx, A.photo, L.photo1[0], L.photo1[1], L.photo1[2], { rot: -0.035, frame: C.ink, shadow: 20 });
   }

@@ -46,6 +46,8 @@ export default function CardGenerator({ scope = 'public' }) {
   const [values, setValues] = useState({});
   const [formatId, setFormatId] = useState(DEFAULT_FORMAT_ID);
   const [photo, setPhoto] = useState(null);
+  // Seconda foto: solo per i template speaker duo (secondo relatore)
+  const [photo2, setPhoto2] = useState(null);
   const [photoShape, setPhotoShape] = useState('square');
   const [zoom, setZoom] = useState(1);
   const [photoOffset, setPhotoOffset] = useState({ x: 0, y: 0 });
@@ -64,6 +66,7 @@ export default function CardGenerator({ scope = 'public' }) {
   const canvasRef = useRef(null);
   const fontsRef = useRef(null);
   const fileInputRef = useRef(null);
+  const fileInput2Ref = useRef(null);
 
   // Preset use case da query param (?uc=...) per i link "Create yours"
   useEffect(() => {
@@ -93,6 +96,7 @@ export default function CardGenerator({ scope = 'public' }) {
       setZoom(1);
       setPhotoOffset({ x: 0, y: 0 });
     }
+    setPhoto2(null);
   };
 
   // La colorway decide quali varianti logo sono possibili (es. su giallo il
@@ -129,6 +133,9 @@ export default function CardGenerator({ scope = 'public' }) {
     proKind === 'sponsor' && getSponsorTemplate(proTemplate.id).options?.tierPresets
       ? { bg: sponsorBg || tierPreset.bg, corner: sponsorCorner || tierPreset.corner }
       : {};
+  // Il duo si accende quando il template lo supporta e il secondo nome c'è:
+  // solo allora ha senso chiedere la seconda foto.
+  const duoActive = proKind === 'speaker' && Boolean(proTemplate.duo) && Boolean(values.name2);
   const proData =
     proKind === 'speaker'
       ? toSpeakerData(values, { date: EVENT.date, city: EVENT.city })
@@ -163,6 +170,7 @@ export default function CardGenerator({ scope = 'public' }) {
         data: proData,
         format,
         media: photo,
+        media2: duoActive ? photo2 : null,
         fonts: fontsRef.current,
         options: proOptions,
       });
@@ -182,13 +190,31 @@ export default function CardGenerator({ scope = 'public' }) {
       colorway: colorwayId,
       fonts: fontsRef.current,
     });
-  }, [format, headline, texts, textStyles, photo, photoShape, zoom, photoOffset, effectiveLogoStyle, colorwayId, effectiveMediaType, proKind, proTemplate, proData, proOptions]);
+  }, [format, headline, texts, textStyles, photo, photo2, duoActive, photoShape, zoom, photoOffset, effectiveLogoStyle, colorwayId, effectiveMediaType, proKind, proTemplate, proData, proOptions]);
 
   useEffect(() => {
     redraw();
   }, [redraw]);
 
-  const handleUpload = async (event) => {
+  // Lettura del file in un oggetto { source, width, height } pronto per il
+  // renderer. Usata dall'upload principale e da quello del secondo speaker.
+  const readImageFile = async (file) => {
+    if (file.type === 'image/svg+xml') {
+      // createImageBitmap su SVG non è affidabile ovunque: si passa da Image
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      await new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+        img.src = url;
+      });
+      return { source: img, width: img.naturalWidth || 300, height: img.naturalHeight || 300 };
+    }
+    const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+    return { source: bitmap, width: bitmap.width, height: bitmap.height };
+  };
+
+  const handleUploadTo = async (event, setTarget, { resetView = false } = {}) => {
     const file = event.target.files?.[0];
     event.target.value = '';
     if (!file) return;
@@ -197,27 +223,19 @@ export default function CardGenerator({ scope = 'public' }) {
       return;
     }
     try {
-      if (file.type === 'image/svg+xml') {
-        // createImageBitmap su SVG non è affidabile ovunque: si passa da Image
-        const url = URL.createObjectURL(file);
-        const img = new Image();
-        await new Promise((resolve, reject) => {
-          img.onload = resolve;
-          img.onerror = reject;
-          img.src = url;
-        });
-        setPhoto({ source: img, width: img.naturalWidth || 300, height: img.naturalHeight || 300 });
-      } else {
-        const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
-        setPhoto({ source: bitmap, width: bitmap.width, height: bitmap.height });
+      setTarget(await readImageFile(file));
+      if (resetView) {
+        setZoom(1);
+        setPhotoOffset({ x: 0, y: 0 });
       }
-      setZoom(1);
-      setPhotoOffset({ x: 0, y: 0 });
       setUploadError(null);
     } catch {
       setUploadError('We could not read that image. Try another file.');
     }
   };
+
+  const handleUpload = (event) => handleUploadTo(event, setPhoto, { resetView: true });
+  const handleUpload2 = (event) => handleUploadTo(event, setPhoto2);
 
   const saveBlob = (canvas, filename) =>
     new Promise((resolve) => {
@@ -254,6 +272,7 @@ export default function CardGenerator({ scope = 'public' }) {
           data: proData,
           format: f,
           media: photo,
+          media2: duoActive ? photo2 : null,
           fonts: fontsRef.current || resolveFonts(),
           options: proOptions,
         });
@@ -487,6 +506,44 @@ export default function CardGenerator({ scope = 'public' }) {
                 className='hidden'
               />
             </div>
+            {duoActive && (
+              <div className='mt-4 border-t-2 border-ink pt-4'>
+                <p className='text-sm font-bold uppercase tracking-wide text-ink'>
+                  Second speaker photo
+                </p>
+                <div className='mt-2 flex flex-wrap items-center gap-3'>
+                  <button
+                    type='button'
+                    onClick={() => fileInput2Ref.current?.click()}
+                    className='btn-pop btn-pop-secondary inline-flex items-center !px-4 !py-1.5 text-sm'
+                  >
+                    <Upload className='mr-2 h-4 w-4' />
+                    {photo2 ? 'Replace' : 'Upload'}
+                  </button>
+                  {photo2 && (
+                    <button
+                      type='button'
+                      onClick={() => setPhoto2(null)}
+                      className='inline-flex items-center gap-1 text-sm font-bold text-ink-muted hover:text-ink'
+                    >
+                      <X className='h-4 w-4' /> Remove
+                    </button>
+                  )}
+                  <input
+                    ref={fileInput2Ref}
+                    type='file'
+                    accept='image/*'
+                    onChange={handleUpload2}
+                    className='hidden'
+                  />
+                </div>
+                {!photo2 && (
+                  <p className='mt-2 text-sm text-ink-muted'>
+                    Without it, the first photo is used for both, with two different crops.
+                  </p>
+                )}
+              </div>
+            )}
             {uploadError && (
               <p className='mt-2 text-sm font-bold text-brand-magenta'>{uploadError}</p>
             )}

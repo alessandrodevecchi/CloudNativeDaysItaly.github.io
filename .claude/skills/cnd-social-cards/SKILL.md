@@ -48,9 +48,9 @@ sono le colonne.
 **Speaker** (`usecase=speaker`):
 
 ```csv
-usecase,template,formats,badge,talk,name,role,name2,role2,media
-speaker,pop-blue,all,KEYNOTE SPEAKER,The New Digital Nervous System,Serena Sensini,Innovation Leader at Dedalus,,,serena.jpg
-speaker,comic-panel,1-1|9-16,SPEAKER,AI e Sicurezza Cloud-Native,Giulio Puri,Sr Solutions Engineer at Sysdig,Andrea Vivaldi,Sr Customer Solution Architect at Sysdig,duo.jpg
+usecase,template,formats,badge,talk,name,role,name2,role2,media,media2
+speaker,pop-blue,all,KEYNOTE SPEAKER,The New Digital Nervous System,Serena Sensini,Innovation Leader at Dedalus,,,serena.jpg,
+speaker,comic-panel,1-1|9-16,SPEAKER,AI e Sicurezza Cloud-Native,Giulio Puri,Sr Solutions Engineer at Sysdig,Andrea Vivaldi,Sr Customer Solution Architect at Sysdig,giulio.jpg,andrea.jpg
 ```
 
 **Sponsor** (`usecase=sponsor`):
@@ -72,6 +72,9 @@ Note sui campi:
   `magenta-max`, `facets-blue`, `facets-magenta`.
   **Solo `pop-blue`, `pop-split` e `comic-panel` disegnano due
   relatori**: se una riga ha `name2`, usa uno di questi.
+- `media2`: foto del secondo relatore, solo per le righe con `name2`. Se
+  la lasci vuota entrambe le cornici usano `media` con due crop diversi,
+  quindi la stessa faccia due volte: passala sempre quando ce l'hai.
 - `template` sponsor: `tier` (principale), `pop-cream`, `pop-blue`,
   `facets-soft`.
 - `preset` sponsor: `gold`, `platinum`, `silver`, `smart`, `workshop`,
