@@ -157,36 +157,56 @@ function drawIcon(ctx, iconId, x, y, size, color) {
   ctx.restore();
 }
 
-/* ── Fit text: riduci a step → wrap (max 2 righe) → ellissi ─────────── */
-function fitText(ctx, text, { maxW, size, minSize, font, weight = '' }) {
+/* ── Fit text ─────────────────────────────────────────────────────────
+   Prima si riduce la size restando su una riga, fino al minimo che il
+   formato dichiara (`headline.minScale`): il landscape ha poca altezza e
+   scende molto, i verticali si fermano presto. Se non basta si concede una
+   riga in più e si riparte dalla size piena, così sui formati alti il testo
+   resta grande e va a capo. L'ellissi è l'ultima spiaggia: entro i limiti
+   dei campi non deve mai servire. */
+function fitText(ctx, text, { maxW, size, minSize, font, weight = '', maxLines = 2 }) {
   const setFont = (px) => { ctx.font = `${weight} ${px}px ${font}`.trim(); };
-  let px = size;
-  setFont(px);
-  while (ctx.measureText(text).width > maxW && px > minSize) {
-    px = Math.floor(px * 0.94);
-    setFont(px);
-  }
-  if (ctx.measureText(text).width <= maxW) return { lines: [text], px };
-
-  // wrap su due righe al px minimo
   const words = text.split(' ');
-  if (words.length > 1) {
-    let best = null;
-    for (let i = 1; i < words.length; i++) {
-      const a = words.slice(0, i).join(' ');
-      const b = words.slice(i).join(' ');
-      const w = Math.max(ctx.measureText(a).width, ctx.measureText(b).width);
-      if (!best || w < best.w) best = { lines: [a, b], w };
+
+  // wrap greedy alla size data: righe prodotte e larghezza della peggiore
+  const wrap = (px) => {
+    setFont(px);
+    const lines = [];
+    let current = '';
+    for (const word of words) {
+      const candidate = current ? `${current} ${word}` : word;
+      if (!current || ctx.measureText(candidate).width <= maxW) current = candidate;
+      else {
+        lines.push(current);
+        current = word;
+      }
     }
-    if (best && best.w <= maxW) return { lines: best.lines, px };
+    if (current) lines.push(current);
+    const widest = lines.reduce((max, line) => Math.max(max, ctx.measureText(line).width), 0);
+    return { lines, widest };
+  };
+
+  // pavimento di size per ogni numero di righe consentito
+  const floors = [minSize, Math.round(size * 0.55), Math.round(size * 0.42)];
+  for (let allowed = 1; allowed <= maxLines; allowed++) {
+    const floor = Math.max(floors[Math.min(allowed, floors.length) - 1], 12);
+    let px = size;
+    while (px >= floor) {
+      const { lines, widest } = wrap(px);
+      if (lines.length <= allowed && widest <= maxW) return { lines, px };
+      px = Math.floor(px * 0.94);
+    }
   }
 
-  // ellissi
-  let cut = text;
-  while (cut.length > 1 && ctx.measureText(`${cut}…`).width > maxW) {
-    cut = cut.slice(0, -1);
-  }
-  return { lines: [`${cut}…`], px };
+  // ellissi sull'ultima riga consentita
+  const floor = Math.max(floors[Math.min(maxLines, floors.length) - 1], 12);
+  const { lines } = wrap(floor);
+  setFont(floor);
+  const kept = lines.slice(0, maxLines);
+  let last = kept[kept.length - 1] || text;
+  while (last.length > 1 && ctx.measureText(`${last}…`).width > maxW) last = last.slice(0, -1);
+  kept[kept.length - 1] = `${last}…`;
+  return { lines: kept, px: floor };
 }
 
 /* ── Footer: voci fisse icona+testo, a capo su due righe se non entra ── */
@@ -391,8 +411,9 @@ export async function renderCard(canvas, state) {
       maxW: layout.headline.maxW,
       size: layout.headline.size,
       // Sotto questa soglia si va a capo invece di rimpicciolire ancora:
-      // in landscape conviene ridurre, sui verticali c'è spazio per due righe.
+      // in landscape conviene ridurre, sui verticali c'è spazio per le righe.
       minSize: Math.round(layout.headline.size * (layout.headline.minScale ?? 0.5)),
+      maxLines: 3,
       font: fonts.display,
     }),
   }));
@@ -434,12 +455,14 @@ export async function renderCard(canvas, state) {
   for (const extra of extras) blockH += extra.h + Math.round(unit * 0.012);
 
   const maxBottom = footerMetrics.top - Math.round(unit * 0.05);
-  let cursorY = Math.min(layout.headline.y, maxBottom - blockH);
+  // Il blocco sale quando il testo è lungo, ma non oltre il logo: con tre
+  // righe di headline ci finirebbe sotto.
+  const blockTopLimit = layout.logo.y + Math.round(layout.logo.w * 0.4) + Math.round(unit * 0.05);
+  let cursorY = Math.max(blockTopLimit, Math.min(layout.headline.y, maxBottom - blockH));
   if (photo && layout.photo && format.family !== 'story') {
     // blocco testo centrato verticalmente rispetto al media
     const mediaCenter = layout.photo.y + layout.photo.size / 2;
-    const minTop = layout.logo.y + Math.round(layout.logo.w * 0.4) + Math.round(unit * 0.05);
-    cursorY = Math.max(minTop, Math.min(mediaCenter - blockH / 2, maxBottom - blockH));
+    cursorY = Math.max(blockTopLimit, Math.min(mediaCenter - blockH / 2, maxBottom - blockH));
   }
 
   for (const { accent, fit } of headlineFits) {

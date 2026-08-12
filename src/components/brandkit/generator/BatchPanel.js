@@ -13,10 +13,12 @@ import { parseCsv, rowToRenderState, slugify, CSV_TEMPLATE, CSV_TEMPLATE_PRO } f
 
 // La strada consigliata è la skill di repo pilotata da un coding agent:
 // questo pannello è la superficie che la skill guida, non l'interfaccia da
-// usare a mano. TODO al merge su main: sostituire il branch nell'URL con
-// `main`, il file si sposta lì insieme al generator.
+// usare a mano.
+// L'URL segue il percorso della skill: oggi il branch del fork, al merge in
+// main dello stesso fork si passa a `.../blob/main/...`, e quando la PR va
+// in upstream si punta a `github.com/CloudNativeDaysItaly/...`.
 const SKILL_URL =
-  'https://github.com/CloudNativeDaysItaly/CloudNativeDaysItaly.github.io/blob/feat/card-generator/.claude/skills/cnd-social-cards/SKILL.md';
+  'https://github.com/alessandrodevecchi/CloudNativeDaysItaly.github.io/blob/feat/card-generator/.claude/skills/cnd-social-cards/SKILL.md';
 
 const AGENT_PROMPTS = [
   {
