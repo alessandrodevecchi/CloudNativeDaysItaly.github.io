@@ -203,11 +203,18 @@ export function speakerPopSplit(ctx, A, S = SPEAKER, F = FORMATS.portrait) {
   const { W, H, fmt } = F;
   const duo = S.speakers.length > 1;
   const L = {
-    portrait: { split: [0.62, 0.45], texSize: 260, texY: 30, logo: [W - 270, 75, 230], photo1: [90, 260, 430], duo1: [90, 270, 330], duo2: [450, 320, 330], donut: [640, 620, 190], star: [W - 130, 500, 150], titleY: 795, titleSize: 96, titleMaxW: W - 180, stampMin: 1160, stampMax: 1225 },
-    square: { split: [0.58, 0.42], texSize: 210, texY: 22, logo: [W - 250, 62, 210], photo1: [80, 210, 350], duo1: [80, 220, 280], duo2: [390, 255, 280], donut: [540, 480, 160], star: [W - 115, 390, 130], titleY: 630, titleSize: 78, titleMaxW: W - 160, stampMin: 930, stampMax: 985 },
+    portrait: { split: [0.62, 0.45], texSize: 260, texY: 30, logo: [W - 270, 75, 230], photo1: [90, 260, 430], duo1: [90, 270, 330], duo2: [450, 320, 330], donut: [640, 620, 190], donutDuo: [865, 620, 190], star: [W - 130, 500, 150], starDuo: [W - 130, 430, 150], titleY: 795, titleSize: 96, titleMaxW: W - 180, stampMin: 1160, stampMax: 1225 },
+    square: { split: [0.58, 0.42], texSize: 210, texY: 22, logo: [W - 250, 62, 210], photo1: [80, 210, 350], duo1: [80, 220, 280], duo2: [390, 255, 280], donut: [540, 480, 160], donutDuo: [730, 480, 160], star: [W - 115, 390, 130], titleY: 630, titleSize: 78, titleMaxW: W - 160, stampMin: 930, stampMax: 985 },
     landscape: { split: [0.72, 0.5], texSize: 270, texY: 24, logo: [W - 320, 60, 270], photo1: [110, 250, 410], duo1: [110, 255, 360], duo2: [500, 295, 360], donut: [1300, 290, 190], star: [W - 170, 460, 160], glaze: [1520, 350, 160], bitten: [1600, 640, 150], titleY: 745, titleSize: 80, titleMaxW: W - 160, stampFixed: [1350, 950] },
-    story: { split: [0.65, 0.52], texSize: 300, texY: 40, logo: [W - 290, 100, 250], photo1: [90, 430, 500], duo1: [90, 450, 390], duo2: [510, 500, 390], donut: [700, 890, 200], star: [W - 140, 720, 150], titleY: 1170, titleSize: 96, titleMaxW: W - 180, stampMin: 1720, stampMax: 1780 },
+    story: { split: [0.65, 0.52], texSize: 300, texY: 40, logo: [W - 290, 100, 250], photo1: [90, 430, 500], duo1: [90, 450, 390], duo2: [510, 500, 390], donut: [700, 890, 200], donutDuo: [700, 980, 200], star: [W - 140, 720, 150], titleY: 1170, titleSize: 96, titleMaxW: W - 180, stampMin: 1720, stampMax: 1780 },
   }[fmt];
+  // Con due foto il donut andrebbe a coprire il secondo ritratto: nei
+  // formati verticali e quadrato ha una posizione dedicata (sfiora il lato
+  // destro della foto, in 9:16 scende sotto il bordo inferiore). In 4:5 sale
+  // anche la stella, altrimenti il donut spostato le finisce addosso.
+  // Il landscape resta com'è: là il donut è già fuori dalle foto.
+  const donutPos = (duo && L.donutDuo) || L.donut;
+  const starPos = (duo && L.starDuo) || L.star;
   ctx.fillStyle = C.blue;
   ctx.fillRect(0, 0, W, H);
   ctx.beginPath();
@@ -231,8 +238,8 @@ export function speakerPopSplit(ctx, A, S = SPEAKER, F = FORMATS.portrait) {
   } else {
     popPhoto(ctx, A.photo, L.photo1[0], L.photo1[1], L.photo1[2], { rot: -0.03, frame: C.ink });
   }
-  drawEl(ctx, A.el.donut3rings, L.donut[0], L.donut[1], L.donut[2], 0.2);
-  drawEl(ctx, A.el.star4, L.star[0], L.star[1], L.star[2], 0.15);
+  drawEl(ctx, A.el.donut3rings, donutPos[0], donutPos[1], donutPos[2], 0.2);
+  drawEl(ctx, A.el.star4, starPos[0], starPos[1], starPos[2], 0.15);
   if (L.glaze) drawEl(ctx, A.el.donutGlaze, L.glaze[0], L.glaze[1], L.glaze[2], -0.2);
   if (L.bitten) drawEl(ctx, A.el.donutBitten, L.bitten[0], L.bitten[1], L.bitten[2], 0.25);
   // titolo: se entra in UNA riga (landscape) la spezzo comunque in due
