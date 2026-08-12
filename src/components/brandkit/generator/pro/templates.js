@@ -31,6 +31,13 @@ import {
    I template duo disegnano due ritratti. Con due upload distinti ognuno
    va inquadrato al centro; con un solo upload si tengono due crop diversi
    (0.28 e 0.72) per non ripetere la stessa inquadratura due volte. */
+/* ── Badge di ruolo (ex tier): l'etichetta arriva completa dal dato, così
+   la stessa card serve "GOLD SPONSOR", "MEDIA PARTNER" o "HOST". Fino a 20
+   caratteri resta alla size approvata, oltre si riduce in proporzione per
+   non uscire dalla card. */
+const badgeSize = (text, base) =>
+  text.length <= 20 ? base : Math.max(Math.round((base * 20) / text.length), Math.round(base * 0.62));
+
 const duoPhoto2 = (A) => A.photo2 || A.photo;
 const duoCrops = (A) => (A.photo2 && A.photo2 !== A.photo ? [0.5, 0.5] : [0.28, 0.72]);
 
@@ -76,7 +83,7 @@ export const SPEAKER_DUO = {
 };
 
 export const SPONSOR = {
-  tier: 'GOLD',
+  tier: 'GOLD SPONSOR',
   company: 'Clastix',
   date: '20 May 2027',
   venue: 'Savoia Hotel Regency, Bologna',
@@ -578,7 +585,7 @@ export function sponsorPopCream(ctx, A, P = SPONSOR, F = FORMATS.portrait, palet
   ctx.strokeRect(L.cardX + 3, L.cardY + 3, L.cardW - 6, L.cardH - 6);
   const logoRatio = A.sponsorLogo.naturalHeight / A.sponsorLogo.naturalWidth;
   ctx.drawImage(A.sponsorLogo, L.cardX + (L.cardW - L.logoW) / 2, L.cardY + L.cardH / 2 - (L.logoW * logoRatio) / 2, L.logoW, L.logoW * logoRatio);
-  stamp(ctx, `${P.tier} SPONSOR`, L.stampX, L.cardY - 40, { size: 48, rot: 0.05, fill: C.yellow });
+  stamp(ctx, P.tier, L.stampX, L.cardY - 40, { size: badgeSize(P.tier, 48), rot: 0.05, fill: C.yellow });
   // pizza punta al tier stamp (in landscape sta a sinistra dello stamp,
   // per non finire dentro la banda ink con la data)
   if (fmt === 'landscape') {
@@ -632,7 +639,7 @@ export function sponsorFacetsRealBg(ctx, A, P = SPONSOR, F = FORMATS.portrait) {
   ctx.drawImage(A.sponsorLogo, -L.logoW / 2, (-L.logoW * logoRatio) / 2, L.logoW, L.logoW * logoRatio);
   ctx.restore();
   // tier stamp sovrapposto all'angolo alto-destro del pannello
-  stamp(ctx, `${P.tier} SPONSOR`, L.stampPos[0], L.stampPos[1], { size: 52, rot: -0.05, fill: C.yellow });
+  stamp(ctx, P.tier, L.stampPos[0], L.stampPos[1], { size: badgeSize(P.tier, 52), rot: -0.05, fill: C.yellow });
   // fascia ink con data e venue; pizza punta alla fascia
   ctx.fillStyle = C.ink;
   ctx.fillRect(0, H - 110, W, 110);
@@ -765,10 +772,11 @@ export function sponsorTier(ctx, A, P = SPONSOR, F = FORMATS.portrait, opts = {}
   ctx.restore();
   // tier stamp sull'angolo alto-destro del pannello, posizionato in base
   // alla larghezza REALE del testo (PLATINUM/WORKSHOP sono più lunghi)
-  const tierText = `${P.tier} SPONSOR`;
-  const tw = stampWidth(ctx, tierText, 52);
+  const tierText = P.tier;
+  const tierSize = badgeSize(tierText, 52);
+  const tw = stampWidth(ctx, tierText, tierSize);
   const stampX = Math.min(W / 2 + L.panelW / 2 - tw + 70, W - 40 - tw);
-  stamp(ctx, tierText, stampX, L.stampY, { size: 52, rot: -0.05, fill: C.yellow });
+  stamp(ctx, tierText, stampX, L.stampY, { size: tierSize, rot: -0.05, fill: C.yellow });
   // data+città (senza venue): stamp basso con più aria attorno al testo
   stamp(ctx, `${P.date} · Bologna`, 80, H - 118, { size: 34, rot: -0.015, pad: 0.8, padY: 0.45 });
   // pizza sotto-sinistra del pannello, punta al CENTRO del box logo

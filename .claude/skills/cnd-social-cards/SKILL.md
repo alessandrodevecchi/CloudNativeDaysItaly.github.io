@@ -1,13 +1,16 @@
 ---
 name: cnd-social-cards
-description: Genera in modo massivo le card social di Cloud Native Days Italy (speaker, sponsor, partner, attendee) pilotando il card generator del sito. Usa questa skill quando l'utente chiede di produrre le immagini/post social per gli speaker selezionati, per gli sponsor, per i partner o per una lista di persone, tipicamente fornendo un CSV, un export Sessionize, una cartella di foto o loghi. Trigger: "genera le card", "genera i post per gli speaker", "crea le immagini social degli sponsor", "batch card", "social card generator", "card studio".
+description: Genera le card social di Cloud Native Days Italy (speaker, sponsor, partner, attendee) pilotando il card generator del sito: una sola card o un elenco intero. Usa questa skill quando l'utente chiede di produrre le immagini/post social per uno speaker o per gli speaker selezionati, per gli sponsor, per i partner o per una lista di persone, sia con un CSV o un export Sessionize o una cartella di foto e loghi, sia incollando i dati grezzi in chat. Trigger: "genera la card", "genera le card", "genera i post per gli speaker", "crea l'immagine social dello sponsor", "batch card", "social card generator", "card studio".
 ---
 
-# Card social CND: generazione massiva
+# Card social CND: generazione
 
 Il sito ha un generatore di card che rende su canvas i template approvati.
 Non esiste (e non serve) un servizio esterno: si pilota il generatore nel
 browser e i PNG finiscono in una cartella.
+
+Vale per **una card come per cento**: per una sola compila il form della
+pagina studio e scarica, per un elenco usa il pannello batch con un CSV.
 
 ## 1. Dove vive
 
@@ -75,6 +78,15 @@ Note sui campi:
 - `media2`: foto del secondo relatore, solo per le righe con `name2`. Se
   la lasci vuota entrambe le cornici usano `media` con due crop diversi,
   quindi la stessa faccia due volte: passala sempre quando ce l'hai.
+- **Co-speaker: scegli tu un template duo** (`pop-blue`, `pop-split` o
+  `comic-panel`) per le righe con `name2`. Se indichi un template che
+  disegna un solo relatore, il batch passa da sé a uno dei tre e lo scrive
+  nel riepilogo della riga: la card esce comunque, ma il template non è
+  quello che avevi chiesto.
+- `tier` sponsor: è l'etichetta **completa** del badge, non solo il
+  livello. Si scrive `GOLD SPONSOR`, non `GOLD`, e proprio per questo serve
+  anche per `MEDIA PARTNER`, `COMMUNITY PARTNER` o `HOST`. Oltre i 20
+  caratteri il badge si rimpicciolisce da sé.
 - `template` sponsor: `tier` (principale), `pop-cream`, `pop-blue`,
   `facets-soft`.
 - `preset` sponsor: `gold`, `platinum`, `silver`, `smart`, `workshop`,

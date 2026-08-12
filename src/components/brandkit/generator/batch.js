@@ -62,9 +62,9 @@ export const CSV_TEMPLATE_PRO = [
   'speaker,comic-panel,1-1|9-16,SPEAKER,AI e Sicurezza Cloud-Native,Giulio Puri,Sr Solutions Engineer at Sysdig,Andrea Vivaldi,Sr Customer Solution Architect at Sysdig,giulio.jpg,andrea.jpg',
   '',
   'usecase,template,formats,org,tier,preset,bg,corner,media',
-  'sponsor,tier,all,Clastix,GOLD,gold,,,clastix.png',
-  'sponsor,tier,1-1,ACME Corp,PLATINUM,platinum,,,acme.svg',
-  'sponsor,pop-cream,4-5,ACME Corp,SILVER,,,,acme.svg',
+  'sponsor,tier,all,Clastix,GOLD SPONSOR,gold,,,clastix.png',
+  'sponsor,tier,1-1,ACME Corp,PLATINUM SPONSOR,platinum,,,acme.svg',
+  'sponsor,pop-cream,4-5,ACME Corp,MEDIA PARTNER,,,,acme.svg',
 ].join('\n');
 
 export const CSV_TEMPLATE = [
@@ -98,10 +98,11 @@ export function rowToRenderState(row, mediaByName) {
   };
 
   // Template pro: layout approvati per speaker e sponsor
+  const notices = [];
   if (useCase.pro) {
     const kind = useCase.pro;
     const list = kind === 'sponsor' ? SPONSOR_TEMPLATES : SPEAKER_TEMPLATES;
-    const template = list.find((tpl) => tpl.id === row.template) || list[0];
+    let template = list.find((tpl) => tpl.id === row.template) || list[0];
     if (row.template && !list.some((tpl) => tpl.id === row.template)) {
       throw new Error(`unknown ${kind} template "${row.template}"`);
     }
@@ -120,6 +121,17 @@ export function rowToRenderState(row, mediaByName) {
         { date: EVENT.date, venue: EVENT.venue },
       );
     } else {
+      // Riga con due relatori su un template che ne disegna uno solo: si
+      // passa a un template duo invece di perdere il secondo nome. La riga
+      // lo dichiara nel riepilogo, non è un errore.
+      if (row.name2 && !template.duo) {
+        const duoTemplates = list.filter((tpl) => tpl.duo);
+        const picked = duoTemplates[Math.floor(Math.random() * duoTemplates.length)];
+        notices.push(
+          `template "${template.id}" draws one speaker only: switched to "${picked.id}" for the two speakers`,
+        );
+        template = picked;
+      }
       data = toSpeakerData(
         {
           badge: row.badge,
@@ -140,6 +152,7 @@ export function rowToRenderState(row, mediaByName) {
       // media2: foto del secondo speaker nei template duo. Se manca, il
       // renderer ricade sulla prima foto con due crop diversi.
       state: { photo: mediaFor(row.media), photo2: mediaFor(row.media2) },
+      notices,
     };
   }
 

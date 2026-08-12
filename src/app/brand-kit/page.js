@@ -173,7 +173,7 @@ export default function BrandKitPage() {
             <div className='card-pop relative mx-auto aspect-square w-full max-w-[420px] overflow-hidden bg-brand-magenta p-8 shadow-pop-lg transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[8px_8px_0_0_#111111]'>
               <BrandRings cluster='a' className='pointer-events-none absolute -right-[18%] -top-[20%] w-[80%] opacity-95' aria-hidden />
               <div className='relative z-10 flex h-full flex-col'>
-                <Image src='/images/Logo_CND_W.svg' alt='' width={140} height={40} aria-hidden />
+                <Image src='/images/Logo_CND_W.svg' alt='' width={140} height={91} style={{ height: 'auto' }} aria-hidden />
                 <p className='mt-auto font-display text-5xl uppercase leading-none text-white'>
                   Proud
                   <br />

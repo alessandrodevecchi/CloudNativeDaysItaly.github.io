@@ -25,7 +25,7 @@ export function toSpeakerData(values, { date, city }) {
 
 export function toSponsorData(values, { date, venue }) {
   return {
-    tier: values.tier || 'GOLD',
+    tier: values.tier || 'GOLD SPONSOR',
     company: values.org || '',
     date,
     venue,

@@ -34,12 +34,12 @@ export const SPEAKER_TEMPLATES = [
 // Preset tier del template sponsor principale: precompilano la coppia
 // background + cluster d'angolo. `custom` lascia libera la scelta.
 export const SPONSOR_TIER_PRESETS = [
-  { id: 'gold', label: 'Gold', tier: 'GOLD', bg: 'sponsorSoft', corner: 'bauhaus' },
-  { id: 'platinum', label: 'Platinum', tier: 'PLATINUM', bg: 'softPlatinum', corner: 'diamonds' },
-  { id: 'silver', label: 'Silver', tier: 'SILVER', bg: 'softSilver', corner: 'donuts' },
-  { id: 'smart', label: 'Smart', tier: 'SMART', bg: 'softSmart', corner: 'rings' },
-  { id: 'workshop', label: 'Workshop', tier: 'WORKSHOP', bg: 'softSky', corner: 'clouds' },
-  { id: 'main', label: 'Main', tier: 'MAIN', bg: 'softMain', corner: 'brandrings' },
+  { id: 'gold', label: 'Gold', tier: 'GOLD SPONSOR', bg: 'sponsorSoft', corner: 'bauhaus' },
+  { id: 'platinum', label: 'Platinum', tier: 'PLATINUM SPONSOR', bg: 'softPlatinum', corner: 'diamonds' },
+  { id: 'silver', label: 'Silver', tier: 'SILVER SPONSOR', bg: 'softSilver', corner: 'donuts' },
+  { id: 'smart', label: 'Smart', tier: 'SMART SPONSOR', bg: 'softSmart', corner: 'rings' },
+  { id: 'workshop', label: 'Workshop', tier: 'WORKSHOP SPONSOR', bg: 'softSky', corner: 'clouds' },
+  { id: 'main', label: 'Main', tier: 'MAIN SPONSOR', bg: 'softMain', corner: 'brandrings' },
 ];
 
 export const SPONSOR_BACKGROUNDS = [

@@ -39,6 +39,7 @@ export const LAYOUTS = {
           ? W - photoSize - pad * 3
           : W - pad * 2 - Math.round(unit * 0.16),
         size: Math.round(unit * (hasPhoto ? 0.17 : 0.2)),
+        minScale: 0.45,
       },
       name: { size: Math.round(unit * 0.052) },
       role: { size: Math.round(unit * 0.036) },
@@ -62,6 +63,7 @@ export const LAYOUTS = {
           ? W - photoSize - Math.round(pad * 2.4)
           : W - pad * 2 - Math.round(unit * 0.16),
         size: Math.round(unit * 0.15),
+        minScale: 0.66,
       },
       name: { size: Math.round(unit * 0.048) },
       role: { size: Math.round(unit * 0.034) },
@@ -85,6 +87,7 @@ export const LAYOUTS = {
           ? W - photoSize - Math.round(pad * 2.4)
           : W - pad * 2 - Math.round(unit * 0.16),
         size: Math.round(unit * 0.155),
+        minScale: 0.66,
       },
       name: { size: Math.round(unit * 0.05) },
       role: { size: Math.round(unit * 0.035) },
@@ -110,6 +113,7 @@ export const LAYOUTS = {
         y: Math.round(H * (hasPhoto ? 0.55 : 0.4)),
         maxW: W - pad * 2 - (hasPhoto ? 0 : Math.round(unit * 0.16)),
         size: Math.round(unit * 0.17),
+        minScale: 0.66,
       },
       name: { size: Math.round(unit * 0.052) },
       role: { size: Math.round(unit * 0.037) },

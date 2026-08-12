@@ -4,11 +4,34 @@
 // pipeline della preview. Output in una cartella scelta (File System
 // Access API) o come download multipli.
 import { useRef, useState } from 'react';
-import { Download, FileSpreadsheet, FolderOpen, Images, Play } from 'lucide-react';
+import { ArrowUpRight, Download, FileSpreadsheet, FolderOpen, Images, Play } from 'lucide-react';
+import CopyButton from '@/components/brandkit/CopyButton';
 import { renderCard } from './renderCard';
 import { renderProCard } from './pro/renderProCard';
 import { resolveFonts, ensureFontsLoaded } from './fonts';
 import { parseCsv, rowToRenderState, slugify, CSV_TEMPLATE, CSV_TEMPLATE_PRO } from './batch';
+
+// La strada consigliata è la skill di repo pilotata da un coding agent:
+// questo pannello è la superficie che la skill guida, non l'interfaccia da
+// usare a mano. TODO al merge su main: sostituire il branch nell'URL con
+// `main`, il file si sposta lì insieme al generator.
+const SKILL_URL =
+  'https://github.com/CloudNativeDaysItaly/CloudNativeDaysItaly.github.io/blob/feat/card-generator/.claude/skills/cnd-social-cards/SKILL.md';
+
+const AGENT_PROMPTS = [
+  {
+    id: 'speakers',
+    label: 'Speakers',
+    text:
+      'Generate the speaker social cards with the cnd-social-cards skill. Here is the list of accepted talks (paste the CSV, the Sessionize export or just the raw list), and the speaker photos are in <folder>. Pick a duo template when a talk has two speakers.',
+  },
+  {
+    id: 'sponsors',
+    label: 'Sponsors',
+    text:
+      'Generate the sponsor social cards with the cnd-social-cards skill. Logos are in <folder> and here are the badge labels per company (for example ACME: GOLD SPONSOR). Export every format.',
+  },
+];
 
 async function loadMediaFile(file) {
   if (file.type === 'image/svg+xml') {
@@ -107,13 +130,15 @@ export default function BatchPanel() {
     await ensureFontsLoaded(fonts);
 
     const errors = [];
+    const notices = [];
     let generated = 0;
     const totalRows = rows.length;
 
     for (let i = 0; i < totalRows; i++) {
       setProgress(`Row ${i + 1}/${totalRows}…`);
       try {
-        const { useCaseId, formats, state, pro, slugSource } = rowToRenderState(rows[i], mediaByName);
+        const { useCaseId, formats, state, pro, slugSource, notices: rowNotices = [] } = rowToRenderState(rows[i], mediaByName);
+        rowNotices.forEach((notice) => notices.push(`Row ${i + 1}: ${notice}`));
         const slug = slugify(pro ? slugSource : state.texts.primary, `row-${i + 1}`);
         for (const format of formats) {
           const canvas = document.createElement('canvas');
@@ -146,7 +171,7 @@ export default function BatchPanel() {
 
     setProgress(null);
     setRunning(false);
-    setSummary({ generated, errors, saved: dirHandle ? 'folder' : 'downloads' });
+    setSummary({ generated, errors, notices, saved: dirHandle ? 'folder' : 'downloads' });
   };
 
   return (
@@ -157,6 +182,49 @@ export default function BatchPanel() {
         referenced photos or logos. Same rendering engine as the preview
         above.
       </p>
+
+      {/* La strada consigliata, prima dei bottoni: comporre il CSV a mano è
+          il fallback manuale */}
+      <div className='mt-6 border-pop border-ink bg-white p-5'>
+        <p className='font-display text-lg uppercase text-ink'>
+          Quicker: ask a coding agent
+        </p>
+        <p className='mt-2 max-w-3xl text-sm text-ink-soft'>
+          Writing the CSV by hand is the manual fallback, not the recommended
+          way. This repository ships a skill that drives this panel for you:
+          hand your coding agent the raw list of talks or sponsors and the
+          folder with the photos, and it prepares the CSV, runs the batch and
+          collects the PNG files. It works for a single card too.
+        </p>
+        <div className='mt-4 flex flex-wrap items-center gap-3'>
+          <a
+            href={SKILL_URL}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='inline-flex items-center gap-2 text-sm font-bold text-brand-blue transition-colors hover:text-brand-magenta'
+          >
+            The cnd-social-cards skill
+            <ArrowUpRight className='h-4 w-4' />
+          </a>
+          <span className='text-sm text-ink-muted'>
+            To install it, ask your agent to read that file and add it to its
+            skills.
+          </span>
+        </div>
+        <div className='mt-4 space-y-3'>
+          {AGENT_PROMPTS.map((prompt) => (
+            <div key={prompt.id} className='border-2 border-ink bg-cream p-3'>
+              <p className='text-xs font-bold uppercase tracking-widest text-ink-muted'>
+                Prompt: {prompt.label}
+              </p>
+              <p className='mt-1 text-sm text-ink-soft'>{prompt.text}</p>
+              <div className='mt-2'>
+                <CopyButton text={prompt.text} label='Copy prompt' />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <div className='mt-6 flex flex-wrap items-center gap-3'>
         <button type='button' onClick={() => downloadTemplate('base')} className='btn-pop btn-pop-secondary inline-flex items-center !px-4 !py-1.5 text-sm'>
@@ -211,6 +279,13 @@ export default function BatchPanel() {
             <ul className='mt-2 space-y-1 text-brand-magenta'>
               {summary.errors.map((error) => (
                 <li key={error}>{error}</li>
+              ))}
+            </ul>
+          )}
+          {summary.notices?.length > 0 && (
+            <ul className='mt-2 space-y-1 text-brand-blue'>
+              {summary.notices.map((notice) => (
+                <li key={notice}>{notice}</li>
               ))}
             </ul>
           )}

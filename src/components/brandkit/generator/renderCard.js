@@ -390,7 +390,9 @@ export async function renderCard(canvas, state) {
     fit: fitText(ctx, line.toUpperCase(), {
       maxW: layout.headline.maxW,
       size: layout.headline.size,
-      minSize: Math.round(layout.headline.size * 0.5),
+      // Sotto questa soglia si va a capo invece di rimpicciolire ancora:
+      // in landscape conviene ridurre, sui verticali c'è spazio per due righe.
+      minSize: Math.round(layout.headline.size * (layout.headline.minScale ?? 0.5)),
       font: fonts.display,
     }),
   }));

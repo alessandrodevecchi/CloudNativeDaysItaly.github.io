@@ -4,7 +4,7 @@
 // Principio: minima frizione — default già validi, export in un click,
 // funziona anche senza foto e senza campi compilati.
 // La foto non lascia mai il browser: tutto client-side.
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Download, ShieldCheck, Upload, X } from 'lucide-react';
 import { FORMATS, DEFAULT_FORMAT_ID, COLORWAYS, COLORWAY_LABELS } from './formats';
 import { publicUseCases, allUseCases, getUseCase } from './useCases';
@@ -111,15 +111,21 @@ export default function CardGenerator({ scope = 'public' }) {
   // Campi generici per il renderer: primo campo = testo primario (bold),
   // gli altri diventano righe extra con lo stile dichiarato dal campo
   // (text, chip, quote). Il motore non conosce gli id dei campi.
-  const texts = {
-    primary: values[useCase.fields[0]?.id] || '',
-    secondary: values[useCase.fields[1]?.id] || '',
-    tertiary: values[useCase.fields[2]?.id] || '',
-  };
-  const textStyles = {
-    secondary: useCase.fields[1]?.style || 'text',
-    tertiary: useCase.fields[2]?.style || 'text',
-  };
+  const texts = useMemo(
+    () => ({
+      primary: values[useCase.fields[0]?.id] || '',
+      secondary: values[useCase.fields[1]?.id] || '',
+      tertiary: values[useCase.fields[2]?.id] || '',
+    }),
+    [values, useCase],
+  );
+  const textStyles = useMemo(
+    () => ({
+      secondary: useCase.fields[1]?.style || 'text',
+      tertiary: useCase.fields[2]?.style || 'text',
+    }),
+    [useCase],
+  );
   const effectiveMediaType =
     useCase.media?.type === 'choice' ? mediaKind : useCase.media?.type;
 
@@ -129,31 +135,45 @@ export default function CardGenerator({ scope = 'public' }) {
   const proTemplate = proTemplates.find((tpl) => tpl.id === proTemplateId) || proTemplates[0];
   const tierPreset =
     SPONSOR_TIER_PRESETS.find((preset) => preset.id === tierPresetId) || SPONSOR_TIER_PRESETS[0];
-  const proOptions =
-    proKind === 'sponsor' && getSponsorTemplate(proTemplate.id).options?.tierPresets
-      ? { bg: sponsorBg || tierPreset.bg, corner: sponsorCorner || tierPreset.corner }
-      : {};
+  const proOptions = useMemo(
+    () =>
+      proKind === 'sponsor' && getSponsorTemplate(proTemplate.id).options?.tierPresets
+        ? { bg: sponsorBg || tierPreset.bg, corner: sponsorCorner || tierPreset.corner }
+        : {},
+    [proKind, proTemplate, sponsorBg, sponsorCorner, tierPreset],
+  );
   // Il duo si accende quando il template lo supporta e il secondo nome c'è:
   // solo allora ha senso chiedere la seconda foto.
   const duoActive = proKind === 'speaker' && Boolean(proTemplate.duo) && Boolean(values.name2);
+  // `role2` ha senso solo quando il secondo relatore esiste ed è disegnato:
+  // il campo `name2` resta sempre visibile, così si scopre che il duo esiste.
+  const visibleFields = useCase.fields.filter((field) =>
+    field.id === 'role2' ? duoActive : true,
+  );
+  // Se il template non disegna due relatori, il secondo non arriva nemmeno
+  // al renderer: i valori restano nel form, la card resta coerente.
+  const speakerValues = proTemplate.duo ? values : { ...values, name2: '', role2: '' };
   const proData =
     proKind === 'speaker'
-      ? toSpeakerData(values, { date: EVENT.date, city: EVENT.city })
+      ? toSpeakerData(speakerValues, { date: EVENT.date, city: EVENT.city })
       : proKind === 'sponsor'
         ? toSponsorData(
             { ...values, tier: values.tier || tierPreset.tier },
             { date: EVENT.date, venue: EVENT.venue },
           )
         : null;
-  const headline = !useCase.headlines
-    ? { id: 'none', lines: [], accentIndex: -1 }
-    : useCase.customHeadline
-    ? {
+  const headline = useMemo(() => {
+    if (!useCase.headlines) return { id: 'none', lines: [], accentIndex: -1 };
+    if (useCase.customHeadline) {
+      const lines = customLines.filter(Boolean);
+      return {
         id: 'custom',
-        lines: customLines.filter(Boolean).length > 0 ? customLines.filter(Boolean) : ['Your text', 'here!'],
+        lines: lines.length > 0 ? lines : ['Your text', 'here!'],
         accentIndex: customAccent,
-      }
-    : useCase.headlines.find((h) => h.id === headlineId) || useCase.headlines[0];
+      };
+    }
+    return useCase.headlines.find((h) => h.id === headlineId) || useCase.headlines[0];
+  }, [useCase, customLines, customAccent, headlineId]);
 
   // Ridisegno a ogni cambio stato: unica pipeline preview/export
   const redraw = useCallback(async () => {
@@ -397,7 +417,7 @@ export default function CardGenerator({ scope = 'public' }) {
                 <input
                   key={i}
                   type='text'
-                  maxLength={20}
+                  maxLength={40}
                   placeholder={i === 0 ? 'First line' : 'Second line'}
                   value={customLines[i] || ''}
                   onChange={(e) =>
@@ -429,7 +449,7 @@ export default function CardGenerator({ scope = 'public' }) {
         )}
 
         <div className='mt-6 space-y-4'>
-          {useCase.fields.map((field) => (
+          {visibleFields.map((field) => (
             <label key={field.id} className='block'>
               <span className='text-sm font-bold uppercase tracking-wide text-ink'>{field.label}</span>
               <input

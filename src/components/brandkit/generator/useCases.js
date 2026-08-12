@@ -92,7 +92,7 @@ export const USE_CASES = [
       "We're a proud sponsor of Cloud Native Days Italy 2027, two days of cloud native talks, workshops and community in Bologna on 20 May. cloudnativedaysitaly.org #CNDItaly",
     fields: [
       { id: 'org', label: 'Company name', placeholder: 'ACME Corp', max: 50 },
-      { id: 'tier', label: 'Tier label', placeholder: 'GOLD', max: 20 },
+      { id: 'tier', label: 'Badge label', placeholder: 'GOLD SPONSOR', max: 28 },
     ],
     media: { type: 'logo', label: 'Company logo' },
   },
