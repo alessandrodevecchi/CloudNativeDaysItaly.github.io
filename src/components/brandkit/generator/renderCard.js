@@ -405,64 +405,103 @@ export async function renderCard(canvas, state) {
   const lineH = 1.02;
   ctx.textBaseline = 'top';
 
-  const headlineFits = headline.lines.map((line, i) => ({
-    accent: i === headline.accentIndex,
-    fit: fitText(ctx, line.toUpperCase(), {
-      maxW: layout.headline.maxW,
-      size: layout.headline.size,
-      // Sotto questa soglia si va a capo invece di rimpicciolire ancora:
-      // in landscape conviene ridurre, sui verticali c'è spazio per le righe.
-      minSize: Math.round(layout.headline.size * (layout.headline.minScale ?? 0.5)),
-      maxLines: 3,
-      font: fonts.display,
-    }),
-  }));
-  const nameFit = texts.primary
-    ? fitText(ctx, texts.primary, {
-        maxW: layout.headline.maxW,
-        size: layout.name.size,
-        minSize: Math.round(layout.name.size * 0.6),
-        font: fonts.sans,
-        weight: '700',
-      })
-    : null;
-  // Righe extra sotto il primario: testo semplice, chip bordata (es. tier
-  // sponsor) o citazione in accent (es. titolo talk)
-  const extras = [];
-  for (const key of ['secondary', 'tertiary']) {
-    const value = texts[key];
-    if (!value) continue;
-    const style = textStyles[key] || 'text';
-    if (style === 'chip') {
-      const chipPx = Math.round(layout.role.size * 0.85);
-      ctx.font = `700 ${chipPx}px ${fonts.sans}`;
-      extras.push({ style, value, px: chipPx, w: ctx.measureText(value.toUpperCase()).width, h: Math.round(chipPx * 2.1) });
-    } else {
-      const fit = fitText(ctx, style === 'quote' ? `“${value}”` : value, {
-        maxW: layout.headline.maxW,
-        size: layout.role.size,
-        minSize: Math.round(layout.role.size * 0.6),
-        font: fonts.sans,
-        weight: style === 'quote' ? '600' : '400',
-      });
-      extras.push({ style, fit, h: fit.lines.length * Math.round(fit.px * 1.3) });
-    }
-  }
-
-  let blockH = 0;
-  for (const { fit } of headlineFits) blockH += fit.lines.length * Math.round(fit.px * lineH);
-  if (nameFit) blockH += Math.round(unit * 0.035) + nameFit.lines.length * Math.round(nameFit.px * 1.25);
-  for (const extra of extras) blockH += extra.h + Math.round(unit * 0.012);
-
   const maxBottom = footerMetrics.top - Math.round(unit * 0.05);
-  // Il blocco sale quando il testo è lungo, ma non oltre il logo: con tre
-  // righe di headline ci finirebbe sotto.
-  const blockTopLimit = layout.logo.y + Math.round(layout.logo.w * 0.4) + Math.round(unit * 0.05);
-  let cursorY = Math.max(blockTopLimit, Math.min(layout.headline.y, maxBottom - blockH));
+  // Il blocco non sale oltre il logo e non scende sotto il footer: quello che
+  // sta in mezzo è tutto lo spazio che ha.
+  const logoBottom = layout.logo.y + Math.round(layout.logo.w * 0.4) + Math.round(unit * 0.05);
+  // In 9:16 la foto sta sopra il testo, non a fianco: il blocco parte sotto
+  // di lei, altrimenti un testo alto le finisce addosso.
+  const photoBottom =
+    photo && layout.photo && format.family === 'story'
+      ? layout.photo.y + layout.photo.size + Math.round(unit * 0.04)
+      : 0;
+  const blockTopLimit = Math.max(logoBottom, photoBottom);
+  const available = maxBottom - blockTopLimit;
+
+  // Misura headline, nome ed extra a una data scala tipografica. Va rifatta
+  // più volte: se il blocco non entra nello spazio disponibile si riduce la
+  // scala e, come ultima spiaggia, il numero di righe concesse alla headline.
+  const measureBlock = (scale, maxLines) => {
+    const headlineSize = Math.max(Math.round(layout.headline.size * scale), 14);
+    const nameSize = Math.max(Math.round(layout.name.size * scale), 12);
+    const roleSize = Math.max(Math.round(layout.role.size * scale), 11);
+
+    const headlineFits = headline.lines.map((line, i) => ({
+      accent: i === headline.accentIndex,
+      fit: fitText(ctx, line.toUpperCase(), {
+        maxW: layout.headline.maxW,
+        size: headlineSize,
+        // Sotto questa soglia si va a capo invece di rimpicciolire ancora:
+        // in landscape conviene ridurre, sui verticali c'è spazio per le righe.
+        minSize: Math.round(headlineSize * (layout.headline.minScale ?? 0.5)),
+        maxLines,
+        font: fonts.display,
+      }),
+    }));
+    const nameFit = texts.primary
+      ? fitText(ctx, texts.primary, {
+          maxW: layout.headline.maxW,
+          size: nameSize,
+          minSize: Math.round(nameSize * 0.6),
+          font: fonts.sans,
+          weight: '700',
+        })
+      : null;
+    // Righe extra sotto il primario: testo semplice, chip bordata (es. tier
+    // sponsor) o citazione in accent (es. titolo talk)
+    const extras = [];
+    for (const key of ['secondary', 'tertiary']) {
+      const value = texts[key];
+      if (!value) continue;
+      const style = textStyles[key] || 'text';
+      if (style === 'chip') {
+        const chipPx = Math.round(roleSize * 0.85);
+        ctx.font = `700 ${chipPx}px ${fonts.sans}`;
+        extras.push({ style, value, px: chipPx, w: ctx.measureText(value.toUpperCase()).width, h: Math.round(chipPx * 2.1) });
+      } else {
+        const fit = fitText(ctx, style === 'quote' ? `“${value}”` : value, {
+          maxW: layout.headline.maxW,
+          size: roleSize,
+          minSize: Math.round(roleSize * 0.6),
+          font: fonts.sans,
+          weight: style === 'quote' ? '600' : '400',
+        });
+        extras.push({ style, fit, h: fit.lines.length * Math.round(fit.px * 1.3) });
+      }
+    }
+
+    const gap = Math.round(unit * 0.035 * scale);
+    let blockH = 0;
+    for (const { fit } of headlineFits) blockH += fit.lines.length * Math.round(fit.px * lineH);
+    if (nameFit) blockH += gap + nameFit.lines.length * Math.round(nameFit.px * 1.25);
+    for (const extra of extras) blockH += extra.h + Math.round(unit * 0.012);
+    if (!nameFit && extras.length > 0) blockH += gap;
+    return { headlineFits, nameFit, extras, blockH, gap };
+  };
+
+  let scale = 1;
+  let maxLines = 3;
+  let block = measureBlock(scale, maxLines);
+  while (block.blockH > available) {
+    if (scale > 0.62) scale = Math.round(scale * 940) / 1000;
+    else if (maxLines > 1) {
+      maxLines -= 1;
+      scale = 1;
+    } else break;
+    block = measureBlock(scale, maxLines);
+  }
+  const { headlineFits, nameFit, extras, blockH, gap } = block;
+
+  let cursorY;
   if (photo && layout.photo && format.family !== 'story') {
     // blocco testo centrato verticalmente rispetto al media
     const mediaCenter = layout.photo.y + layout.photo.size / 2;
     cursorY = Math.max(blockTopLimit, Math.min(mediaCenter - blockH / 2, maxBottom - blockH));
+  } else {
+    // Il blocco resta alla y del layout finché ci sta: più è alto, più sale,
+    // e non passa mai sopra il limite (logo, o foto in 9:16). Il ciclo di
+    // scala qui sopra garantisce che ci entri.
+    cursorY = Math.max(blockTopLimit, Math.min(layout.headline.y, maxBottom - blockH));
   }
 
   for (const { accent, fit } of headlineFits) {
@@ -474,7 +513,7 @@ export async function renderCard(canvas, state) {
     }
   }
   if (nameFit) {
-    cursorY += Math.round(unit * 0.035);
+    cursorY += gap;
     ctx.font = `700 ${nameFit.px}px ${fonts.sans}`;
     ctx.fillStyle = colors.text;
     for (const l of nameFit.lines) {
@@ -482,7 +521,7 @@ export async function renderCard(canvas, state) {
       cursorY += Math.round(nameFit.px * 1.25);
     }
   }
-  if (!nameFit && extras.length > 0) cursorY += Math.round(unit * 0.035);
+  if (!nameFit && extras.length > 0) cursorY += gap;
   for (const extra of extras) {
     if (extra.style === 'chip') {
       const padX = Math.round(extra.px * 0.7);
