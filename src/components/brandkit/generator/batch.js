@@ -149,6 +149,10 @@ export function rowToRenderState(row, mediaByName) {
       formats: formatsFor(row.formats),
       pro: { kind, templateId: template.id, data, options },
       slugSource: kind === 'sponsor' ? row.org : row.name,
+      // Secondo pezzo del nome file: il talk per gli speaker, il badge per
+      // gli sponsor. Serve perché un relatore può avere due talk e uno
+      // sponsor può stare in due tier, e i due file devono distinguersi.
+      slugExtra: kind === 'sponsor' ? row.tier : row.talk,
       // media2: foto del secondo speaker nei template duo. Se manca, il
       // renderer ricade sulla prima foto con due crop diversi.
       state: { photo: mediaFor(row.media), photo2: mediaFor(row.media2) },
@@ -215,6 +219,22 @@ export function rowToRenderState(row, mediaByName) {
       colorway,
     },
   };
+}
+
+// Nome del PNG, uguale per il pannello batch e per lo script da riga di
+// comando: `cnd2027-<usecase>[-<template>]-<soggetto>[-<extra>]-<formato>.png`
+export function cardFilename({ useCaseId, templateId, slug, extra, formatId }) {
+  const parts = ['cnd2027', useCaseId, templateId, slug, extra, formatId].filter(Boolean);
+  return `${parts.join('-')}.png`;
+}
+
+// Slug corto: taglia sull'ultimo trattino utile per non spezzare una parola
+export function shortSlug(text, maxLength = 34) {
+  const slug = slugify(text, '');
+  if (!slug || slug.length <= maxLength) return slug;
+  const cut = slug.slice(0, maxLength);
+  const lastDash = cut.lastIndexOf('-');
+  return lastDash > maxLength * 0.5 ? cut.slice(0, lastDash) : cut;
 }
 
 export function slugify(text, fallback) {

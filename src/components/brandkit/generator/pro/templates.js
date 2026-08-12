@@ -35,6 +35,21 @@ import {
    la stessa card serve "GOLD SPONSOR", "MEDIA PARTNER" o "HOST". Fino a 20
    caratteri resta alla size approvata, oltre si riduce in proporzione per
    non uscire dalla card. */
+/* ── Logo sponsor: la larghezza nominale è quella del layout, ma un logo
+   quadrato o verticale la supererebbe in altezza e uscirebbe dal pannello.
+   Qui si tiene la larghezza finché l'altezza sta nel box, poi si scala per
+   altezza. Centrato su (cx, cy). */
+function drawSponsorLogo(ctx, logo, cx, cy, targetW, maxH) {
+  const ratio = (logo.naturalHeight || logo.height || 1) / (logo.naturalWidth || logo.width || 1);
+  let w = targetW;
+  let h = w * ratio;
+  if (h > maxH) {
+    h = maxH;
+    w = h / ratio;
+  }
+  ctx.drawImage(logo, cx - w / 2, cy - h / 2, w, h);
+}
+
 const badgeSize = (text, base) =>
   text.length <= 20 ? base : Math.max(Math.round((base * 20) / text.length), Math.round(base * 0.62));
 
@@ -583,8 +598,14 @@ export function sponsorPopCream(ctx, A, P = SPONSOR, F = FORMATS.portrait, palet
   ctx.strokeStyle = C.ink;
   ctx.lineWidth = 6;
   ctx.strokeRect(L.cardX + 3, L.cardY + 3, L.cardW - 6, L.cardH - 6);
-  const logoRatio = A.sponsorLogo.naturalHeight / A.sponsorLogo.naturalWidth;
-  ctx.drawImage(A.sponsorLogo, L.cardX + (L.cardW - L.logoW) / 2, L.cardY + L.cardH / 2 - (L.logoW * logoRatio) / 2, L.logoW, L.logoW * logoRatio);
+  drawSponsorLogo(
+    ctx,
+    A.sponsorLogo,
+    L.cardX + L.cardW / 2,
+    L.cardY + L.cardH / 2,
+    L.logoW,
+    L.cardH * 0.74,
+  );
   stamp(ctx, P.tier, L.stampX, L.cardY - 40, { size: badgeSize(P.tier, 48), rot: 0.05, fill: C.yellow });
   // pizza punta al tier stamp (in landscape sta a sinistra dello stamp,
   // per non finire dentro la banda ink con la data)
@@ -635,8 +656,7 @@ export function sponsorFacetsRealBg(ctx, A, P = SPONSOR, F = FORMATS.portrait) {
   ctx.strokeStyle = C.ink;
   ctx.lineWidth = 6;
   ctx.strokeRect(-L.panelW / 2 + 3, -L.panelH / 2 + 3, L.panelW - 6, L.panelH - 6);
-  const logoRatio = A.sponsorLogo.naturalHeight / A.sponsorLogo.naturalWidth;
-  ctx.drawImage(A.sponsorLogo, -L.logoW / 2, (-L.logoW * logoRatio) / 2, L.logoW, L.logoW * logoRatio);
+  drawSponsorLogo(ctx, A.sponsorLogo, 0, 0, L.logoW, L.panelH * 0.74);
   ctx.restore();
   // tier stamp sovrapposto all'angolo alto-destro del pannello
   stamp(ctx, P.tier, L.stampPos[0], L.stampPos[1], { size: badgeSize(P.tier, 52), rot: -0.05, fill: C.yellow });
@@ -744,11 +764,14 @@ export function sponsorTier(ctx, A, P = SPONSOR, F = FORMATS.portrait, opts = {}
   const { W, H, fmt } = F;
   const { bg = 'sponsorSoft', corner = 'bauhaus' } = opts;
   const L = {
-    portrait: { bh: 430, panelW: W * 0.76, panelH: 340, panelCY: H / 2 + 20, logoBox: [W - 350, 70, 250], stampY: 462, logoW: W * 0.5 },
-    square: { bh: 360, panelW: W * 0.78, panelH: 300, panelCY: H / 2 + 10, logoBox: [W - 320, 55, 230], stampY: 355, logoW: W * 0.5 },
-    landscape: { bh: 420, panelW: 1150, panelH: 380, panelCY: H / 2 + 15, logoBox: [W - 380, 60, 270], stampY: 330, logoW: 720 },
-    story: { bh: 430, panelW: W * 0.82, panelH: 400, panelCY: H / 2 - 40, logoBox: [W - 350, 90, 250], stampY: 690, logoW: W * 0.55 },
+    portrait: { bh: 430, panelW: W * 0.76, panelH: 390, panelCY: H / 2 + 20, logoBox: [W - 350, 70, 250], stampGap: 63, logoW: W * 0.5 },
+    square: { bh: 360, panelW: W * 0.78, panelH: 345, panelCY: H / 2 + 10, logoBox: [W - 320, 55, 230], stampGap: 45, logoW: W * 0.5 },
+    landscape: { bh: 420, panelW: 1150, panelH: 425, panelCY: H / 2 + 15, logoBox: [W - 380, 60, 270], stampGap: 35, logoW: 720 },
+    story: { bh: 430, panelW: W * 0.82, panelH: 450, panelCY: H / 2 - 40, logoBox: [W - 350, 90, 250], stampGap: 30, logoW: W * 0.55 },
   }[fmt];
+  // Il badge sta sopra il bordo alto del pannello: se il pannello cresce, si
+  // alza con lui invece di finirgli dentro.
+  const stampY = L.panelCY - L.panelH / 2 - L.stampGap;
   // base bianca (gli SVG di background hanno opacità) + bg ricolorato
   ctx.fillStyle = C.white;
   ctx.fillRect(0, 0, W, H);
@@ -767,8 +790,7 @@ export function sponsorTier(ctx, A, P = SPONSOR, F = FORMATS.portrait, opts = {}
   ctx.strokeStyle = C.ink;
   ctx.lineWidth = 6;
   ctx.strokeRect(-L.panelW / 2 + 3, -L.panelH / 2 + 3, L.panelW - 6, L.panelH - 6);
-  const logoRatio = A.sponsorLogo.naturalHeight / A.sponsorLogo.naturalWidth;
-  ctx.drawImage(A.sponsorLogo, -L.logoW / 2, (-L.logoW * logoRatio) / 2, L.logoW, L.logoW * logoRatio);
+  drawSponsorLogo(ctx, A.sponsorLogo, 0, 0, L.logoW, L.panelH * 0.74);
   ctx.restore();
   // tier stamp sull'angolo alto-destro del pannello, posizionato in base
   // alla larghezza REALE del testo (PLATINUM/WORKSHOP sono più lunghi)
@@ -776,7 +798,7 @@ export function sponsorTier(ctx, A, P = SPONSOR, F = FORMATS.portrait, opts = {}
   const tierSize = badgeSize(tierText, 52);
   const tw = stampWidth(ctx, tierText, tierSize);
   const stampX = Math.min(W / 2 + L.panelW / 2 - tw + 70, W - 40 - tw);
-  stamp(ctx, tierText, stampX, L.stampY, { size: tierSize, rot: -0.05, fill: C.yellow });
+  stamp(ctx, tierText, stampX, stampY, { size: tierSize, rot: -0.05, fill: C.yellow });
   // data+città (senza venue): stamp basso con più aria attorno al testo
   stamp(ctx, `${P.date} · Bologna`, 80, H - 118, { size: 34, rot: -0.015, pad: 0.8, padY: 0.45 });
   // pizza sotto-sinistra del pannello, punta al CENTRO del box logo

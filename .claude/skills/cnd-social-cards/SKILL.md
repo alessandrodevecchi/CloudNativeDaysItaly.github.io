@@ -112,6 +112,27 @@ Se l'utente fornisce un export Sessionize o un altro formato, converti
 tu in questo CSV (nel dubbio sul template, chiedi o usa `pop-blue` per
 gli speaker e `tier` per gli sponsor).
 
+### Se i dati sono già nel repo
+
+Non costruire il CSV a mano: ci sono due script che lo fanno leggendo i
+frontmatter con gray-matter.
+
+```bash
+node scripts/talks-csv.mjs 2026 --out talks.csv          # un talk per riga
+node scripts/sponsors-csv.mjs 2026 --out sponsors.csv    # un tier per riga
+```
+
+- `talks-csv.mjs`: `--template auto` (default: `pop-blue` per un relatore,
+  `pop-split` per due), `random` (un template diverso per ogni talk, duo
+  garantito dove serve) o un template preciso; `--formats` come la colonna.
+- `sponsors-csv.mjs`: badge completo per tier (`MAIN SPONSOR`, `GOLD
+  SPONSOR`, `TECH PARTNER` per i tech partner) e preset visivo abbinato.
+
+**Perché non a regex**: i titoli dei talk usano scalari YAML a blocco
+(`title: >-` con il testo nelle righe seguenti). Una regex legge `>-` come
+titolo e le card escono col titolo sbagliato senza che nulla vada in
+errore. Se devi leggere quei file per altro, usa gray-matter.
+
 ## 4. Esecuzione
 
 Un comando solo. Lo script apre la pagina di servizio `/brand-kit/card` in
@@ -137,10 +158,15 @@ node scripts/social-cards.mjs --csv /path/to/cards.csv --photos /path/to/foto
   servizio mentre lavora.
 
 Lo script stampa una riga per ogni file scritto, una per ogni notice e una
-per ogni riga fallita, e chiude con il conto dei PNG e la cartella. Se
-serve un altro schema di nomi (per esempio solo nome speaker e formato),
-rinomina i file dopo: i nomi di default sono
-`cnd2027-<usecase>-<template>-<slug>-<formato>.png`.
+per ogni riga fallita, e chiude con il conto dei PNG e la cartella.
+
+I nomi di default sono
+`cnd2027-<usecase>-<template>-<soggetto>-<extra>-<formato>.png`, dove
+l'extra è il talk per gli speaker e il badge per gli sponsor: così un
+relatore con due talk e uno sponsor in due tier producono file distinti e
+riconoscibili. Se per caso due nomi coincidono comunque, al secondo viene
+aggiunto un numero e la cosa è scritta nel riepilogo. Se serve un altro
+schema (per esempio solo nome e formato), rinomina i file dopo.
 
 Il **pannello batch** nella pagina studio fa la stessa cosa dall'interfaccia
 ed esiste per le persone: non serve a te.
@@ -174,7 +200,8 @@ all'immagine.
   centro senza pan (il pan manuale esiste solo per le card attendee).
 - Badge o tier molto lunghi possono stringere i layout più fitti
   (`bauhaus-yellow` in 1:1): verifica visivamente.
-- Loghi sponsor con proporzioni estreme (molto verticali) sono da
-  controllare a occhio.
+- Loghi sponsor: il logo viene ridotto per stare dentro il pannello, quindi
+  uno logo quadrato o verticale esce più piccolo di uno orizzontale. Non
+  sborda più, ma su proporzioni estreme vale un'occhiata.
 - Il logo CND a colori è un PNG dentro un SVG: in attesa del vettoriale
   vero non ingrandirlo oltre le dimensioni dei template.

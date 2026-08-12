@@ -10,7 +10,7 @@
  */
 
 import { useEffect, useState } from 'react';
-import { parseCsv, rowToRenderState, slugify } from './batch';
+import { cardFilename, parseCsv, rowToRenderState, shortSlug, slugify } from './batch';
 import { renderCard } from './renderCard';
 import { renderProCard } from './pro/renderProCard';
 import { resolveFonts, ensureFontsLoaded } from './fonts';
@@ -75,11 +75,10 @@ export default function CardBridge() {
             mediaByName.set(name, await loadMedia(name, mediaBase));
           }
 
-          const { useCaseId, formats, state, pro, slugSource, notices = [] } = rowToRenderState(
-            row,
-            mediaByName,
-          );
+          const { useCaseId, formats, state, pro, slugSource, slugExtra, notices = [] } =
+            rowToRenderState(row, mediaByName);
           const slug = slugify(pro ? slugSource : state.texts?.primary, 'card');
+          const extra = pro ? shortSlug(slugExtra) : '';
 
           const files = [];
           for (const format of formats) {
@@ -99,9 +98,13 @@ export default function CardBridge() {
               await renderCard(canvas, { ...state, format, fonts: loadedFonts });
             }
             files.push({
-              filename: pro
-                ? `cnd2027-${useCaseId}-${pro.templateId}-${slug}-${format.id}.png`
-                : `cnd2027-${useCaseId}-${slug}-${format.id}.png`,
+              filename: cardFilename({
+                useCaseId,
+                templateId: pro?.templateId,
+                slug,
+                extra,
+                formatId: format.id,
+              }),
               dataUrl: canvas.toDataURL('image/png'),
             });
             setPreview(canvas.toDataURL('image/png'));

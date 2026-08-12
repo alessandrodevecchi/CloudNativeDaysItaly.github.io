@@ -9,7 +9,7 @@ import CopyButton from '@/components/brandkit/CopyButton';
 import { renderCard } from './renderCard';
 import { renderProCard } from './pro/renderProCard';
 import { resolveFonts, ensureFontsLoaded } from './fonts';
-import { parseCsv, rowToRenderState, slugify, CSV_TEMPLATE, CSV_TEMPLATE_PRO } from './batch';
+import { cardFilename, parseCsv, rowToRenderState, shortSlug, slugify, CSV_TEMPLATE, CSV_TEMPLATE_PRO } from './batch';
 
 // La strada consigliata è la skill di repo pilotata da un coding agent:
 // questo pannello è la superficie che la skill guida, non l'interfaccia da
@@ -139,9 +139,10 @@ export default function BatchPanel() {
     for (let i = 0; i < totalRows; i++) {
       setProgress(`Row ${i + 1}/${totalRows}…`);
       try {
-        const { useCaseId, formats, state, pro, slugSource, notices: rowNotices = [] } = rowToRenderState(rows[i], mediaByName);
+        const { useCaseId, formats, state, pro, slugSource, slugExtra, notices: rowNotices = [] } = rowToRenderState(rows[i], mediaByName);
         rowNotices.forEach((notice) => notices.push(`Row ${i + 1}: ${notice}`));
         const slug = slugify(pro ? slugSource : state.texts.primary, `row-${i + 1}`);
+        const extra = pro ? shortSlug(slugExtra) : '';
         for (const format of formats) {
           const canvas = document.createElement('canvas');
           if (pro) {
@@ -160,9 +161,13 @@ export default function BatchPanel() {
           }
           const blob = await toBlob(canvas);
           if (!blob) throw new Error('PNG encoding failed');
-          const name = pro
-            ? `cnd2027-${useCaseId}-${pro.templateId}-${slug}-${format.id}.png`
-            : `cnd2027-${useCaseId}-${slug}-${format.id}.png`;
+          const name = cardFilename({
+            useCaseId,
+            templateId: pro?.templateId,
+            slug,
+            extra,
+            formatId: format.id,
+          });
           await saveBlob(blob, name);
           generated++;
         }
