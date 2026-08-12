@@ -151,7 +151,7 @@ const ComingSoonAgenda = ({ proposalConfig, infoConfig, pastTalks }) => {
                 {pastTalks.length > 0 && (
                     <div className="mt-16">
                         <h2 className="section-heading">From the Archives</h2>
-                        <p className="mt-3 text-lg text-ink-muted">Curious about our sessions? Here's a taste from our past editions.</p>
+                        <p className="mt-3 text-lg text-ink-muted">Curious about our sessions? Here&apos;s a taste from our past editions.</p>
                         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl">
                             {pastTalks.map(talk => (
                                 <Link key={talk.id} href={`/talk/${talk.id}`} className="card-pop block p-4 transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop text-left">

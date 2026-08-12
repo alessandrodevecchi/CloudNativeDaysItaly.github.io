@@ -18,11 +18,9 @@ const CountdownUnit = ({ value, label }) => (
 );
 
 const Hero = ({ data }) => {
-    if (!data) {
-        return null;
-    }
-
-    const targetDate = data.countDown ? new Date(`${data.countDown}+02:00`).getTime() : null;
+    // Gli hook stanno prima di qualsiasi uscita anticipata: `data` mancante
+    // si gestisce dopo, altrimenti l'ordine degli hook cambia tra i render.
+    const targetDate = data?.countDown ? new Date(`${data.countDown}+02:00`).getTime() : null;
 
     const calculateTimeLeft = () => {
         if (!targetDate) return null;
@@ -46,6 +44,10 @@ const Hero = ({ data }) => {
     }, [targetDate]);
 
     const isCountdownActive = targetDate && timeLeft && (timeLeft.days > 0 || timeLeft.hours > 0 || timeLeft.minutes > 0 || timeLeft.seconds > 0);
+
+    if (!data) {
+        return null;
+    }
 
     return (
         <section className="relative overflow-hidden bg-white">
