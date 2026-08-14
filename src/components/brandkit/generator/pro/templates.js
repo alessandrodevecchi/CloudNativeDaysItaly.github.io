@@ -452,6 +452,25 @@ export function speakerBauhausYellow(ctx, A, S = SPEAKER, F = FORMATS.portrait) 
     landscape: { logoBox: [90, 215, 250], badge: [1170, 265], photo: [W - 580, 300, 480], diamond: [W - 145, 900, 170], bitten: [60, 1015, 210], titleY: 430, titleMaxW: 720, titleSize: 92, blockMin: 780, blockMaxW: 700, roleSize: 29, dateStamp: [1340, 850], pizza: [1245, 884], pizzaRight: true },
     story: { logoBox: [80, 380, 270], badge: [W - 60 - stampWidth(ctx, S.badge, 50), 405], photo: [80, 990, 420], diamond: [W - 130, 1120, 180], bitten: [105, 1840, 230], titleY: 630, titleMaxW: 900, titleSize: 110, blockMin: 1480, blockMaxW: W - 160, roleSize: 31, dateStamp: [560, 1740], pizza: [1005, 1782] },
   }[fmt];
+  // In 9:16 la foto sta SOTTO il titolo (negli altri formati è a fianco):
+  // una quarta riga di titolo le finiva addosso. Lo spazio verticale c'è, va
+  // redistribuito: il titolo sale con logo e badge, foto e nomi scendono.
+  if (fmt === 'story') {
+    const titleLines = fitDisplayLines(ctx, S.title, {
+      maxW: L.titleMaxW,
+      size: L.titleSize,
+      maxLines: 4,
+    }).lines.length;
+    const extra = Math.max(0, titleLines - 3) * Math.round(L.titleSize * 1.05);
+    if (extra > 0) {
+      const lift = Math.min(60, extra);
+      L.logoBox = [L.logoBox[0], L.logoBox[1] - lift, L.logoBox[2]];
+      L.badge = [L.badge[0], L.badge[1] - lift];
+      L.titleY -= lift;
+      L.photo = [L.photo[0], L.photo[1] + extra, L.photo[2]];
+      L.blockMin += extra;
+    }
+  }
   ctx.fillStyle = C.yellow;
   ctx.fillRect(0, 0, W, H);
   // strip bauhaus: in landscape due tessere affiancate per non farla troppo alta
