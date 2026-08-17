@@ -147,7 +147,15 @@ export default function ProfileDetail({ profile }) {
               {/* Ruolo e azienda passano da una composizione sola (vedi
                   src/lib/speakerMeta.js): chi scrive i profili può mettere
                   l'azienda dentro `role`, qui non viene ripetuta. L'azienda è
-                  cliccabile solo dove c'è spazio per un link, cioè qui. */}
+                  cliccabile solo dove c'è spazio per un link, cioè qui.
+                  Le etichette dicono perché ci sono due righe: il ruolo è
+                  quello che la persona fa, il community role è ciò per cui è
+                  riconosciuta nella community. */}
+              {(meta.role || meta.company) && (
+                <p className='mt-5 text-xs font-bold uppercase tracking-widest text-ink-muted'>
+                  Role
+                </p>
+              )}
               <p className='text-base sm:text-lg text-brand-blue font-semibold mt-1'>
                 {meta.role}
                 {meta.company && (
@@ -170,8 +178,11 @@ export default function ProfileDetail({ profile }) {
                 )}
               </p>
               {profile.communityRole && (
-                <div className='flex items-center justify-center gap-2 mt-4'>
-                  <p className='text-sm font-semibold text-brand-magenta'>
+                <div className='mt-4'>
+                  <p className='text-xs font-bold uppercase tracking-widest text-ink-muted'>
+                    Community role
+                  </p>
+                  <p className='mt-1 text-sm font-semibold text-brand-magenta'>
                     {profile.communityRole}
                   </p>
                 </div>

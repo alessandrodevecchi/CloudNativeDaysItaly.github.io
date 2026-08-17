@@ -25,7 +25,7 @@ const OUT = process.argv.includes('--out')
 
 const cell = (s) => String(s ?? '').replace(/\|/g, '\\|');
 const CRED =
-  /\b(kubestronaut|ambassador|advocate|tag |champion|comms lead|gde |mvp|cncf|dokc|organizer|co-?founder of)\b/i;
+  /\b(kubestronaut|ambassador|tag |champion|comms lead|gde |mvp|cncf|dokc|organizer|co-?founder of)\b/i;
 // due pezzi "ruolo presso organizzazione" nella stessa stringa
 const MULTI = /(\bat\b|@)[^@|]+\s(&|and|\|)\s/i;
 
@@ -93,7 +93,11 @@ for (const p of profiles) {
   if (meta.rule.startsWith('R1') || meta.rule === 'R0-azienda-davanti') b.A.push(line);
   else if (meta.rule === 'R2-dentro') b.B.push(line);
   else if (meta.rule === 'R3-append' && /\bat\b|@|\|/i.test(role)) b.C.push(line);
-  if (role && CRED.test(role)) b.D.push(line);
+  if (role && CRED.test(role)) {
+    b.D.push(
+      `| \`${p.file}\` | ${cell(p.name)} | ${cell(role)} | ${cell(p.communityRole) || '_vuoto_'} |`,
+    );
+  }
   if (!company || !role) b.E.push(line);
   const url = (p.companyUrl || '').trim();
   if (company && (!url || url === '#')) {
@@ -179,8 +183,9 @@ ${b.C.join('\n') || empty}
 
 ## D. Credenziali dentro il ruolo: da spostare in \`communityRole\`
 
-${head}
-${b.D.join('\n') || empty}
+| file | nome | role attuale | communityRole attuale |
+|---|---|---|---|
+${b.D.join('\n') || '| _nessuno_ | | | |'}
 
 ## E. Ruolo o azienda mancanti
 
