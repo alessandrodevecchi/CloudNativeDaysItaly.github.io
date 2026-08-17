@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import './PersonCard.css';
+import { speakerMetaText } from '@/lib/speakerMeta';
 
 const PersonCard = ({ person, link }) => (
   <Link href={link} className='person-card-link group'>
@@ -28,9 +29,9 @@ const PersonCard = ({ person, link }) => (
 
         <div className='person-card-info'>
           <h3 className='person-card-name'>{person.name}</h3>
-          <p className='person-card-role'>
-            {person.role} {person.company && `@${person.company}`}
-          </p>
+          {/* Ruolo e azienda dalla composizione condivisa: qui due incarichi
+              stanno in fila, il terzo non entrerebbe nella card. */}
+          <p className='person-card-role'>{speakerMetaText(person, { max: 2 })}</p>
           {person.communityRole && (
             <p className='person-card-community-role'>{person.communityRole}</p>
           )}

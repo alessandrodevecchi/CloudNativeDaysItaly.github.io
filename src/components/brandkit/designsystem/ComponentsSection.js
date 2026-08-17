@@ -5,7 +5,7 @@ import BrandRings from '@/components/decor/BrandRings';
 import Metrics from '@/components/metrics/metrics';
 import { SessionTypeBadge } from '@/components/agenda/sessionTypes';
 import { DownloadList } from '@/components/brandkit/DownloadButtons';
-import { DsBlock, DsSection, DsToken } from './DsKit';
+import { DsBlock, DsSection, DsStage, DsToken } from './DsKit';
 
 /*
  * Componenti. Dove il componente esiste come modulo condiviso lo
@@ -175,6 +175,45 @@ export default function ComponentsSection() {
         </div>
         <p className='mt-3 text-sm text-ink-muted'>
           Component: <DsToken>src/components/metrics/metrics.js</DsToken>
+        </p>
+      </DsBlock>
+
+      <DsBlock
+        title='Speaker: role, company, credentials'
+        rule='One composition for the whole site: whoever fills a profile can write the company inside the role, it is never repeated. In cards and lists everything is grey, because those surfaces are dense. The profile page is the only place with colour, and the only place where magenta marks a recognition of the person instead of an action.'
+      >
+        <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+          <DsStage label='Cards, agenda, talk page: all grey, two roles at most'>
+            <div className='text-center'>
+              <p className='text-xl font-bold text-ink'>Eleni Grosdouli</p>
+              <p className='mt-1 text-sm text-ink-muted'>
+                DevOps Consulting Engineer @Cisco Systems
+              </p>
+              <p className='mt-1 text-[0.8rem] font-semibold text-ink-muted'>Kubestronaut</p>
+            </div>
+          </DsStage>
+          <DsStage label='Profile page: labelled, blue role, magenta credential'>
+            <div className='text-center'>
+              <p className='text-xl font-bold text-ink'>Eleni Grosdouli</p>
+              <p className='mt-4 text-xs font-bold uppercase tracking-widest text-ink-muted'>
+                Role
+              </p>
+              <p className='mt-1 font-semibold text-brand-blue'>
+                DevOps Consulting Engineer{' '}
+                <span className='underline decoration-brand-blue/30 decoration-2 underline-offset-4'>
+                  @Cisco Systems
+                </span>
+              </p>
+              <p className='mt-4 text-xs font-bold uppercase tracking-widest text-ink-muted'>
+                Community role
+              </p>
+              <p className='mt-1 text-sm font-semibold text-brand-magenta'>Kubestronaut</p>
+            </div>
+          </DsStage>
+        </div>
+        <p className='mt-3 text-sm text-ink-muted'>
+          Composition: <DsToken>src/lib/speakerMeta.js</DsToken>. The company is a link only
+          on the profile page, and only when the profile carries a real URL.
         </p>
       </DsBlock>
 

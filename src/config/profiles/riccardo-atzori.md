@@ -3,7 +3,7 @@ id: "riccardo-atzori"
 name: "Riccardo Atzori"
 role: "Cloud Architect"
 company: "Vittoria Assicurazioni"
-companyUrl: "#"
+companyUrl: "https://www.vittoriaassicurazioni.com/"
 image: "/images/profiles/riccardo-atzori.webp"
 linkedin: ""
 ---

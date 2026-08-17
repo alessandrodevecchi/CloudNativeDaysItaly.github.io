@@ -114,6 +114,30 @@ Regola "superfici colorate, atomi neutri": colore in blocchi grandi (bande, card
 - Break agenda: cream con icona magenta (`Rocket` welcome, `Sunset` closing, `Pizza` aperitivo, `Gem` platinum keynote, `Coffee`/`Utensils`/`Clock` standard).
 - Badge stato: giallo = attivo/on sale, bianco+blu = upcoming, grigio = chiuso.
 
+## Speaker: ruolo, azienda, credenziali
+
+Composizione unica in `src/lib/speakerMeta.js`, usata da agenda, dettaglio
+talk, griglie, pagina profilo e card social: chi compila i profili può
+scrivere l'azienda dentro `role`, la resa non la ripete. Chi ha due
+incarichi usa la lista `roles`.
+
+- **Card e liste** (`PersonCard`, griglia speaker, agenda, dettaglio talk):
+  ruolo, azienda e credenziali tutti in `ink-muted`. Nessun colore: sono
+  superfici dense, il colore andrebbe a competere con i tag di sessione.
+  Al massimo due incarichi, separati da ` · `; sulle card social solo il primo.
+- **Pagina profilo**: ruolo in `brand-blue`, azienda cliccabile quando il
+  profilo ha un `companyUrl` vero (`#` conta come assente), credenziali in
+  **`brand-magenta`**. È l'unico posto del sito dove il magenta non segna
+  un'azione ma un **riconoscimento della persona** (Kubestronaut, ambassador,
+  TAG lead): eccezione dichiarata, non un precedente per altri usi.
+- **Etichette**: sopra ogni blocco un occhiello minuscolo in `ink-muted`
+  (`text-xs uppercase tracking-widest`), "Role" o "Roles" e "Community role".
+  Servono a dire perché ci sono due righe diverse, e compaiono solo quando il
+  campo c'è.
+
+Il ruolo è lo scatto al momento della call for papers: si aggiorna quando la
+persona ripropone un talk, non si insegue.
+
 ## Layout sezioni
 
 - Container: `max-w-[1200px] mx-auto px-6` (wireframe: contenuto a 120px su 1440 → 1200 utile).

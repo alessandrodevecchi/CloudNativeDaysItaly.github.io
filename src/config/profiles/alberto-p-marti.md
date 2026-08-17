@@ -1,9 +1,13 @@
 ---
 id: "alberto-p-marti"
 name: "Alberto P. Marti"
-role: "VP of Open Source Innovation at OpenNebula Systems & Chair of the Industry Facilitation Group of the IPCEI-CIS"
-company: "OpenNebula Systems"
-companyUrl: "https://opennebula.io/"
+roles:
+  - role: "VP of Open Source Innovation"
+    company: "OpenNebula Systems"
+    companyUrl: "https://opennebula.io/"
+  - role: "Chair of the Industry Facilitation Group of the IPCEI-CIS"
+    company: "8ra Cloud-Edge Continuum"
+    companyUrl: "https://www.8ra.com/"
 image: "/images/profiles/AlbertoPMarti.webp"
 linkedin: "https://www.linkedin.com/in/albertomarti/"
 ---

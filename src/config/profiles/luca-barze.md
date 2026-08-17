@@ -3,7 +3,7 @@ id: "luca-barze"
 name: "Luca Barzè"
 role: "Solution Architect"
 company: "SUSE"
-companyUrl: "#"
+companyUrl: "https://www.suse.com/"
 image: "/images/profiles/luca-barze.webp"
 linkedin: "https://www.linkedin.com/in/barze/"
 ---

@@ -1,7 +1,7 @@
 ---
 id: "riccardo-capraro"
 name: "Riccardo Capraro"
-role: "Freelancer - DevOps, Cloud & Platform Engineer - From Paper to Production"
+role: "DevOps, Cloud & Platform Engineer - From Paper to Production"
 company: "Freelancer"
 companyUrl: "https://riccardocapraro.com/"
 image: "/images/profiles/riccardo-capraro.webp"

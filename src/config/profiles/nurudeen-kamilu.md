@@ -1,9 +1,10 @@
 ---
 id: "nurudeen-kamilu"
 name: "Nurudeen Kamilu"
-role: "Senior Systems Engineer | Kubestronaut | Championing Reliable Container Infrastructure"
+role: "Senior Systems Engineer"
 company: "Visa"
-companyUrl: "#"
+communityRole: "Kubestronaut | Championing Reliable Container Infrastructure"
+companyUrl: "https://www.visa.com/en-us"
 image: "/images/profiles/nurudeen-kamilu.webp"
 linkedin: "https://www.linkedin.com/in/nurudeen-kamilu/"
 ---

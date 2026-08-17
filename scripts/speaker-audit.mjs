@@ -15,7 +15,7 @@
 import matter from 'gray-matter';
 import { readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { composeSpeakerMeta, looseName } from '../src/lib/speakerMeta.js';
+import { composeSpeakerMeta, looseName, speakerMetaText, speakerRoles } from '../src/lib/speakerMeta.js';
 
 const DIR = 'src/config/profiles';
 const SPONSORS = 'src/config/sponsors';
@@ -56,57 +56,13 @@ const URL_PROPOSALS = {
 };
 
 /*
- * Decisioni prese con Alessandro sul file annotato del 2026-08-17
- * (copia in context/SPEAKER-DATA-CLEANUP-annotato-2026-08-17.md).
- * `roles` è la lista dei ruoli voluti, `community` il community role, `note`
- * quello che resta da decidere. Finché i .md non sono aggiornati, la colonna
- * "da fare" della tabella complessiva mostra questi valori come obiettivo.
+ * Decisioni prese con Alessandro sul file annotato del 2026-08-17 e applicate
+ * ai profili il 2026-08-18: la mappa è vuota perché non resta niente da fare.
+ * Lo storico sta in context/SPEAKER-DATA-CLEANUP-annotato-2026-08-17.md e nel
+ * commit che ha toccato i .md. Se nasce una nuova decisione da ricordare
+ * finché il dato non è sistemato, si aggiunge qui.
  */
-const DECISIONS = {
-  'alberto-p-marti.md': {
-    roles: [
-      { role: 'VP of Open Source Innovation', company: 'OpenNebula Systems', url: 'https://opennebula.io/' },
-      { role: 'Chair of the Industry Facilitation Group of the IPCEI-CIS', company: '8ra Cloud-Edge Continuum', url: 'https://www.8ra.com/' },
-    ],
-    community: null,
-  },
-  'eleni-grosdouli.md': {
-    roles: [{ role: 'DevOps Consulting Engineer', company: 'Cisco Systems' }],
-    community: 'Kubestronaut',
-    note: 'la grafia giusta è Kubestronaut (non Kubeastronaut)',
-  },
-  'graziano-casto.md': {
-    roles: [{ role: 'Developer Relations Engineer', company: 'Akamas' }],
-    community: 'Tech Lead @ CNCF TAG DevEx | Kubernetes v1.35 Comms Lead',
-  },
-  'jonathan-battiato.md': {
-    roles: [{ role: 'Senior SDE', company: 'EDB' }],
-    community: 'DoKC Ambassador',
-  },
-  'gregorio-palama.md': {
-    roles: [{ role: 'Senior Enterprise Architect', company: 'adesso.it' }],
-    community: 'GDE Cloud | Community Manager @ GDG Pescara',
-    note: 'GDE è una credenziale Google, non un titolo in adesso: proposta di spostarla nel community role. Da confermare',
-  },
-  'nurudeen-kamilu.md': {
-    roles: [{ role: 'Senior Systems Engineer', company: 'Visa' }],
-    community: 'Kubestronaut',
-    note: '"Championing Reliable Container Infrastructure" è uno slogan, non una credenziale: meglio in bio. Da confermare',
-  },
-  'serena-sensini.md': {
-    roles: [
-      { role: 'Innovation & Emerging Technologies Leader', company: 'Dedalus spa', url: 'https://www.dedalus.com/global/en/' },
-      { role: 'Author and Founder', company: 'TheRedCode', url: 'https://theredcode.it/' },
-    ],
-    community: null,
-    note: 'nel dato attuale "Techlogies" è un typo per "Technologies"',
-  },
-  'flavia-paganelli.md': {
-    roles: [{ role: 'CTO & Co-Founder', company: 'Aknostic', url: 'https://www.aknostic.com/' }],
-    community: 'CNCF TAG Env Tech Lead',
-    note: '"Co-Founder" non è deducibile dai dati del repo: confermare',
-  },
-};
+const DECISIONS = {};
 
 const profiles = [];
 for (const file of (await readdir(DIR)).filter((f) => f.endsWith('.md')).sort()) {
@@ -153,13 +109,15 @@ const targetOf = (file) => {
   return parts.join('. ');
 };
 for (const p of profiles) {
-  const role = (p.role || '').trim();
-  const company = (p.company || '').trim();
+  // chi ha più incarichi usa `roles`: il ruolo singolo non esiste ed è giusto così
+  const multi = Array.isArray(p.roles) && p.roles.length > 0;
+  const role = multi ? p.roles.map((r) => r.role).join(' + ') : (p.role || '').trim();
+  const company = multi ? p.roles.map((r) => r.company).join(' + ') : (p.company || '').trim();
   const meta = composeSpeakerMeta(p);
-  const shown = [meta.role, meta.company && `@${meta.company}`].filter(Boolean).join(' ');
+  const shown = speakerMetaText(p);
   const line = `| \`${p.file}\` | ${cell(p.name)} | ${cell(role) || '_vuoto_'} | ${cell(company) || '_vuoto_'} | ${cell(shown) || '_vuoto_'} |`;
 
-  if (MULTI.test(role)) b.multi.push(line);
+  if (!multi && MULTI.test(role)) b.multi.push(line);
   if (meta.rule.startsWith('R1') || meta.rule === 'R0-azienda-davanti') b.A.push(line);
   else if (meta.rule === 'R2-dentro') b.B.push(line);
   else if (meta.rule === 'R3-append' && /\bat\b|@|\|/i.test(role)) b.C.push(line);
@@ -168,9 +126,9 @@ for (const p of profiles) {
       `| \`${p.file}\` | ${cell(p.name)} | ${cell(role)} | ${cell(p.communityRole) || '_vuoto_'} |`,
     );
   }
-  if (!company || !role) b.E.push(line);
-  const url = (p.companyUrl || '').trim();
-  if (company && (!url || url === '#')) {
+  if (!multi && (!company || !role)) b.E.push(line);
+  const url = multi ? 'multi' : (p.companyUrl || '').trim();
+  if (!multi && company && (!url || url === '#')) {
     const key = looseName(company);
     const fromRepo = knownUrls.has(key) ? [...knownUrls.get(key)].join(' , ') : '';
     const proposal = URL_PROPOSALS[key];

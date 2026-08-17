@@ -3,7 +3,7 @@ id: "luca-de-carne"
 name: "Luca De Carne"
 role: "Platform Engineer"
 company: "ReeVo"
-companyUrl: "#"
+companyUrl: "https://www.reevo.it/"
 image: "/images/profiles/luca-de-carne.webp"
 linkedin: "https://www.linkedin.com/in/luca-de-carne"
 ---

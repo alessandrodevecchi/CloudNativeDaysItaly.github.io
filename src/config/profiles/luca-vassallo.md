@@ -3,7 +3,7 @@ id: "luca-vassallo"
 name: "Luca Vassallo"
 role: "IT Eyecare - DevOps & Java Tech Lead"
 company: "EssilorLuxottica"
-companyUrl: "#"
+companyUrl: "https://www.essilorluxottica.com/"
 image: "/images/profiles/luca-vassallo.webp"
 linkedin: "https://www.linkedin.com/in/luca-vassallo/"
 ---

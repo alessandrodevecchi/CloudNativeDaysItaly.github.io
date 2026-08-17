@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import Link from 'next/link';
 import { Youtube, FileText, Tag, ChevronLeft, Calendar, PlayCircle } from 'lucide-react';
+import { speakerMetaText } from '@/lib/speakerMeta';
 
 const getYouTubeEmbedUrl = (url) => {
     if (!url) return null;
@@ -102,7 +103,7 @@ export default function TalkDetail({ talk }) {
                                             <img src={speaker.image} alt={speaker.name} className="w-14 h-14 rounded-full object-cover border border-ink"/>
                                             <div>
                                                 <p className="font-bold text-ink group-hover:text-brand-blue transition-colors">{speaker.name}</p>
-                                                <p className="text-sm text-ink-muted">{speaker.role} @{speaker.company}</p>
+                                                <p className="text-sm text-ink-muted">{speakerMetaText(speaker, { max: 2 })}</p>
                                             </div>
                                         </Link>
                                     ))}

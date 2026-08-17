@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import { notFound } from 'next/navigation';
 import config from "@/config/website.json";
 import ProfileDetail from '@/components/profiles/ProfileDetail';
+import { speakerMetaText } from '@/lib/speakerMeta';
 
 export async function generateStaticParams() {
     const profilesDir = path.join(process.cwd(), 'src', 'config', 'profiles');
@@ -132,7 +133,7 @@ export default async function ProfilePage({ params }) {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": profileData.name,
-        "jobTitle": profileData.role,
+        "jobTitle": speakerMetaText(profileData),
         "image": imageUrl,
         "url": `${siteUrl}/profile/${profileData.id}`,
         "worksFor": profileData.company ? {

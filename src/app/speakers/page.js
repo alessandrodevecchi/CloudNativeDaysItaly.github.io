@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import SpeakersList from "@/components/speakers/speakers-list";
 import config from "@/config/website.json";
+import { speakerMetaText } from '@/lib/speakerMeta';
 
 export const metadata = {
     title: "Cloud Native Days Italy 2025 - Speakers",
@@ -54,7 +55,7 @@ export default async function SpeakersPage() {
             item: {
                 "@type": "Person",
                 name: speaker.name,
-                jobTitle: speaker.role,
+                jobTitle: speakerMetaText(speaker),
                 worksFor: speaker.company ? { "@type": "Organization", name: speaker.company } : undefined,
                 image: speaker.image,
                 url: `https://cloudnativedaysitaly.org/profile/${speaker.id}`,

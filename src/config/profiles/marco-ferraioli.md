@@ -3,7 +3,7 @@ id: "marco-ferraioli"
 name: "Marco Ferraioli"
 role: "Platform Architect"
 company: "ReeVo"
-companyUrl: "#"
+companyUrl: "https://www.reevo.it/"
 image: "/images/profiles/marco-ferraioli.webp"
 linkedin: "https://www.linkedin.com/in/marcoferraioli93"
 ---

@@ -3,7 +3,7 @@ id: "andrea-vivaldi"
 name: "Andrea Vivaldi"
 role: "Sr Customer Solution Architect"
 company: "Sysdig"
-companyUrl: "#"
+companyUrl: "https://sysdig.com/"
 image: "/images/profiles/andrea-vivaldi.webp"
 linkedin: "https://www.linkedin.com/in/andreavivaldi/"
 ---

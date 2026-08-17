@@ -1,9 +1,10 @@
 ---
 id: "gregorio-palama"
 name: "Gregorio Palamà"
-role: "GDE Cloud | Senior Enterprise Architect | Community Manager @ GDG Pescara"
+role: "Senior Enterprise Architect"
 company: "adesso.it"
-companyUrl: "#"
+communityRole: "GDE Cloud | Community Manager @ GDG Pescara"
+companyUrl: "https://www.adesso.it/"
 image: "/images/profiles/gregorio-palama.webp"
 linkedin: "https://it.linkedin.com/in/gregorio-palam%C3%A0"
 ---

@@ -1,8 +1,9 @@
 ---
 id: "jonathan-battiato"
 name: "Jonathan Battiato"
-role: "EDB Senior SDE | DoKC Ambassador"
+role: "Senior SDE"
 company: "EDB"
+communityRole: "DoKC Ambassador"
 companyUrl: "https://www.enterprisedb.com/"
 image: "/images/profiles/jonathan-battiato.webp"
 linkedin: "https://www.linkedin.com/in/jonathanbattiato/"

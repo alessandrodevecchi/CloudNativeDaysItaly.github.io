@@ -1,8 +1,9 @@
 ---
 id: "eleni-grosdouli"
 name: "Eleni Grosdouli"
-role: "DevOps Consulting Engineer @ Cisco Solutions GmbH | Kubestronaut"
+role: "DevOps Consulting Engineer"
 company: "Cisco Systems"
+communityRole: "Kubestronaut"
 companyUrl: "https://www.cisco.com/"
 image: "/images/profiles/eleni-grosdouli.webp"
 linkedin: "https://www.linkedin.com/in/eleni-grosdouli-85a1a5116"

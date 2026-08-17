@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { companyHref, composeSpeakerMeta, COMPANY_SEPARATOR } from '@/lib/speakerMeta';
+import { speakerRoles, COMPANY_SEPARATOR } from '@/lib/speakerMeta';
 import {
   Award,
   Mic,
@@ -122,8 +122,7 @@ const TalkTimelineCard = ({ talk }) => {
 };
 
 export default function ProfileDetail({ profile }) {
-  const meta = composeSpeakerMeta(profile);
-  const companyUrl = companyHref(profile);
+  const roles = speakerRoles(profile);
   const roleColors = {
     'Core Organizer': 'bg-brand-magenta text-white border border-ink',
     Organizer: 'bg-brand-yellow text-ink border border-ink',
@@ -151,32 +150,37 @@ export default function ProfileDetail({ profile }) {
                   Le etichette dicono perché ci sono due righe: il ruolo è
                   quello che la persona fa, il community role è ciò per cui è
                   riconosciuta nella community. */}
-              {(meta.role || meta.company) && (
+              {roles.length > 0 && (
                 <p className='mt-5 text-xs font-bold uppercase tracking-widest text-ink-muted'>
-                  Role
+                  {roles.length > 1 ? 'Roles' : 'Role'}
                 </p>
               )}
-              <p className='text-base sm:text-lg text-brand-blue font-semibold mt-1'>
-                {meta.role}
-                {meta.company && (
-                  <>
-                    {meta.role ? ' ' : ''}
-                    {companyUrl ? (
-                      <a
-                        href={companyUrl}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        className='underline decoration-brand-blue/30 decoration-2 underline-offset-4 transition-colors hover:text-brand-magenta hover:decoration-brand-magenta/40'
-                      >
-                        {COMPANY_SEPARATOR}
-                        {meta.company}
-                      </a>
-                    ) : (
-                      `${COMPANY_SEPARATOR}${meta.company}`
-                    )}
-                  </>
-                )}
-              </p>
+              {roles.map((entry) => (
+                <p
+                  key={`${entry.role}-${entry.company}`}
+                  className='text-base sm:text-lg text-brand-blue font-semibold mt-1'
+                >
+                  {entry.role}
+                  {entry.company && (
+                    <>
+                      {entry.role ? ' ' : ''}
+                      {entry.href ? (
+                        <a
+                          href={entry.href}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='underline decoration-brand-blue/30 decoration-2 underline-offset-4 transition-colors hover:text-brand-magenta hover:decoration-brand-magenta/40'
+                        >
+                          {COMPANY_SEPARATOR}
+                          {entry.company}
+                        </a>
+                      ) : (
+                        `${COMPANY_SEPARATOR}${entry.company}`
+                      )}
+                    </>
+                  )}
+                </p>
+              ))}
               {profile.communityRole && (
                 <div className='mt-4'>
                   <p className='text-xs font-bold uppercase tracking-widest text-ink-muted'>

@@ -3,7 +3,7 @@ id: "chiara-corrado"
 name: "Chiara Corrado"
 role: "Senior Software Engineer"
 company: "Aruba Cloud"
-companyUrl: "#"
+companyUrl: "https://www.cloud.it"
 image: "/images/profiles/chiara-corrado.webp"
 linkedin: "https://linkedin.com/in/chiaracorrado/"
 ---

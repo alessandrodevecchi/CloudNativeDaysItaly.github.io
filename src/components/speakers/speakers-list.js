@@ -14,6 +14,7 @@ import config from '@/config/website.json';
 import C4P_Card from '@/components/actions/C4P_Card';
 import TicketsCard from '@/components/actions/TicketsCard';
 import DecorLayer from '@/components/decor/DecorLayer';
+import { speakerMetaText } from '@/lib/speakerMeta';
 
 const SpeakerCard = ({ speaker }) => (
   <div className='card-pop group relative text-center transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop flex flex-col'>
@@ -35,7 +36,7 @@ const SpeakerCard = ({ speaker }) => (
       </div>
 
       <h3 className='mt-6 text-xl font-bold text-ink'>{speaker.name}</h3>
-      <p className='text-brand-blue font-semibold mt-1 text-sm'>{speaker.role}</p>
+      <p className='mt-1 text-sm text-ink-muted'>{speakerMetaText(speaker, { max: 2 })}</p>
 
       <div className='mt-auto pt-6 flex justify-center gap-5'>
         {speaker.linkedin && (

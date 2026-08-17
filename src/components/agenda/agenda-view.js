@@ -13,6 +13,7 @@ const PlaceholderCard = () => (
 );
 
 import { SESSION_TYPE_STYLES, SESSION_TYPE_ICONS } from './sessionTypes';
+import { speakerMetaText } from '@/lib/speakerMeta';
 
 const SessionCard = ({ session, tracks }) => {
     if (session.type === 'break') {
@@ -56,7 +57,7 @@ const SessionCard = ({ session, tracks }) => {
                         <img src={speaker.image} alt={speaker.name} className="w-8 h-8 rounded-full object-cover border border-ink" />
                         <div>
                             <p className="font-semibold text-sm text-ink group-hover:text-brand-blue">{speaker.name}</p>
-                            <p className="text-xs text-ink-muted">{speaker.role.split('@')[0]}</p>
+                            <p className="text-xs text-ink-muted">{speakerMetaText(speaker, { max: 2 })}</p>
                         </div>
                     </div>
                 ))}

@@ -3,7 +3,7 @@ id: "giorgia-rondinini"
 name: "Giorgia Rondinini"
 role: "Platform Engineer"
 company: "Imola Informatica"
-companyUrl: "#"
+companyUrl: "https://www.imolainformatica.it/"
 image: "/images/profiles/giorgia-rondinini.webp"
 linkedin: "https://it.linkedin.com/in/giorgia-rondinini-b15132288"
 ---

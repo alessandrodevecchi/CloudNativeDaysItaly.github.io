@@ -1,10 +1,14 @@
 ---
 id: "serena-sensini"
 name: "Serena Sensini"
-role: "Innovation & Emerging Techlogies Leader, author and founder@TheRedCode"
-company: "Dedalus spa"
-companyUrl: "https://theredcode.it"
-communityRole: "Writer @Apogeo | Blogger @TheRedCode.it | Codemotion Ambassador"
+roles:
+  - role: "Innovation & Emerging Technologies Leader"
+    company: "Dedalus spa"
+    companyUrl: "https://www.dedalus.com/global/en/"
+  - role: "Author and Founder"
+    company: "TheRedCode"
+    companyUrl: "https://theredcode.it/"
+communityRole: "Writer @Apogeo | Codemotion Ambassador"
 image: "/images/profiles/serena-sensini.webp"
 linkedin: "https://www.linkedin.com/in/serena-sensini/"
 ---

@@ -8,6 +8,12 @@
  * solo nel campo `company`. Chi compila i profili può continuare a scrivere
  * come preferisce: le regole qui sotto evitano la ripetizione.
  *
+ * Chi ha due incarichi usa `roles`, una lista di { role, company, companyUrl }.
+ * Gli altri restano sui campi singoli e non cambia niente per loro.
+ *
+ * Il ruolo è lo scatto al momento della call for papers: si aggiorna quando la
+ * persona ripropone un talk, non si insegue.
+ *
  * Le stesse regole girano in `scripts/speaker-audit.mjs`, che elenca i casi
  * che il codice non può sistemare da sé.
  */
@@ -16,12 +22,10 @@
 // cambiarlo in ' · ' si fa qui e vale per tutte le pagine.
 export const COMPANY_SEPARATOR = '@';
 
-const LEGAL = /\b(gmbh|srl|spa|inc|ltd|llc|bv|sa|ag|group|italia|italy)\b/gi;
+// Separatore tra due incarichi diversi della stessa persona
+export const ROLE_SEPARATOR = ' · ';
 
-// "Azienda" che non è un'azienda: appenderla ("Cloud Engineer @Freelancer")
-// suona sbagliato, e spostarla via dal ruolo perderebbe l'informazione. Si
-// lascia il ruolo come è scritto.
-const GENERIC_COMPANY = /^(freelance|freelancer|independent|self.?employed|libero professionista)$/i;
+const LEGAL = /\b(gmbh|srl|spa|inc|ltd|llc|bv|sa|ag|group|italia|italy)\b/gi;
 
 // Confronto "morbido" tra nomi: ignora maiuscole, accenti, punteggiatura e le
 // forme societarie, così "Liquid Reply" e "Liquid Reply GmbH" combaciano.
@@ -33,23 +37,23 @@ export function looseName(value) {
     .replace(/[^a-z0-9]/g, '');
 }
 
+// L'URL dell'azienda è cliccabile solo se esiste davvero: nei profili storici
+// `#` è usato come segnaposto.
+function href(value) {
+  const url = String(value || '').trim();
+  return url && url !== '#' ? url : null;
+}
+
 /*
- * Ritorna { role, company, rule }: `company` è vuota quando va mostrato solo
- * il ruolo (perché l'azienda è già dentro, o perché non c'è).
+ * Un incarico: { role, company, rule }. `company` è vuota quando va mostrato
+ * solo il ruolo, perché l'azienda è già dentro o perché non c'è.
  */
-export function composeSpeakerMeta(profile = {}) {
-  const role = String(profile.role || '').trim();
-  const company = String(profile.company || '').trim();
+export function composeSpeakerMeta(entry = {}) {
+  const role = String(entry.role || '').trim();
+  const company = String(entry.company || '').trim();
 
   if (!company) return { role, company: '', rule: 'solo-role' };
   if (!role) return { role: '', company, rule: 'solo-company' };
-  if (GENERIC_COMPANY.test(company)) {
-    // se il ruolo non lo dice già, l'etichetta generica resta l'unica cosa da
-    // mostrare accanto: meglio "Freelance" dentro il ruolo, vedi la convenzione
-    return looseName(role).includes(looseName(company))
-      ? { role, company: '', rule: 'generica-dentro' }
-      : { role, company, rule: 'generica-append' };
-  }
 
   const looseCompany = looseName(company);
 
@@ -91,16 +95,31 @@ export function composeSpeakerMeta(profile = {}) {
   return { role, company, rule: 'R3-append' };
 }
 
-// Testo piatto, per i posti che non possono usare due nodi (schema.org, card
-// social, alt text).
-export function speakerMetaText(profile) {
-  const { role, company } = composeSpeakerMeta(profile);
-  return [role, company && `${COMPANY_SEPARATOR}${company}`].filter(Boolean).join(' ');
+/*
+ * Tutti gli incarichi di una persona, già composti:
+ * [{ role, company, href, rule }]. Chi ha un solo incarico ne ha uno.
+ */
+export function speakerRoles(profile = {}) {
+  const entries =
+    Array.isArray(profile.roles) && profile.roles.length > 0
+      ? profile.roles
+      : [{ role: profile.role, company: profile.company, companyUrl: profile.companyUrl }];
+
+  return entries
+    .map((entry) => ({ ...composeSpeakerMeta(entry), href: href(entry.companyUrl) }))
+    .filter((entry) => entry.role || entry.company);
 }
 
-// L'URL dell'azienda è cliccabile solo se esiste davvero: nei profili storici
-// `#` è usato come segnaposto.
-export function companyHref(profile = {}) {
-  const url = String(profile.companyUrl || '').trim();
-  return url && url !== '#' ? url : null;
+/*
+ * Testo piatto, per i posti che non possono usare due nodi (schema.org, card
+ * social, alt text). `max` limita quanti incarichi mostrare: in agenda e nel
+ * dettaglio talk due bastano, sulle card social ne entra uno.
+ */
+export function speakerMetaText(profile, { max = Infinity } = {}) {
+  return speakerRoles(profile)
+    .slice(0, max)
+    .map(({ role, company }) =>
+      [role, company && `${COMPANY_SEPARATOR}${company}`].filter(Boolean).join(' '),
+    )
+    .join(ROLE_SEPARATOR);
 }

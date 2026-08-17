@@ -1,8 +1,8 @@
 ---
 id: "roberto-bandini"
 name: "Roberto Bandini"
-role: "Freelens founder"
-company: "Freelensapp"
+role: "Founder"
+company: "Freelens"
 companyUrl: "https://freelens.app"
 image: "/images/profiles/roberto-bandini.webp"
 linkedin: "https://www.linkedin.com/company/freelensapp/"

@@ -3,7 +3,7 @@ id: "jonathan-gonzalez-v"
 name: "Jonathan Gonzalez V."
 role: "Senior Kubernetes Developer"
 company: "EDB"
-companyUrl: "#"
+companyUrl: "https://www.enterprisedb.com/"
 image: "/images/profiles/jonathan-gonzalez-v.webp"
 linkedin: "https://www.linkedin.com/in/jagonzalezv/"
 ---

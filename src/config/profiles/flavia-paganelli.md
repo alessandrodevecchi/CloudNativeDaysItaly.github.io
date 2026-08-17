@@ -1,8 +1,9 @@
 ---
 id: "flavia-paganelli"
 name: "Flavia Paganelli"
-role: "CNCF TAG Env tech lead & CTO"
+role: "CTO & Co-Founder"
 company: "Aknostic"
+communityRole: "CNCF TAG Env Tech Lead"
 companyUrl: "https://www.aknostic.com/"
 image: "/images/profiles/flavia-paganelli.webp"
 linkedin: "https://www.linkedin.com/in/flaviapaganelli/"
