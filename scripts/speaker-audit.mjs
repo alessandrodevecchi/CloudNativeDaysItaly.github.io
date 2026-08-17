@@ -55,6 +55,59 @@ const URL_PROPOSALS = {
   vittoriaassicurazioni: { url: 'https://www.vittoriaassicurazioni.com/', src: 'da confermare' },
 };
 
+/*
+ * Decisioni prese con Alessandro sul file annotato del 2026-08-17
+ * (copia in context/SPEAKER-DATA-CLEANUP-annotato-2026-08-17.md).
+ * `roles` è la lista dei ruoli voluti, `community` il community role, `note`
+ * quello che resta da decidere. Finché i .md non sono aggiornati, la colonna
+ * "da fare" della tabella complessiva mostra questi valori come obiettivo.
+ */
+const DECISIONS = {
+  'alberto-p-marti.md': {
+    roles: [
+      { role: 'VP of Open Source Innovation', company: 'OpenNebula Systems', url: 'https://opennebula.io/' },
+      { role: 'Chair of the Industry Facilitation Group of the IPCEI-CIS', company: '8ra Cloud-Edge Continuum', url: 'https://www.8ra.com/' },
+    ],
+    community: null,
+  },
+  'eleni-grosdouli.md': {
+    roles: [{ role: 'DevOps Consulting Engineer', company: 'Cisco Systems' }],
+    community: 'Kubestronaut',
+    note: 'la grafia giusta è Kubestronaut (non Kubeastronaut)',
+  },
+  'graziano-casto.md': {
+    roles: [{ role: 'Developer Relations Engineer', company: 'Akamas' }],
+    community: 'Tech Lead @ CNCF TAG DevEx | Kubernetes v1.35 Comms Lead',
+  },
+  'jonathan-battiato.md': {
+    roles: [{ role: 'Senior SDE', company: 'EDB' }],
+    community: 'DoKC Ambassador',
+  },
+  'gregorio-palama.md': {
+    roles: [{ role: 'Senior Enterprise Architect', company: 'adesso.it' }],
+    community: 'GDE Cloud | Community Manager @ GDG Pescara',
+    note: 'GDE è una credenziale Google, non un titolo in adesso: proposta di spostarla nel community role. Da confermare',
+  },
+  'nurudeen-kamilu.md': {
+    roles: [{ role: 'Senior Systems Engineer', company: 'Visa' }],
+    community: 'Kubestronaut',
+    note: '"Championing Reliable Container Infrastructure" è uno slogan, non una credenziale: meglio in bio. Da confermare',
+  },
+  'serena-sensini.md': {
+    roles: [
+      { role: 'Innovation & Emerging Technologies Leader', company: 'Dedalus spa', url: 'https://www.dedalus.com/global/en/' },
+      { role: 'Author and Founder', company: 'TheRedCode', url: 'https://theredcode.it/' },
+    ],
+    community: null,
+    note: 'nel dato attuale "Techlogies" è un typo per "Technologies"',
+  },
+  'flavia-paganelli.md': {
+    roles: [{ role: 'CTO & Co-Founder', company: 'Aknostic', url: 'https://www.aknostic.com/' }],
+    community: 'CNCF TAG Env Tech Lead',
+    note: '"Co-Founder" non è deducibile dai dati del repo: confermare',
+  },
+};
+
 const profiles = [];
 for (const file of (await readdir(DIR)).filter((f) => f.endsWith('.md')).sort()) {
   const { data } = matter(await readFile(path.join(DIR, file), 'utf8'));
@@ -81,7 +134,24 @@ for (const file of (await readdir(SPONSORS)).filter((f) => f.endsWith('.md'))) {
   }
 }
 
-const b = { multi: [], A: [], B: [], C: [], D: [], E: [], F: [], H: [] };
+const b = { multi: [], A: [], B: [], C: [], D: [], E: [], F: [], H: [], I: [], Z: [] };
+
+// Grafie sbagliate o incoerenti nelle credenziali, viste nei dati
+const SPELLING = [{ wrong: /kubeastronaut/i, right: 'Kubestronaut' }];
+
+// Obiettivo per i profili con una decisione presa: serve alla colonna "da fare"
+const targetOf = (file) => {
+  const d = DECISIONS[file];
+  if (!d) return '';
+  const roles = (d.roles || [])
+    .map((r) => `${r.role} @${r.company}${r.url ? ` (${r.url})` : ''}`)
+    .join(' + ');
+  const parts = [];
+  if (roles) parts.push(`role: ${roles}`);
+  parts.push(`community: ${d.community || '_nessuno_'}`);
+  if (d.note) parts.push(`nota: ${d.note}`);
+  return parts.join('. ');
+};
 for (const p of profiles) {
   const role = (p.role || '').trim();
   const company = (p.company || '').trim();
@@ -112,6 +182,19 @@ for (const p of profiles) {
     b.F.push(`| \`${p.file}\` | ${cell(company)} | ${cell(url)} | ${cell(src + extra)} |`);
   }
   if (shown.length > 60) b.H.push(`| \`${p.file}\` | ${shown.length} | ${cell(shown)} |`);
+
+  const community = (p.communityRole || '').trim();
+  if (community) {
+    const wrong = SPELLING.find((rule) => rule.wrong.test(community));
+    b.I.push(
+      `| \`${p.file}\` | ${cell(p.name)} | ${cell(community)} | ${wrong ? `grafia: **${wrong.right}**` : ''} |`,
+    );
+  }
+
+  const target = targetOf(p.file);
+  b.Z.push(
+    `| \`${p.file}\` | ${cell(p.name)} | ${cell(role) || '_vuoto_'} | ${cell(p.communityRole) || '_vuoto_'} | ${cell(company) || '_vuoto_'} | ${cell(shown) || '_vuoto_'} | ${cell(p.communityRole) || '_nessuno_'} | ${cell(target)} |`,
+  );
 }
 
 const head = '| file | nome | role attuale | company | come apparirebbe |\n|---|---|---|---|---|';
@@ -201,6 +284,11 @@ Fonte \`repo\` significa che l'URL è già nel repository (altro profilo con la
 stessa azienda, o la cartella sponsor): quelli si possono applicare senza
 pensarci. \`noto\` sono domini aziendali, \`da confermare\` vanno guardati.
 
+Decisioni del 2026-08-17: la lista è approvata così, con **Visa a
+\`https://www.visa.com/en-us\`** per non finire sul redirect italiano. Restano
+accettate le proposte su Aruba (\`cloud.it\`), Devoteam (\`devoteam.com\`),
+Imola Informatica e Vittoria Assicurazioni.
+
 | file | company | URL proposto | fonte |
 |---|---|---|---|
 ${b.F.join('\n') || '| _nessuno_ | | | |'}
@@ -231,9 +319,31 @@ Solo informativo: riguarda le card social, dove il testo va accorciato caso
 per caso scegliendo cosa dire. **Non** è un motivo per accorciare quello che
 si vede sul sito.
 
+Dopo la pulizia decisa in sezione 0 questa lista si svuota quasi da sola:
+Graziano passa da 95 a 38 caratteri, Nurudeen da 92 a 34, Eleni da 79 a 40,
+Alberto si divide in due ruoli.
+
 | file | lunghezza | testo |
 |---|---|---|
 ${b.H.join('\n') || '| _nessuno_ | | |'}
+
+## I. Community role già presenti
+
+Dodici profili su ${profiles.length}. Utile come vocabolario: le credenziali
+nuove dovrebbero usare la stessa forma di quelle già scritte.
+
+| file | nome | communityRole | nota |
+|---|---|---|---|
+${b.I.join('\n') || '| _nessuno_ | | | |'}
+
+## Z. Tutti i profili, in una vista
+
+Come si vedrà ogni profilo con le regole attuali, e cosa resta da fare nei
+dati. La colonna **da fare** è vuota quando il profilo è a posto.
+
+| file | nome | role nel file | communityRole nel file | company | role reso | community role reso | da fare |
+|---|---|---|---|---|---|---|---|
+${b.Z.join('\n')}
 `;
 
 await writeFile(OUT, md);
