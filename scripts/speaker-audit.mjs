@@ -64,10 +64,34 @@ const URL_PROPOSALS = {
  */
 const DECISIONS = {};
 
+/*
+ * Credenziali che stanno nella bio e non nel campo `communityRole`. La bio
+ * resta com'è: si tratta di copiare il riconoscimento nel campo, così compare
+ * anche nelle card e nella pagina profilo.
+ * Le certificazioni vendor (AWS, Azure, CKAD) NON sono qui: il campo si chiama
+ * community role, e una certificazione è un'altra cosa. Kubestronaut fa
+ * eccezione perché nell'ecosistema CNCF vale come badge di community.
+ */
+const BIO_PROPOSALS = {
+  'artem-lajko.md': 'CNCF Kubestronaut | Platform Engineering Ambassador',
+  'chiara-corrado.md': 'Women Techmakers Ambassador',
+  'evangelista-tragni.md': 'CNCF Kubestronaut | KCD Italy Organizer | vExpert',
+  'francesco-canovai.md': 'CloudNativePG Maintainer',
+  'gabriele-bartolini.md': 'CloudNativePG Co-Founder & Maintainer',
+  'jonathan-gonzalez-v.md': 'CloudNativePG Maintainer',
+  'kevin-dubois.md': 'Java Champion',
+  'mauricio-salatino.md': 'Java Champion | Cloud Native Ambassador',
+  'monica-colangelo.md': 'AWS Hero',
+  'stephane-montri.md': 'CDF Ambassador',
+  'william-rizzo.md': 'CNCF Ambassador | Linkerd Ambassador',
+  'paolo-carta.md': 'CKAD (certificazione, non community role: decidere se tenerla fuori)',
+  'enrico-la-sala.md': 'nessuna: in bio solo certificazioni vendor (AWS, Azure)',
+};
+
 const profiles = [];
 for (const file of (await readdir(DIR)).filter((f) => f.endsWith('.md')).sort()) {
-  const { data } = matter(await readFile(path.join(DIR, file), 'utf8'));
-  profiles.push({ file, ...data });
+  const { data, content } = matter(await readFile(path.join(DIR, file), 'utf8'));
+  profiles.push({ file, ...data, bio: content });
 }
 
 // URL già presenti nel repo, per azienda: servono a riempire i buchi senza inventare
@@ -90,7 +114,10 @@ for (const file of (await readdir(SPONSORS)).filter((f) => f.endsWith('.md'))) {
   }
 }
 
-const b = { multi: [], A: [], B: [], C: [], D: [], E: [], F: [], H: [], I: [], Z: [] };
+const b = { multi: [], A: [], B: [], C: [], D: [], E: [], F: [], H: [], I: [], J: [], K: [], Z: [] };
+
+// frase della bio attorno al riconoscimento, per capire da dove viene la proposta
+const CREDENTIAL = /(kubestronaut|cncf ambassador|[a-z ]*ambassador|community builder|aws hero|google developer expert|java champion|champion|maintainer of [^.,;]*|co-?founder [^.,;]*|organizer|certified [^.,;]*|vexpert)/i;
 
 // Grafie sbagliate o incoerenti nelle credenziali, viste nei dati
 const SPELLING = [{ wrong: /kubeastronaut/i, right: 'Kubestronaut' }];
@@ -146,6 +173,19 @@ for (const p of profiles) {
     const wrong = SPELLING.find((rule) => rule.wrong.test(community));
     b.I.push(
       `| \`${p.file}\` | ${cell(p.name)} | ${cell(community)} | ${wrong ? `grafia: **${wrong.right}**` : ''} |`,
+    );
+  }
+
+  const bio = String(p.bio || '').replace(/\s+/g, ' ').trim();
+  if (!bio) b.K.push(`| \`${p.file}\` | ${cell(p.name)} | ${community ? 'sì' : 'no'} |`);
+  const proposal = BIO_PROPOSALS[p.file];
+  if (proposal && !community) {
+    const found = bio.match(CREDENTIAL);
+    const around = found
+      ? bio.slice(Math.max(0, found.index - 60), found.index + found[0].length + 60).trim()
+      : '';
+    b.J.push(
+      `| \`${p.file}\` | ${cell(p.name)} | ${cell(around ? `...${around}...` : '')} | ${cell(proposal)} |`,
     );
   }
 
@@ -293,6 +333,25 @@ nuove dovrebbero usare la stessa forma di quelle già scritte.
 | file | nome | communityRole | nota |
 |---|---|---|---|
 ${b.I.join('\n') || '| _nessuno_ | | | |'}
+
+## J. Credenziali che stanno nella bio e non nel campo
+
+Trovate leggendo le bio. La bio non si tocca: si copia il riconoscimento in
+\`communityRole\`, così compare anche nelle card. Le certificazioni vendor
+restano fuori: il campo è "community role".
+
+| file | nome | dalla bio | proposta per communityRole |
+|---|---|---|---|
+${b.J.join('\n') || '| _nessuno_ | | | |'}
+
+## K. Profili senza bio
+
+Il file ha solo il frontmatter e nessun testo: la bio non è mai stata
+scritta, non è un errore di resa. La pagina profilo funziona lo stesso.
+
+| file | nome | ha un community role |
+|---|---|---|
+${b.K.join('\n') || '| _nessuno_ | | |'}
 
 ## Z. Tutti i profili, in una vista
 
