@@ -20,11 +20,13 @@ const SpeakerCard = ({ speaker }) => (
   <div className='card-pop group relative text-center transition-all duration-100 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-pop flex flex-col'>
     <div className='p-8 flex-grow flex flex-col items-center'>
       <div className='relative'>
-        <img
-          src={speaker.image || '/images/team/profile.webp'}
-          alt={speaker.name}
-          className='w-32 h-32 rounded-full object-cover mx-auto border-2 border-ink'
-        />
+        <Link href={`/profile/${speaker.id}`} aria-label={`Profile of ${speaker.name}`}>
+          <img
+            src={speaker.image || '/images/team/profile.webp'}
+            alt={speaker.name}
+            className='w-32 h-32 rounded-full object-cover mx-auto border-2 border-ink'
+          />
+        </Link>
         {speaker.isMC && (
           <div
             className='absolute -top-1 -right-1 bg-brand-magenta text-white h-10 w-10 flex items-center justify-center rounded-full border-2 border-ink'
@@ -35,8 +37,20 @@ const SpeakerCard = ({ speaker }) => (
         )}
       </div>
 
-      <h3 className='mt-6 text-xl font-bold text-ink'>{speaker.name}</h3>
+      <h3 className='mt-6 text-xl font-bold text-ink'>
+        <Link
+          href={`/profile/${speaker.id}`}
+          className='transition-colors hover:text-brand-blue'
+        >
+          {speaker.name}
+        </Link>
+      </h3>
       <p className='mt-1 text-sm text-ink-muted'>{speakerMetaText(speaker, { max: 2 })}</p>
+      {/* Stessa scala delle card delle edizioni passate: nome, poi ruolo,
+          poi il riconoscimento, un gradino più leggero. */}
+      {speaker.communityRole && (
+        <p className='mt-1 text-[0.8rem] text-ink-faint'>{speaker.communityRole}</p>
+      )}
 
       <div className='mt-auto pt-6 flex justify-center gap-5'>
         {speaker.linkedin && (

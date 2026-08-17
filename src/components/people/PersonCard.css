@@ -68,12 +68,14 @@
     min-height: 20px;
 }
 
-/* Nelle card ruolo e credenziali stanno sullo stesso piano, entrambi grigi:
-   il colore è riservato alla pagina profilo (vedi docs/design-system.md). */
+/* Scala: nome, poi ruolo, poi il riconoscimento. La credenziale scende di un
+   gradino (più piccola e più chiara) invece di salire in grassetto, che la
+   faceva sembrare più importante del ruolo. Colore solo nella pagina profilo
+   (vedi docs/design-system.md). */
 .person-card-community-role {
     font-size: 0.8rem;
-    font-weight: 600;
-    color: #555555;
+    font-weight: 400;
+    color: #666666;
     margin-top: 0.25rem;
     min-height: 18px;
 }
