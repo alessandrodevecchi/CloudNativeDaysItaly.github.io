@@ -2,7 +2,7 @@
 id: "hossein-salahi"
 name: "Hossein Salahi"
 role: "Tech Lead"
-company: "Liquid Reply"
+company: "Liquid Reply GmbH"
 companyUrl: "https://www.reply.com/liquid-reply/en/"
 image: "/images/profiles/hossein-salahi.webp"
 linkedin: "https://de.linkedin.com/in/hossein-salahi"

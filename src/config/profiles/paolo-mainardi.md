@@ -2,7 +2,7 @@
 id: "paolo-mainardi"
 name: "Paolo Mainardi"
 role: "CTO"
-company: "Sparkfabrik"
+company: "SparkFabrik"
 companyWebsite: ""
 communityRole: "Linux Foundation Europe advisory board member"
 image: "/images/profiles/paolo-mainardi.webp"

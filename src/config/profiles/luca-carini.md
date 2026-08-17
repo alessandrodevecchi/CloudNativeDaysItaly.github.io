@@ -2,7 +2,7 @@
 id: "luca-carini"
 name: "Luca Carini"
 role: "DevOps Engineer"
-company: "Zucchetti"
+company: "Zucchetti SPA"
 companyUrl: "https://www.zucchetti.it"
 image: "/images/profiles/luca-carini.webp"
 linkedin: "https://www.linkedin.com/in/luca-carini-8a178b1b2"

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { companyHref, composeSpeakerMeta, COMPANY_SEPARATOR } from '@/lib/speakerMeta';
 import {
   Award,
   Mic,
@@ -121,6 +122,8 @@ const TalkTimelineCard = ({ talk }) => {
 };
 
 export default function ProfileDetail({ profile }) {
+  const meta = composeSpeakerMeta(profile);
+  const companyUrl = companyHref(profile);
   const roleColors = {
     'Core Organizer': 'bg-brand-magenta text-white border border-ink',
     Organizer: 'bg-brand-yellow text-ink border border-ink',
@@ -141,12 +144,36 @@ export default function ProfileDetail({ profile }) {
               <h1 className='text-2xl sm:text-3xl font-bold text-ink'>
                 {profile.name}
               </h1>
+              {/* Ruolo e azienda passano da una composizione sola (vedi
+                  src/lib/speakerMeta.js): chi scrive i profili può mettere
+                  l'azienda dentro `role`, qui non viene ripetuta. L'azienda è
+                  cliccabile solo dove c'è spazio per un link, cioè qui. */}
               <p className='text-base sm:text-lg text-brand-blue font-semibold mt-1'>
-                {profile.role} {profile.company && `@${profile.company}`}
+                {meta.role}
+                {meta.company && (
+                  <>
+                    {meta.role ? ' ' : ''}
+                    {companyUrl ? (
+                      <a
+                        href={companyUrl}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='underline decoration-brand-blue/30 decoration-2 underline-offset-4 transition-colors hover:text-brand-magenta hover:decoration-brand-magenta/40'
+                      >
+                        {COMPANY_SEPARATOR}
+                        {meta.company}
+                      </a>
+                    ) : (
+                      `${COMPANY_SEPARATOR}${meta.company}`
+                    )}
+                  </>
+                )}
               </p>
               {profile.communityRole && (
-                <div className='flex items-center justify-center gap-2 mt-4 text-ink-muted'>
-                  <p className='text-sm font-medium'>{profile.communityRole}</p>
+                <div className='flex items-center justify-center gap-2 mt-4'>
+                  <p className='text-sm font-semibold text-brand-magenta'>
+                    {profile.communityRole}
+                  </p>
                 </div>
               )}
               <div className='flex justify-center gap-5 mt-6'>

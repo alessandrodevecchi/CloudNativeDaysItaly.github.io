@@ -2,7 +2,7 @@
 id: "stefano-sibilia"
 name: "Stefano Sibilia"
 role: "Cloud Native Engineer"
-company: "Sparkfabrik"
+company: "SparkFabrik"
 companyUrl: "https://www.sparkfabrik.com"
 image: "/images/profiles/stefano-sibilia.webp"
 linkedin: "https://www.linkedin.com/in/stefano-sibilia-4674413/"
