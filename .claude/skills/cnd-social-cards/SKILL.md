@@ -20,7 +20,7 @@ Vale per **una card come per cento**: cambia solo quante righe ha il CSV.
 
 ## 1. Dove vive
 
-- Repo: `~/webdev/CloudNativeDaysItaly.github.io`.
+- Repo: la copia locale di `CloudNativeDaysItaly.github.io`.
 - Pagina pubblica `/brand-kit` (sezione `#generator`): solo card
   pubbliche (attendee conference/workshops, supporting partner).
 - **Pagina interna `/brand-kit/studio`**: tutti gli use case, inclusi
@@ -40,15 +40,14 @@ Vale per **una card come per cento**: cambia solo quante righe ha il CSV.
 ## 2. Preparazione
 
 ```bash
-cd ~/webdev/CloudNativeDaysItaly.github.io
+cd <cartella del repo>
 git branch --show-current   # serve un branch che contenga il generator
 npx next dev -p 3100        # se la porta 3100 è occupata, riusa quel server
 ```
 
-Il generator vive sui branch `feat/card-generator` e
-`feat/content-2027-preview-data`. Se il branch corrente non ha
-`src/components/brandkit/generator/pro/`, fai checkout di
-`feat/card-generator` (chiedi conferma se ci sono modifiche pendenti).
+Il generator vive su `main`. Se il branch corrente non ha
+`src/components/brandkit/generator/pro/`, passa a un branch che lo contenga
+(chiedi conferma se ci sono modifiche pendenti).
 
 Il dev server serve al renderer: le card si disegnano su canvas coi font e
 gli asset del sito. Non serve nient'altro, in particolare **non serve

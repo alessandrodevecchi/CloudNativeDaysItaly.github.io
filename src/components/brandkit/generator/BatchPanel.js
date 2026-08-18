@@ -14,11 +14,10 @@ import { cardFilename, parseCsv, rowToRenderState, shortSlug, slugify, CSV_TEMPL
 // La strada consigliata è la skill di repo pilotata da un coding agent:
 // questo pannello è la superficie che la skill guida, non l'interfaccia da
 // usare a mano.
-// L'URL segue il percorso della skill: oggi il branch del fork, al merge in
-// main dello stesso fork si passa a `.../blob/main/...`, e quando la PR va
-// in upstream si punta a `github.com/CloudNativeDaysItaly/...`.
+// Il link punta alla skill su main del repo dell'evento, come quello al
+// design system in DsKit: risponde dal momento in cui questo codice è in main.
 const SKILL_URL =
-  'https://github.com/alessandrodevecchi/CloudNativeDaysItaly.github.io/blob/feat/card-generator/.claude/skills/cnd-social-cards/SKILL.md';
+  'https://github.com/CloudNativeDaysItaly/CloudNativeDaysItaly.github.io/blob/main/.claude/skills/cnd-social-cards/SKILL.md';
 
 const AGENT_PROMPTS = [
   {
