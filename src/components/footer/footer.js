@@ -117,14 +117,6 @@ export default function Footer({ data, editions = [] }) {
                     Sponsorship
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href='/code-of-conduct'
-                    className='text-gray-400 hover:text-brand-yellow transition-colors'
-                  >
-                    Code of Conduct
-                  </Link>
-                </li>
               </ul>
             </div>
           </div>

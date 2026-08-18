@@ -19,10 +19,11 @@ async function getStaticPages() {
         '/partners',
         '/brand-kit',
         '/brand-kit/design-system',
-        '/code-of-conduct', // Assuming you have this page
     ];
-    // /brand-kit/studio resta fuori: è la versione interna del generator,
-    // noindex e non linkata.
+    // /brand-kit/studio e /brand-kit/card restano fuori: sono le pagine
+    // interne del generator, noindex e non linkate.
+    // /code-of-conduct tornerà quando la pagina esiste: la proposta di testo
+    // è in context/CODE-OF-CONDUCT-PROPOSTA.md, da approvare col team.
 }
 
 async function getDynamicPages(directory, prefix = '') {
