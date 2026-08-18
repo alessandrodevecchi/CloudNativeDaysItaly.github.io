@@ -74,7 +74,45 @@
     ]
   },
   "pictures": {
-    "title": "Pictures"
+    "title": "Pictures",
+    "images": [
+      {
+        "src": "/images/photos/welcome-keynote.webp",
+        "alt": "The main room filling up in front of the Welcome slide"
+      },
+      {
+        "src": "/images/cndteam-2026.webp",
+        "alt": "The 2026 edition, all together for the group photo"
+      },
+      {
+        "src": "/images/photos/workshop-room.webp",
+        "alt": "A hands on workshop, one laptop per person"
+      },
+      {
+        "src": "/images/photos/lunch-break.webp",
+        "alt": "The lunch queue, where half of the conversations happen"
+      },
+      {
+        "src": "/images/cndteam-2025.webp",
+        "alt": "The 2025 edition, all together for the group photo"
+      },
+      {
+        "src": "/images/photos/organizers-photo-frame.webp",
+        "alt": "Organisers behind the photo frame at the welcome desk"
+      },
+      {
+        "src": "/images/photos/networking-break.webp",
+        "alt": "A break between talks, standing tables and open laptops"
+      },
+      {
+        "src": "/images/cndteam-2024.webp",
+        "alt": "The last KCD Italy, in 2024, before the event changed name"
+      },
+      {
+        "src": "/images/photos/swag-and-lanyards.webp",
+        "alt": "Shirts and lanyards ready for the attendees"
+      }
+    ]
   },
   "community": {
     "title": "Made possible by the community",
