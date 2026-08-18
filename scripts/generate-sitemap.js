@@ -14,6 +14,9 @@ async function getStaticPages() {
         '/speakers',
         '/sponsors',
         '/team',
+        '/about',
+        '/faq',
+        '/partners',
         '/brand-kit',
         '/brand-kit/design-system',
         '/code-of-conduct', // Assuming you have this page
