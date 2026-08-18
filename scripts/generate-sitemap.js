@@ -23,7 +23,7 @@ async function getStaticPages() {
     // /brand-kit/studio e /brand-kit/card restano fuori: sono le pagine
     // interne del generator, noindex e non linkate.
     // /code-of-conduct tornerà quando la pagina esiste: la proposta di testo
-    // è in context/CODE-OF-CONDUCT-PROPOSTA.md, da approvare col team.
+    // è in docs/code-of-conduct-proposal.md, da approvare col team.
 }
 
 async function getDynamicPages(directory, prefix = '') {
