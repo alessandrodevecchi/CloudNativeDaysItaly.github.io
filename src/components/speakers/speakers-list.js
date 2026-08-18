@@ -138,7 +138,7 @@ export default function SpeakersList({ speakers }) {
       />
       <div className='relative z-10 mx-auto max-w-[1200px] px-6'>
         <div className='max-w-3xl'>
-          <span className='stamp'>Speakers 2027</span>
+          <span className='stamp'>Speakers {config.general.edition}</span>
           <h1 className='section-heading mt-6'>
             Meet the Experts
           </h1>

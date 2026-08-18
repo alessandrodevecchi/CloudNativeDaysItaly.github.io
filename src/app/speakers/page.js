@@ -5,10 +5,11 @@ import SpeakersList from "@/components/speakers/speakers-list";
 import config from "@/config/website.json";
 import { speakerMetaText } from '@/lib/speakerMeta';
 
+const EVENT = `${config.general.event.name} ${config.general.edition}`;
+
 export const metadata = {
-    title: "Cloud Native Days Italy 2025 - Speakers",
-    description:
-        "Meet the speakers for Cloud Native Days Italy 2025. Industry experts and thought leaders sharing their knowledge and experience in cloud native technologies.",
+    title: `${EVENT} - Speakers`,
+    description: `Meet the speakers for ${EVENT}. Industry experts and thought leaders sharing their knowledge and experience in cloud native technologies.`,
 };
 
 async function getSpeakersData() {

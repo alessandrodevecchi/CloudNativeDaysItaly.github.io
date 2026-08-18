@@ -99,7 +99,11 @@ export default function AgendaView({ agenda }) {
             />
             <div className="relative z-10 mx-auto max-w-[1200px] px-6 py-16 lg:py-24">
                 <div className="max-w-3xl">
-                    <span className="stamp">May 20&ndash;21, 2027</span>
+                    {/* Date a mano finché non sono confermate: `editions/2027.json`
+                        ne dichiara una sola e `agenda.json` porta ancora i giorni
+                        del 2026. Quando il secondo giorno è certo, la fonte diventa
+                        la config e questa riga sparisce. */}
+                    <span className="stamp">May 20-21, 2027</span>
                     <h1 className="section-heading mt-6">Agenda</h1>
                     <p className="mt-4 text-lg text-ink-muted">
                         Explore our schedule of talks, workshops, and networking opportunities. Select a day to view the detailed timeline.

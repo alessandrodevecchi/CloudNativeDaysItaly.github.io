@@ -200,7 +200,8 @@ export default function BrandKitPage() {
                   <span className='text-brand-yellow'>there</span>
                 </p>
                 <p className='mt-4 text-sm font-bold text-white'>
-                  Bologna, 20 May 2027 · cloudnativedaysitaly.org
+                  {config.hero.city.split(',')[0].trim()}, {config.hero.badgeDate} ·{' '}
+                  {config.general.event.website.replace(/^https?:\/\//, '')}
                 </p>
               </div>
             </div>

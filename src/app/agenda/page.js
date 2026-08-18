@@ -85,6 +85,13 @@ async function getAgendaData() {
     return { isReady: true, agenda: agendaConfig };
 }
 
+const EVENT = `${config.general.event.name} ${config.general.edition}`;
+
+export const metadata = {
+    title: `${EVENT} - Agenda`,
+    description: `Talks, workshops and breaks of ${EVENT}: the full schedule, day by day.`,
+};
+
 const ComingSoonAgenda = ({ proposalConfig, infoConfig, pastTalks }) => {
     const now = new Date();
     const startDate = parseISO(proposalConfig.startDate);
@@ -104,7 +111,9 @@ const ComingSoonAgenda = ({ proposalConfig, infoConfig, pastTalks }) => {
             />
             <div className="relative z-10 mx-auto max-w-[1200px] px-6 py-16 lg:py-24">
                 <div className="max-w-3xl">
-                    <span className="stamp">May 20&ndash;21, 2027</span>
+                    {/* Stessa riga di agenda-view.js: date a mano finché il
+                        secondo giorno non è confermato in config. */}
+                    <span className="stamp">May 20-21, 2027</span>
                     <h1 className="section-heading mt-6">
                         Agenda Coming Soon
                     </h1>

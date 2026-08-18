@@ -100,6 +100,18 @@ async function getTalkData(talkId) {
     };
 }
 
+/* La sede sta in `editions/<anno>.json`: il talk sa di che anno è, quindi
+   lo schema.org descrive il posto giusto anche per le edizioni passate. */
+async function getEditionLocation(year) {
+    const editionPath = path.join(process.cwd(), 'src', 'config', 'editions', `${year}.json`);
+    try {
+        const edition = JSON.parse(await fs.readFile(editionPath, 'utf8'));
+        return edition.location || null;
+    } catch {
+        return null;
+    }
+}
+
 export async function generateMetadata({ params }) {
     const { talkId } = await params;
     const talk = await getTalkData(talkId);
@@ -112,7 +124,7 @@ export async function generateMetadata({ params }) {
     const imageUrl = talk.image?.startsWith('http') ? talk.image : `${siteUrl}${talk.image || config.general.event.logo}`;
 
     return {
-        title: `${talk.title} - Cloud Native Days Italy`,
+        title: `${talk.title} - ${config.general.event.name}`,
         description: `${cleanAbstract}...`,
         alternates: {
             canonical: `${siteUrl}/talk/${talk.id}`,
@@ -141,6 +153,12 @@ export default async function TalkPage({ params }) {
     const siteUrl = config.general.event.website;
     const imageUrl = talkData.image?.startsWith('http') ? talkData.image : `${siteUrl}${talkData.image || config.general.event.logo}`;
 
+    const venue = await getEditionLocation(talkData.year);
+    // "Bologna, Italy" nelle edizioni recenti, "Bologna" nel 2025
+    const [locality, countryName] = (venue?.city || '').split(',').map(part => part.trim());
+    const country = countryName === 'Italy' ? 'IT' : countryName || 'IT';
+    const room = talkData.room && talkData.room !== 'N/A' ? talkData.room : null;
+
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "Event",
@@ -153,12 +171,18 @@ export default async function TalkPage({ params }) {
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
         "location": {
             "@type": "Place",
-            "name": talkData.room,
+            "name": [venue?.name, room].filter(Boolean).join(', ') || undefined,
             "address": {
                 "@type": "PostalAddress",
-                "addressLocality": "Bologna",
-                "addressCountry": "IT"
+                "streetAddress": venue?.street,
+                "addressLocality": locality,
+                "addressCountry": country
             }
+        },
+        "organizer": {
+            "@type": "Organization",
+            "name": config.general.event.name,
+            "url": config.general.event.website
         },
         "performer": talkData.speakers.map(speaker => ({
             "@type": "Person",

@@ -19,9 +19,11 @@ const anton = Anton({
     variable: "--font-display",
 });
 
+// Titolo e descrizione di riserva: valgono per le pagine che non ne
+// dichiarano uno proprio. Dalla config, così seguono l'edizione.
 export const metadata = {
-    title: "Cloud Native Days Italy 2025",
-    description: "Cloud Native Days (CND) Italy is a local, community-organized event that gathers adopters and technologists from open source and cloud native communities.",
+    title: `${config.general.event.name} ${config.general.edition}`,
+    description: config.general.event.description,
 };
 
 async function getEditions() {
