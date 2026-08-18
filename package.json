@@ -6,6 +6,7 @@
     "start": "next dev --turbopack",
     "build": "node scripts/generate-sitemap.js && next build",
     "serve": "npx serve@latest out",
+    "preview": "npm run build && npx serve@latest out -l 4040",
     "lint": "next lint"
   },
   "dependencies": {

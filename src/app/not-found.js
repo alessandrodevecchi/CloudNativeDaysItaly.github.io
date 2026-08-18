@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import DecorLayer from '@/components/decor/DecorLayer';
+import SocialIcons from '@/components/social/SocialIcons';
 
 /*
  * Pagina 404. Nell'export statico diventa `out/404.html`, che è il file che
@@ -10,6 +11,10 @@ import DecorLayer from '@/components/decor/DecorLayer';
  * /qualcosa) non arriva qui: la rotta dinamica /[year] lo intercetta e, con
  * `output: export`, Next segnala che il parametro non è tra quelli generati.
  * È un limite del dev server, in produzione il file 404.html risponde.
+ *
+ * Per vederla in locale come la serve GitHub Pages: `npm run preview` (build
+ * più server statico sulla 4040) e poi un indirizzo qualsiasi che non esiste,
+ * per esempio http://localhost:4040/qualcosa.
  */
 
 // Dove finisce di solito chi cerca qualcosa che non trova
@@ -61,6 +66,11 @@ export default function NotFound() {
               </li>
             ))}
           </ul>
+
+          <p className='mt-12 text-xs font-bold uppercase tracking-widest text-ink-muted'>
+            Follow us
+          </p>
+          <SocialIcons className='mt-4 flex flex-wrap gap-5' />
         </div>
       </div>
     </div>

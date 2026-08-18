@@ -197,6 +197,18 @@ certificazioni vendor: AWS, Azure e CKAD restano nella bio.
 - **Anteprime asset in CSS**: le preview del brand kit (card "I'll be
   there", slide template) sono rese coi token del design system, non
   immagini da produrre.
+- **Pagina 404** (`src/app/not-found.js`): stesso impianto delle altre
+  pagine (stamp, `section-heading`, testo), poi bottone primario magenta
+  verso la home, una riga di link blu alle pagine più cercate e le icone
+  social sotto l'occhiello "Follow us". Il testo dice che l'indirizzo non
+  esiste e che non è colpa di chi naviga. Nell'export statico diventa
+  `out/404.html`, il file che GitHub Pages serve per ogni indirizzo
+  mancante: si prova con `npm run preview`, non col dev server, perché in
+  sviluppo la rotta `/[year]` intercetta gli indirizzi di primo livello.
+- **Icone social**: una sola lista, `website.json → footer.icons`, resa da
+  `src/components/social/SocialIcons.js`. Il colore lo decide il fondo:
+  grigio con hover giallo sulla banda ink del footer, grigio con hover blu
+  su fondo bianco.
 
 ## Decorazioni
 

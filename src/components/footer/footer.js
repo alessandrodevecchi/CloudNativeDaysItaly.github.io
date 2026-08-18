@@ -3,25 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import {
-  FaInstagram,
-  FaYoutube,
-  FaXTwitter,
-  FaThreads,
-  FaBluesky,
-  FaLinkedinIn,
-} from 'react-icons/fa6';
-import { BiLogoTelegram } from 'react-icons/bi';
-
-const iconMap = {
-  linkedin: FaLinkedinIn,
-  youtube: FaYoutube,
-  instagram: FaInstagram,
-  x: FaXTwitter,
-  telegram: BiLogoTelegram,
-  threads: FaThreads,
-  bluesky: FaBluesky,
-};
+import SocialIcons from '@/components/social/SocialIcons';
 
 export default function Footer({ data, editions = [] }) {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
@@ -140,26 +122,11 @@ export default function Footer({ data, editions = [] }) {
                 .
               </p>
             </div>
-            <div className='flex justify-center gap-4 flex-wrap'>
-              {footer.icons
-                .filter((i) => i.active)
-                .map(({ iconName, url, alt }) => {
-                  const Icon = iconMap[iconName];
-                  if (!Icon) return null;
-                  return (
-                    <a
-                      key={iconName}
-                      href={url}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      aria-label={alt}
-                      className='text-gray-400 hover:text-brand-yellow transition-colors'
-                    >
-                      <Icon className='w-6 h-6' />
-                    </a>
-                  );
-                })}
-            </div>
+            <SocialIcons
+              items={footer.icons}
+              className='flex justify-center gap-4 flex-wrap'
+              linkClassName='text-gray-400 hover:text-brand-yellow transition-colors'
+            />
           </div>
         </div>
       </div>
