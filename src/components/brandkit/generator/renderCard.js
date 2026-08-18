@@ -4,6 +4,7 @@
 // come Path2D con i tracciati lucide, testi con fit automatico.
 import { COLORWAYS } from './formats';
 import { LAYOUTS } from './layouts';
+import { EVENT } from './event';
 
 /* ── Asset cache (immagini decodificate una volta per sessione) ───── */
 const imageCache = new Map();
@@ -211,11 +212,11 @@ function fitText(ctx, text, { maxW, size, minSize, font, weight = '', maxLines =
 
 /* ── Footer: voci fisse icona+testo, a capo su due righe se non entra ── */
 const FOOTER_ITEMS = [
-  { icon: 'calendar', text: '20 May 2027' },
-  { icon: 'pin', text: 'Bologna' },
-  { icon: 'globe', text: 'cloudnativedaysitaly.org' },
-  { icon: 'linkedin', text: '@cloudnativedaysitaly' },
-];
+  { icon: 'calendar', text: EVENT.date },
+  { icon: 'pin', text: EVENT.city },
+  { icon: 'globe', text: EVENT.website },
+  { icon: 'linkedin', text: EVENT.social },
+].filter((item) => item.text);
 
 // Misura il footer prima del draw: anelli e blocco testo si ancorano
 // sopra il suo bordo superiore per non collidere mai.

@@ -101,6 +101,7 @@ export const SPONSOR = {
   tier: 'GOLD SPONSOR',
   company: 'Clastix',
   date: '20 May 2027',
+  city: 'Bologna',
   venue: 'Savoia Hotel Regency, Bologna',
 };
 
@@ -581,7 +582,7 @@ export function sponsorPopCream(ctx, A, P = SPONSOR, F = FORMATS.portrait, palet
   ctx.fillStyle = C.white;
   ctx.textAlign = 'right';
   ctx.textBaseline = 'middle';
-  ctx.fillText(`${P.date} · Bologna`, W - 80, L.inkH / 2);
+  ctx.fillText(`${P.date} · ${P.city}`, W - 80, L.inkH / 2);
   ctx.textBaseline = 'alphabetic';
   ctx.textAlign = 'left';
   if (isCream) {
@@ -819,7 +820,7 @@ export function sponsorTier(ctx, A, P = SPONSOR, F = FORMATS.portrait, opts = {}
   const stampX = Math.min(W / 2 + L.panelW / 2 - tw + 70, W - 40 - tw);
   stamp(ctx, tierText, stampX, stampY, { size: tierSize, rot: -0.05, fill: C.yellow });
   // data+città (senza venue): stamp basso con più aria attorno al testo
-  stamp(ctx, `${P.date} · Bologna`, 80, H - 118, { size: 34, rot: -0.015, pad: 0.8, padY: 0.45 });
+  stamp(ctx, `${P.date} · ${P.city}`, 80, H - 118, { size: 34, rot: -0.015, pad: 0.8, padY: 0.45 });
   // pizza sotto-sinistra del pannello, punta al CENTRO del box logo
   const px = W / 2 - L.panelW / 2 + 40;
   const py = L.panelCY + L.panelH / 2 + 85;

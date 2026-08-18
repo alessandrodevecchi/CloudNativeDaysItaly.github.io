@@ -7,7 +7,7 @@ import { getSpeakerTemplate, getSponsorTemplate } from './registry';
 
 // Il generator lavora con dati piatti; i template vogliono lo shape
 // dell'handoff. La traduzione vive qui, in un punto solo.
-export function toSpeakerData(values, { date, city }) {
+export function toSpeakerData(values, { date, city, venue }) {
   const speakers = [
     { name: values.name || 'Speaker Name', roles: [values.role].filter(Boolean) },
   ];
@@ -20,14 +20,16 @@ export function toSpeakerData(values, { date, city }) {
     speakers,
     date,
     city,
+    venue,
   };
 }
 
-export function toSponsorData(values, { date, venue }) {
+export function toSponsorData(values, { date, city, venue }) {
   return {
     tier: values.tier || 'GOLD SPONSOR',
     company: values.org || '',
     date,
+    city,
     venue,
   };
 }

@@ -143,6 +143,7 @@
   "hero": {
     "countDown": "2027-05-20T09:00:00",
     "badgeDate": "20 May 2027",
+    "venue": "Savoia Hotel Regency",
     "city": "Bologna, Italy",
     "title": "Cloud Native Days Italy 2027",
     "image": "/images/cndteam-2026.webp",

@@ -118,7 +118,7 @@ export function rowToRenderState(row, mediaByName) {
       };
       data = toSponsorData(
         { org: row.org, tier: row.tier || preset?.tier },
-        { date: EVENT.date, venue: EVENT.venue },
+        EVENT,
       );
     } else {
       // Riga con due relatori su un template che ne disegna uno solo: si
@@ -141,7 +141,7 @@ export function rowToRenderState(row, mediaByName) {
           name2: row.name2,
           role2: row.role2,
         },
-        { date: EVENT.date, city: EVENT.city },
+        EVENT,
       );
     }
     return {

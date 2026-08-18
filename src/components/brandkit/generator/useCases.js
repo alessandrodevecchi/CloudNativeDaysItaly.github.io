@@ -1,3 +1,5 @@
+import { EVENT } from './event';
+
 // Registry degli use case del card generator. Un use case è SOLO dati:
 // aggiungerne uno nuovo non richiede modifiche al motore di rendering.
 // `visibility` separa gli use case pubblici da quelli della futura
@@ -6,7 +8,7 @@ export const USE_CASES = [
   {
     id: 'attendee-conference',
     caption:
-      'I\'ll be at Cloud Native Days Italy 2027 in Bologna on 20 May, two days of cloud native talks, workshops and community. Come say hi! cloudnativedaysitaly.org #CNDItaly #CloudNative',
+      `I'll be at ${EVENT.name} ${EVENT.year} in ${EVENT.city} on ${EVENT.dayMonth}, two days of cloud native talks, workshops and community. Come say hi! ${EVENT.website} #CNDItaly #CloudNative`,
     label: 'Attending Conference',
     visibility: 'public',
     // headline: righe di testo display; accentIndex = riga in colore accent
@@ -27,7 +29,7 @@ export const USE_CASES = [
   {
     id: 'attendee-workshops',
     caption:
-      'Hands-on day for me: I\'m joining the Cloud Native Days Italy 2027 workshops in Bologna on 20 May. cloudnativedaysitaly.org #CNDItaly #CloudNative',
+      `Hands-on day for me: I'm joining the ${EVENT.name} ${EVENT.year} workshops in ${EVENT.city} on ${EVENT.dayMonth}. ${EVENT.website} #CNDItaly #CloudNative`,
     label: 'Attending Workshops',
     visibility: 'public',
     headlines: [
@@ -47,7 +49,7 @@ export const USE_CASES = [
   {
     id: 'partner',
     caption:
-      'We\'re proud to support Cloud Native Days Italy 2027, the event of the Italian cloud native community. See you in Bologna on 20 May! cloudnativedaysitaly.org #CNDItaly',
+      `We're proud to support ${EVENT.name} ${EVENT.year}, the event of the Italian cloud native community. See you in ${EVENT.city} on ${EVENT.dayMonth}! ${EVENT.website} #CNDItaly`,
     label: 'Supporting Partner',
     visibility: 'public',
     headlines: [
@@ -72,7 +74,7 @@ export const USE_CASES = [
     // il design è nel template scelto.
     pro: 'speaker',
     caption:
-      "I'm speaking at Cloud Native Days Italy 2027 in Bologna on 20 May! Join me and the Italian cloud native community. cloudnativedaysitaly.org #CNDItaly #CloudNative",
+      `I'm speaking at ${EVENT.name} ${EVENT.year} in ${EVENT.city} on ${EVENT.dayMonth}! Join me and the Italian cloud native community. ${EVENT.website} #CNDItaly #CloudNative`,
     fields: [
       { id: 'badge', label: 'Badge', placeholder: 'KEYNOTE SPEAKER', max: 30 },
       { id: 'talk', label: 'Talk title', placeholder: 'The New Digital Nervous System', max: 120 },
@@ -89,7 +91,7 @@ export const USE_CASES = [
     visibility: 'internal',
     pro: 'sponsor',
     caption:
-      "We're a proud sponsor of Cloud Native Days Italy 2027, two days of cloud native talks, workshops and community in Bologna on 20 May. cloudnativedaysitaly.org #CNDItaly",
+      `We're a proud sponsor of ${EVENT.name} ${EVENT.year}, two days of cloud native talks, workshops and community in ${EVENT.city} on ${EVENT.dayMonth}. ${EVENT.website} #CNDItaly`,
     fields: [
       { id: 'org', label: 'Company name', placeholder: 'ACME Corp', max: 50 },
       { id: 'tier', label: 'Badge label', placeholder: 'GOLD SPONSOR', max: 28 },
@@ -99,7 +101,7 @@ export const USE_CASES = [
   {
     id: 'community',
     caption:
-      'Meet us at Cloud Native Days Italy 2027! We\'ll be in the community and open source area in Bologna on 20 May. cloudnativedaysitaly.org #CNDItaly #OpenSource',
+      `Meet us at ${EVENT.name} ${EVENT.year}! We'll be in the community and open source area in ${EVENT.city} on ${EVENT.dayMonth}. ${EVENT.website} #CNDItaly #OpenSource`,
     label: 'Community / OS Project',
     visibility: 'internal',
     headlines: [

@@ -155,11 +155,11 @@ export default function CardGenerator({ scope = 'public' }) {
   const speakerValues = proTemplate.duo ? values : { ...values, name2: '', role2: '' };
   const proData =
     proKind === 'speaker'
-      ? toSpeakerData(speakerValues, { date: EVENT.date, city: EVENT.city })
+      ? toSpeakerData(speakerValues, EVENT)
       : proKind === 'sponsor'
         ? toSponsorData(
             { ...values, tier: values.tier || tierPreset.tier },
-            { date: EVENT.date, venue: EVENT.venue },
+            EVENT,
           )
         : null;
   const headline = useMemo(() => {
