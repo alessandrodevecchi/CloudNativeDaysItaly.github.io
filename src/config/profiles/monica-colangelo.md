@@ -4,6 +4,7 @@ name: "Monica Colangelo"
 role: "AWS Hero & Head of Hyperscaler Operations"
 company: "ReeVo"
 companyUrl: "https://www.reevo.it/"
+communityRole: "AWS Hero"
 image: "/images/profiles/monica-colangelo.webp"
 linkedin: "https://www.linkedin.com/in/monicacolangelo/"
 ---

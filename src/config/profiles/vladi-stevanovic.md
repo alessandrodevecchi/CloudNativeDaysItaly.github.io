@@ -4,6 +4,7 @@ name: "Vladi Stevanovic"
 role: "Director of Community at Multiplayer"
 company: "Multiplayer"
 companyUrl: "https://multiplayer.app/"
+communityRole: "CND Italy Organizer"
 image: "/images/profiles/vladi-stevanovic.webp"
 linkedin: "https://www.linkedin.com/in/vladi-stevanovic/"
 ---

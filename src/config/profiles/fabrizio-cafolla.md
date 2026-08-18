@@ -4,6 +4,7 @@ name: "Fabrizio Cafolla"
 role: "DevOps & Cloud Engineer"
 company: "SparkFabrik"
 companyUrl: "https://www.sparkfabrik.com/"
+communityRole: "Community Manager @European OpenSource"
 image: "/images/profiles/fabrizio-cafolla.webp"
 linkedin: "https://www.linkedin.com/in/fabrizio-cafolla/"
 ---

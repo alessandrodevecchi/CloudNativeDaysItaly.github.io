@@ -4,6 +4,7 @@ name: "Stephane Montri"
 role: "Sr Partner Solutions Engineer"
 company: "Docker"
 companyUrl: "https://www.docker.com/"
+communityRole: "Continuous Delivery Foundation Ambassador"
 image: "/images/profiles/stephane-montri.webp"
 linkedin: "https://www.linkedin.com/in/smontri/"
 ---

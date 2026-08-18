@@ -4,6 +4,7 @@ name: "Gabriele Bartolini"
 role: "VP, Chief Architect of Kubernetes"
 company: "EDB"
 companyUrl: "https://enterprisedb.com"
+communityRole: "CloudNativePG Co-Founder & Maintainer"
 image: "/images/profiles/gabriele-bartolini.webp"
 linkedin: "https://www.linkedin.com/in/gbartolini/"
 ---

@@ -4,6 +4,7 @@ name: "Artem Lajko"
 role: "Head of Platform Engineering"
 company: "iits-consulting"
 companyUrl: "https://iits-consulting.de"
+communityRole: "Kubestronaut | Platform Engineering Ambassador"
 image: "/images/profiles/artem-lajko.webp"
 linkedin: "https://www.linkedin.com/in/lajko/"
 ---

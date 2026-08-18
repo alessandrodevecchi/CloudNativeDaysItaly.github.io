@@ -4,6 +4,7 @@ name: "Jonathan Gonzalez V."
 role: "Senior Kubernetes Developer"
 company: "EDB"
 companyUrl: "https://www.enterprisedb.com/"
+communityRole: "CloudNativePG Maintainer"
 image: "/images/profiles/jonathan-gonzalez-v.webp"
 linkedin: "https://www.linkedin.com/in/jagonzalezv/"
 ---

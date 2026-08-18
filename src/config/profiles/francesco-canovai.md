@@ -4,6 +4,7 @@ name: "Francesco Canovai"
 role: "Senior Software Engineer"
 company: "EDB"
 companyUrl: "https://www.enterprisedb.com/"
+communityRole: "CloudNativePG Maintainer"
 image: "/images/profiles/francesco-canovai.webp"
 linkedin: "https://www.linkedin.com/in/francescocanovai/"
 ---

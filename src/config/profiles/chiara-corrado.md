@@ -4,6 +4,7 @@ name: "Chiara Corrado"
 role: "Senior Software Engineer"
 company: "Aruba Cloud"
 companyUrl: "https://www.cloud.it"
+communityRole: "Women Techmakers Ambassador"
 image: "/images/profiles/chiara-corrado.webp"
 linkedin: "https://linkedin.com/in/chiaracorrado/"
 ---

@@ -4,6 +4,7 @@ name: 'Mauricio "Salaboy" Salatino'
 role: "OSS Ecosystem Engineer"
 company: "Dash0"
 companyUrl: "https://www.dash0.com"
+communityRole: "Cloud Native Ambassador | Java Champion"
 image: "/images/profiles/mauricio-salatino.webp"
 linkedin: "https://www.linkedin.com/in/salaboy/"
 ---

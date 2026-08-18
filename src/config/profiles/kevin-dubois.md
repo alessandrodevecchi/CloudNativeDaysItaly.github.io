@@ -4,6 +4,7 @@ name: "Kevin Dubois"
 role: "Senior Principal Developer Advocate"
 company: "IBM"
 companyUrl: "https://ibm.com"
+communityRole: "Java Champion"
 image: "/images/profiles/kevin-dubois.webp"
 linkedin: "https://www.linkedin.com/in/kevindubois/"
 ---

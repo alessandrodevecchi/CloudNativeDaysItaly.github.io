@@ -4,6 +4,7 @@ name: "William Rizzo"
 role: "Global Field CTO"
 company: "Mirantis"
 companyUrl: "https://www.mirantis.com/"
+communityRole: "CNCF Ambassador | Linkerd Ambassador"
 image: "/images/profiles/william-rizzo.webp"
 linkedin: "https://www.linkedin.com/in/william-rizzo/"
 ---

@@ -138,6 +138,22 @@ incarichi usa la lista `roles`.
 Il ruolo è lo scatto al momento della call for papers: si aggiorna quando la
 persona ripropone un talk, non si insegue.
 
+### Come si scrive `communityRole`
+
+Il campo raccoglie i riconoscimenti che arrivano dalla community, non le
+certificazioni vendor: AWS, Azure e CKAD restano nella bio.
+
+- Più credenziali sulla stessa riga, separate da ` | `, dalla più riconoscibile
+  alla più di nicchia. "Java Champion" non apre la riga se la persona ha anche
+  un ruolo cloud native.
+- Una forma sola per ogni programma: si scrive `Kubestronaut`, non "CNCF
+  Kubestronaut", perché è lo stesso riconoscimento. Dove la sigla dice poco si
+  scrive per esteso, come "Continuous Delivery Foundation Ambassador".
+- Se dietro la credenziale c'è un'organizzazione si usa `@` senza spazio, come
+  per il ruolo: `Community Manager @GDG Pescara`.
+- Chi organizza l'evento chiude la riga con `CND Italy Organizer`. Le prime
+  edizioni si chiamavano KCD Italy, ma l'etichetta vecchia non si usa più.
+
 ## Layout sezioni
 
 - Container: `max-w-[1200px] mx-auto px-6` (wireframe: contenuto a 120px su 1440 → 1200 utile).
