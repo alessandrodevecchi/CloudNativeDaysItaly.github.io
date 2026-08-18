@@ -213,7 +213,10 @@ export default function ComponentsSection() {
         </div>
         <p className='mt-3 text-sm text-ink-muted'>
           Composition: <DsToken>src/lib/speakerMeta.js</DsToken>. The company is a link only
-          on the profile page, and only when the profile carries a real URL.
+          on the profile page, and only when the profile carries a real URL. Credentials
+          sit on one line, separated by a pipe, from the most recognisable to the most
+          niche, and the organisers close the line with CND Italy Organizer. Vendor
+          certifications stay in the bio: this field is a community role.
         </p>
       </DsBlock>
 
