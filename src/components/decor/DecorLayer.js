@@ -29,13 +29,14 @@ const POSITIONS = {
   'center-bottom': 'left-1/3 bottom-[5%]',
 };
 
-// Taglie mobile-first: sotto `md` i cluster restano contenuti per non
-// coprire i contenuti (xl: 128px su mobile, 416px da md in su).
+// Taglie mobile-first: sotto `md` i cluster restano contenuti, tra `md` e
+// `xl` sono medi (il contenitore è ancora stretto e il testo hero arriva ai
+// bordi), taglia piena solo da `xl` in su (xl: 128 / 256 / 416px).
 const SIZES = {
-  sm: 'w-20 md:w-40',
-  md: 'w-24 md:w-64',
-  lg: 'w-28 md:w-80',
-  xl: 'w-32 md:w-[26rem]',
+  sm: 'w-20 md:w-28 xl:w-40',
+  md: 'w-24 md:w-40 xl:w-64',
+  lg: 'w-28 md:w-52 xl:w-80',
+  xl: 'w-32 md:w-64 xl:w-[26rem]',
 };
 
 // Gli halftone non ostacolano la lettura (opacità bassa): scala maggiore

@@ -26,7 +26,7 @@ export default {
         display: ["var(--font-display)", "Anton", "sans-serif"],
       },
       fontSize: {
-        display: ["clamp(3rem, 8.5vw, 7.5rem)", { lineHeight: "1" }],
+        display: ["clamp(3rem, 7vw, 7.5rem)", { lineHeight: "1" }],
         section: ["clamp(2rem, 3.5vw, 2.875rem)", { lineHeight: "1.1" }],
         stat: ["clamp(1.75rem, 3vw, 2.5rem)", { lineHeight: "1.1" }],
         stamp: ["clamp(0.875rem, 1.5vw, 1.25rem)", { lineHeight: "1.2" }],
