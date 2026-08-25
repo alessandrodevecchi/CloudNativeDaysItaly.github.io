@@ -21,7 +21,6 @@ async function getTeamData() {
 
         const teamIds = [...orgIds, ...coreIds];
 
-        console.log(teamIds);
         const teamMembers = await Promise.all(
             teamIds.map(async (memberId) => {
                 const profilePath = path.join(process.cwd(), 'src', 'config', 'profiles', `${memberId}.md`);
