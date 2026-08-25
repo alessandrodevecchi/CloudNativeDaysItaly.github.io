@@ -61,15 +61,16 @@ const Hero = ({ data }) => {
             <div className="relative z-10 mx-auto max-w-[1200px] px-6 py-16 text-center lg:py-20">
                 <span className="stamp">Save the date</span>
 
-                <h1 className="mt-6 font-display text-section uppercase text-ink">
+                <h1 className="mx-auto mt-6 max-w-4xl font-display text-display uppercase text-brand-blue">
                     {data.title}
                 </h1>
 
-                <h2 className="mt-2 font-display text-display uppercase text-brand-blue">
+                <h2 className="mt-4 font-display text-section uppercase text-ink">
+                    <span aria-hidden="true" className="mr-3 inline-block h-3 w-3 rounded-full bg-brand-magenta align-middle" />
                     {data.badgeDate}
                 </h2>
 
-                <p className="mt-4 text-lg font-bold text-ink sm:text-xl">
+                <p className="mt-3 text-lg font-bold text-ink sm:text-xl">
                     <span aria-hidden="true" className="mr-2 inline-block h-3 w-3 rounded-full bg-brand-magenta align-middle" />
                     {data.city}
                 </p>
