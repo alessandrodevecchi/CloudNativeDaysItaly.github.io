@@ -127,7 +127,7 @@ export default function Navbar({ data, editions = [] }) {
                                         </button>
                                         <div
                                             className={clsx(
-                                                "absolute top-full right-0 mt-3 w-56 rounded-none shadow-pop border-pop border-ink pt-2 pb-[4.5rem] transition-all duration-200 ease-out origin-top overflow-hidden",
+                                                "absolute top-full right-0 mt-3 w-56 rounded-none shadow-pop border-pop border-ink pt-2 pb-14 transition-all duration-200 ease-out origin-top overflow-hidden",
                                                 colors.bg,
                                                 isOpen ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
                                             )}
