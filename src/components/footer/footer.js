@@ -36,7 +36,7 @@ export default function Footer({ data, editions = [] }) {
         <div className='py-16'>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12'>
             <div className='lg:col-span-1'>
-              <Image src={footer.image} alt='Logo' width={225} height={60} />
+              <Image src={footer.image} alt='Logo' width={225} height={60} style={{ height: 'auto' }} />
               <p className='mt-4 text-gray-400 text-sm'>
                 {general.event.description}
               </p>
