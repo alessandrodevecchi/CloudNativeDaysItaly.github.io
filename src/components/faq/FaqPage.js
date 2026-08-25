@@ -127,7 +127,7 @@ function FaqSection({ data }) {
       )}
       <h2 className='font-display text-2xl uppercase text-ink mb-6'>{data.label}</h2>
       <div className='space-y-3'>
-        {data.items.map((item, i) => (
+        {data.items.filter((item) => !item.hidden).map((item, i) => (
           <AccordionItem key={i} title={item.question}>
             <p className='text-ink-muted leading-relaxed pt-3'>
               {item.answer.split('\n\n').map((part, j) => (
