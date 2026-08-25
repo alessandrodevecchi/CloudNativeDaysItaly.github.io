@@ -24,7 +24,7 @@
       {
         "id": "cfp",
         "label": "CFP",
-        "url": "https://sessionize.com/cloud-native-days-italy-2027",
+        "url": "",
         "active": false
       },
       {
@@ -222,7 +222,7 @@
   "proposal": {
     "startDate": "2026-07-15T00:00:00",
     "endDate": "2027-03-31T23:59:59",
-    "url": "https://sessionize.com/cloud-native-days-italy-2027",
+    "url": "",
     "agendaUrl": "/agenda",
     "rollingSelectionText": "We evaluate proposals as they are submitted. Submitting early increases your chances of being selected as one of our first speakers!",
     "topics": [

@@ -24,6 +24,9 @@ export default function C4P_Card({ data }) {
     if (isBefore(now, startDate)) currentStatus = 'comingsoon';
     if (isAfter(now, startDate) && isBefore(now, endDate))
       currentStatus = 'open';
+    // Senza un link di submission la call non può essere aperta,
+    // qualunque sia la finestra di date in config.
+    if (!data.url) currentStatus = 'comingsoon';
 
     setStatus(currentStatus);
     setDaysLeft(differenceInDays(endDate, now));
@@ -132,12 +135,18 @@ export default function C4P_Card({ data }) {
               Call for Papers Opens Soon
             </h3>
             <p className='text-ink-muted mt-2'>
-              Get ready to share your ideas! Our Call for Papers will be opening
-              on{' '}
-              <span className='font-bold'>
-                {format(parseISO(data.startDate), 'MMMM do')}
-              </span>
-              .
+              {data.url ? (
+                <>
+                  Get ready to share your ideas! Our Call for Papers will be
+                  opening on{' '}
+                  <span className='font-bold'>
+                    {format(parseISO(data.startDate), 'MMMM do')}
+                  </span>
+                  .
+                </>
+              ) : (
+                'Get ready to share your ideas! The Call for Papers is not open yet: follow our channels to know when it starts.'
+              )}
             </p>
             <div className='mt-6 p-4 bg-brand-yellow-light border-l-4 border-ink text-ink text-sm'>
               <div className='flex items-start gap-3'>
@@ -146,8 +155,11 @@ export default function C4P_Card({ data }) {
               </div>
             </div>
             <div className='mt-auto pt-6'>
-              <div className='w-full text-center border-pop border-ink bg-white text-ink-muted font-bold uppercase px-6 py-3 cursor-not-allowed'>
-                Stay Tuned
+              <div
+                aria-disabled='true'
+                className='w-full text-center border-pop border-ink bg-gray-200 text-ink-muted font-bold uppercase px-6 py-3 cursor-not-allowed'
+              >
+                Coming soon
               </div>
             </div>
           </>

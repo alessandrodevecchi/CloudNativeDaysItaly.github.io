@@ -100,6 +100,8 @@ const ComingSoonAgenda = ({ proposalConfig, infoConfig, pastTalks }) => {
     let c4pStatus = 'closed';
     if (isBefore(now, startDate)) c4pStatus = 'comingsoon';
     if (isAfter(now, startDate) && isBefore(now, endDate)) c4pStatus = 'open';
+    // Senza link di submission la call resta "coming soon" (vedi C4P_Card).
+    if (!proposalConfig.url) c4pStatus = 'comingsoon';
 
     return (
         <div className="relative overflow-hidden bg-white">
@@ -132,10 +134,16 @@ const ComingSoonAgenda = ({ proposalConfig, infoConfig, pastTalks }) => {
                             <h2 className="section-heading mt-4">Become a Speaker</h2>
                             <p className="mt-3 text-ink-soft max-w-2xl">{proposalConfig.rollingSelectionText}</p>
                         </div>
-                        <div className="mt-6 flex flex-col sm:flex-row justify-between gap-4 bg-white border border-ink p-4">
-                            <p className="font-semibold text-ink-soft">Opens: <span className="font-normal text-ink-muted">{format(startDate, 'MMM d, yyyy')}</span></p>
-                            <p className="font-semibold text-ink-soft">Closes: <span className="font-normal text-ink-muted">{format(endDate, 'MMM d, yyyy')}</span></p>
-                        </div>
+                        {proposalConfig.url ? (
+                            <div className="mt-6 flex flex-col sm:flex-row justify-between gap-4 bg-white border border-ink p-4">
+                                <p className="font-semibold text-ink-soft">Opens: <span className="font-normal text-ink-muted">{format(startDate, 'MMM d, yyyy')}</span></p>
+                                <p className="font-semibold text-ink-soft">Closes: <span className="font-normal text-ink-muted">{format(endDate, 'MMM d, yyyy')}</span></p>
+                            </div>
+                        ) : (
+                            <div className="mt-6 bg-white border border-ink p-4">
+                                <p className="text-ink-soft">The Call for Papers is not open yet. Dates and submission link will be announced here and on our channels.</p>
+                            </div>
+                        )}
                         {c4pStatus === 'open' && (
                             <div className="mt-6">
                                 <Link href={proposalConfig.url} target="_blank" className="btn-pop btn-pop-primary group w-full sm:w-auto inline-flex items-center justify-center">
